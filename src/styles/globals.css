@@ -3,6 +3,7 @@
   padding: 0;
   margin: 0;
 }
+
 html,
 body {
   max-width: 100vw;
@@ -12,6 +13,10 @@ a {
   color: inherit;
   text-decoration: none;
 }
-header{
-  background-color:red
+
+.nav-link {
+  cursor: pointer;
+}
+.p-section{
+  padding: 60px;
 }
