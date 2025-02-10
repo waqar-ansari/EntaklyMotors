@@ -1,0 +1,10 @@
+{
+    "HomePage": {
+      "title": "Arabic home title",
+      "about": "Arabic home page"
+    },
+    "AboutPage":{
+  "title": "Arabic about title",
+      "about": "Arabic about page"
+    }
+  }
