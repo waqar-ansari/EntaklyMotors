@@ -5,6 +5,8 @@ import "../../styles/globals.css";
 import { colors } from "../../../public/colors/colors";
 import Image from "next/image";
 import { fonts } from "../../../public/fonts/fonts";
+import Footer from "@/components/Footer";
+import PickupAndDropPicker from "@/components/PickupAndDropPicker";
 
 export default function HomePage() {
   const t = useTranslations("HomePage");
@@ -20,14 +22,20 @@ export default function HomePage() {
       </div>
       <Header />
 
-      <Image
-        src="/images/heroImage.webp"
-        alt="Hero Image"
-        width={1600}
-        height={686}
-        layout="responsive"
-        priority
-      />
+      <div className="position-relative">
+        <Image
+          src="/images/heroImage.webp"
+          alt="Hero Image"
+          width={1600}
+          height={686}
+          layout="responsive"
+          priority
+        />
+        <div className="translate-middle" style={styles.PickupAndDropPicker}>
+          <PickupAndDropPicker/>
+        </div>
+      </div>
+
       <div
         className="text-center"
         style={{
@@ -45,7 +53,7 @@ export default function HomePage() {
         >
           Rent first class. <br /> Pay economy.
         </h1>
-        <p>Premium car rental at affordable rates. Worldwide.</p>
+        <p>Premium car rental at affordable rates.</p>
       </div>
 
       <div className="container">
@@ -58,9 +66,9 @@ export default function HomePage() {
                 width={32}
                 height={32}
               />
-              <p style={styles.subHeading}>Global reach</p>
+              <p style={styles.subHeading}>UAE reach</p>
             </div>
-            <h4>2,000+ Entalky stations in over 105 countries</h4>
+            <h4>500+ Entalky stations in Dubai</h4>
           </div>
           <div className="col-md-4">
             <div className="d-flex align-items-center mb-2">
@@ -150,25 +158,56 @@ export default function HomePage() {
                 layout="responsive"
               />
               {/* Overlay text */}
-              <div style={{ position: "relative" }}>
+              <div
+                style={{
+                  position: "absolute",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  textAlign: "center",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                }}
+              >
                 <div style={styles.textContainer2}>
-                  <p style={styles.imageHeading2}>
-                    Limousine Service with ENTALKY
-                  </p>
-                  <p style={styles.imageText2}>
-                    Enjoy a professional journey with Entalky’s premium
-                    limousine service
-                  </p>
+                  <p style={styles.imageHeading2}>Entakly Business</p>
+                  <p style={styles.imageText}>Pickup and dropoff to airport</p>
                   <Link href="#" style={styles.imageButton}>
-                    Book now
+                    Chat now
                   </Link>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <div className="row">
+          <div className="col-md-12 p-0" style={{ position: "relative" }}>
+            <Image
+              src="/images/homeImage4.png"
+              alt="limousine"
+              width={1441}
+              height={619}
+              layout="responsive"
+            />
+            <div style={styles.textContainer3}>
+              <p style={styles.imageHeading3}>
+                Amazing experience with ENTAKLY. They provide amazing cars and{" "}
+                <br />
+                quick service!
+              </p>
+              <p style={styles.imageText}>Dubai</p>
+              {/* <Link href="#" style={styles.imageButton}>
+                Book now
+              </Link> */}
+            </div>
+          </div>
+        </div>
       </div>
 
+      <Footer />
       <h1>{t("title")}</h1>
       <Link href="/about">{t("about")}</Link>
     </div>
@@ -186,13 +225,42 @@ const styles = {
     bottom: "48px",
     left: "40px",
   },
-  textContainer2: {},
+  textContainer2: {
+    position: "absolute",
+    top: "48px",
+  },
+  textContainer3: {
+    position: "absolute",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
   imageHeading: {
     fontSize: "40px",
     textTransform: "uppercase",
     color: colors.white,
     fontFamily: fonts.helvetica700,
     marginBottom: 0,
+  },
+  imageHeading2: {
+    fontSize: "28px",
+    textTransform: "uppercase",
+    color: colors.white,
+    fontFamily: fonts.helvetica700,
+    marginBottom: 0,
+  },
+  imageHeading3: {
+    fontSize: "40px",
+    color: colors.white,
+    fontFamily: fonts.helvetica400,
+    marginBottom: 0,
+    lineHeight: "45px",
   },
   imageText: {
     fontSize: 16,
@@ -223,4 +291,15 @@ const styles = {
     fontSize: 60,
     textAlign: "center",
   },
+  PickupAndDropPicker:{
+    position:'absolute',
+    top:'135px',
+    left:'50%',
+    width:"100%",
+    maxWidth: "1320px",
+    margin: "0 auto",
+    padding:"48px",
+    background:colors.white,
+    borderRadius:20
+  }
 };
