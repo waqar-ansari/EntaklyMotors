@@ -23,6 +23,9 @@ export default function HomePage() {
       <Header />
 
       <div className="position-relative">
+        <div className="translate-middle" style={styles.PickupAndDropPicker}>
+          <PickupAndDropPicker />
+        </div>
         <Image
           src="/images/heroImage.webp"
           alt="Hero Image"
@@ -31,9 +34,6 @@ export default function HomePage() {
           layout="responsive"
           priority
         />
-        <div className="translate-middle" style={styles.PickupAndDropPicker}>
-          <PickupAndDropPicker/>
-        </div>
       </div>
 
       <div
@@ -291,15 +291,15 @@ const styles = {
     fontSize: 60,
     textAlign: "center",
   },
-  PickupAndDropPicker:{
-    position:'absolute',
-    top:'135px',
-    left:'50%',
-    width:"100%",
+  PickupAndDropPicker: {
+    position: "absolute",
+    top: "100px",
+    left: "50%",
+    width: "100%",
     maxWidth: "1320px",
     margin: "0 auto",
-    padding:"48px",
-    background:colors.white,
-    borderRadius:20
-  }
+    padding: "20px",
+    background: colors.white,
+    borderRadius: 20,
+  },
 };

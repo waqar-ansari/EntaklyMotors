@@ -20,3 +20,57 @@ a {
 .p-section{
   padding: 60px;
 }
+/* .react-daterange-picker__wrapper{
+  display: none !important;
+}
+
+.rs-picker-input-group.rs-input-group{
+  display: none !important;
+}
+.rs-picker-toggle-wrapper{
+  display: inline !important;
+} */
+ .rs-input-group-addon{
+  display: none !important;
+ }
+ .rs-picker-daterange-header{
+  display: none !important;
+}
+.rs-picker-error > .rs-picker-input-group{
+border-color: transparent !important;
+}
+.form-control{
+  border:none !important
+}
+.form-control:focus{
+  /* border: 2px solid #292268; */
+  box-shadow:  none !important;;
+}
+.input-group.customInputGroup{
+  width: auto !important;
+  border: 2px solid #c9c9cf;
+  border-radius: 6px;
+}
+.input-group.customInputGroup:focus{
+  border: 2px solid green !important;
+}
+
+.input-group.customInputGroup {
+  width: auto !important;
+  border: 2px solid #c9c9cf;
+  border-radius: 6px;
+  transition: border-color 0.3s ease;
+}
+
+.input-group.customInputGroup:has(.form-control:focus) {
+  border: 2px solid #292268 !important;
+}
+.rs-calendar-table-cell-selected .rs-calendar-table-cell-content{
+  background-color: #292268 !important;
+}
+.rs-btn.rs-btn-primary{
+  background-color: #292268 !important;
+}
+.rs-picker-toolbar-ranges.rs-stack{
+  display: none;
+}

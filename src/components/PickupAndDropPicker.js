@@ -1,46 +1,131 @@
-"use client"
-import React, { useState } from "react";
-import { TextField, Button } from "@mui/material";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs from "dayjs";
-import { DateTimeRangePicker } from '@mui/x-date-pickers-pro/DateTimeRangePicker';
-import {
-    renderDigitalClockTimeView,
-    renderTimeViewClock,
-  } from '@mui/x-date-pickers/timeViewRenderers';
+"use client";
+import React, { useRef, useState } from "react";
+import { Button, DateRangePicker, Input } from "rsuite";
+import "rsuite/dist/rsuite.css";
+import { colors } from "../../public/colors/colors";
+import { fonts } from "../../public/fonts/fonts";
+import { FaCar } from "react-icons/fa6";
+import { FaCalendarAlt } from "react-icons/fa";
 
-function PickupAndDropPicker() {
-  const [pickupDate, setPickupDate] = useState(dayjs());
-  const [returnDate, setReturnDate] = useState(dayjs());
+const PickupAndDropPicker = () => {
+  const [range, setRange] = useState([null, null]);
+  console.log(range.toLocaleString(), "range");
+
+  const pickerRef = useRef(null);
+
+  // Function to open DateRangePicker
+  const openDatePicker = () => {
+    if (pickerRef.current) {
+      pickerRef.current.open();
+    }
+  };
+  const formatDate = (date) => {
+    if (!date) return "";
+    return date.toLocaleString("en-GB", {
+      day: "numeric",
+      month: "short",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+  };
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-        <TextField label="Pickup Location" variant="outlined" />
-        <TextField label="Drops Location" variant="outlined" />
-        <DateTimeRangePicker
-        months={2}
-            viewRenderers={{
-              hours: renderTimeViewClock,
-              minutes: renderTimeViewClock,
-              seconds: renderTimeViewClock,
-            }}
-          />
-        {/* <DateTimeRangePicker
-            viewRenderers={{
-              hours: renderTimeViewClock,
-              minutes: renderTimeViewClock,
-              seconds: renderTimeViewClock,
-            }}
-          /> */}
-        <Button variant="contained" color="primary">
-          Show Cars
-        </Button>
+    <div>
+      <p style={styles.heading}>Rent a car</p>
+      <div className="d-flex" style={{ gap: "15px" }}>
+        <div className="input-group customInputGroup position-relative">
+          <span className="input-group-text">
+            <FaCar />
+          </span>
+          <div className="form-floating">
+            <input
+              type="text"
+              className="form-control"
+              id="floatingInputGroup1"
+              placeholder="Username"
+            />
+            <label for="floatingInputGroup1">Pickup Location</label>
+          </div>
+          <div className="position-absolute" style={{ bottom: -40, left: 0 }}>
+            <div style={{ background: "red" }}>asdfadsfad</div>
+          </div>
+        </div>
+        <div className="input-group customInputGroup">
+          <span className="input-group-text">
+            <FaCar />
+          </span>
+          <div className="form-floating">
+            <input
+              type="text"
+              className="form-control"
+              id="floatingInputGroup1"
+              placeholder="Username"
+            />
+            <label for="floatingInputGroup1">Drop Location</label>
+          </div>
+        </div>
+
+        <DateRangePicker
+          format="dd MMM hh:mm"
+          ref={pickerRef}
+          value={range}
+          onChange={setRange}
+          showMeridiem
+          style={{ width: 0, background: "transparent" }}
+          showShortcuts={false}
+          renderFooter={() => null}
+        />
+
+        <div className="input-group customInputGroup">
+          <span className="input-group-text">
+            <FaCalendarAlt />
+          </span>
+          <div className="form-floating">
+            <input
+              // value={range[0] ? range[0].toLocaleString() : ""}
+              value={range[0] ? formatDate(range[0]) : ""}
+              className="form-control"
+              placeholder="Pickup Date & Time"
+              onClick={openDatePicker}
+            />
+            <label for="floatingInputGroup1">Pickup Date</label>
+          </div>
+        </div>
+
+        <div className="input-group customInputGroup">
+          <span className="input-group-text">
+            <FaCalendarAlt />
+          </span>
+          <div className="form-floating">
+            <input
+              // value={range[1] ? range[1].toLocaleString() : ""}
+              value={range[0] ? formatDate(range[1]) : ""}
+              className="form-control"
+              placeholder="Drop-off Date & Time"
+              onClick={openDatePicker}
+            />
+            <label for="floatingInputGroup1">Drop Date</label>
+          </div>
+        </div>
+        <Button style={styles.showCarsBtn}>Show cars</Button>
       </div>
-    </LocalizationProvider>
+    </div>
   );
-}
+};
 
 export default PickupAndDropPicker;
+const styles = {
+  showCarsBtn: {
+    width: 150,
+    padding: "10px 30px",
+    background: colors.themeMain,
+    color: colors.white,
+    fontFamily: fonts.helvetica400,
+  },
+  heading: {
+    fontFamily: fonts.helvetica700,
+    fontSize: 26,
+    marginBottom: 30,
+  },
+};
