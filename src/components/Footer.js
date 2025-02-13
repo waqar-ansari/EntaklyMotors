@@ -6,7 +6,7 @@ import { fonts } from "../../public/fonts/fonts";
 
 const Footer = () => {
   return (
-    <div style={styles.footerContainer}>
+    <div style={styles.footerContainer} className="footer">
       <div className="container">
         <div className="row">
           <div className="col-md-12">
@@ -50,16 +50,16 @@ const Footer = () => {
               }}
             >
               <li style={styles.LinkItems}>
-                <Link href="#">Car Rental</Link>
+                <Link href="#" className="footerLinks">Car Rental</Link>
               </li>
               <li style={styles.LinkItems}>
-                <Link href="#">Airport PickUp and Dropoff</Link>
+                <Link href="#" className="footerLinks">Airport PickUp and Dropoff</Link>
               </li>
               <li style={styles.LinkItems}>
-                <Link href="#">Lease to on 24 months 20% down payment</Link>
+                <Link href="#" className="footerLinks">Lease to on 24 months 20% down payment</Link>
               </li>
               <li style={styles.LinkItems}>
-                <Link href="#">V class Maybach services</Link>
+                <Link href="#" className="footerLinks">V class Maybach services</Link>
               </li>
             </ul>
           </div>
@@ -73,16 +73,16 @@ const Footer = () => {
               }}
             >
               <li style={styles.LinkItems}>
-                <Link href="#">Contact</Link>
+                <Link href="#" className="footerLinks">Contact</Link>
               </li>
               <li style={styles.LinkItems}>
-                <Link href="#">Rental Information</Link>
+                <Link href="#" className="footerLinks">Rental Information</Link>
               </li>
               <li style={styles.LinkItems}>
-                <Link href="#">Entakly Group</Link>
+                <Link href="#" className="footerLinks">Entakly Group</Link>
               </li>
               <li style={styles.LinkItems}>
-                <Link href="#">Corporate Responsibility</Link>
+                <Link href="#" className="footerLinks">Corporate Responsibility</Link>
               </li>
             </ul>
           </div>
@@ -114,9 +114,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="row mt-4 text-white text-center">
-            <div className="col-12">
-            © 2025 Entakly. All rights reserved.
-            </div>
+          <div className="col-12">© 2025 Entakly. All rights reserved.</div>
         </div>
       </div>
     </div>
@@ -135,6 +133,7 @@ const styles = {
     fontFamily: fonts.helvetica400,
     fontSize: 16,
     color: colors.grey,
+    marginBottom: 20,
   },
   footerList: {
     color: colors.white,
@@ -144,6 +143,7 @@ const styles = {
   LinkItems: {
     marginBottom: 16,
     fontSize: 14,
+    textDecoration: "none",
   },
   bottomLinks: {
     color: colors.white,

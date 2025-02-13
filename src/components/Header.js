@@ -5,6 +5,7 @@ import "../styles/globals.css";
 import { fonts } from "../../public/fonts/fonts";
 import LanguageModal from "./modals/LanguageModal";
 import { useState } from "react";
+import Link from "next/link";
 
 const Header = () => {
   const [showModal, setShowModal] = useState(false);
@@ -24,7 +25,7 @@ const Header = () => {
       <div className="container-xxl">
         <nav className="navbar navbar-expand-lg">
           <div className="container-fluid">
-            <a className="navbar-brand" href="#">
+            <Link className="navbar-brand" href="/">
               <Image
                 src="/icons/entaklyLogo.jpeg"
                 alt="Logo"
@@ -32,7 +33,7 @@ const Header = () => {
                 height={81}
                 priority
               />
-            </a>
+            </Link>
             <button
               className="navbar-toggler"
               type="button"
@@ -58,7 +59,7 @@ const Header = () => {
                     priority
                   />
                   <a
-                    className="nav-link active text-white"
+                    className="nav-link active text-white text-decoration-none"
                     aria-current="page"
                     href="#"
                   >
@@ -73,7 +74,7 @@ const Header = () => {
                     height={24}
                     priority
                   />
-                  <a className="nav-link text-white" onClick={openModal}>
+                  <a className="nav-link text-white text-decoration-none" onClick={openModal}>
                     EN | د.إ
                   </a>
                 </li>
@@ -85,9 +86,13 @@ const Header = () => {
                     height={24}
                     priority
                   />
-                  <a className="nav-link text-white" href="#">
+                  {/* <a className="nav-link text-white" href="#">
                     Login | Register
-                  </a>
+                  </a> */}
+                  <Link href="/auth/login" className="text-white text-decoration-none">
+
+                    Login | Register
+                  </Link>
                 </li>
               </ul>
 

@@ -45,11 +45,11 @@ const PickupAndDropPicker = () => {
               id="floatingInputGroup1"
               placeholder="Username"
             />
-            <label for="floatingInputGroup1">Pickup Location</label>
+            <label htmlFor="floatingInputGroup1">Pickup Location</label>
           </div>
-          <div className="position-absolute" style={{ bottom: -40, left: 0 }}>
+          {/* <div className="position-absolute" style={{ bottom: -40, left: 0 }}>
             <div style={{ background: "red" }}>asdfadsfad</div>
-          </div>
+          </div> */}
         </div>
         <div className="input-group customInputGroup">
           <span className="input-group-text">
@@ -62,7 +62,7 @@ const PickupAndDropPicker = () => {
               id="floatingInputGroup1"
               placeholder="Username"
             />
-            <label for="floatingInputGroup1">Drop Location</label>
+            <label htmlFor="floatingInputGroup1">Drop Location</label>
           </div>
         </div>
 
@@ -89,7 +89,7 @@ const PickupAndDropPicker = () => {
               placeholder="Pickup Date & Time"
               onClick={openDatePicker}
             />
-            <label for="floatingInputGroup1">Pickup Date</label>
+            <label htmlFor="floatingInputGroup1">Pickup Date</label>
           </div>
         </div>
 
@@ -105,7 +105,7 @@ const PickupAndDropPicker = () => {
               placeholder="Drop-off Date & Time"
               onClick={openDatePicker}
             />
-            <label for="floatingInputGroup1">Drop Date</label>
+            <label htmlFor="floatingInputGroup1">Drop Date</label>
           </div>
         </div>
         <Button style={styles.showCarsBtn}>Show cars</Button>

@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
+// import { Link } from "@/i18n/routing";
+import Link from "next/link";
 import Header from "@/components/Header";
 import "../../styles/globals.css";
 import { colors } from "../../../public/colors/colors";
@@ -12,6 +13,7 @@ export default function HomePage() {
   const t = useTranslations("HomePage");
   return (
     <div>
+      
       <div>
         <p
           className="text-danger text-center text-white mb-0 py-2"
@@ -21,16 +23,16 @@ export default function HomePage() {
         </p>
       </div>
       <Header />
-
+      <div style={styles.PickupAndDropPicker}>
+        <PickupAndDropPicker />
+      </div>
       <div className="position-relative">
-        <div className="translate-middle" style={styles.PickupAndDropPicker}>
-          <PickupAndDropPicker />
-        </div>
         <Image
           src="/images/heroImage.webp"
           alt="Hero Image"
           width={1600}
           height={686}
+          style={{marginTop:"-180px"}}
           layout="responsive"
           priority
         />
@@ -49,6 +51,8 @@ export default function HomePage() {
             fontFamily: fonts.helvetica700,
             textTransform: "uppercase",
             fontSize: 68,
+            lineHeight: "82px",
+            marginBottom: 16,
           }}
         >
           Rent first class. <br /> Pay economy.
@@ -126,8 +130,8 @@ export default function HomePage() {
               layout="responsive"
             />
             <div style={styles.textContainer}>
-              <p style={styles.imageHeading}>ENTALKY App Offers</p>
-              <p style={styles.imageText}>Download the Entalky app</p>
+              <p style={styles.imageHeading}>ENTAKLY App Offers</p>
+              <p style={styles.imageText}>Download the Entakly app</p>
               <Link href="#" style={styles.imageButton}>
                 Download the app
               </Link>
@@ -266,6 +270,7 @@ const styles = {
     fontSize: 16,
     color: colors.white,
     fontFamily: fonts.helvetica400,
+    marginBottom: 20,
   },
   imageButton: {
     fontSize: 12,
@@ -292,14 +297,24 @@ const styles = {
     textAlign: "center",
   },
   PickupAndDropPicker: {
-    position: "absolute",
-    top: "100px",
-    left: "50%",
-    width: "100%",
+    position: "sticky",
+    top: "10px",
+    // left: "50%",
+    // width: "100%",
     maxWidth: "1320px",
     margin: "0 auto",
     padding: "20px",
     background: colors.white,
     borderRadius: 20,
+    zIndex: 1,
+    marginTop:10
+    // transform: "translate(-50%, -50%)",
+
+    // position: "sticky",
+    // top: 0, // Sticks at the top when scrolled
+    // background: "green", // Ensures visibility
+    // zIndex: 1000, // Keeps it above other content
+    // padding: "10px", // Adjust for better spacing
+    // boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
   },
 };
