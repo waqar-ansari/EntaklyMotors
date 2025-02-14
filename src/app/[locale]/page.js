@@ -8,12 +8,12 @@ import Image from "next/image";
 import { fonts } from "../../../public/fonts/fonts";
 import Footer from "@/components/Footer";
 import PickupAndDropPicker from "@/components/PickupAndDropPicker";
+import { FaWhatsapp } from "react-icons/fa";
 
 export default function HomePage() {
   const t = useTranslations("HomePage");
   return (
     <div>
-      
       <div>
         <p
           className="text-danger text-center text-white mb-0 py-2"
@@ -32,7 +32,7 @@ export default function HomePage() {
           alt="Hero Image"
           width={1600}
           height={686}
-          style={{marginTop:"-180px"}}
+          style={{ marginTop: "-180px" }}
           layout="responsive"
           priority
         />
@@ -120,8 +120,8 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-        <div className="row" style={styles.marginB}>
-          <div className="col-md-12" style={{ position: "relative" }}>
+        <div className="row showdowForRow" style={styles.marginB}>
+          {/* <div className="col-md-12" style={{ position: "relative" }}>
             <Image
               src="/images/homeImage2.png"
               alt="limousine"
@@ -136,6 +136,33 @@ export default function HomePage() {
                 Download the app
               </Link>
             </div>
+          </div> */}
+          <div className="col-md-6 d-flex justify-content-center align-items-center">
+            <div style={{ color: colors.black }}>
+              <p style={{ fontFamily: fonts.helvetica700, fontSize: 24 }}>
+                ENTAKLY App Offers
+              </p>
+              <p
+                style={{
+                  fontFamily: fonts.helvetica400,
+                  fontSize: 18,
+                  color: colors.grey,
+                }}
+              >
+                “Download the Dubai App now and get a 10% discount! LinkGram:
+                Phase One Launch – Your All-in-One App with 250+ Features!”
+                Note: The app is still under construction.
+              </p>
+            </div>
+          </div>
+          <div className="col-md-6">
+            <Image
+              src="/icons/linkGramLogo.jpeg"
+              alt="limousine"
+              width={1168}
+              height={992}
+              layout="responsive"
+            />
           </div>
         </div>
         <div className="row"></div>
@@ -180,6 +207,7 @@ export default function HomePage() {
                   <p style={styles.imageHeading2}>Entakly Business</p>
                   <p style={styles.imageText}>Pickup and dropoff to airport</p>
                   <Link href="#" style={styles.imageButton}>
+                    <FaWhatsapp style={{ marginBottom: 2, marginRight: 3 }} />{" "}
                     Chat now
                   </Link>
                 </div>
@@ -212,8 +240,8 @@ export default function HomePage() {
       </div>
 
       <Footer />
-      <h1>{t("title")}</h1>
-      <Link href="/about">{t("about")}</Link>
+      {/* <h1>{t("title")}</h1>
+      <Link href="/about">{t("about")}</Link> */}
     </div>
   );
 }
@@ -279,6 +307,7 @@ const styles = {
     border: "1px solid white",
     padding: "10px 14px",
     borderRadius: 30,
+    textDecoration: "none",
   },
   marginB: {
     marginBottom: 40,
@@ -307,7 +336,7 @@ const styles = {
     background: colors.white,
     borderRadius: 20,
     zIndex: 1,
-    marginTop:10
+    marginTop: 10,
     // transform: "translate(-50%, -50%)",
 
     // position: "sticky",

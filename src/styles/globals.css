@@ -22,6 +22,12 @@ a {
 .p-section {
   padding: 60px;
 }
+.showdowForRow{
+  -webkit-box-shadow: 0px 0px 10px 5px rgba(171,171,171,1);
+-moz-box-shadow: 0px 0px 10px 5px rgba(171,171,171,1);
+box-shadow: 0px 0px 10px 5px rgba(171,171,171,1);
+border-radius: 15;
+}
 
 /* .react-daterange-picker__wrapper{
   display: none !important;

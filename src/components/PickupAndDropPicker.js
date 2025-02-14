@@ -6,6 +6,7 @@ import { colors } from "../../public/colors/colors";
 import { fonts } from "../../public/fonts/fonts";
 import { FaCar } from "react-icons/fa6";
 import { FaCalendarAlt } from "react-icons/fa";
+import Link from "next/link";
 
 const PickupAndDropPicker = () => {
   const [range, setRange] = useState([null, null]);
@@ -108,7 +109,9 @@ const PickupAndDropPicker = () => {
             <label htmlFor="floatingInputGroup1">Drop Date</label>
           </div>
         </div>
-        <Button style={styles.showCarsBtn}>Show cars</Button>
+        <Link href="/cars" style={styles.showCarsBtn}>
+          Show cars
+        </Link>
       </div>
     </div>
   );
@@ -117,11 +120,15 @@ const PickupAndDropPicker = () => {
 export default PickupAndDropPicker;
 const styles = {
   showCarsBtn: {
-    width: 150,
-    padding: "10px 30px",
+    padding: "20px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
     background: colors.themeMain,
     color: colors.white,
     fontFamily: fonts.helvetica400,
+    textDecoration: "none",
   },
   heading: {
     fontFamily: fonts.helvetica700,
