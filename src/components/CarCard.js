@@ -3,6 +3,7 @@ import "../app/[locale]/cars/cars.css";
 import { FaUser, FaSuitcase, FaCheck } from "react-icons/fa";
 import { TbAutomaticGearbox } from "react-icons/tb";
 import { TiArrowSortedDown } from "react-icons/ti";
+import { colors } from "../../public/colors/colors";
 
 export default function CarCard({ car, onClick, isSelected }) {
   return (
@@ -56,7 +57,7 @@ export default function CarCard({ car, onClick, isSelected }) {
       </div>
       {isSelected && (
         <div className="d-flex justify-content-center">
-          <TiArrowSortedDown size={25} />
+          <TiArrowSortedDown size={25} color={colors.themeMain} />
         </div>
       )}
     </div>

@@ -16,49 +16,50 @@ const carsData = [
   {
     id: 2,
     name: "Luxury (BMW 3 Series)",
-      image: "/images/car2.png",
+    image: "/images/car2.png",
     price: 184,
   },
   {
     id: 3,
     name: "Standard (Chevrolet Blazer)",
-      image: "/images/car2.png",
+    image: "/images/car2.png",
     price: 199,
   },
   {
     id: 4,
     name: "Luxury (Mercedes C-Class)",
-      image: "/images/car2.png",
+    image: "/images/car2.png",
     price: 200,
   },
   {
     id: 5,
     name: "SUV (Toyota Highlander)",
-      image: "/images/car1.png",
+    image: "/images/car1.png",
     price: 190,
   },
   {
     id: 6,
     name: "Electric (Tesla Model 3)",
-      image: "/images/car3.png",
+    image: "/images/car3.png",
     price: 210,
   },
   {
     id: 7,
     name: "Electric (Tesla Model 3)",
-      image: "/images/car1.png",
+    image: "/images/car1.png",
     price: 210,
   },
 ];
 
 export default function CarsPage() {
   const [selectedCarId, setSelectedCarId] = useState(null);
+
   const handleCloseDetails = () => {
     setSelectedCarId(null);
   };
   return (
     <div>
-      <Header />
+      <Header headerPickupAndDrop={true}/>
       <div className="container mt-5">
         {carsData
           .reduce((rows, car, index) => {

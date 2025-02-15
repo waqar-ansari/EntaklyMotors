@@ -30,7 +30,7 @@ export default function CarDetails({ car, onClose }) {
             layout="responsive"
           />
       </div>
-          <div>
+          <div style={{marginBottom:20}}>
             <div className="carIcons" style={styles.carDetailsFacilities}>
               <span>
                 <FaUser style={styles.iconStyles} /> 5 Seats

@@ -22,23 +22,14 @@ a {
 .p-section {
   padding: 60px;
 }
-.showdowForRow{
-  -webkit-box-shadow: 0px 0px 10px 5px rgba(171,171,171,1);
--moz-box-shadow: 0px 0px 10px 5px rgba(171,171,171,1);
-box-shadow: 0px 0px 10px 5px rgba(171,171,171,1);
-border-radius: 15;
+
+.showdowForRow {
+  -webkit-box-shadow: 0px 0px 10px 5px rgba(171, 171, 171, 1);
+  -moz-box-shadow: 0px 0px 10px 5px rgba(171, 171, 171, 1);
+  box-shadow: 0px 0px 10px 5px rgba(171, 171, 171, 1);
+  border-radius: 15;
 }
 
-/* .react-daterange-picker__wrapper{
-  display: none !important;
-}
-
-.rs-picker-input-group.rs-input-group{
-  display: none !important;
-}
-.rs-picker-toggle-wrapper{
-  display: inline !important;
-} */
 .rs-input-group-addon {
   display: none !important;
 }
@@ -98,12 +89,15 @@ border-radius: 15;
   color: white !important;
   text-decoration: none;
 }
+
 .auth-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Full viewport height */
-  background: #f8f9fa; /* Light gray background */
+  height: 100vh;
+  /* Full viewport height */
+  background: #f8f9fa;
+  /* Light gray background */
 }
 
 .auth-container {
@@ -126,7 +120,8 @@ border-radius: 15;
 }
 
 .auth-button {
-  background: #ca2030; /* Your theme red */
+  background: #ca2030;
+  /* Your theme red */
   color: white;
   padding: 10px;
   border: none;
@@ -147,10 +142,23 @@ border-radius: 15;
 }
 
 .auth-link {
-  color: #1a237b; /* Your theme blue */
+  color: #1a237b;
+  /* Your theme blue */
   text-decoration: none;
 }
 
 .auth-link:hover {
   text-decoration: underline;
+}
+
+.pickupAndDropPickerInHeader:hover {
+  cursor: pointer;
+}
+
+.rs-picker-input-group.rs-input-group.rs-input-group-inside {
+  display: none !important;
+}
+.rs-picker-popup {
+  z-index: 1060 !important;
+  /* position: absolute !important; */
 }

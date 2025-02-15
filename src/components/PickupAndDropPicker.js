@@ -8,8 +8,9 @@ import { FaCar } from "react-icons/fa6";
 import { FaCalendarAlt } from "react-icons/fa";
 import Link from "next/link";
 
-const PickupAndDropPicker = () => {
+const PickupAndDropPicker = ({ heading = true }) => {
   const [range, setRange] = useState([null, null]);
+
   console.log(range.toLocaleString(), "range");
 
   const pickerRef = useRef(null);
@@ -33,24 +34,25 @@ const PickupAndDropPicker = () => {
 
   return (
     <div>
-      <p style={styles.heading}>Rent a car</p>
-      <div className="d-flex" style={{ gap: "15px" }}>
+      {heading && <p style={styles.heading}>Rent a car</p>}
+      <div className="d-flex justify-content-center" style={{ gap: "15px" }}>
         <div className="input-group customInputGroup position-relative">
           <span className="input-group-text">
             <FaCar />
           </span>
-          <div className="form-floating">
+          <div className="form-floating" >
             <input
               type="text"
               className="form-control"
-              id="floatingInputGroup1"
-              placeholder="Username"
+              id="pickupLocation"
+              placeholder="Pickup Location"
+
             />
-            <label htmlFor="floatingInputGroup1">Pickup Location</label>
+            <label htmlFor="pickupLocation">Pickup Location</label>
           </div>
-          {/* <div className="position-absolute" style={{ bottom: -40, left: 0 }}>
-            <div style={{ background: "red" }}>asdfadsfad</div>
-          </div> */}
+         { <div className="position-absolute" style={{ bottom: -40, left: 0 }}>
+            <div style={{ background: "red" }}>pickup location div</div>
+          </div>}
         </div>
         <div className="input-group customInputGroup">
           <span className="input-group-text">
@@ -60,10 +62,10 @@ const PickupAndDropPicker = () => {
             <input
               type="text"
               className="form-control"
-              id="floatingInputGroup1"
-              placeholder="Username"
+              id="dropLocation"
+              placeholder="Drop Location"
             />
-            <label htmlFor="floatingInputGroup1">Drop Location</label>
+            <label htmlFor="dropLocation">Drop Location</label>
           </div>
         </div>
 
