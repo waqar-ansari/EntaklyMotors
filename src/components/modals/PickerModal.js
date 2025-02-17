@@ -4,15 +4,15 @@ import PickupAndDropPicker from "../PickupAndDropPicker";
 const PickerModal = () => {
   return (
     <div
-      class="modal fade"
+      className="modal fade"
       id="pickerModal"
       tabindex="-1"
       aria-labelledby="pickerModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-fullscreen" style={styles.modalHeight}>
-        <div class="modal-content">
-          <div class="modal-body" style={styles.modalbody}>
+      <div className="modal-dialog modal-fullscreen" style={styles.modalHeight}>
+        <div className="modal-content">
+          <div className="modal-body" style={styles.modalbody}>
             <PickupAndDropPicker heading={false} />
           </div>
         </div>

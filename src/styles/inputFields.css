@@ -1,0 +1,55 @@
+.input-box {
+    position: relative;
+    margin: 30px 0;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 13px 50px 13px 20px;
+    background: #eee;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+}
+
+.input-box input:focus {
+    width: 100%;
+    padding: 13px 50px 13px 20px;
+    background: #eee;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+}
+
+.input-box input::placeholder {
+    color: #888;
+    font-weight: 400;
+}
+
+.input-box i {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+}
+
+.form-floating>.form-control:focus~label:after,
+.form-floating>.form-control:not(:placeholder-shown)~label:after,
+.form-floating>.form-control-plaintext~label:after,
+.form-floating>.form-select~label:after {
+    background-color: #eee;
+}
+
+.submitButton {
+    background-color: #292268;
+    color: #fff;
+    padding: 15 40;
+    margin-bottom: 30;
+}

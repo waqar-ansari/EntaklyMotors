@@ -7,27 +7,27 @@ import { IoLanguageSharp } from "react-icons/io5";
 const LanguageModal = ({ selectLanguage }) => {
   return (
     <div
-      class="modal fade"
+      className="modal fade"
       id="languageModal"
       tabindex="-1"
       aria-labelledby="languageModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header border-0">
+      <div className="modal-dialog modal-lg modal-dialog-centered">
+        <div className="modal-content">
+          <div className="modal-header border-0">
             <div className="bg-dark text-white px-3 py-2 rounded">
               <IoLanguageSharp className="me-2 mb-1" />
               <h5 className="mb-0 d-inline">Language</h5>
             </div>
             <button
               type="button"
-              class="btn-close"
+              className="btn-close"
               data-bs-dismiss="modal"
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body">
+          <div className="modal-body">
             <div className="container mt-5">
               <div className="row">
                 <div className="col-md-6">
@@ -57,15 +57,15 @@ const LanguageModal = ({ selectLanguage }) => {
               </div>
             </div>
           </div>
-          {/* <div class="modal-footer">
+          {/* <div className="modal-footer">
             <button
               type="button"
-              class="btn btn-secondary"
+              className="btn btn-secondary"
               data-bs-dismiss="modal"
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary">
+            <button type="button" className="btn btn-primary">
               Save changes
             </button>
           </div> */}

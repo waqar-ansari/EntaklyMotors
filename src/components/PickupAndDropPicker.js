@@ -50,9 +50,9 @@ const PickupAndDropPicker = ({ heading = true }) => {
             />
             <label htmlFor="pickupLocation">Pickup Location</label>
           </div>
-         { <div className="position-absolute" style={{ bottom: -40, left: 0 }}>
+         {/* { <div className="position-absolute" style={{ bottom: -40, left: 0 }}>
             <div style={{ background: "red" }}>pickup location div</div>
-          </div>}
+          </div>} */}
         </div>
         <div className="input-group customInputGroup">
           <span className="input-group-text">

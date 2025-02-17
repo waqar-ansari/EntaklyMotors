@@ -162,3 +162,18 @@ a {
   z-index: 1060 !important;
   /* position: absolute !important; */
 }
+
+/* hide default toggle password */
+input[type="password"]::-ms-reveal, 
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+input[type="password"]::-webkit-contacts-auto-fill-button, 
+input[type="password"]::-webkit-credentials-auto-fill-button {
+  display: none;
+}
+
+input[type="password"]::-webkit-textfield-decoration-container {
+  display: none;
+}

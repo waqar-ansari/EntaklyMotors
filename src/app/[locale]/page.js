@@ -137,8 +137,8 @@ export default function HomePage() {
               </Link>
             </div>
           </div> */}
-          <div className="col-md-6 d-flex justify-content-center align-items-center">
-            <div style={{ color: colors.black }}>
+          <div className="col-md-4 d-flex justify-content-center align-items-center">
+            <div style={{ color: colors.black }} className="ps-3">
               <p style={{ fontFamily: fonts.helvetica700, fontSize: 24 }}>
                 ENTAKLY App Offers
               </p>
@@ -155,7 +155,15 @@ export default function HomePage() {
               </p>
             </div>
           </div>
-          <div className="col-md-6">
+          <div className="col-md-4 d-flex justify-content-center align-items-center">
+            <Image
+              src="/icons/linkGramQr.svg"
+              alt="limousine"
+              width={200}
+              height={200}
+            />
+          </div>
+          <div className="col-md-4">
             <Image
               src="/icons/linkGramLogo.jpeg"
               alt="limousine"

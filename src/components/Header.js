@@ -9,7 +9,8 @@ import Link from "next/link";
 import { FaPen } from "react-icons/fa";
 import PickupAndDropPicker from "./PickupAndDropPicker";
 import PickerModal from "./modals/PickerModal";
-import { FaCircleUser } from "react-icons/fa6";
+import { FaUserCircle } from "react-icons/fa";
+
 const Header = ({ headerPickupAndDrop }) => {
   const [showModal, setShowModal] = useState(false);
   const [showPicker, setShowPicker] = useState(false);
@@ -112,7 +113,19 @@ const Header = ({ headerPickupAndDrop }) => {
                       EN | د.إ
                     </a>
                   </li>
-                 
+
+                  {token ? (
+                    <li className="nav-item d-flex align-items-center">
+                      <FaUserCircle style={{color:colors.white, fontSize:22}}/>
+
+                      <Link
+                        href="/auth/login&Signup"
+                        className="nav-link text-white text-decoration-none"
+                      >
+                        Waqar
+                      </Link>
+                    </li>
+                  ) : (
                     <li className="nav-item d-flex align-items-center">
                       <Image
                         src="/icons/user.png"
@@ -123,13 +136,13 @@ const Header = ({ headerPickupAndDrop }) => {
                       />
 
                       <Link
-                        href="/auth/login"
+                        href="/auth/login&Signup"
                         className="nav-link text-white text-decoration-none"
                       >
                         Login | Register
                       </Link>
                     </li>
-                 
+                  )}
                 </ul>
 
                 <LanguageModal

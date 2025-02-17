@@ -1,0 +1,32 @@
+.custom-tabs .nav-link {
+    position: relative;
+    color: #1a237b;
+    /* font-weight: 500; */
+    transition: color 0.2s ease-in-out;
+    font-size: 16;
+    font-weight: 700;
+  }
+.custom-tabs .nav-link .subNavLinks {
+    position: relative;
+    color: #1a237b;
+    /* font-weight: 500; */
+    transition: color 0.2s ease-in-out;
+    font-size: 40;
+    font-weight: 700;
+  }
+  
+  .custom-tabs .nav-link.active {
+    color: #292268;
+    border: 0 !important;
+  }
+  
+  .custom-tabs .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #292268;
+  }
+  
