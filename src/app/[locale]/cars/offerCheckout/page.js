@@ -18,6 +18,7 @@ import { fonts } from "../../../../../public/fonts/fonts";
 const page = () => {
   const [showPriceDetailsModal, setShowPriceDetailsModal] = useState(false);
   const [priceDetailsModalContent, setPriceDetailsModalContent] = useState("");
+  const [selectedPackage, setSelectedPackage] = useState(null);
   const openModal = (content) => {
     setPriceDetailsModalContent(content);
     setShowPriceDetailsModal(true);
@@ -25,6 +26,9 @@ const page = () => {
 
   const closeModal = () => {
     setShowPriceDetailsModal(false);
+  };
+  const packageClicked = (item) => {
+    setSelectedPackage(item);
   };
   return (
     <>
@@ -87,20 +91,39 @@ const page = () => {
           </div>
         </div>
         <div className="row d-flex align-items-stretch">
-          <div className="col-md-4">
-            <div style={styles.cardContainer}>
-              <div className="d-flex justify-content-between mb-3">
-                <span style={styles.cardHeading}>Basic Protection</span>
-                <div style={styles.radioButton}></div>
-              </div>
-              <div style={{ marginBottom: 10 }} className="mb-3">
-                <IoStarSharp />
-                <IoStarOutline />
-                <IoStarOutline />
-              </div>
-              <div style={{ fontWeight: 600, fontSize: 14 }}>
-                {" "}
-                Excess: up to AED 3,000.00
+          <div
+            className="col-md-4 mb-4"
+            onClick={() => {
+              packageClicked("Basic");
+            }}
+          >
+            <div
+              style={
+                selectedPackage == "Basic"
+                  ? { ...styles.cardContainer, ...styles.activePackage }
+                  : styles.cardContainer
+              }
+            >
+              <div>
+                <div className="d-flex justify-content-between mb-3">
+                  <span style={styles.cardHeading}>Basic Protection</span>
+                  <div
+                    style={
+                      selectedPackage == "Basic"
+                        ? { ...styles.radioButton, ...styles.activeRadio }
+                        : styles.radioButton
+                    }
+                  ></div>
+                </div>
+                <div style={{ marginBottom: 10 }} className="mb-3">
+                  <IoStarSharp />
+                  <IoStarOutline />
+                  <IoStarOutline />
+                </div>
+                <div style={{ fontWeight: 600, fontSize: 14 }}>
+                  {" "}
+                  Excess: up to AED 3,000.00
+                </div>
               </div>
               <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
                 <div className="liContainer">
@@ -159,13 +182,30 @@ const page = () => {
               <p style={{ fontSize: 24, fontWeight: 600 }}>Included</p>
             </div>
           </div>
-          <div className="col-md-4">
-            <div style={styles.cardContainer}>
+          <div
+            className="col-md-4 mb-4"
+            onClick={() => {
+              packageClicked("Gold");
+            }}
+          >
+            <div
+              style={
+                selectedPackage == "Gold"
+                  ? { ...styles.cardContainer, ...styles.activePackage }
+                  : styles.cardContainer
+              }
+            >
               <div className="d-flex justify-content-between mb-3">
                 <span style={styles.cardHeading}>
                   Smart Protection (Minimum age 25)
                 </span>
-                <div style={styles.radioButton}></div>
+                <div
+                  style={
+                    selectedPackage == "Gold"
+                      ? { ...styles.radioButton, ...styles.activeRadio }
+                      : styles.radioButton
+                  }
+                ></div>
               </div>
               <div
                 style={{
@@ -256,13 +296,30 @@ const page = () => {
               </p>
             </div>
           </div>
-          <div className="col-md-4">
-            <div style={styles.cardContainer}>
+          <div
+            className="col-md-4 mb-4"
+            onClick={() => {
+              packageClicked("Platinum");
+            }}
+          >
+            <div
+              style={
+                selectedPackage == "Platinum"
+                  ? { ...styles.cardContainer, ...styles.activePackage }
+                  : styles.cardContainer
+              }
+            >
               <div className="d-flex justify-content-between mb-3">
                 <span style={styles.cardHeading}>
                   All Inclusive Protection (Minimum age 25)
                 </span>
-                <div style={styles.radioButton}></div>
+                <div
+                  style={
+                    selectedPackage == "Platinum"
+                      ? { ...styles.radioButton, ...styles.activeRadio }
+                      : styles.radioButton
+                  }
+                ></div>
               </div>
               <div
                 style={{
@@ -386,9 +443,14 @@ const styles = {
     marginLeft: 15,
   },
   cardContainer: {
-    border: "1px solid #ccc",
+    cursor:"pointer",
+    boxShadow: "0 0 0 1px #ccc",
     borderRadius: 10,
     padding: 16,
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
   cardHeading: {
     fontSize: 24,
@@ -401,8 +463,17 @@ const styles = {
     borderRadius: 10,
     border: "1px solid #ccc",
     marginLeft: 20,
+    flex: "0 0 auto",
   },
   iIcon: {
     fontSize: 18,
+  },
+  activePackage: {
+    boxShadow: "0 0 0 2px black",
+    border: "0px",
+  },
+  activeRadio: {
+    boxSizing: "border-box",
+    border: "5px solid #000",
   },
 };
