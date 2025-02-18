@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import "../../../../styles/globals.css";
+// import "../../../../styles/globals.css";
 import "./login.css";
 import { colors } from "../../../../../public/colors/colors";
 import Header from "@/components/Header";

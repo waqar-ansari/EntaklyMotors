@@ -2,7 +2,7 @@ import { useTranslations } from "next-intl";
 // import { Link } from "@/i18n/routing";
 import Link from "next/link";
 import Header from "@/components/Header";
-import "../../styles/globals.css";
+// import "../../styles/globals.css";
 import { colors } from "../../../public/colors/colors";
 import Image from "next/image";
 import { fonts } from "../../../public/fonts/fonts";
@@ -19,7 +19,7 @@ export default function HomePage() {
           className="text-danger text-center text-white mb-0 py-2"
           style={{ backgroundColor: colors.themeMain }}
         >
-          112 years of Entakly. 112 years of tradition.
+          11 years of Entakly. 11 years of tradition.
         </p>
       </div>
       <Header />
@@ -72,7 +72,7 @@ export default function HomePage() {
               />
               <p style={styles.subHeading}>UAE reach</p>
             </div>
-            <h4>500+ Entalky stations in Dubai</h4>
+            <h4>500+ Entakly stations in Dubai</h4>
           </div>
           <div className="col-md-4">
             <div className="d-flex align-items-center mb-2">
@@ -109,9 +109,9 @@ export default function HomePage() {
               layout="responsive"
             />
             <div style={styles.textContainer}>
-              <p style={styles.imageHeading}>Limousine Service with ENTALKY</p>
+              <p style={styles.imageHeading}>Luxury Car Service with ENTAKLY</p>
               <p style={styles.imageText}>
-                Enjoy a professional journey with Entalky’s premium limousine
+                Enjoy a professional journey with Entakly’s premium luxury car pickup and dropoff
                 service
               </p>
               <Link href="#" style={styles.imageButton}>

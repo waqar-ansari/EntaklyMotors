@@ -1,0 +1,50 @@
+.modal-content {
+    padding: 48px 0px;
+}
+
+.modal-body {
+    padding: 0 48px;
+}
+
+.modal-header .btn-close {
+    position: absolute;
+    top: 20;
+    right: 20;
+}
+
+ul {
+    padding-left: 16px;
+    margin-top: 20px !important;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+.heading3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+}
+
+.heading2 {
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.heading1 {
+    font-size: 30px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+.flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+.section{
+    padding: 16px 0px;
+    border-bottom: 1px solid #dcdcdc;
+}

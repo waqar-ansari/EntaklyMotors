@@ -5,7 +5,8 @@ import CarDetails from "@/components/CarDetails";
 import "./cars.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { MdKeyboardArrowDown } from "react-icons/md";
+
+import CustomDropdown from "@/components/dropdown/CustomDropdown";
 
 const carsData = [
   {
@@ -54,7 +55,7 @@ const carsData = [
 
 export default function CarsPage() {
   const [selectedCarId, setSelectedCarId] = useState(null);
-  const [showDropdown, setShowDropdown] = useState(false);
+
 
   const handleCloseDetails = () => {
     setSelectedCarId(null);
@@ -67,28 +68,7 @@ export default function CarsPage() {
         <h3 style={{ textTransform: "uppercase", marginBottom: 20 }}>
           Which car do you want to drive?
         </h3>
-        <div style={{ marginBottom: 20, position:'relative' }}>
-          <p
-            onClick={() => {
-              setShowDropdown(!showDropdown);
-            }}
-          >
-            Sort By <MdKeyboardArrowDown />
-          </p>
-          {showDropdown && <div style={{position:"absolute", zIndex:1, background:'red'}}>
-            <ul style={{listStyleType:"none", paddingLeft:0}}>
-              <li>
-                abc 1
-              </li>
-              <li>
-                abc 2
-              </li>
-              <li>
-                abc 3
-              </li>
-            </ul>
-          </div>}
-        </div>
+        <CustomDropdown title={"Sort By"} multiSelect={true} showSelectedItemCount={true}/>
         {carsData
           .reduce((rows, car, index) => {
             if (index % 3 === 0) {

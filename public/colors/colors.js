@@ -4,5 +4,6 @@ export const colors = {
     themeSecondary: '#ff0000',
     grey: '#ababab',
     black: '#000',
+    lightBlack:"#1a1a1a",
     white: '#fff',
   };

@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { colors } from "../../public/colors/colors";
-import "../styles/globals.css";
+// import "../styles/globals.css";
 import { fonts } from "../../public/fonts/fonts";
 import LanguageModal from "./modals/LanguageModal";
 import { useState } from "react";
@@ -113,7 +113,6 @@ const Header = ({ headerPickupAndDrop }) => {
                       EN | د.إ
                     </a>
                   </li>
-
                   {token ? (
                     <li className="nav-item d-flex align-items-center">
                       <FaUserCircle style={{color:colors.white, fontSize:22}}/>

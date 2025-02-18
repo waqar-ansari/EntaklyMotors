@@ -20,16 +20,34 @@ const Footer = () => {
               <div>
                 <Link href="#">
                   <Image
-                    src="/icons/facebook.png"
+                    src="/icons/facebookLogo.png"
                     alt="logo"
                     width={24}
                     height={24}
-                    style={{ marginRight: 12 }}
+                    style={{ marginRight: 24 }}
                   />
                 </Link>
                 <Link href="#">
                   <Image
-                    src="/icons/instagram.png"
+                    src="/icons/instagramLogo.png"
+                    alt="logo"
+                    width={24}
+                    height={24}
+                    style={{ marginRight: 24 }}
+                  />
+                </Link>
+                <Link href="#">
+                  <Image
+                    src="/icons/whatsappLogo.png"
+                    alt="logo"
+                    width={24}
+                    height={24}
+                    style={{ marginRight: 24 }}
+                  />
+                </Link>
+                <Link href="#">
+                  <Image
+                    src="/icons/telegramLogo.png"
                     alt="logo"
                     width={24}
                     height={24}

@@ -177,3 +177,35 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
 input[type="password"]::-webkit-textfield-decoration-container {
   display: none;
 }
+.react-tel-input{
+  width: 50 !important;
+}
+.priceDetails{
+  text-decoration: underline;
+  cursor: pointer;
+}
+.liTick:before{
+  content: "\2713";
+  margin-right:12;
+  color: #1a1a1a;
+}
+.liTick{
+  font-weight: 600;
+margin-bottom: 0;
+}
+.liContainer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10;
+}
+.liCross{
+  color: #ababab;
+margin-bottom: 0;
+
+}
+.liCross:before {
+  content: "\2716"; /* Cross mark symbol */
+  margin-right: 12px;
+  color: #c9c9cf;
+}

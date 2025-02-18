@@ -34,7 +34,7 @@ const PickupAndDropPicker = ({ heading = true }) => {
 
   return (
     <div>
-      {heading && <p style={styles.heading}>Rent a car</p>}
+      {heading && <p style={styles.heading}>Rent a Car</p>}
       <div className="d-flex justify-content-center" style={{ gap: "15px" }}>
         <div className="input-group customInputGroup position-relative">
           <span className="input-group-text">
@@ -65,7 +65,7 @@ const PickupAndDropPicker = ({ heading = true }) => {
               id="dropLocation"
               placeholder="Drop Location"
             />
-            <label htmlFor="dropLocation">Drop Location</label>
+            <label htmlFor="dropLocation">Delivery Location</label>
           </div>
         </div>
 
@@ -108,7 +108,7 @@ const PickupAndDropPicker = ({ heading = true }) => {
               placeholder="Drop-off Date & Time"
               onClick={openDatePicker}
             />
-            <label htmlFor="floatingInputGroup1">Drop Date</label>
+            <label htmlFor="floatingInputGroup1">Delivery Date</label>
           </div>
         </div>
         <Link href="/cars" style={styles.showCarsBtn}>

@@ -4,14 +4,15 @@ import Header from "@/components/Header";
 import React, { useState } from "react";
 import { Tabs, Tab } from "react-bootstrap";
 import { useRouter, useSearchParams } from "next/navigation";
-import "../../../../styles/globals.css";
+// import "../../../../styles/globals.css";
 import "../navTabs.css";
 import "../../../../styles/inputFields.css";
 import Bookings from "@/components/modals/Bookings";
 import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
+// import "react-phone-input-2/lib/style.css";
 import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
+import "react-phone-input-2/lib/bootstrap.css";
 
 const Page = () => {
   const router = useRouter();
@@ -72,36 +73,35 @@ const Page = () => {
                       </label>
                     </div>
 
-                    <div className="input-box form-floating">
-                      <input
-                        className="form-control"
-                        type="text"
-                        placeholder="Phone Number"
-                        id="phoneNumber"
-                        // value={`${countryCode} ${phoneNumber}`}
-                        value={phoneNumber}
-                        onChange={(e) => setPhoneNumber(e.target.value)}
+                    <div className="d-flex align-items-center">
+                      <PhoneInput
+                        country={"ae"}
+                        value={""}
+                        inputStyle={{ display: "none" }}
+                        onChange={handleCountryChange}
+                        enableSearch
+                        searchPlaceholder="Search..."
+                        searchStyle={{width:280,marginLeft:0}}
                       />
-                      <label for="phoneNumber" className="inputLabelBg">
-                        Phone Number
-                      </label>
+                    <div style={{margin:"0px 10px"}}>{countryCode}</div>
+
+                      <div className="input-box form-floating w-100">
+                        <input
+                          className="form-control"
+                          type="text"
+                          placeholder="Phone Number"
+                          id="phoneNumber"
+                          // value={`${countryCode} ${phoneNumber}`}
+                          value={phoneNumber}
+                          onChange={(e) => setPhoneNumber(e.target.value)}
+                        />
+                        <label for="phoneNumber" className="inputLabelBg">
+                          Phone Number
+                        </label>
+                      </div>
+                      
                     </div>
 
-                    {/*    <PhoneInput
-                      country={"us"}
-                      value={"8979572010"}
-                      preferredCountries={["us", "ae", "cn", "ru"]}
-                      enableSearch
-                      searchPlaceholder="Search"
-                      onChange={() => {}}
-                    /> */}
-                    <div>{countryCode}</div>
-                    <PhoneInput
-                      country={"in"}
-                      value={""}
-                      inputStyle={{ display: "none" }}
-                      onChange={handleCountryChange}
-                    />
                     <button type="submit" className="submitButton">
                       Save
                     </button>

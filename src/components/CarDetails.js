@@ -1,5 +1,5 @@
+"use client";
 import "../app/[locale]/cars/cars.css";
-
 import { FaUser, FaSuitcase, FaShoppingBag, FaDoorOpen } from "react-icons/fa";
 import { TbAutomaticGearbox } from "react-icons/tb";
 import { IoInformationCircleOutline } from "react-icons/io5";
@@ -9,8 +9,24 @@ import { colors } from "../../public/colors/colors";
 import { IoMdClose } from "react-icons/io";
 import Link from "next/link";
 import Image from "next/image";
+import CommonModal from "./modals/CommonModal";
+import { useState } from "react";
+// import "../styles/globals.css";
 
 export default function CarDetails({ car, onClose }) {
+  const [showBestPriceModal, setShowBestPriceModal] = useState(false);
+  const [showPriceDetailsModal, setShowPriceDetailsModal] = useState(false);
+  const [bestPriceModalContent, setBestPriceModalContent] = useState("");
+  const [priceDetailsModalContent, setPriceDetailsModalContent] = useState("");
+  const openModal = (content) => {
+    setBestPriceModalContent(content);
+    setShowBestPriceModal(true);
+  };
+
+  const closeModal = () => {
+    setShowBestPriceModal(false);
+    setShowPriceDetailsModal(false);
+  };
   return (
     <div className="carDetails">
       {/* Left Side - Car Image & Info Overlay */}
@@ -21,16 +37,16 @@ export default function CarDetails({ car, onClose }) {
             <p className="carSubtitle">or similar | Saloon</p>
           </div>
           <div>
-        <Image
-            src={car.image}
-            className="carDetailsImage"
-            alt={car.name}
-            width={752}
-            height={500}
-            layout="responsive"
-          />
-      </div>
-          <div style={{marginBottom:20}}>
+            <Image
+              src={car.image}
+              className="carDetailsImage"
+              alt={car.name}
+              width={752}
+              height={500}
+              layout="responsive"
+            />
+          </div>
+          <div style={{ marginBottom: 20 }}>
             <div className="carIcons" style={styles.carDetailsFacilities}>
               <span>
                 <FaUser style={styles.iconStyles} /> 5 Seats
@@ -57,9 +73,8 @@ export default function CarDetails({ car, onClose }) {
           </div>
         </div>
         {/* <img src={car.image} alt={car.name} className="carDetailsImage" /> */}
-        
       </div>
-      
+
       <div className="carInfo">
         <div>
           <div className="d-flex justify-content-between align-items-center">
@@ -86,12 +101,50 @@ export default function CarDetails({ car, onClose }) {
               <span style={styles.included}>
                 Included{" "}
                 <IoInformationCircleOutline
-                  style={{ fontWeight: 700, color: "#000" }}
+                  style={{
+                    fontWeight: 800,
+                    color: "#000",
+                    fontSize: 20,
+                    cursor: "pointer",
+                  }}
+                  onClick={() =>
+                    openModal(
+                      <>
+                        <p className="heading3">
+                          You will be asked to provide a valid payment
+                          instrument, in order to complete the booking.
+                        </p>
+                        <ul>
+                          <li>
+                            A fee will be charged if the booking is cancelled.
+                          </li>
+                          <li>
+                            Cancellation fees are based on your final selection
+                            and will be displayed on the page where you finalize
+                            your booking.
+                          </li>
+                          <li>
+                            If you cancel after the scheduled pick-up time, no
+                            refund will be given.
+                          </li>
+                        </ul>
+                      </>
+                    )
+                  }
                 />
               </span>
             </div>
           </div>
-
+          <CommonModal
+            show={showBestPriceModal}
+            handleClose={closeModal}
+            content={bestPriceModalContent}
+          />
+          <CommonModal
+            show={showPriceDetailsModal}
+            handleClose={closeModal}
+            content={priceDetailsModalContent}
+          />
           <p style={styles.carDetailsH}>Mileage</p>
           <div className="infoBox">
             <div className="infoContent">
@@ -118,15 +171,46 @@ export default function CarDetails({ car, onClose }) {
                 AED / day
               </span>
             </span>
-            {/* <span className="totalRate">5,200.05 AED total</span> */}
-            {/* <a href="#" className="priceDetails">
+
+            <p
+              className="priceDetails"
+              onClick={() =>
+                openModal(
+                  <>
+                    <p className="heading1">Price Details</p>
+                    <div className="section">
+                      <p className="heading3">Rental charges</p>
+                      <div className="flex mb-0">
+                        <p>3 Rental days x AED 226.50</p>
+                        <p className="m-0">200</p>
+                      </div>
+                    </div>
+                    <div className="section">
+                      <p className="heading3">Taxes and fees</p>
+                      <div className="flex">
+                        <p>Premium Location Fee</p>
+                        <p className="m-0">200</p>
+                      </div>
+                      <div className="flex mb-0">
+                        <p>Vehicle License Fee</p>
+                        <p className="m-0">200</p>
+                      </div>
+                    </div>
+                    <div className="flex">
+                      <p className="heading2">Total (incl. tax)</p>
+                      <p className="heading2">200</p>
+                    </div>
+                  </>
+                )
+              }
+            >
               Price details
-            </a> */}
+            </p>
           </div>
 
-          <button className="nextButton" style={styles.nextButton}>
+          <Link href="/cars/offerCheckout" className="nextButton" style={styles.nextButton}>
             Next
-          </button>
+          </Link>
         </div>
       </div>
     </div>
@@ -150,6 +234,10 @@ const styles = {
   nextButton: {
     backgroundColor: colors.themeMain,
     color: colors.white,
+    display:"flex",
+    justifyContent:"center",
+    alignItems:"center",
+    textDecoration:"none"
   },
   dailyRate: {
     fontSize: 20,
