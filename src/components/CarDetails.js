@@ -93,7 +93,7 @@ export default function CarDetails({ car, onClose }) {
                 <div>
                   <strong>Stay flexible</strong>
                   <p className="mb-0">
-                    Pay at pick-up, free cancellation and rebooking any time
+                    Pay online, free cancellation and rebooking any time
                     before pick-up time
                   </p>
                 </div>
@@ -145,11 +145,21 @@ export default function CarDetails({ car, onClose }) {
                 <span style={styles.included}>Included</span>
               </div>
             </div>
+            <p style={styles.carDetailsH}>Deposit</p>
+            <div className="infoBox">
+              <div className="infoContent">
+                <div>
+                  <strong>Zero Deposit</strong>
+                  <p className="mb-0">No deposit required — get started right away!</p>
+                </div>
+                <span style={styles.included}>Included</span>
+              </div>
+            </div>
           </div>
 
           <div className="d-flex justify-content-between">
             <div className="pricing">
-              <span style={styles.dailyRate}>
+              {/* <span style={styles.dailyRate}>
                 {car.price}{" "}
                 <span
                   style={{
@@ -160,7 +170,7 @@ export default function CarDetails({ car, onClose }) {
                 >
                   AED / day
                 </span>
-              </span>
+              </span> */}
 
               <PriceDetailsModal />
             </div>

@@ -72,7 +72,7 @@ const page = () => {
             </div>
           </div>
         </div>
-        <div className="row d-flex align-items-stretch mb-5">
+        <div className="row mb-5">
           <div className="col-md-4 mb-4 d-flex">
             <OfferCheckoutCard
               packageName="Basic"
@@ -91,7 +91,7 @@ const page = () => {
               packageName="Gold"
               heading="Smart Protection (Minimum age 25)"
               numberOfStars="2"
-              footer="50"
+              footer="30 Aed/day"
               discount="-19% online discount"
               selectedPackage={selectedPackage}
               onPackageClick={handlePackageClick}
@@ -104,7 +104,7 @@ const page = () => {
               packageName="Platinum"
               heading="All Inclusive Protection (Minimum age 25)"
               numberOfStars="3"
-              footer="75"
+              footer="60 Aed/day"
               discount="-35% online discount"
               selectedPackage={selectedPackage}
               onPackageClick={handlePackageClick}

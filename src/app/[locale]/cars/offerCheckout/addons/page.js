@@ -11,6 +11,10 @@ import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import { FaCarOn } from "react-icons/fa6";
 import { MdOutlineAirlineSeatReclineExtra } from "react-icons/md";
 import { fonts } from "../../../../../../public/fonts/fonts";
+import Tooltip from "rsuite/Tooltip";
+import Whisper from "rsuite/Whisper";
+import "rsuite/Tooltip/styles/index.css";
+import { IoInformationCircleOutline } from "react-icons/io5";
 
 const addons = [
   {
@@ -34,11 +38,7 @@ const addons = [
 ];
 
 const page = () => {
-  const [activeAddons, setActiveAddons] = useState({
-    0: false,
-    1: false,
-    2: false,
-  });
+  const [activeAddons, setActiveAddons] = useState({});
   const toggleAddon = (index) => {
     setActiveAddons((prev) => ({
       ...prev,
@@ -95,7 +95,24 @@ const page = () => {
             <p style={{ fontFamily: fonts.helvetica700 }}>
               Your booking overview
             </p>
-            <p></p>
+            <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
+            {addons
+              .filter((_, index) => activeAddons[index])
+              .map((addon, index) => (
+                <div key={index} style={{ marginBottom: 10 }}>
+                  <div className="liContainer">
+                    <li className="liTick">{addon.overview}</li>
+                    <Whisper
+                      placement="left"
+                      trigger="hover"
+                      speaker={<Tooltip>{addon.info}</Tooltip>}
+                    >
+                      <IoInformationCircleOutline style={styles.iIcon} />
+                    </Whisper>
+                  </div>
+                </div>
+              ))}
+            </ul>
           </div>
         </div>
       </div>

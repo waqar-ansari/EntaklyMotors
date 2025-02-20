@@ -24,7 +24,7 @@ const OfferCheckoutCard = ({
   const [stars, setStars] = useState(numberOfStars);
 
   return (
-    <div onClick={() => onPackageClick(packageName)}>
+    <div className="w-100 h-100" onClick={() => onPackageClick(packageName)}>
       <div
         style={
           selectedPackage === packageName

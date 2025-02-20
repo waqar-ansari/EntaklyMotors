@@ -12,19 +12,19 @@ const carsData = [
   {
     id: 1,
     name: "Premium (BMW 2 Series)",
-    image: "/images/car1.png",
+    image: "/images/car5.png",
     price: 175,
   },
   {
     id: 2,
     name: "Luxury (BMW 3 Series)",
-    image: "/images/car2.png",
+    image: "/images/car6.png",
     price: 184,
   },
   {
     id: 3,
     name: "Standard (Chevrolet Blazer)",
-    image: "/images/car2.png",
+    image: "/images/car4.png",
     price: 199,
   },
   {
@@ -51,11 +51,16 @@ const carsData = [
     image: "/images/car1.png",
     price: 210,
   },
+  {
+    id: 7,
+    name: "Electric (Tesla Model 3)",
+    image: "/images/car4.png",
+    price: 210,
+  },
 ];
 
 export default function CarsPage() {
   const [selectedCarId, setSelectedCarId] = useState(null);
-
 
   const handleCloseDetails = () => {
     setSelectedCarId(null);
@@ -68,7 +73,7 @@ export default function CarsPage() {
         <h3 style={{ textTransform: "uppercase", marginBottom: 20 }}>
           Which car do you want to drive?
         </h3>
-        <CustomDropdown title={"Sort By"} multiSelect={true} showSelectedItemCount={true}/>
+        {/* <CustomDropdown title={"Sort By"} multiSelect={true} showSelectedItemCount={true}/> */}
         {carsData
           .reduce((rows, car, index) => {
             if (index % 3 === 0) {

@@ -58,6 +58,7 @@ const styles = {
     borderRadius: 10,
     boxShadow: "0 0 0 1px #ccc",
     marginBottom: 20,
+    cursor:"pointer",
   },
   iconStyle: {
     fontSize: 20,

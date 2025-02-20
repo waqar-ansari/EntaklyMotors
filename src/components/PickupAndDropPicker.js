@@ -65,7 +65,7 @@ const PickupAndDropPicker = ({ heading = true }) => {
               id="dropLocation"
               placeholder="Drop Location"
             />
-            <label htmlFor="dropLocation">Delivery Location</label>
+            <label htmlFor="dropLocation">Dropoff Location</label>
           </div>
         </div>
 
@@ -108,7 +108,7 @@ const PickupAndDropPicker = ({ heading = true }) => {
               placeholder="Drop-off Date & Time"
               onClick={openDatePicker}
             />
-            <label htmlFor="floatingInputGroup1">Delivery Date</label>
+            <label htmlFor="floatingInputGroup1">Dropoff Date</label>
           </div>
         </div>
         <Link href="/cars" style={styles.showCarsBtn}>

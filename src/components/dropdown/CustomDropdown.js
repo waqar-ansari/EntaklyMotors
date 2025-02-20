@@ -51,7 +51,7 @@ const CustomDropdown = ({ title, multiSelect, showSelectedItemCount }) => {
             boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
           }}
         >
-          <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
+          <ul style={{ listStyleType: "none", paddingLeft: 20, paddingRight: 20 }}>
             {dropDownItems.map((item, index) => {
               return (
                 <li
@@ -59,6 +59,7 @@ const CustomDropdown = ({ title, multiSelect, showSelectedItemCount }) => {
                     onSelection(item);
                   }}
                   key={index}
+                  style={styles.activeItemStyle}
                 >
                   {item}
                 </li>
@@ -80,5 +81,9 @@ const styles = {
     color: "#fff",
     borderRadius: 30,
     padding: "10px 20px",
+  },
+  activeItemStyle: {
+    background: "#000",
+    color: "#fff",
   },
 };

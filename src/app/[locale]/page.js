@@ -9,6 +9,7 @@ import { fonts } from "../../../public/fonts/fonts";
 import Footer from "@/components/Footer";
 import PickupAndDropPicker from "@/components/PickupAndDropPicker";
 import { FaWhatsapp } from "react-icons/fa";
+import FloatingWhatsapp from "@/components/FloatingWhatsapp";
 
 export default function HomePage() {
   const t = useTranslations("HomePage");
@@ -111,7 +112,7 @@ export default function HomePage() {
             <div style={styles.textContainer}>
               <p style={styles.imageHeading}>Luxury Car Service with ENTAKLY</p>
               <p style={styles.imageText}>
-                Enjoy a professional journey with Entakly’s premium luxury car pickup and dropoff
+                Enjoy a professional journey with Entakly’s premium luxury car
                 service
               </p>
               <Link href="#" style={styles.imageButton}>
@@ -121,22 +122,6 @@ export default function HomePage() {
           </div>
         </div>
         <div className="row showdowForRow" style={styles.marginB}>
-          {/* <div className="col-md-12" style={{ position: "relative" }}>
-            <Image
-              src="/images/homeImage2.png"
-              alt="limousine"
-              width={1441}
-              height={619}
-              layout="responsive"
-            />
-            <div style={styles.textContainer}>
-              <p style={styles.imageHeading}>ENTAKLY App Offers</p>
-              <p style={styles.imageText}>Download the Entakly app</p>
-              <Link href="#" style={styles.imageButton}>
-                Download the app
-              </Link>
-            </div>
-          </div> */}
           <div className="col-md-4 d-flex justify-content-center align-items-center">
             <div style={{ color: colors.black }} className="ps-3">
               <p style={{ fontFamily: fonts.helvetica700, fontSize: 24 }}>
@@ -157,7 +142,7 @@ export default function HomePage() {
           </div>
           <div className="col-md-4 d-flex justify-content-center align-items-center">
             <Image
-              src="/icons/linkGramQr.svg"
+              src="/icons/linkGramQr.jpeg"
               alt="limousine"
               width={200}
               height={200}
@@ -172,11 +157,26 @@ export default function HomePage() {
               layout="responsive"
             />
           </div>
+          <div className="d-flex justify-content-end">
+          <Link
+            href="https://apps.apple.com/in/app/linkgram/id6502818815"
+            target="_blank"
+            style={{paddingBottom:15}}
+          >
+            <Image
+              src="/icons/linkGramAppLogo.webp"
+              alt="linkgramLogo"
+              width={50}
+              height={50}
+              style={{borderRadius:10}}
+
+            />
+          </Link>
+          </div>
         </div>
-        <div className="row"></div>
       </div>
 
-      <div className="container-fluid">
+      <div className="container-fluid" id="pickUpAndDropoff">
         <div className="row justify-content-center">
           <div style={styles.moreEntakly}>
             <p style={styles.heading}>More Entakly</p>
@@ -213,8 +213,12 @@ export default function HomePage() {
               >
                 <div style={styles.textContainer2}>
                   <p style={styles.imageHeading2}>Entakly Business</p>
-                  <p style={styles.imageText}>Pickup and dropoff to airport</p>
-                  <Link href="#" style={styles.imageButton}>
+                  <p style={styles.imageText}>Pickup and dropoff across UAE</p>
+                  <Link
+                    href="https://wa.me/+971044536000"
+                    target="_blank"
+                    style={styles.imageButton}
+                  >
                     <FaWhatsapp style={{ marginBottom: 2, marginRight: 3 }} />{" "}
                     Chat now
                   </Link>

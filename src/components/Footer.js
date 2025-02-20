@@ -20,28 +20,21 @@ const Footer = () => {
               <div>
                 <Link href="#">
                   <Image
-                    src="/icons/facebookLogo.png"
-                    alt="logo"
-                    width={24}
-                    height={24}
-                    style={{ marginRight: 24 }}
-                  />
-                </Link>
-                <Link href="#">
-                  <Image
                     src="/icons/instagramLogo.png"
                     alt="logo"
-                    width={24}
-                    height={24}
+                    width={30}
+                    height={30}
                     style={{ marginRight: 24 }}
                   />
                 </Link>
-                <Link href="#">
+                <Link 
+                  href="https://wa.me/+971044536000"
+                  target="_blank">
                   <Image
                     src="/icons/whatsappLogo.png"
                     alt="logo"
-                    width={24}
-                    height={24}
+                    width={30}
+                    height={30}
                     style={{ marginRight: 24 }}
                   />
                 </Link>
@@ -49,8 +42,8 @@ const Footer = () => {
                   <Image
                     src="/icons/telegramLogo.png"
                     alt="logo"
-                    width={24}
-                    height={24}
+                    width={30}
+                    height={30}
                   />
                 </Link>
               </div>
@@ -71,13 +64,13 @@ const Footer = () => {
                 <Link href="#" className="footerLinks">Car Rental</Link>
               </li>
               <li style={styles.LinkItems}>
-                <Link href="#" className="footerLinks">Airport PickUp and Dropoff</Link>
+                <Link href="#pickUpAndDropoff" className="footerLinks">PickUp and Dropoff</Link>
               </li>
               <li style={styles.LinkItems}>
-                <Link href="#" className="footerLinks">Lease to on 24 months 20% down payment</Link>
+                <Link href="/leaseCar" className="footerLinks">Lease to on 24 months 20% down payment</Link>
               </li>
               <li style={styles.LinkItems}>
-                <Link href="#" className="footerLinks">V class Maybach services</Link>
+                <Link href="/luxuryMercedes" className="footerLinks">V class Maybach services</Link>
               </li>
             </ul>
           </div>
@@ -91,16 +84,16 @@ const Footer = () => {
               }}
             >
               <li style={styles.LinkItems}>
-                <Link href="#" className="footerLinks">Contact</Link>
+                <Link href="/contactUs" className="footerLinks">Contact Us</Link>
               </li>
               <li style={styles.LinkItems}>
-                <Link href="#" className="footerLinks">Rental Information</Link>
-              </li>
-              <li style={styles.LinkItems}>
-                <Link href="#" className="footerLinks">Entakly Group</Link>
+                <Link href="/aboutUs" className="footerLinks">About Us</Link>
               </li>
               <li style={styles.LinkItems}>
                 <Link href="#" className="footerLinks">Corporate Responsibility</Link>
+              </li>
+              <li style={styles.LinkItems}>
+                <Link href="/terms&Conditions" className="footerLinks">Terms And Conditions</Link>
               </li>
             </ul>
           </div>
@@ -115,7 +108,7 @@ const Footer = () => {
             />
           </div>
         </div>
-        <div className="row mt-5">
+        {/* <div className="row mt-5">
           <div className="col-12">
             <Link href="#" style={styles.bottomLinks}>
               Contact
@@ -130,7 +123,7 @@ const Footer = () => {
               Terms and Conditions
             </Link>
           </div>
-        </div>
+        </div> */}
         <div className="row mt-4 text-white text-center">
           <div className="col-12">© 2025 Entakly. All rights reserved.</div>
         </div>

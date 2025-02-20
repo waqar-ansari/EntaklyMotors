@@ -5,6 +5,7 @@ import "./commonModal.css";
 const CommonModal = ({ show, handleClose, content }) => {
   return (
     <Modal
+    className="commonModalContent"
       show={show}
       onHide={handleClose}
       style={styles.modalContainer}
