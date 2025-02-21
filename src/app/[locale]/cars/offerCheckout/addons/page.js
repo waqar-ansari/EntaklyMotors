@@ -56,7 +56,7 @@ const page = () => {
             <div className="d-flex justify-content-end align-items-center">
               <PriceDetailsModal />
               <Link
-                href="/cars/offerCheckout/addOns"
+                href="/booking/paymentAndReview"
                 className="mt-0"
                 style={styles.nextButton}
               >

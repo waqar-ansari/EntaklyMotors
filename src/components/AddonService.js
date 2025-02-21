@@ -4,7 +4,7 @@ import { fonts } from "../../public/fonts/fonts";
 import Toggle from "rsuite/Toggle";
 import "rsuite/Toggle/styles/index.css";
 
-const AddonService = ({ icon, isActive, toggleActive,addonName }) => {
+const AddonService = ({ icon, isActive, toggleActive, addonName }) => {
   const [showDetails, setShowDetails] = useState(false);
   const handleAddon = () => {
     console.log("addon clicked");
@@ -58,7 +58,7 @@ const styles = {
     borderRadius: 10,
     boxShadow: "0 0 0 1px #ccc",
     marginBottom: 20,
-    cursor:"pointer",
+    cursor: "pointer",
   },
   iconStyle: {
     fontSize: 20,

@@ -17,8 +17,8 @@ export default function HomePage() {
     <div>
       <div>
         <p
-          className="text-danger text-center text-white mb-0 py-2"
-          style={{ backgroundColor: colors.themeMain }}
+          className="text-danger text-center text-white mb-0 pt-1"
+          style={{ backgroundColor: colors.black }}
         >
           11 years of Entakly. 11 years of tradition.
         </p>

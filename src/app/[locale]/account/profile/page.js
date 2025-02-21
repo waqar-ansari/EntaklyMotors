@@ -19,7 +19,7 @@ const Page = () => {
   const profileSubTab = searchParams.get("subTab") || "profileInformation";
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
-  const [countryCode, setCountryCode] = useState("+1"); // Default country code
+  const [countryCode, setCountryCode] = useState("+971");
   const [phoneNumber, setPhoneNumber] = useState("");
   const handleTabSelect = (key) => {
     router.push(`?tab=${key}`, { scroll: false });
@@ -79,9 +79,9 @@ const Page = () => {
                         onChange={handleCountryChange}
                         enableSearch
                         searchPlaceholder="Search..."
-                        searchStyle={{width:280,marginLeft:0}}
+                        searchStyle={{ width: 280, marginLeft: 0 }}
                       />
-                    <div style={{margin:"0px 10px"}}>{countryCode}</div>
+                      <div style={{ margin: "0px 10px" }}>{countryCode}</div>
 
                       <div className="input-box form-floating w-100 my-0">
                         <input
@@ -97,7 +97,6 @@ const Page = () => {
                           Phone Number
                         </label>
                       </div>
-                      
                     </div>
 
                     <button type="submit" className="submitButton mt-5">
