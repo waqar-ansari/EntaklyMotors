@@ -225,6 +225,11 @@ input[type="password"]::-webkit-textfield-decoration-container {
   margin-bottom: 15px;
 
 }
-.rs-toggle-checked .rs-toggle-presentation{
-  background-color:#292268 !important;
+
+.rs-toggle-checked .rs-toggle-presentation {
+  background-color: #292268 !important;
+}
+.dropdown-item:hover{
+  background-color: #ababab !important;
+  border-radius: 10px;
 }

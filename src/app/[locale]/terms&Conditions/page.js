@@ -177,13 +177,15 @@ const page = () => {
             </div>
             <h6 style={styles.paraStyles} className="mb-5">
               By renting a car from ENTAKLY MOTORS CAR RENTAL LLC, you agree to
-              these terms and conditions. For any clarifications, please 
-              <Link href="/contactUs" className="text-decoration-none"> contact our customer support</Link>
+              these terms and conditions. For any clarifications, please
+              <Link href="/contactUs" className="text-decoration-none">
+                {" "}
+                contact our customer support
+              </Link>
             </h6>
           </div>
         </div>
       </div>
-
       <Footer />
     </>
   );

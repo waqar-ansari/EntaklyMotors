@@ -38,12 +38,12 @@ const Header = ({ headerPickupAndDrop }) => {
         <div className="container-xxl">
           <nav className="navbar navbar-expand-lg">
             <div className="container-fluid">
-              <Link className="navbar-brand" href="/">
+              <Link className="navbar-brand py-0" href="/">
                 <Image
-                  src="/icons/entaklyLogo.jpeg"
+                  src="/icons/entaklyLogo.png"
                   alt="Logo"
-                  width={100}
-                  height={81}
+                  width={140}
+                  height={53}
                   priority
                 />
               </Link>
@@ -82,8 +82,8 @@ const Header = ({ headerPickupAndDrop }) => {
                 className="collapse navbar-collapse justify-content-end"
                 id="navbarNav"
               >
-                <ul className="navbar-nav">
-                  <li className="nav-item d-flex align-items-center me-4">
+                <ul className="navbar-nav mt-0">
+                  <li className="nav-item d-flex align-items-center me-4 mb-0">
                     <Image
                       src="/icons/car.png"
                       alt="Logo"
@@ -99,7 +99,7 @@ const Header = ({ headerPickupAndDrop }) => {
                       Manage Booking
                     </a>
                   </li>
-                  <li className="nav-item d-flex align-items-center me-4">
+                  <li className="nav-item d-flex align-items-center me-4 mb-0">
                     <Image
                       src="/icons/globe.png"
                       alt="Logo"
@@ -116,7 +116,7 @@ const Header = ({ headerPickupAndDrop }) => {
                     </a>
                   </li>
                   {token ? (
-                    <li className="nav-item d-flex align-items-center">
+                    <li className="nav-item d-flex align-items-center mb-0">
                       <FaUserCircle style={{color:colors.white, fontSize:22}}/>
 
                       <Link
@@ -127,7 +127,7 @@ const Header = ({ headerPickupAndDrop }) => {
                       </Link>
                     </li>
                   ) : (
-                    <li className="nav-item d-flex align-items-center">
+                    <li className="nav-item d-flex align-items-center mb-0">
                       <Image
                         src="/icons/user.png"
                         alt="Logo"

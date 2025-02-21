@@ -44,7 +44,7 @@
 .form-floating>.form-control:not(:placeholder-shown)~label:after,
 .form-floating>.form-control-plaintext~label:after,
 .form-floating>.form-select~label:after {
-    background-color: #eee;
+    background-color: transparent;
 }
 
 .submitButton {
@@ -52,4 +52,9 @@
     color: #fff;
     padding: 15 40;
     margin-bottom: 30;
+}
+
+.react-tel-input .selected-flag:focus:before, .react-tel-input .selected-flag.open:before{
+    box-shadow: none !important;
+    border-color: transparent !important;
 }

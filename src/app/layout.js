@@ -1,5 +1,6 @@
 import "../styles/globals.css";
+import ReduxProvider from "../redux/provider";
 
 export default function RootLayout({ children }) {
-  return children
+  return <ReduxProvider>{children}</ReduxProvider>;
 }

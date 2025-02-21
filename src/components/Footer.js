@@ -12,10 +12,10 @@ const Footer = () => {
           <div className="col-md-12">
             <div className="d-flex justify-content-between align-items-center">
               <Image
-                src="/icons/entaklyLogo.jpeg"
+                src="/icons/entaklyLogo.png"
                 alt="logo"
-                width={120}
-                height={97}
+                width={140}
+                height={53}
               />
               <div>
                 <Link href="#">

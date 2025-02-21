@@ -35,7 +35,7 @@ const PickupAndDropPicker = ({ heading = true }) => {
   return (
     <div>
       {heading && <p style={styles.heading}>Rent a Car</p>}
-      <div className="d-flex justify-content-center" style={{ gap: "15px" }}>
+      <div className="d-flex justify-content-center pickupAndDropPicker" style={{ gap: "15px" }}>
         <div className="input-group customInputGroup position-relative">
           <span className="input-group-text">
             <FaCar />

@@ -28,7 +28,7 @@ const LanguageModal = ({ selectLanguage }) => {
             ></button>
           </div>
           <div className="modal-body">
-            <div className="container mt-5">
+            <div className="container my-5">
               <div className="row">
                 <div className="col-md-6">
                   <div

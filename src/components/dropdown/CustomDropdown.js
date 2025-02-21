@@ -3,7 +3,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 
 const dropDownItems = ["Item 1", "Item 2", "Item 3", "Item 4"];
 
-const CustomDropdown = ({ title, multiSelect, showSelectedItemCount }) => {
+const CustomDropdown = ({ title, multiSelect, showSelectedItemCount, containerstyles }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [multiSelectItem, setMultiSelectItem] = useState([]);
@@ -22,11 +22,18 @@ const CustomDropdown = ({ title, multiSelect, showSelectedItemCount }) => {
       setShowDropdown(false);
     }
   };
+
   return (
     <div
       onBlur={() => setShowDropdown(false)}
       tabIndex={0}
-      style={{ marginBottom: 20, position: "relative" }}
+      style={{
+        marginBottom: 20,
+        position: "relative",
+        cursor: "pointer",
+        display: "inline-block",
+        ...containerstyles,
+      }}
     >
       <div
         onClick={() => {
@@ -45,21 +52,31 @@ const CustomDropdown = ({ title, multiSelect, showSelectedItemCount }) => {
         <div
           style={{
             position: "absolute",
+            top: 50,
             zIndex: 1,
             background: "#fff",
             width: 200,
-            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+            boxShadow: "2px 2px 16px 1px rgba(0, 0, 0, 0.75)",
+            borderRadius: 10,
           }}
         >
-          <ul style={{ listStyleType: "none", paddingLeft: 20, paddingRight: 20 }}>
+          <ul
+            style={{ listStyleType: "none", paddingLeft: 20, paddingRight: 20 }}
+          >
             {dropDownItems.map((item, index) => {
+              const isSelected = multiSelectItem.includes(item);
               return (
                 <li
                   onClick={() => {
                     onSelection(item);
                   }}
                   key={index}
-                  style={styles.activeItemStyle}
+                  style={
+                    isSelected || selectedItem === item
+                      ? styles.activeItemStyle
+                      : styles.dropdownItemStyle
+                  }
+                  className="dropdown-item"
                 >
                   {item}
                 </li>
@@ -82,8 +99,15 @@ const styles = {
     borderRadius: 30,
     padding: "10px 20px",
   },
+  dropdownItemStyle: {
+    padding: "10px 20px",
+    cursor: "pointer",
+  },
   activeItemStyle: {
     background: "#000",
     color: "#fff",
+    borderRadius: 10,
+    padding: "10px 20px",
+    cursor: "pointer",
   },
 };

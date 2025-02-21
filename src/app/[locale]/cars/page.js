@@ -73,7 +73,13 @@ export default function CarsPage() {
         <h3 style={{ textTransform: "uppercase", marginBottom: 20 }}>
           Which car do you want to drive?
         </h3>
-        {/* <CustomDropdown title={"Sort By"} multiSelect={true} showSelectedItemCount={true}/> */}
+        <CustomDropdown
+          title={"MultiSelect"}
+          multiSelect={true}
+          showSelectedItemCount={true}
+          containerstyles={{ marginRight: 20 }}
+        />
+        <CustomDropdown title={"Sort By"} />
         {carsData
           .reduce((rows, car, index) => {
             if (index % 3 === 0) {
