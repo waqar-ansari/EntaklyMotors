@@ -49,7 +49,9 @@ export default function CarCard({ car, onClick, isSelected }) {
             </p>
             <div className="carPricing">
               <span className="dailyRate">{car.price} AED / day</span>
-              {/* <span className="totalRate">{car.price * 34} د.إ total</span> */}
+            </div>
+            <div>
+              <p className="tagStyle">Best Deal</p>
             </div>
           </div>
         </div>

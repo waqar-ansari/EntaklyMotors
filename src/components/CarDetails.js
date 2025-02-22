@@ -157,7 +157,7 @@ export default function CarDetails({ car, onClose }) {
             </div>
           </div>
 
-          <div className="d-flex justify-content-between">
+          <div className="d-flex justify-content-between align-items-center">
             <div className="pricing">
               {/* <span style={styles.dailyRate}>
                 {car.price}{" "}
@@ -171,6 +171,10 @@ export default function CarDetails({ car, onClose }) {
                   AED / day
                 </span>
               </span> */}
+              <p style={{marginBottom:5}}>Total : 800</p>
+              <div>
+              <p className="tagStyleCarDetails">Best Deal</p>
+            </div>
 
               <PriceDetailsModal />
             </div>

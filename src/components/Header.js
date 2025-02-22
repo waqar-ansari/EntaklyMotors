@@ -40,9 +40,9 @@ const Header = ({ headerPickupAndDrop }) => {
             <div className="container-fluid">
               <Link className="navbar-brand py-0" href="/">
                 <Image
-                  src="/icons/entaklyLogo.png"
+                  src="/icons/entaklyLogo.svg"
                   alt="Logo"
-                  width={140}
+                  width={200}
                   height={53}
                   priority
                 />

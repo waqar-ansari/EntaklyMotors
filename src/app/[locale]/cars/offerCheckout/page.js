@@ -51,7 +51,10 @@ const page = () => {
         <div className="row">
           <div className="col-12">
             <div className="d-flex justify-content-end align-items-center">
-              <PriceDetailsModal />
+              <div>
+                <p>Total: 800</p>
+                <PriceDetailsModal />
+              </div>
               <Link
                 href="/cars/offerCheckout/addons"
                 className="mt-0"
@@ -89,7 +92,8 @@ const page = () => {
           <div className="col-md-4 mb-4 d-flex">
             <OfferCheckoutCard
               packageName="Gold"
-              heading="Smart Protection (Minimum age 25)"
+              heading="Smart Protection"
+              extraInfo="(Minimum age 25)"
               numberOfStars="2"
               footer="30 Aed/day"
               discount="-19% online discount"
@@ -102,7 +106,8 @@ const page = () => {
           <div className="col-md-4 mb-4 d-flex">
             <OfferCheckoutCard
               packageName="Platinum"
-              heading="All Inclusive Protection (Minimum age 25)"
+              heading="All Inclusive Protection"
+              extraInfo="(Minimum age 25)"
               numberOfStars="3"
               footer="60 Aed/day"
               discount="-35% online discount"

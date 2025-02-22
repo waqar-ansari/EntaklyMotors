@@ -54,7 +54,10 @@ const page = () => {
         <div className="row">
           <div className="col-12">
             <div className="d-flex justify-content-end align-items-center">
-              <PriceDetailsModal />
+              <div>
+                <p>Total: 800</p>
+                <PriceDetailsModal />
+              </div>
               <Link
                 href="/booking/paymentAndReview"
                 className="mt-0"

@@ -11,6 +11,7 @@ import { fonts } from "../../public/fonts/fonts";
 
 const OfferCheckoutCard = ({
   heading,
+  extraInfo,
   packageName,
   numberOfStars,
   excessAmount,
@@ -34,7 +35,12 @@ const OfferCheckoutCard = ({
       >
         <div>
           <div className="d-flex justify-content-between mb-3">
-            <span style={styles.cardHeading}>{heading}</span>
+           <div>
+              <span style={styles.cardHeading}>{heading}</span>
+              <br/>
+              <span style={styles.extraInfo}>{extraInfo}</span>
+           </div>
+
             <div
               style={
                 selectedPackage === packageName
@@ -136,6 +142,11 @@ const styles = {
     fontSize: 24,
     color: colors.lightBlack,
     fontWeight: 700,
+  },
+  extraInfo: {
+    fontSize: 20,
+    color: colors.grey,
+    fontWeight: 600,
   },
   radioButton: {
     width: 20,

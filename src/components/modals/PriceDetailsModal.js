@@ -17,7 +17,7 @@ const PriceDetailsModal = () => {
   return (
     <>
       <div>
-        <p>Total : 800</p>
+        {/* <p>Total : 800</p> */}
         <p
           className="priceDetails mt-0"
           onClick={() =>

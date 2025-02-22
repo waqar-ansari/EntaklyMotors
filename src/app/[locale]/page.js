@@ -121,7 +121,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-        <div className="row showdowForRow" style={styles.marginB}>
+        <div className="row showdowForRow py-5 px-4" style={styles.marginB}>
           <div className="col-md-4 d-flex justify-content-center align-items-center">
             <div style={{ color: colors.black }} className="ps-3">
               <p style={{ fontFamily: fonts.helvetica700, fontSize: 24 }}>
@@ -148,30 +148,14 @@ export default function HomePage() {
               height={200}
             />
           </div>
-          <div className="col-md-4">
+          <div className="col-md-4 my-auto">
             <Image
-              src="/icons/linkGramLogo.jpeg"
+              src="/icons/linkGramLogo.webp"
               alt="limousine"
               width={1168}
               height={992}
               layout="responsive"
             />
-          </div>
-          <div className="d-flex justify-content-end">
-          <Link
-            href="https://apps.apple.com/in/app/linkgram/id6502818815"
-            target="_blank"
-            style={{paddingBottom:15}}
-          >
-            <Image
-              src="/icons/linkGramAppLogo.webp"
-              alt="linkgramLogo"
-              width={50}
-              height={50}
-              style={{borderRadius:10}}
-
-            />
-          </Link>
           </div>
         </div>
       </div>
@@ -213,7 +197,7 @@ export default function HomePage() {
               >
                 <div style={styles.textContainer2}>
                   <p style={styles.imageHeading2}>Entakly Business</p>
-                  <p style={styles.imageText}>Pickup and dropoff across UAE</p>
+                  <p style={styles.imageText}>Pick-up and drop-off across UAE</p>
                   <Link
                     href="https://wa.me/+971044536000"
                     target="_blank"
@@ -340,8 +324,6 @@ const styles = {
   PickupAndDropPicker: {
     position: "sticky",
     top: "10px",
-    // left: "50%",
-    // width: "100%",
     maxWidth: "1320px",
     margin: "0 auto",
     padding: "20px",
@@ -349,13 +331,6 @@ const styles = {
     borderRadius: 20,
     zIndex: 1,
     marginTop: 10,
-    // transform: "translate(-50%, -50%)",
-
-    // position: "sticky",
-    // top: 0, // Sticks at the top when scrolled
-    // background: "green", // Ensures visibility
-    // zIndex: 1000, // Keeps it above other content
-    // padding: "10px", // Adjust for better spacing
-    // boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+    boxShadow: "2px 2px 16px 1px rgba(0, 0, 0, 0.75)",
   },
 };

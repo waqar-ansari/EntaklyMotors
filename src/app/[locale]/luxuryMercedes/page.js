@@ -43,7 +43,7 @@ const page = () => {
                 </li>
                 <li style={styles.liStyle} className="liTick">
                   <span style={styles.bold}>Airport & Hotel Transfers</span> –
-                  Hassle-free pickup and drop-of
+                  Hassle-free pick-up and drop-off
                 </li>
                 <li style={styles.liStyle} className="liTick">
                   <span style={styles.bold}>Business & Leisure Travel</span> –

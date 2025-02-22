@@ -48,7 +48,7 @@ const PickupAndDropPicker = ({ heading = true }) => {
               placeholder="Pickup Location"
 
             />
-            <label htmlFor="pickupLocation">Pickup Location</label>
+            <label htmlFor="pickupLocation">Pick-up</label>
           </div>
          {/* { <div className="position-absolute" style={{ bottom: -40, left: 0 }}>
             <div style={{ background: "red" }}>pickup location div</div>
@@ -65,7 +65,7 @@ const PickupAndDropPicker = ({ heading = true }) => {
               id="dropLocation"
               placeholder="Drop Location"
             />
-            <label htmlFor="dropLocation">Dropoff Location</label>
+            <label htmlFor="dropLocation">Drop-off</label>
           </div>
         </div>
 
@@ -92,7 +92,7 @@ const PickupAndDropPicker = ({ heading = true }) => {
               placeholder="Pickup Date & Time"
               onClick={openDatePicker}
             />
-            <label htmlFor="floatingInputGroup1">Pickup Date</label>
+            <label htmlFor="floatingInputGroup1">Pick-up Date</label>
           </div>
         </div>
 
@@ -108,7 +108,7 @@ const PickupAndDropPicker = ({ heading = true }) => {
               placeholder="Drop-off Date & Time"
               onClick={openDatePicker}
             />
-            <label htmlFor="floatingInputGroup1">Dropoff Date</label>
+            <label htmlFor="floatingInputGroup1">Drop-off Date</label>
           </div>
         </div>
         <Link href="/cars" style={styles.showCarsBtn}>

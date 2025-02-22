@@ -27,7 +27,7 @@ a {
   -webkit-box-shadow: 0px 0px 10px 5px rgba(171, 171, 171, 1);
   -moz-box-shadow: 0px 0px 10px 5px rgba(171, 171, 171, 1);
   box-shadow: 0px 0px 10px 5px rgba(171, 171, 171, 1);
-  border-radius: 15;
+  border-radius: 15px;
 }
 
 .rs-input-group-addon {
@@ -180,7 +180,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
 }
 
 .react-tel-input {
-  width: 50 !important;
+  width: 50px !important;
 }
 
 .priceDetails {
@@ -190,7 +190,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
 
 .liTick:before {
   content: "\2713";
-  margin-right: 12;
+  margin-right: 12px;
   color: #1a1a1a;
 }
 
@@ -205,7 +205,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10;
+  margin-bottom: 10px;
 }
 
 .liCross {
@@ -232,4 +232,9 @@ input[type="password"]::-webkit-textfield-decoration-container {
 .dropdown-item:hover{
   background-color: #ababab !important;
   border-radius: 10px;
+}
+.hrStyle{
+  width: 100%;
+  background-color: #ababab;
+  height: 1px;
 }

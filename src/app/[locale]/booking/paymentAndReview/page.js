@@ -10,6 +10,10 @@ import PhoneInput from "react-phone-input-2";
 import "../../../../styles/inputFields.css";
 import { Checkbox } from "rsuite";
 import { IoInformationCircleSharp } from "react-icons/io5";
+import Image from "next/image";
+import "../../cars/cars.css";
+import { FaShop } from "react-icons/fa6";
+
 const page = () => {
   const [countryCode, setCountryCode] = useState("+971");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -23,14 +27,10 @@ const page = () => {
         <div className="row">
           <div className="col-md-12 pt-5">
             <div className="d-flex justify-content-end align-items-center">
-              <PriceDetailsModal />
-              <Link
-                href="/cars/offerCheckout/addons"
-                className="mt-0"
-                style={styles.nextButton}
-              >
-                Continue
-              </Link>
+              <div>
+                <p>Total: 800</p>
+                <PriceDetailsModal />
+              </div>
             </div>
           </div>
         </div>
@@ -144,7 +144,7 @@ const page = () => {
                 id="cardNumber"
               />
               <label for="cardNumber" className="inputLabelBg">
-              Card number
+                Card number
               </label>
             </div>
             <div className="input-box form-floating">
@@ -155,7 +155,7 @@ const page = () => {
                 id="cardholderName"
               />
               <label for="cardholderName" className="inputLabelBg">
-              Cardholder name
+                Cardholder name
               </label>
             </div>
             <div className="d-flex justify-content-between">
@@ -184,14 +184,12 @@ const page = () => {
                   id="cvv"
                 />
                 <label for="cvv" className="inputLabelBg">
-                CVV
+                  CVV
                 </label>
               </div>
             </div>
             <div className="mt-4">
-                <h3>
-                What is your invoice address?
-                </h3>
+              <h3>What is your invoice address?</h3>
             </div>
             <div className="input-box form-floating">
               <input
@@ -201,7 +199,7 @@ const page = () => {
                 id="streetAddress"
               />
               <label for="streetAddress" className="inputLabelBg">
-              Street Address
+                Street Address
               </label>
             </div>
             <div className="d-flex justify-content-between">
@@ -238,7 +236,83 @@ const page = () => {
                 <span>Total</span>
                 <span>1000 Aed</span>
             </div> */}
-            <div className="mb-5"><PriceDetailsModal/></div>
+            <div className="d-flex justify-content-between align-items-center">
+              <h6>Total</h6>
+              <h6>800</h6>
+            </div>
+            <div className="mb-5">
+              <PriceDetailsModal />
+            </div>
+            <Link href="#" className="mt-0" style={styles.payAndBookButton}>
+              Pay and Book
+            </Link>
+          </div>
+          <div className="col-md-4">
+            <div className="sticky-top" style={{ top: "20px", backgroundColor: "#ebebf0", padding: 20, borderRadius: 10, marginBottom: 20 }}>
+              <div className="d-flex align-items-center mb-5">
+                <div className="reviewPageImageBg">
+                  <Image
+                    src="/images/car4.png"
+                    alt="visa"
+                    width={92}
+                    height={71}
+                    style={{ position: "absolute", top: 0, right: 0 }}
+                  />
+                </div>
+                <div>
+                  <div className="ms-2">
+                    <h6 style={{ marginBottom: 5 }}>
+                      GAC Empow GDI (Turbo) 7-Speed WDCT
+                    </h6>
+                    <p style={{ marginBottom: 5, color: "#828287" }}>
+                      or similar | CCAR
+                    </p>
+                    <p style={{ fontWeight: 600 }}>3 Rental Days</p>
+                  </div>
+                </div>
+              </div>
+              <div className="pickupAndReturn">
+                <FaShop className="icon-top" />
+                <div className="mb-2">
+                  <p
+                    style={{ color: "#828287", marginBottom: 5, fontWeight: 600 }}
+                  >
+                    Pick-up
+                  </p>
+                  <h6 style={{ marginBottom: 5 }}>
+                    Dubai Int. Airport Terminal 3
+                  </h6>
+                  <p>Tue, 11. Mar, 2025 | 12:30</p>
+                </div>
+                <div>
+                  <p
+                    style={{ color: "#828287", marginBottom: 5, fontWeight: 600 }}
+                  >
+                    Return
+                  </p>
+                  <h6 style={{ marginBottom: 5 }}>
+                    Dubai Int. Airport Terminal 3
+                  </h6>
+                  <p>Tue, 11. Mar, 2025 | 12:30</p>
+                </div>
+                <FaShop className="icon-bottom" />
+              </div>
+              <hr className="hrStyle" />
+              <h6 className="mb-3">Your Booking overview:</h6>
+              <ul style={{ listStyleType: "none" }}>
+                <li className="liTick">Third party insurance</li>
+                <li className="liTick">
+                  600 km are included, each additional kilometer costs AED 1.35
+                </li>
+                <li className="liTick">
+                  Smart Protection (Minimum age 25) - No excess
+                </li>
+                <li className="liTick">
+                  Booking option: Best price - Pay now, cancel and rebook for a
+                  fee
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -264,5 +338,21 @@ const styles = {
     cursor: "pointer",
     marginTop: 15,
     marginLeft: 15,
+  },
+  payAndBookButton: {
+    backgroundColor: colors.themeMain,
+    color: colors.white,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    textDecoration: "none",
+    width: 300,
+    padding: 10,
+    fontSize: 16,
+    border: "none",
+    borderRadius: 5,
+    cursor: "pointer",
+    marginBottom: 20,
+    fontWeighr: 700,
   },
 };

@@ -12,12 +12,23 @@ const Footer = () => {
           <div className="col-md-12">
             <div className="d-flex justify-content-between align-items-center">
               <Image
-                src="/icons/entaklyLogo.png"
+                src="/icons/entaklyLogo.svg"
                 alt="logo"
-                width={140}
+                width={200}
                 height={53}
               />
               <div>
+                <Link href="https://apps.apple.com/in/app/linkgram/id6502818815"
+                target="_blank"
+                >
+                  <Image
+                    src="/icons/linkGramAppLogo.webp"
+                    alt="logo"
+                    width={30}
+                    height={30}
+                    style={{ marginRight: 24, borderRadius: 10 }}
+                  />
+                </Link>
                 <Link href="#">
                   <Image
                     src="/icons/instagramLogo.png"
@@ -64,7 +75,7 @@ const Footer = () => {
                 <Link href="#" className="footerLinks">Car Rental</Link>
               </li>
               <li style={styles.LinkItems}>
-                <Link href="#pickUpAndDropoff" className="footerLinks">PickUp and Dropoff</Link>
+                <Link href="#pickUpAndDropoff" className="footerLinks">Pick-up and Drop-off</Link>
               </li>
               <li style={styles.LinkItems}>
                 <Link href="/leaseCar" className="footerLinks">Lease to on 24 months 20% down payment</Link>
