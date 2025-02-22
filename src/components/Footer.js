@@ -101,7 +101,7 @@ const Footer = () => {
                 <Link href="/aboutUs" className="footerLinks">About Us</Link>
               </li>
               <li style={styles.LinkItems}>
-                <Link href="#" className="footerLinks">Corporate Responsibility</Link>
+                <Link href="/socialResonsibility" className="footerLinks">Corporate Responsibility</Link>
               </li>
               <li style={styles.LinkItems}>
                 <Link href="/terms&Conditions" className="footerLinks">Terms And Conditions</Link>
