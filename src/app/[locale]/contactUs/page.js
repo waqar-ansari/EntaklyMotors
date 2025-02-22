@@ -26,13 +26,13 @@ const page = () => {
             <div style={styles.contactInfoBox}>
               <span>Telephone:  </span>
               <Link
-                href="tel:+97144536000"
+                href="tel:+998333333331"
                 style={{
                   fontFamily: fonts.helvetica400,
                   color: colors.black,
                 }}
               >
-               <span className="ms-1"> +971 4 4536000</span>
+               <span className="ms-1"> +998 33333333 1</span>
               </Link>
             </div>
             <div style={styles.contactInfoBox}>
