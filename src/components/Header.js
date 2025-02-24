@@ -30,7 +30,7 @@ const Header = ({ headerPickupAndDrop }) => {
   const token = "abcd";
   return (
     <div>
-      <FloatingWhatsapp/>
+      <FloatingWhatsapp />
       <PickerModal showModal={showPickerModal} closeModal={closePickerModal} />
       <div
         style={{ background: colors.themeMain, fontFamily: fonts.helvetica400 }}
@@ -67,7 +67,68 @@ const Header = ({ headerPickupAndDrop }) => {
                   </div>
                 </div>
               )}
-              <button
+              <div className="mobileHeaderIcons">
+                <ul className="navbar-nav mt-0 flex-row">
+                  <li className="nav-item d-flex align-items-center me-4 mb-0">
+                    <a
+                      className="nav-link active text-white text-decoration-none"
+                      aria-current="page"
+                      href="#"
+                    >
+                      <Image
+                        src="/icons/car.png"
+                        alt="Logo"
+                        width={24}
+                        height={24}
+                        priority
+                      />
+                    </a>
+                  </li>
+                  <li className="nav-item d-flex align-items-center me-4 mb-0">
+                    <a
+                      data-bs-toggle="modal"
+                      data-bs-target="#languageModal"
+                      className="nav-link text-white text-decoration-none"
+                    >
+                      <Image
+                        src="/icons/globe.png"
+                        alt="Logo"
+                        width={24}
+                        height={24}
+                        priority
+                      />
+                    </a>
+                  </li>
+                  {token ? (
+                    <li className="nav-item d-flex align-items-center mb-0">
+                      <Link
+                        href="/auth/login&Signup"
+                        className="nav-link text-white text-decoration-none"
+                      >
+                        <FaUserCircle
+                          style={{ color: colors.white, fontSize: 22 }}
+                        />
+                      </Link>
+                    </li>
+                  ) : (
+                    <li className="nav-item d-flex align-items-center mb-0">
+                      <Link
+                        href="/auth/login&Signup"
+                        className="nav-link text-white text-decoration-none"
+                      >
+                        <Image
+                          src="/icons/user.png"
+                          alt="Logo"
+                          width={24}
+                          height={24}
+                          priority
+                        />
+                      </Link>
+                    </li>
+                  )}
+                </ul>
+              </div>
+              {/* <button
                 className="navbar-toggler"
                 type="button"
                 data-bs-toggle="collapse"
@@ -77,7 +138,7 @@ const Header = ({ headerPickupAndDrop }) => {
                 aria-label="Toggle navigation"
               >
                 <span className="navbar-toggler-icon"></span>
-              </button>
+              </button> */}
               <div
                 className="collapse navbar-collapse justify-content-end"
                 id="navbarNav"
@@ -117,7 +178,9 @@ const Header = ({ headerPickupAndDrop }) => {
                   </li>
                   {token ? (
                     <li className="nav-item d-flex align-items-center mb-0">
-                      <FaUserCircle style={{color:colors.white, fontSize:22}}/>
+                      <FaUserCircle
+                        style={{ color: colors.white, fontSize: 22 }}
+                      />
 
                       <Link
                         href="/auth/login&Signup"

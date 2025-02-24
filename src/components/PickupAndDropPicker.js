@@ -35,22 +35,24 @@ const PickupAndDropPicker = ({ heading = true }) => {
   return (
     <div>
       {heading && <p style={styles.heading}>Rent a Car</p>}
-      <div className="d-flex justify-content-center pickupAndDropPicker" style={{ gap: "15px" }}>
+      <div
+        className="d-flex justify-content-center pickupAndDropPicker flex-wrap"
+        style={{ gap: "15px" }}
+      >
         <div className="input-group customInputGroup position-relative">
           <span className="input-group-text">
             <FaCar />
           </span>
-          <div className="form-floating" >
+          <div className="form-floating">
             <input
               type="text"
               className="form-control"
               id="pickupLocation"
               placeholder="Pickup Location"
-
             />
             <label htmlFor="pickupLocation">Pick-up</label>
           </div>
-         {/* { <div className="position-absolute" style={{ bottom: -40, left: 0 }}>
+          {/* { <div className="position-absolute" style={{ bottom: -40, left: 0 }}>
             <div style={{ background: "red" }}>pickup location div</div>
           </div>} */}
         </div>
