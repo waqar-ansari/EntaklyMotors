@@ -8,8 +8,8 @@
 
 .modal-header .btn-close {
     position: absolute;
-    top: 20;
-    right: 20;
+    top: 20px;
+    right: 20px;
 }
 
 ul {

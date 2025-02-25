@@ -271,7 +271,7 @@
  .icon-top {
    position: absolute;
    left: 0px;
-   top: 20;
+   top: 20px;
    font-size: 20px;
    color: #000;
  }
@@ -279,7 +279,7 @@
  .icon-bottom {
    position: absolute;
    left: 0px;
-   bottom: 20;
+   bottom: 20px;
    font-size: 20px;
    color: #000;
  }
