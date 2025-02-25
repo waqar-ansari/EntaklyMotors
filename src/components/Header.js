@@ -75,7 +75,7 @@ const Header = ({ headerPickupAndDrop }) => {
               )}
               <div className="mobileHeaderIcons">
                 <ul className="navbar-nav mt-0 flex-row">
-                  <li className="nav-item d-flex align-items-center me-4 mb-0">
+                  <li className="nav-item d-flex align-items-center me-sm-4 me-2 mb-0">
                     <a
                       className="nav-link active text-white text-decoration-none"
                       aria-current="page"
@@ -90,7 +90,7 @@ const Header = ({ headerPickupAndDrop }) => {
                       />
                     </a>
                   </li>
-                  <li className="nav-item d-flex align-items-center me-4 mb-0">
+                  <li className="nav-item d-flex align-items-center me-sm-4 me-2 mb-0">
                     <a
                       data-bs-toggle="modal"
                       data-bs-target="#languageModal"
@@ -140,7 +140,7 @@ const Header = ({ headerPickupAndDrop }) => {
                 id="navbarNav"
               >
                 <ul className="navbar-nav mt-0">
-                  <li className="nav-item d-flex align-items-center me-4 mb-0">
+                  <li className="nav-item d-flex align-items-center me-sm-4 me-2 mb-0">
                     <Image
                       src="/icons/car.png"
                       alt="Logo"
@@ -156,7 +156,7 @@ const Header = ({ headerPickupAndDrop }) => {
                       Manage Booking
                     </a>
                   </li>
-                  <li className="nav-item d-flex align-items-center me-4 mb-0">
+                  <li className="nav-item d-flex align-items-center me-sm-4 me-2 mb-0">
                   <a
                       data-bs-toggle="modal"
                       data-bs-target="#languageModal"

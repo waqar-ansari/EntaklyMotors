@@ -393,7 +393,7 @@ const styles = {
   },
   PickupAndDropPicker: {
     position: "sticky",
-    top: "10px",
+    top: "20px",
     maxWidth: "1320px",
     margin: "0 auto",
     padding: "20px",

@@ -10,7 +10,7 @@ const Footer = () => {
       <div className="container">
         <div className="row">
           <div className="col-md-12">
-            <div className="d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <div className="d-flex justify-content-between align-items-center flex-wrap gap-4">
               <Image
                 src="/icons/entaklyLogo.svg"
                 alt="logo"

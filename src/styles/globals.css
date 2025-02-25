@@ -364,8 +364,8 @@ input[type="password"]::-webkit-textfield-decoration-container {
   }
 
   .sec-5-linkGramLogo {
-    width: 350px !important;
-    height: 111px !important;
+    max-width: 350px !important;
+    max-height: 111px !important;
   }
 
   .sec-6 .secHeading {
@@ -398,6 +398,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
   .sec-6 .sec-6-width {
     width: 90% !important;
   }
+  
 
 }
 
@@ -457,5 +458,10 @@ input[type="password"]::-webkit-textfield-decoration-container {
 
   .headerGapInCarsPageMobile {
     gap: 15px;
+  }
+  .custom-tabs{
+    overflow-x: overlay !important;
+    overflow-y: hidden !important;
+    flex-wrap: nowrap !important;
   }
 }

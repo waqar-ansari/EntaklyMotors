@@ -107,7 +107,7 @@ const LanguageModal = ({ showModal, closeModal, selectLanguage }) => {
       size="lg"
       aria-labelledby="languageModalLabel"
       centered
-      backdrop="static"
+      backdrop="true"
     >
       <Modal.Header closeButton>
         <div className="bg-dark text-white px-3 py-2 rounded">

@@ -49,6 +49,7 @@ const Page = () => {
               <Tab eventKey="profile" title="Profile">
                 <h3 className="mt-5">Profile</h3>
                 <h5>One place to manage your account</h5>
+
                 <Tabs
                   activeKey={profileSubTab}
                   onSelect={handleProfileSubTabSelect}
@@ -103,7 +104,7 @@ const Page = () => {
                       Save
                     </button>
                   </Tab>
-                  <Tab eventKey="email" title="Email">
+                  <Tab eventKey="email" title="Email Address">
                     <form action="/">
                       <div className="input-box form-floating">
                         <input
