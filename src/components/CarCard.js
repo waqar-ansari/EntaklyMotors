@@ -6,6 +6,8 @@ import { TiArrowSortedDown } from "react-icons/ti";
 import { colors } from "../../public/colors/colors";
 
 export default function CarCard({ car, onClick, isSelected }) {
+  const isLargeScreen =
+  typeof window !== "undefined" && window.matchMedia("(min-width: 992px)").matches;
   return (
     <div>
       <div
@@ -57,7 +59,7 @@ export default function CarCard({ car, onClick, isSelected }) {
         </div>
         <img src={car.image} alt={car.name} className="carImage" />
       </div>
-      {isSelected && (
+      {isSelected && isLargeScreen && (
         <div className="d-flex justify-content-center">
           <TiArrowSortedDown size={25} color={colors.themeMain} />
         </div>

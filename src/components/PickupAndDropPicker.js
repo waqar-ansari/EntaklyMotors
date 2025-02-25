@@ -7,11 +7,14 @@ import { fonts } from "../../public/fonts/fonts";
 import { FaCar } from "react-icons/fa6";
 import { FaCalendarAlt } from "react-icons/fa";
 import Link from "next/link";
+import { Modal } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const PickupAndDropPicker = ({ heading = true }) => {
   const [range, setRange] = useState([null, null]);
 
   console.log(range.toLocaleString(), "range");
+  const [showDateModal, setShowDateModal] = useState(false);
 
   const pickerRef = useRef(null);
 
@@ -31,12 +34,22 @@ const PickupAndDropPicker = ({ heading = true }) => {
       hour12: true,
     });
   };
+  const handlePickUpDateClick = () => {
+    const isLargeScreen =
+      typeof window !== "undefined" && window.matchMedia("(min-width: 1200px)").matches;
+  
+    if (isLargeScreen) {
+      openDatePicker(); // Call the function to open date picker
+    } else {
+      setShowDateModal(true); // Show modal for smaller screens
+    }
+  };
 
   return (
     <div>
       {heading && <p style={styles.heading}>Rent a Car</p>}
       <div
-        className="d-flex justify-content-center pickupAndDropPicker flex-wrap"
+        className="d-md-flex justify-content-center pickupAndDropPicker flex-wrap "
         style={{ gap: "15px" }}
       >
         <div className="input-group customInputGroup position-relative">
@@ -56,7 +69,7 @@ const PickupAndDropPicker = ({ heading = true }) => {
             <div style={{ background: "red" }}>pickup location div</div>
           </div>} */}
         </div>
-        <div className="input-group customInputGroup">
+        <div className="mb-0 input-group customInputGroup ">
           <span className="input-group-text">
             <FaCar />
           </span>
@@ -82,7 +95,10 @@ const PickupAndDropPicker = ({ heading = true }) => {
           renderFooter={() => null}
         />
 
-        <div className="input-group customInputGroup">
+        <div
+          className="input-group customInputGroup"
+          // onClick={() => setShowDateModal(true)}
+        >
           <span className="input-group-text">
             <FaCalendarAlt />
           </span>
@@ -92,7 +108,7 @@ const PickupAndDropPicker = ({ heading = true }) => {
               value={range[0] ? formatDate(range[0]) : ""}
               className="form-control"
               placeholder="Pickup Date & Time"
-              onClick={openDatePicker}
+              onClick={handlePickUpDateClick}
             />
             <label htmlFor="floatingInputGroup1">Pick-up Date</label>
           </div>
@@ -107,16 +123,33 @@ const PickupAndDropPicker = ({ heading = true }) => {
               // value={range[1] ? range[1].toLocaleString() : ""}
               value={range[0] ? formatDate(range[1]) : ""}
               className="form-control"
-              placeholder="Drop-off Date & Time"
-              onClick={openDatePicker}
+              placeholder="Return Date"
+              onClick={handlePickUpDateClick}
             />
-            <label htmlFor="floatingInputGroup1">Drop-off Date</label>
+            <label htmlFor="floatingInputGroup1">Return Date</label>
           </div>
         </div>
         <Link href="/cars" style={styles.showCarsBtn}>
           Show cars
         </Link>
       </div>
+      <Modal
+        show={showDateModal}
+        onHide={() => setShowDateModal(false)}
+        fullscreen
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Choose Date</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <DateRangePicker format="dd MMM hh:mm" showMeridiem />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowDateModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

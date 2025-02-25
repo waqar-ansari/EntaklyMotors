@@ -11,17 +11,23 @@ import PickupAndDropPicker from "./PickupAndDropPicker";
 import PickerModal from "./modals/PickerModal";
 import { FaUserCircle } from "react-icons/fa";
 import FloatingWhatsapp from "./FloatingWhatsapp";
+import { Modal, Button } from "react-bootstrap";
 
 const Header = ({ headerPickupAndDrop }) => {
-  const [showModal, setShowModal] = useState(false);
+
   const [showPicker, setShowPicker] = useState(false);
   const [showPickerModal, setShowPickerModal] = useState(false);
+
+
+
+  const openPickerModal = () => setShowPickerModal(true);
+  const closePickerModal = () => setShowPickerModal(false);
+
+  const [showModal, setShowModal] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(null);
 
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
-  const openPickerModal = () => setShowPickerModal(true);
-  const closePickerModal = () => setShowPickerModal(false);
 
   const selectLanguage = (language) => {
     setSelectedLanguage(language);
@@ -37,7 +43,7 @@ const Header = ({ headerPickupAndDrop }) => {
       >
         <div className="container-xxl">
           <nav className="navbar navbar-expand-lg">
-            <div className="container-fluid">
+            <div className="container-fluid headerGapInCarsPageMobile">
               <Link className="navbar-brand py-0" href="/">
                 <Image
                   src="/icons/entaklyLogo.svg"
@@ -51,8 +57,8 @@ const Header = ({ headerPickupAndDrop }) => {
                 <div
                   data-bs-toggle="modal"
                   data-bs-target="#pickerModal"
-                  className="pickupAndDropPickerInHeader"
                   style={styles.pickupAndDropPickerInHeader}
+                  className="pickupAndDropPickerInHeader"
                 >
                   <div className="d-flex justify-content-between align-items-center">
                     <div style={{ marginRight: 30 }}>
@@ -89,6 +95,7 @@ const Header = ({ headerPickupAndDrop }) => {
                       data-bs-toggle="modal"
                       data-bs-target="#languageModal"
                       className="nav-link text-white text-decoration-none"
+                      onClick={openModal}
                     >
                       <Image
                         src="/icons/globe.png"
@@ -128,17 +135,6 @@ const Header = ({ headerPickupAndDrop }) => {
                   )}
                 </ul>
               </div>
-              {/* <button
-                className="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarNav"
-                aria-controls="navbarNav"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <span className="navbar-toggler-icon"></span>
-              </button> */}
               <div
                 className="collapse navbar-collapse justify-content-end"
                 id="navbarNav"
@@ -161,18 +157,21 @@ const Header = ({ headerPickupAndDrop }) => {
                     </a>
                   </li>
                   <li className="nav-item d-flex align-items-center me-4 mb-0">
+                  <a
+                      data-bs-toggle="modal"
+                      data-bs-target="#languageModal"
+                      className="nav-link text-white text-decoration-none"
+                      onClick={openModal}
+                    >
                     <Image
                       src="/icons/globe.png"
                       alt="Logo"
                       width={24}
                       height={24}
+                      style={{marginRight:10}}
                       priority
                     />
-                    <a
-                      data-bs-toggle="modal"
-                      data-bs-target="#languageModal"
-                      className="nav-link text-white text-decoration-none"
-                    >
+                   
                       EN | د.إ
                     </a>
                   </li>
@@ -214,6 +213,7 @@ const Header = ({ headerPickupAndDrop }) => {
                   closeModal={closeModal}
                   selectLanguage={selectLanguage}
                 />
+                
               </div>
             </div>
           </nav>

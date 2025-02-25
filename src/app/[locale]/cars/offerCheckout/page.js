@@ -52,7 +52,7 @@ const page = () => {
           <div className="col-12">
             <div className="d-flex justify-content-end align-items-center">
               <div>
-                <p>Total: 800</p>
+                <p className="mb-0">Total: 800</p>
                 <PriceDetailsModal />
               </div>
               <Link
@@ -76,7 +76,7 @@ const page = () => {
           </div>
         </div>
         <div className="row mb-5">
-          <div className="col-md-4 mb-4 d-flex">
+          <div className="col-md-4 mb-4 col-sm-6 col-12 d-flex">
             <OfferCheckoutCard
               packageName="Basic"
               heading="Basic Protection"
@@ -89,7 +89,7 @@ const page = () => {
               liCross={basicPackageCross}
             />
           </div>
-          <div className="col-md-4 mb-4 d-flex">
+          <div className="col-md-4 mb-4 col-sm-6 col-12 d-flex">
             <OfferCheckoutCard
               packageName="Gold"
               heading="Smart Protection"
@@ -103,7 +103,7 @@ const page = () => {
               liCross={goldPackageCross}
             />
           </div>
-          <div className="col-md-4 mb-4 d-flex">
+          <div className="col-md-4 mb-4 col-sm-6 col-12 d-flex">
             <OfferCheckoutCard
               packageName="Platinum"
               heading="All Inclusive Protection"

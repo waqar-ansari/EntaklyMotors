@@ -10,15 +10,15 @@ const Footer = () => {
       <div className="container">
         <div className="row">
           <div className="col-md-12">
-            <div className="d-flex justify-content-between align-items-center">
+            <div className="d-flex justify-content-between align-items-center flex-wrap gap-3">
               <Image
                 src="/icons/entaklyLogo.svg"
                 alt="logo"
                 width={200}
                 height={53}
               />
-              <div>
-                <Link href="https://apps.apple.com/in/app/linkgram/id6502818815"
+              <div className="d-flex">
+                <Link href="https://prodapi.linkgram.co.uk/api/v1/share/entakly.motors"
                 target="_blank"
                 >
                   <Image
@@ -29,9 +29,18 @@ const Footer = () => {
                     style={{ marginRight: 24, borderRadius: 10 }}
                   />
                 </Link>
-                <Link href="#">
+                <Link href="https://www.instagram.com/entaklymotors?igsh=aDQ3bDBpeGo2cXkz&utm_source=qr">
                   <Image
                     src="/icons/instagramLogo.png"
+                    alt="logo"
+                    width={30}
+                    height={30}
+                    style={{ marginRight: 24 }}
+                  />
+                </Link>
+                <Link href="https://www.facebook.com/share/1BqqnjbLqC/?mibextid=wwXIfr">
+                  <Image
+                    src="/icons/facebookLogo.png"
                     alt="logo"
                     width={30}
                     height={30}
@@ -61,9 +70,9 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="row mt-5">
-          <div className="col-md-4">
-            <p style={styles.footerHeading}>Our Products</p>
+        <div className="row">
+          <div className="col-md-4 mt-4">
+            <p style={styles.footerHeading}>Our Services</p>
             <ul
               style={{
                 listStyle: "none",
@@ -85,7 +94,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div className="col-md-4">
+          <div className="col-md-4 mt-4">
             <p style={styles.footerHeading}>Help and more</p>
             <ul
               style={{

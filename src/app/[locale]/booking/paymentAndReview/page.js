@@ -28,7 +28,7 @@ const page = () => {
           <div className="col-md-12 pt-5">
             <div className="d-flex justify-content-end align-items-center">
               <div>
-                <p>Total: 800</p>
+                <p className="mb-0">Total: 800</p>
                 <PriceDetailsModal />
               </div>
             </div>

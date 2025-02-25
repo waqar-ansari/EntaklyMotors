@@ -1,3 +1,4 @@
+"use client";
 import { useTranslations } from "next-intl";
 // import { Link } from "@/i18n/routing";
 import Link from "next/link";
@@ -10,9 +11,15 @@ import Footer from "@/components/Footer";
 import PickupAndDropPicker from "@/components/PickupAndDropPicker";
 import { FaWhatsapp } from "react-icons/fa";
 import FloatingWhatsapp from "@/components/FloatingWhatsapp";
+import { FaCar } from "react-icons/fa6";
+import { Modal, Button } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useEffect, useState } from "react";
+import { CiSearch } from "react-icons/ci";
 
 export default function HomePage() {
   const t = useTranslations("HomePage");
+  const [show, setShow] = useState(false);
   return (
     <div>
       <div>
@@ -23,9 +30,37 @@ export default function HomePage() {
           11 years of Entakly. 11 years of tradition.
         </p>
       </div>
+
       <Header />
-      <div style={styles.PickupAndDropPicker}>
-        <PickupAndDropPicker />
+      <div style={styles.PickupAndDropPicker} className="pickerForMob">
+        <div className="mobDisplayNone">
+          <PickupAndDropPicker />
+        </div>
+        <div
+          className="mobPickerAndDropPicker tabDisplayNone"
+          onClick={() => setShow(true)}
+        >
+          <div
+            className="input-group customInputGroup mb-0 align-items-center px-2 inputGroupBorRad"
+            style={{ height: 30 }}
+          >
+            {/* <span className="input-group-text">
+              <FaCar />
+            </span>
+            <div className="form-floating">
+              <input
+                type="text"
+                className="form-control"
+                id="rentYourCar"
+                placeholder="Rent your car"
+              />
+              <label htmlFor="rentYourCar">Rent your car</label>
+            </div> */}
+            <CiSearch style={{marginRight:10}}/>
+         
+            Destination
+          </div>
+        </div>
       </div>
       <div className="position-relative">
         <Image
@@ -33,19 +68,20 @@ export default function HomePage() {
           alt="Hero Image"
           width={1600}
           height={686}
-          style={{ marginTop: "-180px" }}
+          className="marginTopHeroImage"
+          // style={{ marginTop: "-200px" }}
           layout="responsive"
           priority
         />
       </div>
 
       <div
-        className="text-center"
         style={{
           background: colors.themeMain,
           color: colors.white,
           padding: 24,
         }}
+        className="text-center containerPaddingMob"
       >
         <h1
           style={{
@@ -55,16 +91,17 @@ export default function HomePage() {
             lineHeight: "82px",
             marginBottom: 16,
           }}
+          className="heroHeading"
         >
           Rent first class. <br /> Pay economy.
         </h1>
-        <p>Premium car rental at affordable rates.</p>
+        <p className="mb-md-3 mb-0">Premium car rental at affordable rates.</p>
       </div>
 
       <div className="container">
-        <div className="row p-section">
-          <div className="col-md-4">
-            <div className="d-flex align-items-center mb-2">
+        <div className="row p-section sec-3">
+          <div className="col-md-4 mb-4 mb-md-0">
+            <div className="d-flex align-items-center flex-justify mb-2">
               <Image
                 src="/icons/worldGlobe.png"
                 alt="globe"
@@ -73,10 +110,10 @@ export default function HomePage() {
               />
               <p style={styles.subHeading}>UAE reach</p>
             </div>
-            <h4>500+ Entakly stations in Dubai</h4>
+            <h4 className="subText">500+ Entakly stations in Dubai</h4>
           </div>
-          <div className="col-md-4">
-            <div className="d-flex align-items-center mb-2">
+          <div className="col-md-4 mb-4 mb-md-0">
+            <div className="d-flex align-items-center flex-justify mb-2">
               <Image
                 src="/icons/carBlack.png"
                 alt="globe"
@@ -85,10 +122,10 @@ export default function HomePage() {
               />
               <p style={styles.subHeading}>Distinctive fleet</p>
             </div>
-            <h4>From high-end convertibles to premium SUVs</h4>
+            <h4 className="subText">From high-end convertibles to premium SUVs</h4>
           </div>
-          <div className="col-md-4">
-            <div className="d-flex align-items-center mb-2">
+          <div className="col-md-4 mb-4 mb-md-0">
+            <div className="d-flex align-items-center flex-justify mb-2">
               <Image
                 src="/icons/handWithHeart.png"
                 alt="globe"
@@ -97,7 +134,7 @@ export default function HomePage() {
               />
               <p style={styles.subHeading}>Exceptional service</p>
             </div>
-            <h4>Stress-free, trustworthy, no hidden costs</h4>
+            <h4 className="subText">Stress-free, trustworthy, no hidden costs</h4>
           </div>
         </div>
         <div className="row" style={styles.marginB}>
@@ -109,22 +146,30 @@ export default function HomePage() {
               height={619}
               layout="responsive"
             />
-            <div style={styles.textContainer}>
-              <p style={styles.imageHeading}>Luxury Car Service with ENTAKLY</p>
-              <p style={styles.imageText}>
+            <div style={styles.textContainer} className="sec-4">
+              <p style={styles.imageHeading} className="heading">
+                Luxury Car Service with ENTAKLY
+              </p>
+              <p style={styles.imageText} className="text">
                 Enjoy a professional journey with Entakly’s premium luxury car
                 service
               </p>
-              <Link href="#" style={styles.imageButton}>
+              <Link href="#" style={styles.imageButton} className="imageButton">
                 Book now
               </Link>
             </div>
           </div>
         </div>
-        <div className="row showdowForRow py-5 px-4" style={styles.marginB}>
+        <div
+          className="row showdowForRow py-3 py-md-5 px-2 px-md-4 text-center text-md-start sec-5"
+          style={styles.marginB}
+        >
           <div className="col-md-4 d-flex justify-content-center align-items-center">
-            <div style={{ color: colors.black }} className="ps-3">
-              <p style={{ fontFamily: fonts.helvetica700, fontSize: 24 }}>
+            <div style={{ color: colors.black }} className="ps-md-3">
+              <p
+                style={{ fontFamily: fonts.helvetica700, fontSize: 24 }}
+                className="heading"
+              >
                 ENTAKLY App Offers
               </p>
               <p
@@ -133,10 +178,11 @@ export default function HomePage() {
                   fontSize: 18,
                   color: colors.grey,
                 }}
+                className="text"
               >
-                “Download the Dubai App now and get a 10% discount! LinkGram:
-                Phase One Launch – Your All-in-One App with 250+ Features!”
-                Note: The app is still under construction.
+                Download the Dubai App now and get a 10% discount! LinkGram:
+                Phase One Launch – Your All-in-One App with 250+ Features! Note:
+                The app is still under construction.
               </p>
             </div>
           </div>
@@ -146,15 +192,17 @@ export default function HomePage() {
               alt="limousine"
               width={200}
               height={200}
+              className="mb-3 mb-md-0"
             />
           </div>
           <div className="col-md-4 my-auto">
             <Image
               src="/icons/linkGramLogo.webp"
               alt="limousine"
-              width={1168}
-              height={992}
+              width={924}
+              height={295}
               layout="responsive"
+              className="sec-5-linkGramLogo"
             />
           </div>
         </div>
@@ -162,8 +210,10 @@ export default function HomePage() {
 
       <div className="container-fluid" id="pickUpAndDropoff">
         <div className="row justify-content-center">
-          <div style={styles.moreEntakly}>
-            <p style={styles.heading}>More Entakly</p>
+          <div style={styles.moreEntakly} className="sec-6">
+            <p style={styles.heading} className="secHeading">
+              More Entakly
+            </p>
             <div
               style={{
                 position: "relative",
@@ -172,6 +222,7 @@ export default function HomePage() {
                 justifyContent: "center",
                 alignItems: "center",
               }}
+              className="sec-6-width"
             >
               <Image
                 src="/images/homeImage3.png"
@@ -195,13 +246,18 @@ export default function HomePage() {
                   bottom: 0,
                 }}
               >
-                <div style={styles.textContainer2}>
-                  <p style={styles.imageHeading2}>Entakly Business</p>
-                  <p style={styles.imageText}>Pick-up and drop-off across UAE</p>
+                <div style={styles.textContainer2} className="textContainer">
+                  <p style={styles.imageHeading2} className="heading">
+                    Entakly Business
+                  </p>
+                  <p style={styles.imageText} className="text">
+                    Pick-up and drop-off across UAE
+                  </p>
                   <Link
                     href="https://wa.me/+971044536000"
                     target="_blank"
                     style={styles.imageButton}
+                    className="chatNowButton"
                   >
                     <FaWhatsapp style={{ marginBottom: 2, marginRight: 3 }} />{" "}
                     Chat now
@@ -212,7 +268,7 @@ export default function HomePage() {
           </div>
         </div>
         <div className="row">
-          <div className="col-md-12 p-0" style={{ position: "relative" }}>
+          <div  style={{ position: "relative" }} className="col-md-12 p-0 sec-7">
             <Image
               src="/images/homeImage4.png"
               alt="limousine"
@@ -220,13 +276,13 @@ export default function HomePage() {
               height={619}
               layout="responsive"
             />
-            <div style={styles.textContainer3}>
-              <p style={styles.imageHeading3}>
+            <div style={styles.textContainer3} className="imageText">
+              <p style={styles.imageHeading3} className="textOnImage">
                 Amazing experience with ENTAKLY. They provide amazing cars and{" "}
-                <br />
+                <span className="d-md-block"></span>
                 quick service!
               </p>
-              <p style={styles.imageText}>Dubai</p>
+              <p style={styles.imageText} className="sub-text">Dubai</p>
               {/* <Link href="#" style={styles.imageButton}>
                 Book now
               </Link> */}
@@ -238,6 +294,20 @@ export default function HomePage() {
       <Footer />
       {/* <h1>{t("title")}</h1>
       <Link href="/about">{t("about")}</Link> */}
+
+      <Modal show={show} onHide={() => setShow(false)} fullscreen>
+        {/* <Modal.Header closeButton>
+          <Modal.Title>Rent a Car</Modal.Title>
+        </Modal.Header> */}
+        <Modal.Body scrollable>
+          <PickupAndDropPicker />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShow(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
@@ -333,4 +403,5 @@ const styles = {
     marginTop: 10,
     boxShadow: "2px 2px 16px 1px rgba(0, 0, 0, 0.75)",
   },
+
 };

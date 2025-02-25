@@ -211,51 +211,251 @@ input[type="password"]::-webkit-textfield-decoration-container {
 .liCross {
   color: #ababab;
   margin-bottom: 0;
-
 }
 
 .liCross:before {
-  content: "\2716";
-  /* Cross mark symbol */
+  content: "\2715";
   margin-right: 12px;
   color: #c9c9cf;
 }
 
 .bookingOverview .liContainer {
   margin-bottom: 15px;
-
 }
 
 .rs-toggle-checked .rs-toggle-presentation {
   background-color: #292268 !important;
 }
-.dropdown-item:hover{
+
+.dropdown-item:hover {
   background-color: #ababab !important;
   border-radius: 10px;
 }
-.hrStyle{
+
+.hrStyle {
   width: 100%;
   background-color: #ababab;
   height: 1px;
 }
 
-@media (min-width: 1200px) {
-
-  
+.marginTopHeroImage {
+  margin-top: -183px;
 }
+
+@media (min-width: 1200px) {}
+
+@media(max-width:1200px) {
+  .pickerForMob {
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+  }
+
+  .marginTopHeroImage {
+    margin-top: -260px !important;
+  }
+
+  .carDetails {
+    flex-direction: column !important;
+    height: auto !important;
+  }
+
+  .rs-picker-input-group.rs-input-group.rs-input-group-inside {
+    display: block !important;
+  }
+}
+
 @media (min-width: 992px) {
-  .mobileHeaderIcons{
+  .mobileHeaderIcons {
     display: none;
   }
-  .mobilePickupAndDropPicker{
+
+  .mobilePickupAndDropPicker {
+    display: none;
+  }
+
+  .pcDisplayNone {
     display: none;
   }
 }
+
+@media (max-width:992px) {
+  .pickerModalHeight {
+    height: auto !important;
+  }
+
+  .pickerModalBodyFlex {
+    display: block !important;
+  }
+}
+
 @media (min-width: 768px) {
-
-  
+  .tabDisplayNone {
+    display: none;
+  }
 }
-@media (min-width: 576px) {
 
-  
+@media (max-width: 768px) {
+  .mobDisplayNone {
+    display: none;
+  }
+
+  .marginTopHeroImage {
+    margin-top: -56px !important;
+  }
+
+
+
+  .input-group.customInputGroup {
+    margin-bottom: 10px;
+  }
+
+  .pickerForMob {
+    padding: 8px !important;
+  }
+
+  .input-group.inputGroupBorRad {
+    border-radius: 30px !important;
+  }
+
+  .heroHeading {
+    font-size: 32px !important;
+    line-height: 42px !important;
+  }
+
+  .containerPaddingMob {
+    padding: 12px !important;
+  }
+
+  .p-section {
+    padding: 24px;
+    text-align: center;
+  }
+
+  .flex-justify {
+    justify-content: center;
+  }
+
+  .sec-4 {
+    bottom: 18px !important;
+    left: 32px !important;
+  }
+
+  .sec-4 .heading {
+    font-size: 18px !important;
+  }
+
+  .sec-4 .text {
+    font-size: 9px !important;
+    margin-bottom: 12px !important;
+    margin-top: 2px !important;
+  }
+
+  .sec-4 .imageButton {
+    font-size: 9px !important;
+    padding: 6px 10px !important;
+  }
+
+  .sec-5 .heading {
+    font-size: 20px;
+  }
+
+  .sec-5 .text {
+    font-size: 15px;
+  }
+
+  .sec-5-linkGramLogo {
+    width: 350px !important;
+    height: 111px !important;
+  }
+
+  .sec-6 .secHeading {
+    font-size: 35px !important;
+  }
+
+  .sec-6 {
+    padding: 12px 0px !important;
+  }
+
+  .sec-6 .heading {
+    font-size: 30px !important;
+  }
+
+  .sec-6 .text {
+    font-size: 15px !important;
+    margin-bottom: 12px;
+    margin-top: 0;
+  }
+
+  .sec-6 .textContainer {
+    top: 65px !important;
+  }
+
+  .sec-6 .chatNowButton {
+    font-size: 14px;
+    padding: 6px 8px;
+  }
+
+  .sec-6 .sec-6-width {
+    width: 90% !important;
+  }
+
+}
+
+
+@media (max-width: 576px) {
+  .heroHeading {
+    font-size: 26px !important;
+    line-height: 34px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .p-section {
+    padding: 18px;
+  }
+
+  .sec-3 .subText {
+    font-size: 17px !important;
+  }
+
+  .sec-5 {
+    margin: 0px 10px 20px 10px !important;
+  }
+
+  .sec-6 .sec-6-width {
+    width: 90% !important;
+  }
+
+  .sec-6 .textContainer {
+    top: 32px !important;
+  }
+
+  .sec-7 .imageText {
+    font-size: 15px !important;
+    line-height: 22px !important;
+  }
+
+  .sec-6 .text {
+    margin-bottom: 12px !important;
+  }
+
+  .sec-7 .textOnImage {
+    font-size: 15px !important;
+    line-height: 22px !important;
+  }
+
+  .sec-7 .sub-text {
+    margin-bottom: 0 !important;
+  }
+
+  .submitButton {
+    padding: 10px 30px;
+  }
+
+  .pickupAndDropPickerInHeader {
+    margin-left: 0px !important;
+  }
+
+  .headerGapInCarsPageMobile {
+    gap: 15px;
+  }
 }
