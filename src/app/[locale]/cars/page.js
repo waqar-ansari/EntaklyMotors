@@ -258,7 +258,7 @@ export default function CarsPage() {
         <Modal.Header closeButton>
           <Modal.Title>Car Details</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="px-0">
           {selectedCarId && (
             <CarDetails
               car={carsData.find((car) => car.id === selectedCarId)}
