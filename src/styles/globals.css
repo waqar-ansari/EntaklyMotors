@@ -398,7 +398,9 @@ input[type="password"]::-webkit-textfield-decoration-container {
   .sec-6 .sec-6-width {
     width: 90% !important;
   }
-  
+  .mobDisplayNone{
+    display: none;
+  }
 
 }
 

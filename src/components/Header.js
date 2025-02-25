@@ -14,11 +14,8 @@ import FloatingWhatsapp from "./FloatingWhatsapp";
 import { Modal, Button } from "react-bootstrap";
 
 const Header = ({ headerPickupAndDrop }) => {
-
   const [showPicker, setShowPicker] = useState(false);
   const [showPickerModal, setShowPickerModal] = useState(false);
-
-
 
   const openPickerModal = () => setShowPickerModal(true);
   const closePickerModal = () => setShowPickerModal(false);
@@ -54,25 +51,25 @@ const Header = ({ headerPickupAndDrop }) => {
                 />
               </Link>
               {headerPickupAndDrop && (
-                <div
-                  data-bs-toggle="modal"
-                  data-bs-target="#pickerModal"
-                  style={styles.pickupAndDropPickerInHeader}
-                  className="pickupAndDropPickerInHeader"
-                >
-                  <div className="d-flex justify-content-between align-items-center">
-                    <div style={{ marginRight: 30 }}>
-                      <p className="mb-0" style={styles.location}>
-                        New York LGA Airport - New York LGA Airport
-                      </p>
-                      <p className="mb-0" style={styles.dateAndTime}>
-                        13. Apr | 8:00 AM - 15. Apr | 8:30 AM
-                      </p>
-                    </div>
-                    <FaPen />
+              <div
+                data-bs-toggle="modal"
+                data-bs-target="#pickerModal"
+                style={styles.pickupAndDropPickerInHeader}
+                className="pickupAndDropPickerInHeader mobDisplayNone"
+              >
+                <div className="d-flex justify-content-between align-items-center">
+                  <div style={{ marginRight: 30 }}>
+                    <p className="mb-0" style={styles.location}>
+                      New York LGA Airport - New York LGA Airport
+                    </p>
+                    <p className="mb-0" style={styles.dateAndTime}>
+                      13. Apr | 8:00 AM - 15. Apr | 8:30 AM
+                    </p>
                   </div>
+                  <FaPen />
                 </div>
-              )}
+              </div>
+            )}
               <div className="mobileHeaderIcons">
                 <ul className="navbar-nav mt-0 flex-row">
                   <li className="nav-item d-flex align-items-center me-sm-4 me-2 mb-0">
@@ -135,6 +132,7 @@ const Header = ({ headerPickupAndDrop }) => {
                   )}
                 </ul>
               </div>
+             
               <div
                 className="collapse navbar-collapse justify-content-end"
                 id="navbarNav"
@@ -157,21 +155,20 @@ const Header = ({ headerPickupAndDrop }) => {
                     </a>
                   </li>
                   <li className="nav-item d-flex align-items-center me-sm-4 me-2 mb-0">
-                  <a
+                    <a
                       data-bs-toggle="modal"
                       data-bs-target="#languageModal"
                       className="nav-link text-white text-decoration-none"
                       onClick={openModal}
                     >
-                    <Image
-                      src="/icons/globe.png"
-                      alt="Logo"
-                      width={24}
-                      height={24}
-                      style={{marginRight:10}}
-                      priority
-                    />
-                   
+                      <Image
+                        src="/icons/globe.png"
+                        alt="Logo"
+                        width={24}
+                        height={24}
+                        style={{ marginRight: 10 }}
+                        priority
+                      />
                       EN | د.إ
                     </a>
                   </li>
@@ -213,9 +210,28 @@ const Header = ({ headerPickupAndDrop }) => {
                   closeModal={closeModal}
                   selectLanguage={selectLanguage}
                 />
-                
               </div>
             </div>
+            {headerPickupAndDrop && (
+              <div
+                data-bs-toggle="modal"
+                data-bs-target="#pickerModal"
+                style={styles.pickupAndDropPickerInHeader}
+                className="pickupAndDropPickerInHeader tabDisplayNone mt-3"
+              >
+                <div className="d-flex justify-content-between align-items-center">
+                  <div style={{ marginRight: 30 }}>
+                    <p className="mb-0" style={styles.location}>
+                      New York LGA Airport - New York LGA Airport
+                    </p>
+                    <p className="mb-0" style={styles.dateAndTime}>
+                      13. Apr | 8:00 AM - 15. Apr | 8:30 AM
+                    </p>
+                  </div>
+                  <FaPen />
+                </div>
+              </div>
+            )}
           </nav>
         </div>
       </div>
