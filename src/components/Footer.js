@@ -84,7 +84,7 @@ const Footer = () => {
                 <Link href="#" className="footerLinks">Car Rental</Link>
               </li>
               <li style={styles.LinkItems}>
-                <Link href="#pickUpAndDropoff" className="footerLinks">Pick-up and Drop-off</Link>
+                <Link href="/#pickUpAndDropoff" className="footerLinks">Pick-up and Drop-off</Link>
               </li>
               <li style={styles.LinkItems}>
                 <Link href="/leaseCar" className="footerLinks">Lease to on 24 months 20% down payment</Link>

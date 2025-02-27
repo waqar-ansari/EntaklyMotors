@@ -53,7 +53,7 @@ const page = () => {
       <div className="container pt-5">
         <div className="row">
           <div className="col-12">
-            <div className="d-flex justify-content-end align-items-center">
+            <div className="d-flex justify-content-between justify-content-sm-end align-items-center mb-3 mb-md-4">
               <div>
                 <p className="mb-0">Total: 800</p>
                 <PriceDetailsModal />
@@ -67,11 +67,11 @@ const page = () => {
               </Link>
             </div>
 
-            <div className="d-flex align-items-center mb-5">
+            <div className="d-flex align-items-center mb-3 mb-md-5">
               <IoInformationCircleSharp
-                style={{ fontSize: 20, marginRight: 20 }}
+                style={{ fontSize: 20, marginRight: 20, fontSize:16, flex:"0 0 auto" }}
               />
-              <p>
+              <p className="mb-0">
                 Drivers must have held their driver's license for at least 1
                 year(s) for this vehicle
               </p>
@@ -142,4 +142,8 @@ const styles = {
     marginTop: 15,
     marginLeft: 15,
   },
+  iIcon:{
+    flex: "0 0 auto",
+    fontSize:16,
+  }
 };

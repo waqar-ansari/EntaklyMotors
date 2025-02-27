@@ -11,6 +11,7 @@ import PhoneInput from "react-phone-input-2";
 import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 import "react-phone-input-2/lib/bootstrap.css";
+import { useSelector } from "react-redux";
 
 const Page = () => {
   const router = useRouter();
@@ -28,6 +29,7 @@ const Page = () => {
   const handleProfileSubTabSelect = (key) => {
     router.push(`?tab=profile&subTab=${key}`, { scroll: false });
   };
+
   const handleCountryChange = (value, country) => {
     setCountryCode(`+${country.dialCode}`);
   };
@@ -78,6 +80,7 @@ const Page = () => {
                         value={""}
                         inputStyle={{ display: "none" }}
                         onChange={handleCountryChange}
+                        name="countryCode"
                         enableSearch
                         searchPlaceholder="Search..."
                         searchStyle={{ width: 280, marginLeft: 0 }}
@@ -89,6 +92,7 @@ const Page = () => {
                           className="form-control"
                           type="text"
                           placeholder="Phone Number"
+                          name="phoneNumber"
                           id="phoneNumber"
                           // value={`${countryCode} ${phoneNumber}`}
                           value={phoneNumber}
@@ -110,6 +114,7 @@ const Page = () => {
                         <input
                           className="form-control"
                           type="email"
+                          name="email"
                           placeholder="Email Address"
                           id="email"
                         />
@@ -128,6 +133,7 @@ const Page = () => {
                         <input
                           className="form-control"
                           type={showCurrentPassword ? "text" : "password"}
+                          name="currentPassword"
                           placeholder="Current Password"
                           id="currentPassword"
                         />
@@ -158,6 +164,7 @@ const Page = () => {
                         <input
                           className="form-control"
                           type={showNewPassword ? "text" : "password"}
+                          name="newPassword"
                           placeholder="New Password"
                           id="newPassword"
                         />
@@ -188,6 +195,7 @@ const Page = () => {
                       <input
                         className="form-control"
                         type="text"
+                        name="recipient"
                         placeholder="Recipient"
                         id="recipient"
                       />
@@ -200,6 +208,7 @@ const Page = () => {
                         className="form-control"
                         type="text"
                         placeholder="Zipcode"
+                        name="zipcode"
                         id="zipcode"
                       />
                       <label for="zipcode" className="inputLabelBg">
@@ -210,6 +219,7 @@ const Page = () => {
                       <input
                         className="form-control"
                         type="text"
+                        name="city"
                         placeholder="City"
                         id="city"
                       />
@@ -221,6 +231,7 @@ const Page = () => {
                       <input
                         className="form-control"
                         type="text"
+                        name="state"
                         placeholder="State"
                         id="state"
                       />
@@ -233,6 +244,7 @@ const Page = () => {
                         className="form-control"
                         type="text"
                         placeholder="Country"
+                        name="country"
                         id="country"
                       />
                       <label for="country" className="inputLabelBg">

@@ -1,15 +1,49 @@
 "use client";
 import { useState } from "react";
-// import "../../../../styles/globals.css";
 import "./login.css";
 import { colors } from "../../../../../public/colors/colors";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser, signupUser } from "@/redux/slices/authSlice";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [isActive, setIsActive] = useState(false);
   const [isForgotPassword, setIsForgotPassword] = useState(false);
+
+  const [email, setEmail] = useState("");
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
+  // const [isForgotPassword, setIsForgotPassword] = useState(false);
+
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const credentials = { email, password };
+
+    try {
+      const result = await dispatch(loginUser(credentials)).unwrap();
+      router.push("/account/profile");
+    } catch (error) {
+      console.log("Login failed:", error);
+    }
+  };
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    const signupCredentials = { registerEmail, registerPassword };
+    console.log(signupCredentials, "signupCredentials");
+
+    try {
+      const result = await dispatch(signupUser(signupCredentials)).unwrap();
+      router.push("/auth/login&Signup");
+    } catch (error) {
+      console.log("Signup failed:", error);
+    }
+  };
 
   return (
     <div>
@@ -22,11 +56,23 @@ export default function LoginPage() {
               <form action="#">
                 <h1>Login</h1>
                 <div className="input-box">
-                  <input type="text" placeholder="Email" />
+                  <input
+                    type="text"
+                    placeholder="Email"
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
+                  />
                   <i className="bx bxs-user"></i>
                 </div>
                 <div className="input-box">
-                  <input type="password" placeholder="Password" />
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
+                  />
                   <i className="bx bxs-lock-alt"></i>
                 </div>
                 <div className="forgot-link">
@@ -39,15 +85,15 @@ export default function LoginPage() {
                     Forgot Password?
                   </button>
                 </div>
-                {/* <button type="submit" className="btn">
-                  Login
-                </button> */}
+
                 <Link
                   type="button"
                   href="/account/profile"
                   className="btn text-decoration-none"
-                  // onClick={() => (window.location.href = "/account/profile")}
-                >Login</Link>
+                  onClick={handleLogin}
+                >
+                  Login
+                </Link>
               </form>
             </div>
           ) : (
@@ -86,16 +132,38 @@ export default function LoginPage() {
                     <i className="bx bxs-user"></i>
                   </div> */}
               <div className="input-box">
-                <input type="email" placeholder="Email" required />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  name="signupEmail"
+
+                  required
+                  onChange={(e) => {
+                    setRegisterEmail(e.target.value);
+                  }}
+                />
                 <i className="bx bxs-envelope"></i>
               </div>
               <div className="input-box">
-                <input type="password" placeholder="Password" required />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  name="signupPassword"
+                  required
+                  onChange={(e) => {
+                    setRegisterPassword(e.target.value);
+                  }}
+                />
                 <i className="bx bxs-lock-alt"></i>
               </div>
-              <button type="submit" className="btn">
+              <Link
+                type="button"
+                href="/auth/login&Signup"
+                className="btn text-decoration-none"
+                onClick={handleRegister}
+              >
                 Register
-              </button>
+              </Link>
             </form>
           </div>
 

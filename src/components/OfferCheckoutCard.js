@@ -158,6 +158,7 @@ const styles = {
   },
   iIcon: {
     fontSize: 18,
+    flex: "0 0 auto",
   },
   activePackage: {
     boxShadow: "0 0 0 2px black",

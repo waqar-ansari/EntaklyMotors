@@ -23,7 +23,7 @@ const CommonModal = ({ show, handleClose, content }) => {
 export default CommonModal;
 const styles = {
   modalContainer: {
-    padding: 48,
+    // padding: 48,
   },
   modalHeader: {
     borderBottom: 0,

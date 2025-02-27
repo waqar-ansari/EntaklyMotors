@@ -12,6 +12,7 @@ import PickerModal from "./modals/PickerModal";
 import { FaUserCircle } from "react-icons/fa";
 import FloatingWhatsapp from "./FloatingWhatsapp";
 import { Modal, Button } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
 const Header = ({ headerPickupAndDrop }) => {
   const [showPicker, setShowPicker] = useState(false);
@@ -25,11 +26,12 @@ const Header = ({ headerPickupAndDrop }) => {
 
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
-
+  const {user} = useSelector(state=>state.auth)
   const selectLanguage = (language) => {
     setSelectedLanguage(language);
     closeModal();
   };
+  
   const token = "abcd";
   return (
     <div>
@@ -182,7 +184,8 @@ const Header = ({ headerPickupAndDrop }) => {
                         href="/auth/login&Signup"
                         className="nav-link text-white text-decoration-none"
                       >
-                        Waqar
+                        {/* {user.fullName} */}
+                        {user?user.user.fullname:"Guest"}
                       </Link>
                     </li>
                   ) : (

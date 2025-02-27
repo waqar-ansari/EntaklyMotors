@@ -13,7 +13,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const PickupAndDropPicker = ({ heading = true }) => {
   const [range, setRange] = useState([null, null]);
 
-  console.log(range.toLocaleString(), "range");
   const [showDateModal, setShowDateModal] = useState(false);
 
   const pickerRef = useRef(null);
@@ -39,9 +38,9 @@ const PickupAndDropPicker = ({ heading = true }) => {
       typeof window !== "undefined" && window.matchMedia("(min-width: 1200px)").matches;
   
     if (isLargeScreen) {
-      openDatePicker(); // Call the function to open date picker
+      openDatePicker();
     } else {
-      setShowDateModal(true); // Show modal for smaller screens
+      setShowDateModal(true);
     }
   };
 

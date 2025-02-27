@@ -25,7 +25,7 @@ const page = () => {
       <Header />
       <div className="container">
         <div className="row">
-          <div className="col-md-12 pt-5">
+          <div className="col-md-12 pt-5 mobDisplayNone">
             <div className="d-flex justify-content-end align-items-center">
               <div>
                 <p className="mb-0">Total: 800</p>
@@ -127,7 +127,7 @@ const page = () => {
                 <IoInformationCircleSharp
                   style={{ fontSize: 20, marginRight: 20 }}
                 />
-                <p>
+                <p className="mb-0">
                   Drivers must have held their driver's license for at least 1
                   year(s) for this vehicle
                 </p>
@@ -256,7 +256,7 @@ const page = () => {
                     alt="visa"
                     width={92}
                     height={71}
-                    style={{ position: "absolute", top: 0, right: 0 }}
+                    // style={{ position: "absolute", top: 0, right: 0 }}
                   />
                 </div>
                 <div>
@@ -267,7 +267,7 @@ const page = () => {
                     <p style={{ marginBottom: 5, color: "#828287" }}>
                       or similar | CCAR
                     </p>
-                    <p style={{ fontWeight: 600 }}>3 Rental Days</p>
+                    <p style={{ fontWeight: 600, marginBottom:0}}>3 Rental Days</p>
                   </div>
                 </div>
               </div>

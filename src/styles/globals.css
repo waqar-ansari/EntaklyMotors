@@ -211,6 +211,8 @@ input[type="password"]::-webkit-textfield-decoration-container {
 .liCross {
   color: #ababab;
   margin-bottom: 0;
+  padding-left: 25px;
+  text-indent: -25px;
 }
 
 .liCross:before {
