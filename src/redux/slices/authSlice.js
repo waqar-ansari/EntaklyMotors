@@ -1,14 +1,14 @@
-import axios from "axios";
+import api from "@/app/api/axiosInstance";
+
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (credentials) => {
-    console.log(credentials,"credentials");
     
-    const response = await axios.post(
-      "http://localhost:3002/api/v1/user/login",
+    const response = await api.post(
+      "user/login",
       credentials
     );
     return response.data;
@@ -17,10 +17,8 @@ export const loginUser = createAsyncThunk(
 export const signupUser = createAsyncThunk(
   "auth/signUser",
   async (signupCredentials) => {
-    console.log(signupCredentials,"signupCredentials");
-    
-    const response = await axios.post(
-      "http://localhost:3002/api/v1/user/signup",
+    const response = await api.post(
+      "user/signup",
       signupCredentials
     );
     return response.data;

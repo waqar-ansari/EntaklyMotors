@@ -7,7 +7,6 @@ import "rsuite/Toggle/styles/index.css";
 const AddonService = ({ icon, isActive, toggleActive, addonName }) => {
   const [showDetails, setShowDetails] = useState(false);
   const handleAddon = () => {
-    console.log("addon clicked");
   };
   const handleDetailsClick = (event) => {
     setShowDetails(!showDetails);

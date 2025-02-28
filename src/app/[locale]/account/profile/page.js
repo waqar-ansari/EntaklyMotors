@@ -1,7 +1,7 @@
 "use client";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Tabs, Tab } from "react-bootstrap";
 import { useRouter, useSearchParams } from "next/navigation";
 import "../navTabs.css";
@@ -11,7 +11,8 @@ import PhoneInput from "react-phone-input-2";
 import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 import "react-phone-input-2/lib/bootstrap.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProfile, updateProfile } from "@/redux/slices/ProfileSlice";
 
 const Page = () => {
   const router = useRouter();
@@ -20,8 +21,16 @@ const Page = () => {
   const profileSubTab = searchParams.get("subTab") || "profileInformation";
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
-  const [countryCode, setCountryCode] = useState("+971");
-  const [phoneNumber, setPhoneNumber] = useState("");
+
+  const dispatch = useDispatch();
+
+  const [profileData, setProfileData] = useState({
+    fullname: "",
+    email: "",
+    phonenumber: { countryCode: "", number: "" },
+    address: { street: "", city: "", state: "", zip: "" },
+  });
+
   const handleTabSelect = (key) => {
     router.push(`?tab=${key}`, { scroll: false });
   };
@@ -30,8 +39,54 @@ const Page = () => {
     router.push(`?tab=profile&subTab=${key}`, { scroll: false });
   };
 
-  const handleCountryChange = (value, country) => {
-    setCountryCode(`+${country.dialCode}`);
+  useEffect(() => {
+    dispatch(fetchProfile());
+  }, [dispatch]);
+
+  const profile = useSelector((state) => state.profile);
+
+
+  const { fullname, email, phonenumber, address, loading, error } = profile;
+
+console.log(profile,"profile data from api fetch");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(profileData,"profiledataaa");
+    dispatch(updateProfile(profileData));
+  };
+  console.log(profileData,"profileDataprofileDataprofileData");
+  
+  const handleCountryChange = (value) => {
+    
+    setProfileData({
+      ...profileData,
+      phonenumber: {
+        ...profileData.phonenumber,
+        // number: profileData.phonenumber.number,
+        countryCode: value,
+      },
+    });
+  };
+
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "number") {
+      setProfileData({
+        ...profileData,
+        phonenumber: {
+          ...profileData.phonenumber,
+          // countryCode:profileData.phonenumber.countryCode,
+          number: value,
+        },
+      });
+    } else {
+      setProfileData({
+        ...profileData,
+        [name]: value,
+      });
+    }
   };
   return (
     <>
@@ -62,59 +117,72 @@ const Page = () => {
                     eventKey="profileInformation"
                     title="Profile Information"
                   >
-                    <div className="input-box form-floating">
-                      <input
-                        className="form-control"
-                        type="text"
-                        placeholder="Name"
-                        id="name"
-                      />
-                      <label for="name" className="inputLabelBg">
-                        Name
-                      </label>
-                    </div>
-
-                    <div className="d-flex align-items-center">
-                      <PhoneInput
-                        country={"ae"}
-                        value={""}
-                        inputStyle={{ display: "none" }}
-                        onChange={handleCountryChange}
-                        name="countryCode"
-                        enableSearch
-                        searchPlaceholder="Search..."
-                        searchStyle={{ width: 280, marginLeft: 0 }}
-                      />
-                      <div style={{ margin: "0px 10px" }}>{countryCode}</div>
-
-                      <div className="input-box form-floating w-100 my-0">
+                    <form onSubmit={handleSubmit}>
+                      <div className="input-box form-floating">
                         <input
                           className="form-control"
                           type="text"
-                          placeholder="Phone Number"
-                          name="phoneNumber"
-                          id="phoneNumber"
-                          // value={`${countryCode} ${phoneNumber}`}
-                          value={phoneNumber}
-                          onChange={(e) => setPhoneNumber(e.target.value)}
+                          value={ profileData.fullname || fullname}
+                          name="fullname"
+                          onChange={handleInputChange}
+                          placeholder="Name"
+                          id="fullname"
                         />
-                        <label for="phoneNumber" className="inputLabelBg">
-                          Phone Number
+                        <label for="fullname" className="inputLabelBg">
+                          Name
                         </label>
                       </div>
-                    </div>
 
-                    <button type="submit" className="submitButton mt-5">
-                      Save
-                    </button>
+                      <div className="d-flex align-items-center">
+                        <PhoneInput
+                          country={"ae"}
+                          value={
+                            profileData.phonenumber.countryCode
+                            || phonenumber.countryCode 
+                          }
+                          inputStyle={{ display: "none" }}
+                          onChange={handleCountryChange}
+                          name="countryCode"
+                          enableSearch
+                          searchPlaceholder="Search..."
+                          searchStyle={{ width: 280, marginLeft: 0 }}
+                        />
+                        <div style={{ margin: "0px 10px" }}>
+                          { profileData.phonenumber.countryCode
+                            || phonenumber.countryCode }
+                        </div>
+
+                        <div className="input-box form-floating w-100 my-0">
+                          <input
+                            className="form-control"
+                            type="text"
+                            placeholder="Phone Number"
+                            name="number"
+                            id="phonenumber"
+                            value={
+                              profileData.phonenumber.number || phonenumber.number 
+                            }
+                            onChange={handleInputChange}
+                          />
+                          <label for="phonenumber" className="inputLabelBg">
+                            Phone Number
+                          </label>
+                        </div>
+                      </div>
+                      <button type="submit" className="submitButton mt-5">
+                        Save
+                      </button>
+                    </form>
                   </Tab>
                   <Tab eventKey="email" title="Email Address">
-                    <form action="/">
+                    <form onSubmit={handleSubmit}>
                       <div className="input-box form-floating">
                         <input
                           className="form-control"
                           type="email"
+                          value={profileData.email || email}
                           name="email"
+                          onChange={handleInputChange}
                           placeholder="Email Address"
                           id="email"
                         />
