@@ -12,7 +12,7 @@ import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 import "react-phone-input-2/lib/bootstrap.css";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProfile, updateProfile } from "@/redux/slices/ProfileSlice";
+import { fetchProfile, updateProfile } from "@/redux/slices/profileSlice";
 
 const Page = () => {
   const router = useRouter();
@@ -38,6 +38,9 @@ const Page = () => {
     },
   });
 
+
+
+
   const handleTabSelect = (key) => {
     router.push(`?tab=${key}`, { scroll: false });
   };
@@ -53,15 +56,77 @@ const Page = () => {
   const profile = useSelector((state) => state.profile);
 
   const { fullname, email, phonenumber, address, loading, error } = profile;
-
   console.log(profile, "profile data from api fetch");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(profileData, "profiledataaa");
+    console.log(profileData, "profiledata before sending to redux");
     dispatch(updateProfile(profileData));
   };
   console.log(profileData, "profileDataprofileDataprofileData");
+
+
+  const handleCountryChange = (value) => {
+    setProfileData((prev) => ({
+      ...prev,
+      phonenumber: { ...prev.phonenumber, countryCode: value },
+    }));
+  };
+  
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setProfileData((prev) => ({
+  //     ...prev,
+  //     [name === "number" ? "phonenumber" : name]: {
+  //       ...prev[name === "number" ? "phonenumber" : {}],
+  //       [name === "number" ? "number" : name]: value,
+  //     },
+  //   }));
+  // };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+  
+    setProfileData((prev) => {
+      if (name === "number") {
+        // Update phone number
+        return {
+          ...prev,
+          phonenumber: { ...prev.phonenumber, number: value },
+        };
+      } else if (name.includes(".")) {
+        // Handle nested fields like address.street
+        const [parent, child] = name.split(".");
+        return {
+          ...prev,
+          [parent]: { ...prev[parent], [child]: value },
+        };
+      } else {
+        // Update root-level fields
+        return { ...prev, [name]: value };
+      }
+    });
+  };
+  
+  useEffect(() => {
+    if (!loading && !error && fullname) {
+      setProfileData({
+        fullname: fullname || "",
+        email: email || "",
+        phonenumber: {
+          countryCode: phonenumber?.countryCode || "",
+          number: phonenumber?.number || "",
+        },
+        address: {
+          recipient: address?.recipient || "",
+          street: address?.street || "",
+          city: address?.city || "",
+          state: address?.state || "",
+          zip: address?.zip || "",
+          country: address?.country || "",
+        },
+      });
+    }
+  }, [fullname, email, phonenumber, address, loading, error]);
 
   // const handleCountryChange = (value) => {
   //   setProfileData({
@@ -74,17 +139,16 @@ const Page = () => {
   //   });
   // };
 
-  const handleCountryChange = (value) => {
-    setProfileData((prevData) => ({
-      ...prevData,
-      phonenumber: {
-        ...prevData.phonenumber,
-        number: prevData.phonenumber.number || "", // Preserve existing number
-        countryCode: value,
-      },
-    }));
-  };
-  
+  // const handleCountryChange = (value) => {
+  //   setProfileData((prevData) => ({
+  //     ...prevData,
+  //     phonenumber: {
+  //       ...prevData.phonenumber,
+  //       number: prevData.phonenumber.number || "", // Preserve existing number
+  //       countryCode: value,
+  //     },
+  //   }));
+  // };
 
   // const handleInputChange = (e) => {
   //   const { name, value } = e.target;
@@ -105,19 +169,23 @@ const Page = () => {
   //   }
   // };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-  
-    setProfileData((prevData) => ({
-      ...prevData,
-      phonenumber:
-        name === "number"
-          ? { ...prevData.phonenumber, countryCode: prevData.phonenumber.countryCode || "", number: value }
-          : prevData.phonenumber,
-      ...(name !== "number" && { [name]: value }), // Ensure other fields are updated correctly
-    }));
-  };
-  
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+
+  //   setProfileData((prevData) => ({
+  //     ...prevData,
+  //     phonenumber:
+  //       name === "number"
+  //         ? {
+  //             ...prevData.phonenumber,
+  //             countryCode: prevData.phonenumber.countryCode || "",
+  //             number: value,
+  //           }
+  //         : prevData.phonenumber,
+  //     ...(name !== "number" && { [name]: value }), // Ensure other fields are updated correctly
+  //   }));
+  // };
+
   return (
     <>
       <Header />
@@ -152,7 +220,7 @@ const Page = () => {
                         <input
                           className="form-control"
                           type="text"
-                          value={profileData.fullname || fullname}
+                          value={profileData.fullname}
                           name="fullname"
                           onChange={handleInputChange}
                           placeholder="Name"
@@ -167,8 +235,7 @@ const Page = () => {
                         <PhoneInput
                           country={"ae"}
                           value={
-                            profileData.phonenumber.countryCode ||
-                            phonenumber.countryCode
+                            profileData?.phonenumber?.countryCode
                           }
                           inputStyle={{ display: "none" }}
                           onChange={handleCountryChange}
@@ -178,8 +245,7 @@ const Page = () => {
                           searchStyle={{ width: 280, marginLeft: 0 }}
                         />
                         <div style={{ margin: "0px 10px" }}>
-                          {profileData.phonenumber.countryCode ||
-                            phonenumber.countryCode}
+                          {profileData?.phonenumber?.countryCode}
                         </div>
 
                         <div className="input-box form-floating w-100 my-0">
@@ -190,8 +256,8 @@ const Page = () => {
                             name="number"
                             id="phonenumber"
                             value={
-                              profileData.phonenumber.number ||
-                              phonenumber.number
+                              profileData?.phonenumber?.number ||
+                              phonenumber?.number
                             }
                             onChange={handleInputChange}
                           />
@@ -211,7 +277,7 @@ const Page = () => {
                         <input
                           className="form-control"
                           type="email"
-                          value={profileData.email || email}
+                          value={profileData.email}
                           name="email"
                           onChange={handleInputChange}
                           placeholder="Email Address"
@@ -295,7 +361,9 @@ const Page = () => {
                         <input
                           className="form-control"
                           type="text"
-                          name="recipient"
+                          name="address.recipient"
+                          value={profileData.address.recipient}
+                          onChange={handleInputChange}
                           placeholder="Recipient"
                           id="recipient"
                         />
@@ -308,7 +376,9 @@ const Page = () => {
                           className="form-control"
                           type="text"
                           placeholder="Zipcode"
-                          name="zipcode"
+                          name="address.zipcode"
+                          value={profileData.address.zipcode}
+                          onChange={handleInputChange}
                           id="zipcode"
                         />
                         <label for="zipcode" className="inputLabelBg">
@@ -319,7 +389,9 @@ const Page = () => {
                         <input
                           className="form-control"
                           type="text"
-                          name="city"
+                          name="address.city"
+                          value={profileData.address.city}
+                          onChange={handleInputChange}
                           placeholder="City"
                           id="city"
                         />
@@ -331,7 +403,9 @@ const Page = () => {
                         <input
                           className="form-control"
                           type="text"
-                          name="state"
+                          name="address.state"
+                          value={profileData.address.state}
+                          onChange={handleInputChange}
                           placeholder="State"
                           id="state"
                         />
@@ -344,7 +418,9 @@ const Page = () => {
                           className="form-control"
                           type="text"
                           placeholder="Country"
-                          name="country"
+                          name="address.country"
+                          value={profileData.address.country}
+                          onChange={handleInputChange}
                           id="country"
                         />
                         <label for="country" className="inputLabelBg">

@@ -15,11 +15,13 @@ export const updateProfile = createAsyncThunk(
     console.log(profileData,"profile data before sending to api");
     
     const data = await editProfile(profileData);
+    console.log(data,"user which you saved");
+    
     return data;
   }
 );
 
-const ProfileSlice = createSlice({
+const profileSlice = createSlice({
   name: "profile",
   initialState: {
     fullname: "",
@@ -74,5 +76,5 @@ const ProfileSlice = createSlice({
       });
   },
 });
-export const { setProfile, clearProfile } = ProfileSlice.actions;
-export default ProfileSlice.reducer;
+export const { setProfile, clearProfile } = profileSlice.actions;
+export default profileSlice.reducer;

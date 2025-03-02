@@ -2,7 +2,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import selectedCarReducer from "./slices/selectedCarSlice";
 import authReducer from "./slices/authSlice";
-import profileReducer from "./slices/ProfileSlice";
+import profileReducer from "./slices/profileSlice";
 import storage from "redux-persist/lib/storage"; // Defaults to localStorage
 import { persistReducer, persistStore } from "redux-persist";
 import { combineReducers } from "redux";
