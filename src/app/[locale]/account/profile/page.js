@@ -28,7 +28,14 @@ const Page = () => {
     fullname: "",
     email: "",
     phonenumber: { countryCode: "", number: "" },
-    address: { street: "", city: "", state: "", zip: "" },
+    address: {
+      recipient: "",
+      street: "",
+      city: "",
+      state: "",
+      zip: "",
+      country: "",
+    },
   });
 
   const handleTabSelect = (key) => {
@@ -45,49 +52,72 @@ const Page = () => {
 
   const profile = useSelector((state) => state.profile);
 
-
   const { fullname, email, phonenumber, address, loading, error } = profile;
 
-console.log(profile,"profile data from api fetch");
+  console.log(profile, "profile data from api fetch");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(profileData,"profiledataaa");
+    console.log(profileData, "profiledataaa");
     dispatch(updateProfile(profileData));
   };
-  console.log(profileData,"profileDataprofileDataprofileData");
-  
+  console.log(profileData, "profileDataprofileDataprofileData");
+
+  // const handleCountryChange = (value) => {
+  //   setProfileData({
+  //     ...profileData,
+  //     phonenumber: {
+  //       ...profileData.phonenumber,
+  //       // number: profileData.phonenumber.number,
+  //       countryCode: value,
+  //     },
+  //   });
+  // };
+
   const handleCountryChange = (value) => {
-    
-    setProfileData({
-      ...profileData,
+    setProfileData((prevData) => ({
+      ...prevData,
       phonenumber: {
-        ...profileData.phonenumber,
-        // number: profileData.phonenumber.number,
+        ...prevData.phonenumber,
+        number: prevData.phonenumber.number || "", // Preserve existing number
         countryCode: value,
       },
-    });
+    }));
   };
+  
 
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   if (name === "number") {
+  //     setProfileData({
+  //       ...profileData,
+  //       phonenumber: {
+  //         ...profileData.phonenumber,
+  //         // countryCode:profileData.phonenumber.countryCode,
+  //         number: value,
+  //       },
+  //     });
+  //   } else {
+  //     setProfileData({
+  //       ...profileData,
+  //       [name]: value,
+  //     });
+  //   }
+  // };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    if (name === "number") {
-      setProfileData({
-        ...profileData,
-        phonenumber: {
-          ...profileData.phonenumber,
-          // countryCode:profileData.phonenumber.countryCode,
-          number: value,
-        },
-      });
-    } else {
-      setProfileData({
-        ...profileData,
-        [name]: value,
-      });
-    }
+  
+    setProfileData((prevData) => ({
+      ...prevData,
+      phonenumber:
+        name === "number"
+          ? { ...prevData.phonenumber, countryCode: prevData.phonenumber.countryCode || "", number: value }
+          : prevData.phonenumber,
+      ...(name !== "number" && { [name]: value }), // Ensure other fields are updated correctly
+    }));
   };
+  
   return (
     <>
       <Header />
@@ -122,7 +152,7 @@ console.log(profile,"profile data from api fetch");
                         <input
                           className="form-control"
                           type="text"
-                          value={ profileData.fullname || fullname}
+                          value={profileData.fullname || fullname}
                           name="fullname"
                           onChange={handleInputChange}
                           placeholder="Name"
@@ -137,8 +167,8 @@ console.log(profile,"profile data from api fetch");
                         <PhoneInput
                           country={"ae"}
                           value={
-                            profileData.phonenumber.countryCode
-                            || phonenumber.countryCode 
+                            profileData.phonenumber.countryCode ||
+                            phonenumber.countryCode
                           }
                           inputStyle={{ display: "none" }}
                           onChange={handleCountryChange}
@@ -148,8 +178,8 @@ console.log(profile,"profile data from api fetch");
                           searchStyle={{ width: 280, marginLeft: 0 }}
                         />
                         <div style={{ margin: "0px 10px" }}>
-                          { profileData.phonenumber.countryCode
-                            || phonenumber.countryCode }
+                          {profileData.phonenumber.countryCode ||
+                            phonenumber.countryCode}
                         </div>
 
                         <div className="input-box form-floating w-100 my-0">
@@ -160,7 +190,8 @@ console.log(profile,"profile data from api fetch");
                             name="number"
                             id="phonenumber"
                             value={
-                              profileData.phonenumber.number || phonenumber.number 
+                              profileData.phonenumber.number ||
+                              phonenumber.number
                             }
                             onChange={handleInputChange}
                           />
@@ -259,69 +290,71 @@ console.log(profile,"profile data from api fetch");
                     </form>
                   </Tab>
                   <Tab eventKey="address" title="Address (optional)">
-                    <div className="input-box form-floating">
-                      <input
-                        className="form-control"
-                        type="text"
-                        name="recipient"
-                        placeholder="Recipient"
-                        id="recipient"
-                      />
-                      <label for="recipient" className="inputLabelBg">
-                        Recipient
-                      </label>
-                    </div>
-                    <div className="input-box form-floating">
-                      <input
-                        className="form-control"
-                        type="text"
-                        placeholder="Zipcode"
-                        name="zipcode"
-                        id="zipcode"
-                      />
-                      <label for="zipcode" className="inputLabelBg">
-                        Zipcode
-                      </label>
-                    </div>
-                    <div className="input-box form-floating">
-                      <input
-                        className="form-control"
-                        type="text"
-                        name="city"
-                        placeholder="City"
-                        id="city"
-                      />
-                      <label for="city" className="inputLabelBg">
-                        City
-                      </label>
-                    </div>
-                    <div className="input-box form-floating">
-                      <input
-                        className="form-control"
-                        type="text"
-                        name="state"
-                        placeholder="State"
-                        id="state"
-                      />
-                      <label for="state" className="inputLabelBg">
-                        State
-                      </label>
-                    </div>
-                    <div className="input-box form-floating">
-                      <input
-                        className="form-control"
-                        type="text"
-                        placeholder="Country"
-                        name="country"
-                        id="country"
-                      />
-                      <label for="country" className="inputLabelBg">
-                        Country
-                      </label>
-                    </div>
-                    <button type="submit" className="submitButton">
-                      Save
-                    </button>
+                    <form onSubmit={handleSubmit}>
+                      <div className="input-box form-floating">
+                        <input
+                          className="form-control"
+                          type="text"
+                          name="recipient"
+                          placeholder="Recipient"
+                          id="recipient"
+                        />
+                        <label for="recipient" className="inputLabelBg">
+                          Recipient
+                        </label>
+                      </div>
+                      <div className="input-box form-floating">
+                        <input
+                          className="form-control"
+                          type="text"
+                          placeholder="Zipcode"
+                          name="zipcode"
+                          id="zipcode"
+                        />
+                        <label for="zipcode" className="inputLabelBg">
+                          Zipcode
+                        </label>
+                      </div>
+                      <div className="input-box form-floating">
+                        <input
+                          className="form-control"
+                          type="text"
+                          name="city"
+                          placeholder="City"
+                          id="city"
+                        />
+                        <label for="city" className="inputLabelBg">
+                          City
+                        </label>
+                      </div>
+                      <div className="input-box form-floating">
+                        <input
+                          className="form-control"
+                          type="text"
+                          name="state"
+                          placeholder="State"
+                          id="state"
+                        />
+                        <label for="state" className="inputLabelBg">
+                          State
+                        </label>
+                      </div>
+                      <div className="input-box form-floating">
+                        <input
+                          className="form-control"
+                          type="text"
+                          placeholder="Country"
+                          name="country"
+                          id="country"
+                        />
+                        <label for="country" className="inputLabelBg">
+                          Country
+                        </label>
+                      </div>
+                      <button type="submit" className="submitButton">
+                        Save
+                      </button>
+                    </form>
                   </Tab>
                 </Tabs>
               </Tab>

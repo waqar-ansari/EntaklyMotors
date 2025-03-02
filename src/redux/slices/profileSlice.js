@@ -12,12 +12,14 @@ export const fetchProfile = createAsyncThunk("profile/getProfile", async () => {
 export const updateProfile = createAsyncThunk(
   "profile/editProfile",
   async (profileData) => {
+    console.log(profileData,"profile data before sending to api");
+    
     const data = await editProfile(profileData);
     return data;
   }
 );
 
-const profileSlice = createSlice({
+const ProfileSlice = createSlice({
   name: "profile",
   initialState: {
     fullname: "",
@@ -72,5 +74,5 @@ const profileSlice = createSlice({
       });
   },
 });
-export const { setProfile, clearProfile } = profileSlice.actions;
-export default profileSlice.reducer;
+export const { setProfile, clearProfile } = ProfileSlice.actions;
+export default ProfileSlice.reducer;
