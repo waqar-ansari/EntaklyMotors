@@ -13,6 +13,7 @@ import { FaEye } from "react-icons/fa";
 import "react-phone-input-2/lib/bootstrap.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile, updateProfile } from "@/redux/slices/profileSlice";
+import api from "@/app/api/axiosInstance";
 
 const Page = () => {
   const router = useRouter();
@@ -21,6 +22,10 @@ const Page = () => {
   const profileSubTab = searchParams.get("subTab") || "profileInformation";
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
+  const [changePasswords, setChangePasswords] = useState({
+    currentPassword: "",
+    newPassword: "",
+  });
 
   const dispatch = useDispatch();
 
@@ -33,13 +38,10 @@ const Page = () => {
       street: "",
       city: "",
       state: "",
-      zip: "",
+      zipcode: "",
       country: "",
     },
   });
-
-
-
 
   const handleTabSelect = (key) => {
     router.push(`?tab=${key}`, { scroll: false });
@@ -58,13 +60,37 @@ const Page = () => {
   const { fullname, email, phonenumber, address, loading, error } = profile;
   console.log(profile, "profile data from api fetch");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(profileData, "profiledata before sending to redux");
-    dispatch(updateProfile(profileData));
-  };
-  console.log(profileData, "profileDataprofileDataprofileData");
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log(profileData, "profiledata before sending to redux");
+  //   dispatch(updateProfile(profileData));
+  // };
 
+  const handleSubmit = (e, subTab) => {
+    e.preventDefault();
+
+    let updatedData = {};
+
+    if (subTab === "profileInformation") {
+      updatedData = {
+        fullname: profileData.fullname,
+        phonenumber: profileData.phonenumber,
+      };
+    } else if (subTab === "email") {
+      updatedData = {
+        email: profileData.email,
+      };
+    } else if (subTab === "address") {
+      updatedData = {
+        address: profileData.address,
+      };
+    }
+
+    console.log(updatedData, "Data sent to Redux");
+    dispatch(updateProfile(updatedData));
+  };
+
+  console.log(profileData, "profileDataprofileDataprofileData");
 
   const handleCountryChange = (value) => {
     setProfileData((prev) => ({
@@ -72,20 +98,10 @@ const Page = () => {
       phonenumber: { ...prev.phonenumber, countryCode: value },
     }));
   };
-  
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setProfileData((prev) => ({
-  //     ...prev,
-  //     [name === "number" ? "phonenumber" : name]: {
-  //       ...prev[name === "number" ? "phonenumber" : {}],
-  //       [name === "number" ? "number" : name]: value,
-  //     },
-  //   }));
-  // };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-  
+
     setProfileData((prev) => {
       if (name === "number") {
         // Update phone number
@@ -106,7 +122,7 @@ const Page = () => {
       }
     });
   };
-  
+
   useEffect(() => {
     if (!loading && !error && fullname) {
       setProfileData({
@@ -121,70 +137,54 @@ const Page = () => {
           street: address?.street || "",
           city: address?.city || "",
           state: address?.state || "",
-          zip: address?.zip || "",
+          zipcode: address?.zipcode || "",
           country: address?.country || "",
         },
       });
     }
   }, [fullname, email, phonenumber, address, loading, error]);
+  const handleChangePassword = (e) => {
+    const { name, value } = e.target;
+    setChangePasswords((prev) => ({ ...prev, [name]: value }));
+  };
 
-  // const handleCountryChange = (value) => {
-  //   setProfileData({
-  //     ...profileData,
-  //     phonenumber: {
-  //       ...profileData.phonenumber,
-  //       // number: profileData.phonenumber.number,
-  //       countryCode: value,
-  //     },
-  //   });
+  // const handleSubmitChangePassword = (e) => {
+  //   e.preventDefault();
+  //   console.log("Passwords:", changePasswords);
+  //   setChangePasswords({ currentPassword: "", newPassword: "" });
   // };
 
-  // const handleCountryChange = (value) => {
-  //   setProfileData((prevData) => ({
-  //     ...prevData,
-  //     phonenumber: {
-  //       ...prevData.phonenumber,
-  //       number: prevData.phonenumber.number || "", // Preserve existing number
-  //       countryCode: value,
-  //     },
-  //   }));
+  // const handleSubmitChangePassword = (e) => {
+  //   e.preventDefault();
+
+  //   const updatedPasswordData = {
+  //     currentPassword: changePasswords.currentPassword,
+  //     newPassword: changePasswords.newPassword,
+  //   };
+
+  //   console.log("Change Password Data:", updatedPasswordData);
+
+  //   // dispatch(updateProfile(updatedPasswordData));
+
+  //   setChangePasswords({ currentPassword: "", newPassword: "" });
   // };
 
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   if (name === "number") {
-  //     setProfileData({
-  //       ...profileData,
-  //       phonenumber: {
-  //         ...profileData.phonenumber,
-  //         // countryCode:profileData.phonenumber.countryCode,
-  //         number: value,
-  //       },
-  //     });
-  //   } else {
-  //     setProfileData({
-  //       ...profileData,
-  //       [name]: value,
-  //     });
-  //   }
-  // };
+  const handleSubmitChangePassword = async (e) => {
+    e.preventDefault();
+    const passwordsWithMail = { ...changePasswords, email };
+    console.log("Passwords:", passwordsWithMail);
+    try {
+      const response = await api.post("/user/change-password", {
+        passwordsWithMail,
+      });
+      console.log(response, "responce from change password api");
 
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-
-  //   setProfileData((prevData) => ({
-  //     ...prevData,
-  //     phonenumber:
-  //       name === "number"
-  //         ? {
-  //             ...prevData.phonenumber,
-  //             countryCode: prevData.phonenumber.countryCode || "",
-  //             number: value,
-  //           }
-  //         : prevData.phonenumber,
-  //     ...(name !== "number" && { [name]: value }), // Ensure other fields are updated correctly
-  //   }));
-  // };
+      // setMessage(response.data.message);
+      setChangePasswords({ currentPassword: "", newPassword: "" });
+    } catch (error) {
+      // setMessage(error.response?.data?.error || "Something went wrong");
+    }
+  };
 
   return (
     <>
@@ -215,7 +215,9 @@ const Page = () => {
                     eventKey="profileInformation"
                     title="Profile Information"
                   >
-                    <form onSubmit={handleSubmit}>
+                    <form
+                      onSubmit={(e) => handleSubmit(e, "profileInformation")}
+                    >
                       <div className="input-box form-floating">
                         <input
                           className="form-control"
@@ -226,7 +228,7 @@ const Page = () => {
                           placeholder="Name"
                           id="fullname"
                         />
-                        <label for="fullname" className="inputLabelBg">
+                        <label htmlFor="fullname" className="inputLabelBg">
                           Name
                         </label>
                       </div>
@@ -234,9 +236,7 @@ const Page = () => {
                       <div className="d-flex align-items-center">
                         <PhoneInput
                           country={"ae"}
-                          value={
-                            profileData?.phonenumber?.countryCode
-                          }
+                          value={profileData?.phonenumber?.countryCode}
                           inputStyle={{ display: "none" }}
                           onChange={handleCountryChange}
                           name="countryCode"
@@ -261,7 +261,7 @@ const Page = () => {
                             }
                             onChange={handleInputChange}
                           />
-                          <label for="phonenumber" className="inputLabelBg">
+                          <label htmlFor="phonenumber" className="inputLabelBg">
                             Phone Number
                           </label>
                         </div>
@@ -272,7 +272,7 @@ const Page = () => {
                     </form>
                   </Tab>
                   <Tab eventKey="email" title="Email Address">
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={(e) => handleSubmit(e, "email")}>
                       <div className="input-box form-floating">
                         <input
                           className="form-control"
@@ -283,7 +283,7 @@ const Page = () => {
                           placeholder="Email Address"
                           id="email"
                         />
-                        <label for="email" className="inputLabelBg">
+                        <label htmlFor="email" className="inputLabelBg">
                           Email Address
                         </label>
                       </div>
@@ -293,12 +293,14 @@ const Page = () => {
                     </form>
                   </Tab>
                   <Tab eventKey="changepassword" title="Change Password">
-                    <form action="/">
+                    <form onSubmit={handleSubmitChangePassword}>
                       <div className="input-box form-floating position-relative">
                         <input
                           className="form-control"
                           type={showCurrentPassword ? "text" : "password"}
                           name="currentPassword"
+                          value={changePasswords.currentPassword}
+                          onChange={handleChangePassword}
                           placeholder="Current Password"
                           id="currentPassword"
                         />
@@ -330,10 +332,12 @@ const Page = () => {
                           className="form-control"
                           type={showNewPassword ? "text" : "password"}
                           name="newPassword"
+                          value={changePasswords.newPassword}
+                          onChange={handleChangePassword}
                           placeholder="New Password"
                           id="newPassword"
                         />
-                        <label for="newPassword" className="inputLabelBg">
+                        <label htmlFor="newPassword" className="inputLabelBg">
                           New Password
                         </label>
                         <span
@@ -356,7 +360,7 @@ const Page = () => {
                     </form>
                   </Tab>
                   <Tab eventKey="address" title="Address (optional)">
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={(e) => handleSubmit(e, "address")}>
                       <div className="input-box form-floating">
                         <input
                           className="form-control"
@@ -367,7 +371,7 @@ const Page = () => {
                           placeholder="Recipient"
                           id="recipient"
                         />
-                        <label for="recipient" className="inputLabelBg">
+                        <label htmlFor="recipient" className="inputLabelBg">
                           Recipient
                         </label>
                       </div>
@@ -381,7 +385,7 @@ const Page = () => {
                           onChange={handleInputChange}
                           id="zipcode"
                         />
-                        <label for="zipcode" className="inputLabelBg">
+                        <label htmlFor="zipcode" className="inputLabelBg">
                           Zipcode
                         </label>
                       </div>
@@ -395,7 +399,7 @@ const Page = () => {
                           placeholder="City"
                           id="city"
                         />
-                        <label for="city" className="inputLabelBg">
+                        <label htmlFor="city" className="inputLabelBg">
                           City
                         </label>
                       </div>
@@ -409,7 +413,7 @@ const Page = () => {
                           placeholder="State"
                           id="state"
                         />
-                        <label for="state" className="inputLabelBg">
+                        <label htmlFor="state" className="inputLabelBg">
                           State
                         </label>
                       </div>
@@ -423,7 +427,7 @@ const Page = () => {
                           onChange={handleInputChange}
                           id="country"
                         />
-                        <label for="country" className="inputLabelBg">
+                        <label htmlFor="country" className="inputLabelBg">
                           Country
                         </label>
                       </div>

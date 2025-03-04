@@ -34,9 +34,9 @@ a {
   display: none !important;
 }
 
-.rs-picker-daterange-header {
+/* .rs-picker-daterange-header {
   display: none !important;
-}
+} */
 
 .rs-picker-error>.rs-picker-input-group {
   border-color: transparent !important;
@@ -243,6 +243,10 @@ input[type="password"]::-webkit-textfield-decoration-container {
 .marginTopHeroImage {
   margin-top: -183px;
 }
+.datePickerGroup{
+  display: flex;
+  gap: 15px;
+}
 
 @media (min-width: 1200px) {}
 
@@ -403,6 +407,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
   .mobDisplayNone{
     display: none;
   }
+
 
 }
 

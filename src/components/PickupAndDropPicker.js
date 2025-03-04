@@ -1,6 +1,6 @@
 "use client";
-import React, { useRef, useState } from "react";
-import { Button, DateRangePicker, Input } from "rsuite";
+import React, { useEffect, useRef, useState } from "react";
+import { Button, DateRangePicker, Input} from "rsuite";
 import "rsuite/dist/rsuite.css";
 import { colors } from "../../public/colors/colors";
 import { fonts } from "../../public/fonts/fonts";
@@ -9,13 +9,22 @@ import { FaCalendarAlt } from "react-icons/fa";
 import Link from "next/link";
 import { Modal } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "rsuite/dist/rsuite.css";
 
-const PickupAndDropPicker = ({ heading = true }) => {
+
+const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
   const [range, setRange] = useState([null, null]);
 
   const [showDateModal, setShowDateModal] = useState(false);
-
   const pickerRef = useRef(null);
+
+  useEffect(() => {
+    const pickupDate = new Date();
+    const returnDate = new Date(pickupDate);
+    returnDate.setDate(pickupDate.getDate() + 2); 
+
+    setRange([pickupDate, returnDate]);
+  }, []);
 
   // Function to open DateRangePicker
   const openDatePicker = () => {
@@ -23,6 +32,7 @@ const PickupAndDropPicker = ({ heading = true }) => {
       pickerRef.current.open();
     }
   };
+
   const formatDate = (date) => {
     if (!date) return "";
     return date.toLocaleString("en-GB", {
@@ -35,8 +45,9 @@ const PickupAndDropPicker = ({ heading = true }) => {
   };
   const handlePickUpDateClick = () => {
     const isLargeScreen =
-      typeof window !== "undefined" && window.matchMedia("(min-width: 1200px)").matches;
-  
+      typeof window !== "undefined" &&
+      window.matchMedia("(min-width: 1200px)").matches;
+
     if (isLargeScreen) {
       openDatePicker();
     } else {
@@ -79,7 +90,7 @@ const PickupAndDropPicker = ({ heading = true }) => {
               id="dropLocation"
               placeholder="Drop Location"
             />
-            <label htmlFor="dropLocation">Drop-off</label>
+            <label htmlFor="dropLocation">Return</label>
           </div>
         </div>
 
@@ -92,61 +103,80 @@ const PickupAndDropPicker = ({ heading = true }) => {
           style={{ width: 0, background: "transparent" }}
           showShortcuts={false}
           renderFooter={() => null}
+          showHeader={false}
         />
 
-        <div
-          className="input-group customInputGroup"
-          // onClick={() => setShowDateModal(true)}
-        >
-          <span className="input-group-text">
-            <FaCalendarAlt />
-          </span>
-          <div className="form-floating">
-            <input
-              // value={range[0] ? range[0].toLocaleString() : ""}
-              value={range[0] ? formatDate(range[0]) : ""}
-              className="form-control"
-              placeholder="Pickup Date & Time"
-              onClick={handlePickUpDateClick}
-            />
-            <label htmlFor="floatingInputGroup1">Pick-up Date</label>
+        <div className="datePickerGroup">
+          <div
+            className="input-group customInputGroup"
+            // onClick={() => setShowDateModal(true)}
+          >
+            <span className="input-group-text">
+              <FaCalendarAlt />
+            </span>
+            <div className="form-floating">
+              <input
+                // value={range[0] ? range[0].toLocaleString() : ""}
+                value={range[0] ? formatDate(range[0]) : ""}
+                className="form-control"
+                placeholder="Pickup Date & Time"
+                onClick={handlePickUpDateClick}
+                readOnly
+              />
+              <label htmlFor="floatingInputGroup1">Pick-up Date</label>
+            </div>
           </div>
-        </div>
 
-        <div className="input-group customInputGroup">
-          <span className="input-group-text">
-            <FaCalendarAlt />
-          </span>
-          <div className="form-floating">
-            <input
-              // value={range[1] ? range[1].toLocaleString() : ""}
-              value={range[0] ? formatDate(range[1]) : ""}
-              className="form-control"
-              placeholder="Return Date"
-              onClick={handlePickUpDateClick}
-            />
-            <label htmlFor="floatingInputGroup1">Return Date</label>
+          <div className="input-group customInputGroup">
+            <span className="input-group-text">
+              <FaCalendarAlt />
+            </span>
+            <div className="form-floating">
+              <input
+                // value={range[1] ? range[1].toLocaleString() : ""}
+                value={range[0] ? formatDate(range[1]) : ""}
+                className="form-control"
+                placeholder="Return Date"
+                onClick={handlePickUpDateClick}
+                readOnly
+              />
+              <label htmlFor="floatingInputGroup1">Return Date</label>
+            </div>
           </div>
         </div>
-        <Link href="/cars" style={styles.showCarsBtn}>
-          Show cars
-        </Link>
+        {showCarsButton && (
+          <Link href="/cars" style={styles.showCarsBtn}>
+            Show cars
+          </Link>
+        )}
       </div>
       <Modal
         show={showDateModal}
         onHide={() => setShowDateModal(false)}
         fullscreen
+        scrollable
       >
         <Modal.Header closeButton>
           <Modal.Title>Choose Date</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <DateRangePicker format="dd MMM hh:mm" showMeridiem />
+         
+            <DateRangePicker
+              showOneCalendar
+              style={{ width: 0, background: "transparent" }}
+              onOk={() => setShowDateModal(false)}
+              onClose={() => setShowDateModal(false)}
+              ref={pickerRef}
+              value={range}
+              onChange={setRange}
+              format="d MMMM yyyy HH:mm" 
+              defaultOpen
+              showMeridiem
+              // showHeader={false}
+            />
+       
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowDateModal(false)}>
-            Close
-          </Button>
         </Modal.Footer>
       </Modal>
     </div>

@@ -1,0 +1,33 @@
+/* @media (max-width: 768px) {
+
+    .rs-picker-daterange-calendar-group {
+        display: inline-block;
+    }
+
+    .rs-picker-toolbar.rs-stack {
+        display: block !important;
+    }
+
+    .rs-picker-popup .rs-calendar-header {
+        text-align: left;
+    }
+
+    .rs-calendar-table-cell,
+    .rs-calendar-table-header-cell {
+        width: auto;
+    }
+
+    .rs-calendar-header-time-toolbar {
+        float: none !important;
+    }
+
+    .rs-picker-daterange-menu {
+        flex-direction: column !important;
+        width: auto !important;
+    }
+
+    .rs-calendar {
+        width: 100% !important;
+    }
+
+} */

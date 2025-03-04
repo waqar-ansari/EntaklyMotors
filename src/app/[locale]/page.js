@@ -16,6 +16,7 @@ import { Modal, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
+import ModalPickerMobile from "@/components/modals/ModalPickerMobile";
 
 export default function HomePage() {
   const t = useTranslations("HomePage");
@@ -25,7 +26,7 @@ export default function HomePage() {
       <div>
         <p
           className="text-danger text-center text-white mb-0 pt-1"
-          style={{ backgroundColor: colors.black }}
+          style={{ backgroundColor: colors.themeMain }}
         >
           11 years of Entakly. 11 years of tradition.
         </p>
@@ -34,14 +35,14 @@ export default function HomePage() {
       <Header />
       <div style={styles.PickupAndDropPicker} className="pickerForMob">
         <div className="mobDisplayNone">
-          <PickupAndDropPicker />
+          <PickupAndDropPicker showCarsButton={true} />
         </div>
         <div
           className="mobPickerAndDropPicker tabDisplayNone"
           onClick={() => setShow(true)}
         >
           <div
-            className="input-group customInputGroup mb-0 align-items-center px-2 inputGroupBorRad"
+            className="input-group customInputGroup border-0 mb-0 align-items-center  inputGroupBorRad"
             style={{ height: 30 }}
           >
             {/* <span className="input-group-text">
@@ -56,8 +57,7 @@ export default function HomePage() {
               />
               <label htmlFor="rentYourCar">Rent your car</label>
             </div> */}
-            <CiSearch style={{marginRight:10}}/>
-         
+            <CiSearch style={{ marginRight: 10 }} />
             Destination
           </div>
         </div>
@@ -101,7 +101,7 @@ export default function HomePage() {
       <div className="container">
         <div className="row p-section sec-3">
           <div className="col-md-4 mb-4 mb-md-0">
-            <div className="d-flex align-items-center flex-justify mb-2">
+            <div className="d-sm-flex align-items-center flex-justify mb-2">
               <Image
                 src="/icons/worldGlobe.png"
                 alt="globe"
@@ -113,7 +113,7 @@ export default function HomePage() {
             <h4 className="subText">500+ Entakly stations in Dubai</h4>
           </div>
           <div className="col-md-4 mb-4 mb-md-0">
-            <div className="d-flex align-items-center flex-justify mb-2">
+            <div className="d-sm-flex align-items-center flex-justify mb-2">
               <Image
                 src="/icons/carBlack.png"
                 alt="globe"
@@ -122,10 +122,12 @@ export default function HomePage() {
               />
               <p style={styles.subHeading}>Distinctive fleet</p>
             </div>
-            <h4 className="subText">From high-end convertibles to premium SUVs</h4>
+            <h4 className="subText">
+              From high-end convertibles to premium SUVs
+            </h4>
           </div>
           <div className="col-md-4 mb-4 mb-md-0">
-            <div className="d-flex align-items-center flex-justify mb-2">
+            <div className="d-sm-flex align-items-center flex-justify mb-2">
               <Image
                 src="/icons/handWithHeart.png"
                 alt="globe"
@@ -134,7 +136,9 @@ export default function HomePage() {
               />
               <p style={styles.subHeading}>Exceptional service</p>
             </div>
-            <h4 className="subText">Stress-free, trustworthy, no hidden costs</h4>
+            <h4 className="subText">
+              Stress-free, trustworthy, no hidden costs
+            </h4>
           </div>
         </div>
         <div className="row" style={styles.marginB}>
@@ -188,7 +192,7 @@ export default function HomePage() {
           </div>
           <div className="col-md-4 d-flex justify-content-center align-items-center">
             <Image
-              src="/icons/linkGramQr.jpeg"
+              src="/icons/whatsappQrCode.jpeg"
               alt="limousine"
               width={200}
               height={200}
@@ -196,14 +200,19 @@ export default function HomePage() {
             />
           </div>
           <div className="col-md-4 my-auto">
-            <Image
-              src="/icons/linkGramLogo.webp"
-              alt="limousine"
-              width={924}
-              height={295}
-              layout="responsive"
-              className="sec-5-linkGramLogo"
-            />
+            <Link
+              href="https://prodapi.linkgram.co.uk/api/v1/share/entakly.motors"
+              target="_blank"
+            >
+              <Image
+                src="/icons/linkGramLogo.webp"
+                alt="limousine"
+                width={924}
+                height={295}
+                layout="responsive"
+                className="sec-5-linkGramLogo"
+              />
+            </Link>
           </div>
         </div>
       </div>
@@ -268,7 +277,7 @@ export default function HomePage() {
           </div>
         </div>
         <div className="row">
-          <div  style={{ position: "relative" }} className="col-md-12 p-0 sec-7">
+          <div style={{ position: "relative" }} className="col-md-12 p-0 sec-7">
             <Image
               src="/images/homeImage4.png"
               alt="limousine"
@@ -282,7 +291,9 @@ export default function HomePage() {
                 <span className="d-md-block"></span>
                 quick service!
               </p>
-              <p style={styles.imageText} className="sub-text">Dubai</p>
+              <p style={styles.imageText} className="sub-text">
+                Dubai
+              </p>
               {/* <Link href="#" style={styles.imageButton}>
                 Book now
               </Link> */}
@@ -295,19 +306,8 @@ export default function HomePage() {
       {/* <h1>{t("title")}</h1>
       <Link href="/about">{t("about")}</Link> */}
 
-      <Modal show={show} onHide={() => setShow(false)} fullscreen>
-        {/* <Modal.Header closeButton>
-          <Modal.Title>Rent a Car</Modal.Title>
-        </Modal.Header> */}
-        <Modal.Body scrollable>
-          <PickupAndDropPicker />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShow(false)}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
+     
+      <ModalPickerMobile show={show} onHide={() => setShow(false)} />
     </div>
   );
 }
@@ -398,10 +398,20 @@ const styles = {
     margin: "0 auto",
     padding: "20px",
     background: colors.white,
-    borderRadius: 20,
+    borderRadius: 8,
     zIndex: 1,
     marginTop: 10,
     boxShadow: "2px 2px 16px 1px rgba(0, 0, 0, 0.75)",
   },
-
+  showCarsBtn: {
+    padding: "10px 25px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+    background: colors.themeMain,
+    color: colors.white,
+    fontFamily: fonts.helvetica400,
+    textDecoration: "none",
+  },
 };
