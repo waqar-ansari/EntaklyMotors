@@ -36,12 +36,17 @@
     width: 100% !important;
 }
 .rs-anim-fade.rs-anim-in.rs-picker-popup-daterange.rs-picker-popup.placement-bottom-start{
-    width: -webkit-fill-available;
+    width: -webkit-fill-available !important;
+    height: -webkit-fill-available !important;
 }
 .rs-stack-item{
     width: 100% !important;
 }
 .rs-stack {
     display: block;
+}
+.rs-btn.rs-btn-primary.rs-btn-sm{
+    width: 100% !important;
+    height: 45px;
 }
 }

@@ -360,7 +360,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
             // showHeader={false}
           />
         </Modal.Body>
-        <Modal.Footer></Modal.Footer>
+        {/* <Modal.Footer></Modal.Footer> */}
       </Modal>
       <Modal show={showPickupTimeModal} fullscreen onHide={handleClose}>
         <Modal.Header>
@@ -374,11 +374,11 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
                 style={{
                   width: "calc(50% - 5px)", // Ensures two items per row
                   padding: "10px 15px",
-                  border: "1px solid #ccc",
+                  // border: "1px solid #ccc",
                   background: pickupTime === time ? "black" : "#f9f9f9", // Change background if selected
                   color: pickupTime === time ? "white" : "black",
                   cursor: "pointer",
-                  borderRadius: "5px",
+                  borderRadius: "15px",
                   textAlign: "center",
                 }}
                 onClick={() => {
@@ -391,12 +391,12 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
             ))}
           </div>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className ="justify-content-between">
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
           <Button
-            style={{ background: colors.themeMain, color: colors.white }}
+            style={{ background: colors.themeMain, color: colors.white, height:45 }}
             onClick={() => {
               setShowPickupTimeModal(false);
               setShowReturnTimeModal(true);
@@ -418,11 +418,11 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
                 style={{
                   width: "calc(50% - 5px)", // Ensures two items per row
                   padding: "10px 15px",
-                  border: "1px solid #ccc",
+                  // border: "1px solid #ccc",
                   background: returnTime === time ? "black" : "#f9f9f9", // Change background if selected
                   color: returnTime === time ? "white" : "black",
                   cursor: "pointer",
-                  borderRadius: "5px",
+                  borderRadius: "15px",
                   textAlign: "center",
                 }}
                 onClick={() => {
@@ -435,7 +435,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
             ))}
           </div>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className="justify-content-between">
           <Button
             variant="secondary"
             onClick={() => setShowReturnTimeModal(false)}
@@ -443,7 +443,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
             Close
           </Button>
           <Button
-            style={{ background: colors.themeMain, color: colors.white }}
+            style={{ background: colors.themeMain, color: colors.white,height:45  }}
             onClick={() => {
               setShowReturnTimeModal(false);
             }}
