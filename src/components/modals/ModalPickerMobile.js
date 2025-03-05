@@ -1,11 +1,17 @@
 import { Modal, Button } from "react-bootstrap";
 import Link from "next/link";
 import PickupAndDropPicker from "../PickupAndDropPicker";
-import "./modalPickerMobile.css"
+import "./modalPickerMobile.css";
+import { colors } from "../../../public/colors/colors";
 
 const ModalPickerMobile = ({ show, onHide, showCarsButton = true }) => {
   return (
-    <Modal show={show} onHide={onHide} fullscreen className="mobileCalendarStyles">
+    <Modal
+      show={show}
+      onHide={onHide}
+      fullscreen
+      className="mobileCalendarStyles"
+    >
       <Modal.Body scrollable>
         <PickupAndDropPicker showCarsButton={false} />
       </Modal.Body>
@@ -28,7 +34,7 @@ export default ModalPickerMobile;
 const styles = {
   showCarsBtn: {
     textDecoration: "none",
-    background: "#007bff",
+    background: colors.themeMain,
     color: "#fff",
     padding: "8px 12px",
     borderRadius: "4px",

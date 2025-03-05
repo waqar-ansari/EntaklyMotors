@@ -18,7 +18,7 @@ const Footer = () => {
                 height={53}
               />
               <div className="d-flex">
-                <Link href="https://prodapi.linkgram.co.uk/api/v1/share/entakly.motors"
+                <Link href="https://apps.apple.com/in/app/linkgram/id6502818815"
                 target="_blank"
                 >
                   <Image

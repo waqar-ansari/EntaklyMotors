@@ -3,7 +3,12 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 
 const dropDownItems = ["Item 1", "Item 2", "Item 3", "Item 4"];
 
-const CustomDropdown = ({ title, multiSelect, showSelectedItemCount, containerstyles }) => {
+const CustomDropdown = ({
+  title,
+  multiSelect,
+  showSelectedItemCount,
+  containerstyles,
+}) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [multiSelectItem, setMultiSelectItem] = useState([]);

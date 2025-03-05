@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { Button, DateRangePicker, Input} from "rsuite";
+import { Button, DateRangePicker, Input } from "rsuite";
 import "rsuite/dist/rsuite.css";
 import { colors } from "../../public/colors/colors";
 import { fonts } from "../../public/fonts/fonts";
@@ -10,18 +10,39 @@ import Link from "next/link";
 import { Modal } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "rsuite/dist/rsuite.css";
-
+import "../styles/datePickerStyles.css";
+import { IoMdAirplane } from "react-icons/io";
 
 const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
   const [range, setRange] = useState([null, null]);
 
   const [showDateModal, setShowDateModal] = useState(false);
+  const [showLocations, setShowLocations] = useState(false);
   const pickerRef = useRef(null);
+
+  const loactionData = [
+    {
+      locationName: "Dubai International Airport Terminal 3",
+      locationIcon: <IoMdAirplane />,
+    },
+    {
+      locationName: "Dubai International Airport Terminal 2",
+      locationIcon: <IoMdAirplane />,
+    },
+    {
+      locationName: "Dubai International Airport Terminal 1",
+      locationIcon: <IoMdAirplane />,
+    },
+    {
+      locationName: "Dubai International Airport Terminal 4",
+      locationIcon: <IoMdAirplane />,
+    },
+  ];
 
   useEffect(() => {
     const pickupDate = new Date();
     const returnDate = new Date(pickupDate);
-    returnDate.setDate(pickupDate.getDate() + 2); 
+    returnDate.setDate(pickupDate.getDate() + 2);
 
     setRange([pickupDate, returnDate]);
   }, []);
@@ -54,15 +75,58 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
       setShowDateModal(true);
     }
   };
-
+  const handleLocationClick = (e) => {
+    console.log("log1");
+    // Prevent the blur event from firing when clicking a location
+    e.stopPropagation(); // Make sure the click does not propagate to the input's onBlur event
+    console.log("Location selected:", e.target.innerText);
+  };
   return (
     <div>
       {heading && <p style={styles.heading}>Rent a Car</p>}
       <div
-        className="d-md-flex justify-content-center pickupAndDropPicker flex-wrap "
+        className="d-md-flex justify-content-center pickupAndDropPicker flex-wrap position-relative "
         style={{ gap: "15px" }}
       >
-        <div className="input-group customInputGroup position-relative">
+        {showLocations && (
+          <div
+            className="position-absolute"
+            style={{ top: 70, left: 40, width: "70%" }}
+          >
+            <div
+              style={{
+                background: colors.white,
+                boxShadow: "rgba(0, 0, 0, 0.75) 2px 2px 16px 1px",
+                borderRadius: 10,
+                padding: 20,
+                zIndex: 999,
+              }}
+              onClick={handleLocationClick}
+            >
+              {loactionData.map((item, index) => {
+                return (
+                  <div
+                    key={index}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginBottom: 25,
+                      cursor: "pointer",
+                    }}
+                    onClick={handleLocationClick}
+                  >
+                    <span className="me-2 fs-4 d-flex justify-content-center align-items-center">
+                      {item.locationIcon}
+                    </span>
+                    <p className="mb-0">{item.locationName}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        <div className="input-group customInputGroup ">
           <span className="input-group-text">
             <FaCar />
           </span>
@@ -72,12 +136,11 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
               className="form-control"
               id="pickupLocation"
               placeholder="Pickup Location"
+              onFocus={() => setShowLocations(true)} // Show dropdown on focus
+              onBlur={() => setShowLocations(false)}
             />
             <label htmlFor="pickupLocation">Pick-up</label>
           </div>
-          {/* { <div className="position-absolute" style={{ bottom: -40, left: 0 }}>
-            <div style={{ background: "red" }}>pickup location div</div>
-          </div>} */}
         </div>
         <div className="mb-0 input-group customInputGroup ">
           <span className="input-group-text">
@@ -89,6 +152,8 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
               className="form-control"
               id="dropLocation"
               placeholder="Drop Location"
+              onFocus={() => setShowLocations(true)} // Show dropdown on focus
+              onBlur={() => setShowLocations(false)}
             />
             <label htmlFor="dropLocation">Return</label>
           </div>
@@ -109,14 +174,13 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
         <div className="datePickerGroup">
           <div
             className="input-group customInputGroup"
-            // onClick={() => setShowDateModal(true)}
+
           >
             <span className="input-group-text">
               <FaCalendarAlt />
             </span>
             <div className="form-floating">
               <input
-                // value={range[0] ? range[0].toLocaleString() : ""}
                 value={range[0] ? formatDate(range[0]) : ""}
                 className="form-control"
                 placeholder="Pickup Date & Time"
@@ -133,7 +197,6 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
             </span>
             <div className="form-floating">
               <input
-                // value={range[1] ? range[1].toLocaleString() : ""}
                 value={range[0] ? formatDate(range[1]) : ""}
                 className="form-control"
                 placeholder="Return Date"
@@ -160,24 +223,21 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
           <Modal.Title>Choose Date</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-         
-            <DateRangePicker
-              showOneCalendar
-              style={{ width: 0, background: "transparent" }}
-              onOk={() => setShowDateModal(false)}
-              onClose={() => setShowDateModal(false)}
-              ref={pickerRef}
-              value={range}
-              onChange={setRange}
-              format="d MMMM yyyy HH:mm" 
-              defaultOpen
-              showMeridiem
-              // showHeader={false}
-            />
-       
+          <DateRangePicker
+            showOneCalendar
+            style={{ width: 0, background: "transparent" }}
+            onOk={() => setShowDateModal(false)}
+            onClose={() => setShowDateModal(false)}
+            ref={pickerRef}
+            value={range}
+            onChange={setRange}
+            format="d MMMM yyyy HH:mm"
+            defaultOpen
+            showMeridiem
+            // showHeader={false}
+          />
         </Modal.Body>
-        <Modal.Footer>
-        </Modal.Footer>
+        <Modal.Footer></Modal.Footer>
       </Modal>
     </div>
   );

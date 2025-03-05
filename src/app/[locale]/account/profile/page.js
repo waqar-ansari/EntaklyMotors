@@ -177,12 +177,16 @@ const Page = () => {
       const response = await api.post("/user/change-password", {
         passwordsWithMail,
       });
-      console.log(response, "responce from change password api");
+      console.log(response.data.error, "responce from change password api");
 
       // setMessage(response.data.message);
       setChangePasswords({ currentPassword: "", newPassword: "" });
     } catch (error) {
       // setMessage(error.response?.data?.error || "Something went wrong");
+      console.error(
+        "Error:",
+        error.response?.data?.error || "Something went wrong"
+      );
     }
   };
 
