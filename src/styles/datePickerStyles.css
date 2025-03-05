@@ -31,3 +31,17 @@
     }
 
 } */
+@media (max-width: 768px) {
+.rs-picker-daterange-panel.rs-picker-daterange-panel-show-one-calendar{
+    width: 100% !important;
+}
+.rs-anim-fade.rs-anim-in.rs-picker-popup-daterange.rs-picker-popup.placement-bottom-start{
+    width: -webkit-fill-available;
+}
+.rs-stack-item{
+    width: 100% !important;
+}
+.rs-stack {
+    display: block;
+}
+}

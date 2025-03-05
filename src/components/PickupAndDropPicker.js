@@ -12,12 +12,18 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "rsuite/dist/rsuite.css";
 import "../styles/datePickerStyles.css";
 import { IoMdAirplane } from "react-icons/io";
+import { FaArrowRightLong } from "react-icons/fa6";
 
 const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
   const [range, setRange] = useState([null, null]);
+  console.log(range, "range of date");
 
   const [showDateModal, setShowDateModal] = useState(false);
   const [showLocations, setShowLocations] = useState(false);
+  const [pickupTime, setPickupTime] = useState("");
+  const [returnTime, setReturnTime] = useState("");
+  const [showPickupTimeModal, setShowPickupTimeModal] = useState(false);
+  const [showReturnTimeModal, setShowReturnTimeModal] = useState(false);
   const pickerRef = useRef(null);
 
   const loactionData = [
@@ -81,6 +87,20 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
     e.stopPropagation(); // Make sure the click does not propagate to the input's onBlur event
     console.log("Location selected:", e.target.innerText);
   };
+  const timeSlots = [];
+  const periods = ["AM", "PM"];
+
+  periods.forEach((period) => {
+    for (let hour = 0; hour < 12; hour++) {
+      const displayHour = hour === 0 ? 12 : hour; // Convert 0 to 12 for 12 AM/PM
+      timeSlots.push(`${displayHour}:00 ${period}`);
+      timeSlots.push(`${displayHour}:30 ${period}`);
+    }
+  });
+  const handleClose = () => setShowPickupTimeModal(false);
+  const handleShowPickupTimeModal = () => setShowPickupTimeModal(true);
+
+  const handleShowReturnTimeModal = () => setShowReturnTimeModal(true);
   return (
     <div>
       {heading && <p style={styles.heading}>Rent a Car</p>}
@@ -90,7 +110,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
       >
         {showLocations && (
           <div
-            className="position-absolute"
+            className="position-absolute mobDisplayNone"
             style={{ top: 70, left: 40, width: "70%" }}
           >
             <div
@@ -170,12 +190,114 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
           renderFooter={() => null}
           showHeader={false}
         />
+        {/* date and time picker for mobile */}
+        <div className="tabDisplayNone">
+          <div className="d-flex gap-2">
+            <div className="d-flex flex-column">
+              <div
+                className="input-group customInputGroup mb-0"
+                style={{
+                  borderBottomLeftRadius: 0,
+                  borderBottom: 0,
+                  borderBottomRightRadius: 0,
+                }}
+              >
+                <span className="input-group-text">
+                  <FaCalendarAlt />
+                </span>
+                <div className="form-floating">
+                  <input
+                    value={
+                      range[0]
+                        ? range[0].toLocaleDateString("en-GB", {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                          })
+                        : ""
+                    }
+                    className="form-control"
+                    placeholder="Pickup Date & Time"
+                    onClick={handlePickUpDateClick}
+                    readOnly
+                  />
+                  <label htmlFor="floatingInputGroup1">Pick-up Date</label>
+                </div>
+              </div>
+              <div
+                className="input-group customInputGroup"
+                style={{ borderTopLeftRadius: 0, borderTopRightRadius: 0 }}
+              >
+                <span className="input-group-text">
+                  <FaCalendarAlt />
+                </span>
+                <div className="form-floating">
+                  <input
+                    value={pickupTime}
+                    className="form-control"
+                    placeholder="Pickup Date & Time"
+                    onClick={handleShowPickupTimeModal}
+                    readOnly
+                  />
+                  <label htmlFor="floatingInputGroup1">Pick-up Time</label>
+                </div>
+              </div>
+            </div>
 
-        <div className="datePickerGroup">
-          <div
-            className="input-group customInputGroup"
-
-          >
+            <div className="d-flex flex-column">
+              <div
+                className="input-group customInputGroup mb-0"
+                style={{
+                  borderBottomLeftRadius: 0,
+                  borderBottom: 0,
+                  borderBottomRightRadius: 0,
+                }}
+              >
+                <span className="input-group-text">
+                  <FaCalendarAlt />
+                </span>
+                <div className="form-floating">
+                  <input
+                    value={
+                      range[0]
+                        ? range[1].toLocaleDateString("en-GB", {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                          })
+                        : ""
+                    }
+                    className="form-control"
+                    placeholder="Return Date"
+                    onClick={handlePickUpDateClick}
+                    readOnly
+                  />
+                  <label htmlFor="floatingInputGroup1">Return Date</label>
+                </div>
+              </div>
+              <div
+                className="input-group customInputGroup"
+                style={{ borderTopLeftRadius: 0, borderTopRightRadius: 0 }}
+              >
+                <span className="input-group-text">
+                  <FaCalendarAlt />
+                </span>
+                <div className="form-floating">
+                  <input
+                    value={returnTime}
+                    className="form-control"
+                    placeholder="Return Date"
+                    onClick={handleShowReturnTimeModal}
+                    readOnly
+                  />
+                  <label htmlFor="floatingInputGroup1">Return Time</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="datePickerGroup mobDisplayNone">
+          <div className="input-group customInputGroup">
             <span className="input-group-text">
               <FaCalendarAlt />
             </span>
@@ -231,13 +353,104 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
             ref={pickerRef}
             value={range}
             onChange={setRange}
-            format="d MMMM yyyy HH:mm"
+            format="d MMMM yyyy"
             defaultOpen
             showMeridiem
+            character="to"
             // showHeader={false}
           />
         </Modal.Body>
         <Modal.Footer></Modal.Footer>
+      </Modal>
+      <Modal show={showPickupTimeModal} fullscreen onHide={handleClose}>
+        <Modal.Header>
+          <Modal.Title>Pick-up Time</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+            {timeSlots.map((time, index) => (
+              <div
+                key={index}
+                style={{
+                  width: "calc(50% - 5px)", // Ensures two items per row
+                  padding: "10px 15px",
+                  border: "1px solid #ccc",
+                  background: pickupTime === time ? "black" : "#f9f9f9", // Change background if selected
+                  color: pickupTime === time ? "white" : "black",
+                  cursor: "pointer",
+                  borderRadius: "5px",
+                  textAlign: "center",
+                }}
+                onClick={() => {
+                  setPickupTime(time);
+                  console.log(`Selected time: ${time}`);
+                }}
+              >
+                {time}
+              </div>
+            ))}
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button
+            style={{ background: colors.themeMain, color: colors.white }}
+            onClick={() => {
+              setShowPickupTimeModal(false);
+              setShowReturnTimeModal(true);
+            }}
+          >
+            Select Return Date <FaArrowRightLong style={{ marginLeft: 15 }} />
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal show={showReturnTimeModal} fullscreen onHide={handleClose}>
+        <Modal.Header>
+          <Modal.Title>Return Time</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+            {timeSlots.map((time, index) => (
+              <div
+                key={index}
+                style={{
+                  width: "calc(50% - 5px)", // Ensures two items per row
+                  padding: "10px 15px",
+                  border: "1px solid #ccc",
+                  background: returnTime === time ? "black" : "#f9f9f9", // Change background if selected
+                  color: returnTime === time ? "white" : "black",
+                  cursor: "pointer",
+                  borderRadius: "5px",
+                  textAlign: "center",
+                }}
+                onClick={() => {
+                  setReturnTime(time);
+                  console.log(`Selected time: ${time}`);
+                }}
+              >
+                {time}
+              </div>
+            ))}
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={() => setShowReturnTimeModal(false)}
+          >
+            Close
+          </Button>
+          <Button
+            style={{ background: colors.themeMain, color: colors.white }}
+            onClick={() => {
+              setShowReturnTimeModal(false);
+            }}
+          >
+            Save
+          </Button>
+        </Modal.Footer>
       </Modal>
     </div>
   );

@@ -297,13 +297,13 @@ input[type="password"]::-webkit-textfield-decoration-container {
 
 @media (min-width: 768px) {
   .tabDisplayNone {
-    display: none;
+    display: none !important;
   }
 }
 
 @media (max-width: 768px) {
   .mobDisplayNone {
-    display: none;
+    display: none !important;
   }
 
   .marginTopHeroImage {
@@ -406,7 +406,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
     width: 90% !important;
   }
   .mobDisplayNone{
-    display: none;
+    display: none !important;
   }
 
 
