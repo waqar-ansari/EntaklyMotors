@@ -13,10 +13,13 @@ import { FaUserCircle } from "react-icons/fa";
 // import FloatingWhatsapp from "./FloatingWhatsapp";
 import { Modal, Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import ModalPickerMobile from "./modals/ModalPickerMobile";
+
 
 const Header = ({ headerPickupAndDrop }) => {
   const [showPicker, setShowPicker] = useState(false);
   const [showPickerModal, setShowPickerModal] = useState(false);
+  const [show, setShow] = useState(false);
 
   const openPickerModal = () => setShowPickerModal(true);
   const closePickerModal = () => setShowPickerModal(false);
@@ -217,10 +220,11 @@ const Header = ({ headerPickupAndDrop }) => {
             </div>
             {headerPickupAndDrop && (
               <div
-                data-bs-toggle="modal"
-                data-bs-target="#pickerModal"
+                // data-bs-toggle="modal"
+                // data-bs-target="#pickerModal"
                 style={styles.pickupAndDropPickerInHeader}
                 className="pickupAndDropPickerInHeader tabDisplayNone mt-3"
+                onClick={() => setShow(true)}
               >
                 <div className="d-flex justify-content-between align-items-center">
                   <div style={{ marginRight: 30 }}>
@@ -238,6 +242,7 @@ const Header = ({ headerPickupAndDrop }) => {
           </nav>
         </div>
       </div>
+      <ModalPickerMobile show={show} onHide={() => setShow(false)} />
     </div>
   );
 };

@@ -13,34 +13,63 @@ import "rsuite/dist/rsuite.css";
 import "../styles/datePickerStyles.css";
 import { IoMdAirplane } from "react-icons/io";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { MdOutlineAccessTimeFilled } from "react-icons/md";
+import { MdKey } from "react-icons/md";
+import { TbArrowBack } from "react-icons/tb";
+import { HiMiniBuildingLibrary } from "react-icons/hi2";
+import { HiMiniHome } from "react-icons/hi2";
 
 const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
   const [range, setRange] = useState([null, null]);
-  console.log(range, "range of date");
+  const [hoveredItem, setHoveredItem] = useState({});
 
   const [showDateModal, setShowDateModal] = useState(false);
   const [showLocations, setShowLocations] = useState(false);
   const [pickupTime, setPickupTime] = useState("");
   const [returnTime, setReturnTime] = useState("");
+  const [pickupLocation, setPickupLocation] = useState("");
+  const [returnLocation, setReturnLocation] = useState("");
   const [showPickupTimeModal, setShowPickupTimeModal] = useState(false);
   const [showReturnTimeModal, setShowReturnTimeModal] = useState(false);
+  const [showReturnTimeModalMobile, setShowReturnTimeModalMobile] =
+    useState(false);
+  const [showPickupTimeModalMobile, setShowPickupTimeModalMobile] =
+    useState(false);
+  const [pickupLocationModal, setPickupLocationModal] = useState(false);
+  const [returnLocationModal, setReturnLocationModal] = useState(false);
+  const [showLocationHeading, setShowLocationHeading] = useState("");
+  const [activeInput, setActiveInput] = useState(null);
   const pickerRef = useRef(null);
-
+  const showLocationsRef = useRef(null);
   const loactionData = [
     {
-      locationName: "Dubai International Airport Terminal 3",
-      locationIcon: <IoMdAirplane />,
-    },
-    {
-      locationName: "Dubai International Airport Terminal 2",
-      locationIcon: <IoMdAirplane />,
-    },
-    {
       locationName: "Dubai International Airport Terminal 1",
+      address: "Airport Road D89 Al Garhoud, Dubai 1, AE",
+      locationIcon: <HiMiniHome />,
+    },
+    {
+      locationName: "Dubai Airport",
+      address: "Airport Road D89 Al Garhoud, Dubai 2, AE",
       locationIcon: <IoMdAirplane />,
     },
     {
-      locationName: "Dubai International Airport Terminal 4",
+      locationName: "Sharjah International Airport",
+      address: "Airport Road D89 Al Garhoud, Dubai 3, AE",
+      locationIcon: <HiMiniBuildingLibrary />,
+    },
+    {
+      locationName: "Abu Dhabi International Airport",
+      address: "Airport Road D89 Al Garhoud, Dubai 4, AE",
+      locationIcon: <IoMdAirplane />,
+    },
+    {
+      locationName: "Dubai International Airport Terminal 5",
+      address: "Airport Road D89 Al Garhoud, Dubai 5, AE",
+      locationIcon: <HiMiniBuildingLibrary />,
+    },
+    {
+      locationName: "Dubai International Airport Terminal 6",
+      address: "Airport Road D89 Al Garhoud, Dubai 6, AE",
       locationIcon: <IoMdAirplane />,
     },
   ];
@@ -53,7 +82,6 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
     setRange([pickupDate, returnDate]);
   }, []);
 
-  // Function to open DateRangePicker
   const openDatePicker = () => {
     if (pickerRef.current) {
       pickerRef.current.open();
@@ -81,26 +109,76 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
       setShowDateModal(true);
     }
   };
-  const handleLocationClick = (e) => {
-    console.log("log1");
-    // Prevent the blur event from firing when clicking a location
-    e.stopPropagation(); // Make sure the click does not propagate to the input's onBlur event
-    console.log("Location selected:", e.target.innerText);
+  // const handleLocationClick = (e, item) => {
+  //   setPickupLocation(item.locationName)
+  //   e.stopPropagation();
+  // };
+  const handleLocationClick = (e, item) => {
+    e.stopPropagation();
+
+    if (activeInput === "pickup") {
+      setPickupLocation(item.locationName);
+    } else if (activeInput === "drop") {
+      setReturnLocation(item.locationName);
+    }
+
+    setShowLocations(false); // Hide the location list after selection
   };
   const timeSlots = [];
   const periods = ["AM", "PM"];
 
   periods.forEach((period) => {
     for (let hour = 0; hour < 12; hour++) {
-      const displayHour = hour === 0 ? 12 : hour; // Convert 0 to 12 for 12 AM/PM
+      const displayHour = hour === 0 ? 12 : hour;
       timeSlots.push(`${displayHour}:00 ${period}`);
       timeSlots.push(`${displayHour}:30 ${period}`);
     }
   });
   const handleClose = () => setShowPickupTimeModal(false);
   const handleShowPickupTimeModal = () => setShowPickupTimeModal(true);
+  const handleShowPickupTimeModalMobile = () =>
+    setShowPickupTimeModalMobile(true);
 
   const handleShowReturnTimeModal = () => setShowReturnTimeModal(true);
+  const handleInputClick = (inputType, heading) => {
+    if (activeInput === inputType) {
+      // Close the div only if the same input is clicked again
+      setShowLocations(false);
+      setActiveInput(null);
+    } else {
+      // Show the div with a new heading
+      setShowLocations(true);
+      setShowLocationHeading(heading);
+      setActiveInput(inputType);
+    }
+  };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        showLocationsRef.current &&
+        !showLocationsRef.current.contains(event.target) &&
+        event.target.id !== "pickupLocation" &&
+        event.target.id !== "returnLocation"
+      ) {
+        setShowLocations(false);
+        setActiveInput(null);
+      }
+    };
+
+    if (showLocations) {
+      document.addEventListener("click", handleClickOutside);
+    } else {
+      document.removeEventListener("click", handleClickOutside);
+    }
+
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, [showLocations]);
+  const handlePickUpTimeClick = () => {
+    setShowPickupTimeModal(true);
+  };
+  const handleReturnTimeClick = () => {
+    setShowReturnTimeModal(true);
+  };
   return (
     <div>
       {heading && <p style={styles.heading}>Rent a Car</p>}
@@ -110,6 +188,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
       >
         {showLocations && (
           <div
+            ref={showLocationsRef}
             className="position-absolute mobDisplayNone"
             style={{ top: 70, left: 40, width: "70%" }}
           >
@@ -119,34 +198,91 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
                 boxShadow: "rgba(0, 0, 0, 0.75) 2px 2px 16px 1px",
                 borderRadius: 10,
                 padding: 20,
+                paddingTop: 20,
+                position: "relative",
                 zIndex: 999,
               }}
               onClick={handleLocationClick}
             >
-              {loactionData.map((item, index) => {
-                return (
-                  <div
-                    key={index}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      marginBottom: 25,
-                      cursor: "pointer",
-                    }}
-                    onClick={handleLocationClick}
-                  >
-                    <span className="me-2 fs-4 d-flex justify-content-center align-items-center">
-                      {item.locationIcon}
-                    </span>
-                    <p className="mb-0">{item.locationName}</p>
+              <div className="fs-4 mb-4 fw-bold" style={{ paddingLeft: 16 }}>
+                {showLocationHeading}
+              </div>
+              <div className="container-fluid">
+                <div className="row">
+                  <div className="col-md-6">
+                    {loactionData.map((item, index) => {
+                      return (
+                        <div
+                          key={index}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            paddingBottom: 40,
+                            cursor: "pointer",
+                          }}
+                          onClick={(e) => handleLocationClick(e, item)}
+                          onMouseEnter={() => setHoveredItem(item)}
+                          onMouseLeave={() => setHoveredItem("")}
+                        >
+                          <span className="me-2 fs-4 d-flex justify-content-center align-items-center">
+                            {item.locationIcon}
+                          </span>
+                          <span className="mb-0">{item.locationName}</span>
+                        </div>
+                      );
+                    })}
                   </div>
-                );
-              })}
+                  <div className="col-md-6">
+                    {" "}
+                    {hoveredItem ? (
+                      <div>
+                        <div className="d-flex justify-content-between align-items-center mb-3">
+                          <div className="fs-2">{hoveredItem.locationIcon}</div>
+                          <div>
+                            <span className="pickupRetunSpanStyle me-2">
+                              <MdKey className="me-2" />
+                              24-hour pick-up
+                            </span>
+                            <span className="pickupRetunSpanStyle">
+                              <TbArrowBack className="me-2" />
+                              24-hour return
+                            </span>
+                          </div>
+                        </div>
+                        <p className="hoverAddressStyle">
+                          {hoveredItem.locationName}
+                        </p>
+                        <p className="hoverDetailedAddressStyle">
+                          {hoveredItem.address}
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="text-muted"></div>
+                    )}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         )}
 
-        <div className="input-group customInputGroup ">
+        <div className="input-group customInputGroup mobDisplayNone">
+          <span className="input-group-text">
+            <FaCar />
+          </span>
+          <div className="form-floating">
+            <input
+              type="text"
+              className="form-control"
+              id="pickupLocation"
+              value={pickupLocation}
+              placeholder="Pickup Location"
+              onClick={() => handleInputClick("pickup", "Pick-up Locations")}
+            />
+            <label htmlFor="pickupLocation">Pick-up</label>
+          </div>
+        </div>
+        <div className="input-group customInputGroup tabDisplayNone">
           <span className="input-group-text">
             <FaCar />
           </span>
@@ -156,13 +292,14 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
               className="form-control"
               id="pickupLocation"
               placeholder="Pickup Location"
-              onFocus={() => setShowLocations(true)} // Show dropdown on focus
-              onBlur={() => setShowLocations(false)}
+              onClick={() => {
+                setPickupLocationModal(true);
+              }}
             />
             <label htmlFor="pickupLocation">Pick-up</label>
           </div>
         </div>
-        <div className="mb-0 input-group customInputGroup ">
+        <div className="mb-0 input-group customInputGroup tabDisplayNone ">
           <span className="input-group-text">
             <FaCar />
           </span>
@@ -170,17 +307,35 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
             <input
               type="text"
               className="form-control"
-              id="dropLocation"
+              id="returnLocation"
               placeholder="Drop Location"
-              onFocus={() => setShowLocations(true)} // Show dropdown on focus
-              onBlur={() => setShowLocations(false)}
+              onClick={() => {
+                setReturnLocationModal(true);
+              }}
             />
-            <label htmlFor="dropLocation">Return</label>
+            <label htmlFor="returnLocation">Return</label>
+          </div>
+        </div>
+        <div className="mb-0 input-group customInputGroup mobDisplayNone ">
+          <span className="input-group-text">
+            <FaCar />
+          </span>
+          <div className="form-floating">
+            <input
+              type="text"
+              className="form-control"
+              value={returnLocation}
+              id="returnLocation"
+              placeholder="Drop Location"
+              onClick={() => handleInputClick("drop", "Return Locations")}
+            />
+            <label htmlFor="returnLocation">Return</label>
           </div>
         </div>
 
         <DateRangePicker
-          format="dd MMM hh:mm"
+          // format="dd MMM hh:mm"
+          format="d MMMM yyyy"
           ref={pickerRef}
           value={range}
           onChange={setRange}
@@ -189,6 +344,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
           showShortcuts={false}
           renderFooter={() => null}
           showHeader={false}
+          character="to"
         />
         {/* date and time picker for mobile */}
         <div className="tabDisplayNone">
@@ -229,14 +385,14 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
                 style={{ borderTopLeftRadius: 0, borderTopRightRadius: 0 }}
               >
                 <span className="input-group-text">
-                  <FaCalendarAlt />
+                  <MdOutlineAccessTimeFilled />
                 </span>
                 <div className="form-floating">
                   <input
                     value={pickupTime}
                     className="form-control"
                     placeholder="Pickup Date & Time"
-                    onClick={handleShowPickupTimeModal}
+                    onClick={handleShowPickupTimeModalMobile}
                     readOnly
                   />
                   <label htmlFor="floatingInputGroup1">Pick-up Time</label>
@@ -280,7 +436,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
                 style={{ borderTopLeftRadius: 0, borderTopRightRadius: 0 }}
               >
                 <span className="input-group-text">
-                  <FaCalendarAlt />
+                  <MdOutlineAccessTimeFilled />
                 </span>
                 <div className="form-floating">
                   <input
@@ -297,35 +453,109 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
           </div>
         </div>
         <div className="datePickerGroup mobDisplayNone">
-          <div className="input-group customInputGroup">
-            <span className="input-group-text">
-              <FaCalendarAlt />
-            </span>
-            <div className="form-floating">
-              <input
-                value={range[0] ? formatDate(range[0]) : ""}
-                className="form-control"
-                placeholder="Pickup Date & Time"
-                onClick={handlePickUpDateClick}
-                readOnly
-              />
-              <label htmlFor="floatingInputGroup1">Pick-up Date</label>
+          <div className="d-flex">
+            <div
+              className="input-group customInputGroup pcInputFixedWidth"
+              style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
+            >
+              <span className="input-group-text">
+                <FaCalendarAlt />
+              </span>
+              <div className="form-floating">
+                <input
+                  // value={range[0] ? formatDate(range[0]) : ""}
+                  value={
+                    range[0]
+                      ? range[0].toLocaleDateString("en-GB", {
+                          day: "numeric",
+                          month: "short",
+                          year: "numeric",
+                        })
+                      : ""
+                  }
+                  className="form-control"
+                  placeholder="Pickup Date & Time"
+                  onClick={handlePickUpDateClick}
+                  readOnly
+                />
+                <label htmlFor="floatingInputGroup1">Pick-up Date</label>
+              </div>
+            </div>
+            <div
+              className="input-group customInputGroup pcTimeInputFixedWidth"
+              style={{
+                borderLeft: 0,
+                borderTopLeftRadius: 0,
+                borderBottomLeftRadius: 0,
+              }}
+            >
+              {/* <span className="input-group-text">
+                <FaCalendarAlt />
+              </span> */}
+              <div className="form-floating">
+                <input
+                  // value={range[0] ? formatDate(range[0]) : ""}
+                  value={pickupTime}
+                  className="form-control"
+                  placeholder="Pickup Date & Time"
+                  onClick={handlePickUpTimeClick}
+                  readOnly
+                />
+                <label htmlFor="floatingInputGroup1">Pick-up Time</label>
+              </div>
             </div>
           </div>
 
-          <div className="input-group customInputGroup">
-            <span className="input-group-text">
-              <FaCalendarAlt />
-            </span>
-            <div className="form-floating">
-              <input
-                value={range[0] ? formatDate(range[1]) : ""}
-                className="form-control"
-                placeholder="Return Date"
-                onClick={handlePickUpDateClick}
-                readOnly
-              />
-              <label htmlFor="floatingInputGroup1">Return Date</label>
+          <div className="d-flex">
+            <div
+              className="input-group customInputGroup pcInputFixedWidth"
+              style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
+            >
+              <span className="input-group-text">
+                <FaCalendarAlt />
+              </span>
+              <div className="form-floating">
+                <input
+                  // value={range[0] ? formatDate(range[1]) : ""}
+                  value={
+                    range[0]
+                      ? range[1].toLocaleDateString("en-GB", {
+                          day: "numeric",
+                          month: "short",
+                          year: "numeric",
+                        })
+                      : ""
+                  }
+                  className="form-control"
+                  placeholder="Return Date"
+                  onClick={handlePickUpDateClick}
+                  readOnly
+                />
+                <label htmlFor="floatingInputGroup1">Return Date</label>
+              </div>
+            </div>
+            <div
+              className="input-group customInputGroup pcTimeInputFixedWidth"
+              style={{
+                borderLeft: 0,
+                borderTopLeftRadius: 0,
+                borderBottomLeftRadius: 0,
+              }}
+            >
+              {/* <span className="input-group-text">
+                <FaCalendarAlt />
+              </span> */}
+              <div className="form-floating">
+                <input
+                  // value={range[0] ? formatDate(range[1]) : ""}
+                  value={returnTime}
+                  className="form-control"
+                  placeholder="Return Date"
+                  onClick={handleReturnTimeClick}
+                  readOnly
+                />
+                <label htmlFor="floatingInputGroup1">Return Time</label>
+              </div>
             </div>
           </div>
         </div>
@@ -341,7 +571,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
         fullscreen
         scrollable
       >
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>Choose Date</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -357,12 +587,16 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
             defaultOpen
             showMeridiem
             character="to"
-            // showHeader={false}
           />
         </Modal.Body>
-        {/* <Modal.Footer></Modal.Footer> */}
       </Modal>
-      <Modal show={showPickupTimeModal} fullscreen onHide={handleClose}>
+      <Modal
+        show={showPickupTimeModal}
+        scrollable
+        centered
+        onHide={handleClose}
+        backdrop
+      >
         <Modal.Header>
           <Modal.Title>Pick-up Time</Modal.Title>
         </Modal.Header>
@@ -372,10 +606,9 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
               <div
                 key={index}
                 style={{
-                  width: "calc(50% - 5px)", // Ensures two items per row
+                  width: "calc(50% - 5px)",
                   padding: "10px 15px",
-                  // border: "1px solid #ccc",
-                  background: pickupTime === time ? "black" : "#f9f9f9", // Change background if selected
+                  background: pickupTime === time ? "black" : "#f9f9f9",
                   color: pickupTime === time ? "white" : "black",
                   cursor: "pointer",
                   borderRadius: "15px",
@@ -391,12 +624,19 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
             ))}
           </div>
         </Modal.Body>
-        <Modal.Footer className ="justify-content-between">
-          <Button variant="secondary" onClick={handleClose}>
+        <Modal.Footer className="justify-content-between">
+          <Button
+            className="btn btn-secondary"
+            onClick={() => setShowPickupTimeModal(false)}
+          >
             Close
           </Button>
           <Button
-            style={{ background: colors.themeMain, color: colors.white, height:45 }}
+            style={{
+              background: colors.themeMain,
+              color: colors.white,
+              height: 45,
+            }}
             onClick={() => {
               setShowPickupTimeModal(false);
               setShowReturnTimeModal(true);
@@ -406,7 +646,63 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
           </Button>
         </Modal.Footer>
       </Modal>
-      <Modal show={showReturnTimeModal} fullscreen onHide={handleClose}>
+      <Modal show={showPickupTimeModalMobile} fullscreen onHide={handleClose}>
+        <Modal.Header>
+          <Modal.Title>Pick-up Time</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+            {timeSlots.map((time, index) => (
+              <div
+                key={index}
+                style={{
+                  width: "calc(50% - 5px)",
+                  padding: "10px 15px",
+                  background: pickupTime === time ? "black" : "#f9f9f9",
+                  color: pickupTime === time ? "white" : "black",
+                  cursor: "pointer",
+                  borderRadius: "15px",
+                  textAlign: "center",
+                }}
+                onClick={() => {
+                  setPickupTime(time);
+                  console.log(`Selected time: ${time}`);
+                }}
+              >
+                {time}
+              </div>
+            ))}
+          </div>
+        </Modal.Body>
+        <Modal.Footer className="justify-content-between">
+          <Button
+            className="btn btn-secondary"
+            onClick={() => setShowPickupTimeModalMobile(false)}
+          >
+            Close
+          </Button>
+          <Button
+            style={{
+              background: colors.themeMain,
+              color: colors.white,
+              height: 45,
+            }}
+            onClick={() => {
+              setShowPickupTimeModalMobile(false);
+              setShowReturnTimeModalMobile(true);
+            }}
+          >
+            Select Return Date <FaArrowRightLong style={{ marginLeft: 15 }} />
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal
+        show={showReturnTimeModal}
+        scrollable
+        centered
+        onHide={handleClose}
+        backdrop
+      >
         <Modal.Header>
           <Modal.Title>Return Time</Modal.Title>
         </Modal.Header>
@@ -416,10 +712,9 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
               <div
                 key={index}
                 style={{
-                  width: "calc(50% - 5px)", // Ensures two items per row
+                  width: "calc(50% - 5px)",
                   padding: "10px 15px",
-                  // border: "1px solid #ccc",
-                  background: returnTime === time ? "black" : "#f9f9f9", // Change background if selected
+                  background: returnTime === time ? "black" : "#f9f9f9",
                   color: returnTime === time ? "white" : "black",
                   cursor: "pointer",
                   borderRadius: "15px",
@@ -437,25 +732,194 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
         </Modal.Body>
         <Modal.Footer className="justify-content-between">
           <Button
-            variant="secondary"
+            className="btn btn-secondary"
             onClick={() => setShowReturnTimeModal(false)}
           >
             Close
           </Button>
           <Button
-            style={{ background: colors.themeMain, color: colors.white,height:45  }}
+            style={{
+              background: colors.themeMain,
+              color: colors.white,
+              height: 45,
+            }}
             onClick={() => {
               setShowReturnTimeModal(false);
             }}
           >
-            Save
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal show={showReturnTimeModalMobile} fullscreen onHide={handleClose}>
+        <Modal.Header>
+          <Modal.Title>Return Time</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+            {timeSlots.map((time, index) => (
+              <div
+                key={index}
+                style={{
+                  width: "calc(50% - 5px)",
+                  padding: "10px 15px",
+                  background: returnTime === time ? "black" : "#f9f9f9",
+                  color: returnTime === time ? "white" : "black",
+                  cursor: "pointer",
+                  borderRadius: "15px",
+                  textAlign: "center",
+                }}
+                onClick={() => {
+                  setReturnTime(time);
+                  console.log(`Selected time: ${time}`);
+                }}
+              >
+                {time}
+              </div>
+            ))}
+          </div>
+        </Modal.Body>
+        <Modal.Footer className="justify-content-between">
+          <Button
+            className="btn btn-secondary"
+            onClick={() => setShowReturnTimeModalMobile(false)}
+          >
+            Close
+          </Button>
+          <Button
+            style={{
+              background: colors.themeMain,
+              color: colors.white,
+              height: 45,
+            }}
+            onClick={() => {
+              setShowReturnTimeModalMobile(false);
+            }}
+          >
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal
+        show={pickupLocationModal}
+        fullscreen
+        onHide={handleClose}
+        className="tabDisplayNone"
+      >
+        <Modal.Header>
+          <Modal.Title>Pick-up Locations</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="position-absolute">
+            <div onClick={handleLocationClick}>
+              <div className="container-fluid">
+                <div className="row">
+                  <div className="col-md-6">
+                    {loactionData.map((item, index) => {
+                      return (
+                        <div
+                          key={index}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            paddingBottom: 40,
+                            cursor: "pointer",
+                          }}
+                          onClick={handleLocationClick}
+                          onMouseEnter={() => setHoveredItem(item)}
+                          onMouseLeave={() => setHoveredItem("")}
+                        >
+                          <span className="me-2 fs-4 d-flex justify-content-center align-items-center">
+                            {item.locationIcon}
+                          </span>
+                          <span className="mb-0">{item.locationName}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer className="justify-content-between">
+          <Button
+            className="btn btn-secondary"
+            onClick={() => setPickupLocationModal(false)}
+          >
+            Close
+          </Button>
+          <Button
+            style={{ backgroundColor: colors.themeMain, color: colors.white }}
+            onClick={() => {
+              setPickupLocationModal(false);
+              setReturnLocationModal(true);
+            }}
+          >
+            Select Return Location <FaArrowRightLong className="ms-2" />
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal
+        show={returnLocationModal}
+        fullscreen
+        onHide={handleClose}
+        className="tabDisplayNone"
+      >
+        <Modal.Header>
+          <Modal.Title>Return Locations</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="position-absolute">
+            <div onClick={handleLocationClick}>
+              <div className="container-fluid">
+                <div className="row">
+                  <div className="col-md-6">
+                    {loactionData.map((item, index) => {
+                      return (
+                        <div
+                          key={index}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            paddingBottom: 40,
+                            cursor: "pointer",
+                          }}
+                          onClick={handleLocationClick}
+                          onMouseEnter={() => setHoveredItem(item)}
+                          onMouseLeave={() => setHoveredItem("")}
+                        >
+                          <span className="me-2 fs-4 d-flex justify-content-center align-items-center">
+                            {item.locationIcon}
+                          </span>
+                          <span className="mb-0">{item.locationName}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer className="justify-content-between">
+          <Button
+            className="btn btn-secondary"
+            onClick={() => setReturnLocationModal(false)}
+          >
+            Close
+          </Button>
+          <Button
+            style={{ backgroundColor: colors.themeMain, color: colors.white }}
+            onClick={() => setReturnLocationModal(false)}
+          >
+            Save Changes
           </Button>
         </Modal.Footer>
       </Modal>
     </div>
   );
 };
-
 export default PickupAndDropPicker;
 const styles = {
   showCarsBtn: {

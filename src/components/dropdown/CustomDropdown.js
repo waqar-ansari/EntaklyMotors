@@ -66,7 +66,7 @@ const CustomDropdown = ({
           }}
         >
           <ul
-            style={{ listStyleType: "none", paddingLeft: 20, paddingRight: 20 }}
+            style={{ listStyleType: "none", paddingLeft: 20, paddingRight: 20}}
           >
             {dropDownItems.map((item, index) => {
               const isSelected = multiSelectItem.includes(item);

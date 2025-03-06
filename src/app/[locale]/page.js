@@ -14,7 +14,7 @@ import FloatingWhatsapp from "@/components/FloatingWhatsapp";
 import { FaCar } from "react-icons/fa6";
 import { Modal, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import ModalPickerMobile from "@/components/modals/ModalPickerMobile";
 
@@ -306,7 +306,6 @@ export default function HomePage() {
       {/* <h1>{t("title")}</h1>
       <Link href="/about">{t("about")}</Link> */}
 
-     
       <ModalPickerMobile show={show} onHide={() => setShow(false)} />
     </div>
   );

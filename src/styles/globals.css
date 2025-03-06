@@ -43,7 +43,10 @@ a {
 }
 
 .form-control {
-  border: none !important
+  border: none !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-Overflow: ellipsis;
 }
 
 .form-control:focus {
@@ -52,18 +55,18 @@ a {
   ;
 }
 
-.input-group.customInputGroup {
+/* .input-group.customInputGroup {
   width: auto !important;
   border: 2px solid #c9c9cf;
   border-radius: 6px;
-}
+} */
 
 .input-group.customInputGroup:focus {
   border: 2px solid green !important;
 }
 
 .input-group.customInputGroup {
-  width: auto !important;
+  width: auto ;
   border: 2px solid #c9c9cf;
   border-radius: 6px;
   transition: border-color 0.3s ease;
@@ -246,6 +249,33 @@ input[type="password"]::-webkit-textfield-decoration-container {
 .datePickerGroup{
   display: flex;
   gap: 15px;
+}
+.pickupRetunSpanStyle{
+padding: 2px 5px;
+border: 1px solid #292268;
+border-radius: 30px;
+font-size: 12px;
+font-weight: 700;
+color: #292268;
+}
+.hoverAddressStyle{
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+.hoverDetailedAddressStyle{
+  color: #ababab;
+  font-size: 15px;
+  font-weight: 600;
+}
+.pcInputFixedWidth{
+  width: 150px !important;
+}
+.pcTimeInputFixedWidth{
+  width: 120px !important;
+}
+span.input-group-text{
+  padding-right: 0 !important;
 }
 
 
