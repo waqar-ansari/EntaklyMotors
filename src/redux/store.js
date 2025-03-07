@@ -1,12 +1,12 @@
-"use client"
+"use client";
 import { configureStore } from "@reduxjs/toolkit";
 import selectedCarReducer from "./slices/selectedCarSlice";
 import authReducer from "./slices/authSlice";
 import profileReducer from "./slices/profileSlice";
+import rentalDetailReducer from "./slices/rentalDetailSlice";
 import storage from "redux-persist/lib/storage"; // Defaults to localStorage
 import { persistReducer, persistStore } from "redux-persist";
 import { combineReducers } from "redux";
-
 
 const persistConfig = {
   key: "root",
@@ -16,10 +16,11 @@ const persistConfig = {
 const rootReducer = combineReducers({
   selectedCar: persistReducer(persistConfig, selectedCarReducer),
   auth: persistReducer(persistConfig, authReducer), // i dont know why but we can also write authReducer inplace of authSlice and import like above
-  profile: profileReducer,
+  profile: persistReducer(persistConfig, profileReducer),
+  rentalDetail: persistReducer(persistConfig, rentalDetailReducer),
 });
 const store = configureStore({
-  reducer:rootReducer
+  reducer: rootReducer,
 });
 export const persistor = persistStore(store);
 export default store;

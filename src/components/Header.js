@@ -10,7 +10,6 @@ import { FaPen } from "react-icons/fa";
 import PickupAndDropPicker from "./PickupAndDropPicker";
 import PickerModal from "./modals/PickerModal";
 import { FaUserCircle } from "react-icons/fa";
-// import FloatingWhatsapp from "./FloatingWhatsapp";
 import { Modal, Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import ModalPickerMobile from "./modals/ModalPickerMobile";
@@ -38,7 +37,6 @@ const Header = ({ headerPickupAndDrop }) => {
   const token = "abcd";
   return (
     <div>
-      {/* <FloatingWhatsapp /> */}
       <PickerModal showModal={showPickerModal}  closeModal={closePickerModal} />
       <div
         style={{ background: colors.themeMain, fontFamily: fonts.helvetica400 }}

@@ -10,9 +10,15 @@ const PickerModal = () => {
       aria-labelledby="pickerModalLabel"
       aria-hidden="true"
     >
-      <div style={styles.modalHeight} className="modal-dialog modal-fullscreen pickerModalHeight" >
+      <div
+        style={styles.modalHeight}
+        className="modal-dialog modal-fullscreen pickerModalHeight"
+      >
         <div className="modal-content">
-          <div  style={styles.modalbody} className="modal-body pickerModalBodyFlex">
+          <div
+            style={styles.modalbody}
+            className="modal-body pickerModalBodyFlex"
+          >
             <PickupAndDropPicker heading={false} />
           </div>
         </div>

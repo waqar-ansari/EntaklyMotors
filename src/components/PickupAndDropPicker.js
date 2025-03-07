@@ -18,11 +18,17 @@ import { MdKey } from "react-icons/md";
 import { TbArrowBack } from "react-icons/tb";
 import { HiMiniBuildingLibrary } from "react-icons/hi2";
 import { HiMiniHome } from "react-icons/hi2";
+import { useDispatch, useSelector } from "react-redux";
+import { setPickupLocationSlice } from "@/redux/slices/rentalDetailSlice";
 
 const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
   const [range, setRange] = useState([null, null]);
   const [hoveredItem, setHoveredItem] = useState({});
 
+  const dispatch = useDispatch()
+  const rentalDetails = useSelector((state)=>state.rentalDetail)
+  console.log(rentalDetails,"rental details");
+  
   const [showDateModal, setShowDateModal] = useState(false);
   const [showLocations, setShowLocations] = useState(false);
   const [pickupTime, setPickupTime] = useState("");
@@ -290,10 +296,12 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
             <input
               type="text"
               className="form-control"
+              value={pickupLocation}
               id="pickupLocation"
               placeholder="Pickup Location"
               onClick={() => {
                 setPickupLocationModal(true);
+                handleInputClick("pickup", "Pick-up Locations");
               }}
             />
             <label htmlFor="pickupLocation">Pick-up</label>
@@ -308,9 +316,11 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
               type="text"
               className="form-control"
               id="returnLocation"
+              value={returnLocation}
               placeholder="Drop Location"
               onClick={() => {
                 setReturnLocationModal(true);
+                handleInputClick("drop", "Return Locations");
               }}
             />
             <label htmlFor="returnLocation">Return</label>
@@ -560,7 +570,11 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
           </div>
         </div>
         {showCarsButton && (
-          <Link href="/cars" style={styles.showCarsBtn}>
+          <Link href="/cars" 
+          onClick={()=>{
+            dispatch(setPickupLocationSlice(pickupLocation))
+          }}
+          style={styles.showCarsBtn}>
             Show cars
           </Link>
         )}
@@ -616,7 +630,6 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
                 }}
                 onClick={() => {
                   setPickupTime(time);
-                  console.log(`Selected time: ${time}`);
                 }}
               >
                 {time}
@@ -666,7 +679,6 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
                 }}
                 onClick={() => {
                   setPickupTime(time);
-                  console.log(`Selected time: ${time}`);
                 }}
               >
                 {time}
@@ -722,7 +734,6 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
                 }}
                 onClick={() => {
                   setReturnTime(time);
-                  console.log(`Selected time: ${time}`);
                 }}
               >
                 {time}
@@ -771,7 +782,6 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
                 }}
                 onClick={() => {
                   setReturnTime(time);
-                  console.log(`Selected time: ${time}`);
                 }}
               >
                 {time}
@@ -810,42 +820,57 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
           <Modal.Title>Pick-up Locations</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="position-absolute">
-            <div onClick={handleLocationClick}>
-              <div className="container-fluid">
-                <div className="row">
-                  <div className="col-md-6">
-                    {loactionData.map((item, index) => {
-                      return (
-                        <div
-                          key={index}
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            paddingBottom: 40,
-                            cursor: "pointer",
-                          }}
-                          onClick={handleLocationClick}
-                          onMouseEnter={() => setHoveredItem(item)}
-                          onMouseLeave={() => setHoveredItem("")}
-                        >
-                          <span className="me-2 fs-4 d-flex justify-content-center align-items-center">
-                            {item.locationIcon}
-                          </span>
-                          <span className="mb-0">{item.locationName}</span>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
+          {/* <div className="position-absolute"> */}
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-md-6">
+                {loactionData.map((item, index) => {
+                  return (
+                    <div
+                      key={index}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        padding: 12,
+                        cursor: "pointer",
+                        marginBottom: 20,
+                        borderRadius: 30,
+                        background:
+                          activeInput === "pickup" &&
+                          item.locationName === pickupLocation
+                            ? "black"
+                            : "#f9f9f9",
+                        color:
+                          activeInput === "pickup" &&
+                          item.locationName === pickupLocation
+                            ? "white"
+                            : "black",
+                      }}
+                      onClick={(e) => {
+                        handleLocationClick(e, item);
+                      }}
+                      onMouseEnter={() => setHoveredItem(item)}
+                      onMouseLeave={() => setHoveredItem("")}
+                    >
+                      <span className="me-2 fs-4 d-flex justify-content-center align-items-center">
+                        {item.locationIcon}
+                      </span>
+                      <span className="mb-0">{item.locationName}</span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
+          {/* </div> */}
         </Modal.Body>
         <Modal.Footer className="justify-content-between">
           <Button
             className="btn btn-secondary"
-            onClick={() => setPickupLocationModal(false)}
+            onClick={() => {
+              setPickupLocationModal(false);
+              setActiveInput(null);
+            }}
           >
             Close
           </Button>
@@ -854,6 +879,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
             onClick={() => {
               setPickupLocationModal(false);
               setReturnLocationModal(true);
+              setActiveInput("drop");
             }}
           >
             Select Return Location <FaArrowRightLong className="ms-2" />
@@ -882,10 +908,24 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
                           style={{
                             display: "flex",
                             alignItems: "center",
-                            paddingBottom: 40,
+                            padding: 12,
                             cursor: "pointer",
+                            marginBottom: 20,
+                            borderRadius: 30,
+                            background:
+                              activeInput === "drop" &&
+                              item.locationName === returnLocation
+                                ? "black"
+                                : "#f9f9f9",
+                            color:
+                              activeInput === "drop" &&
+                              item.locationName === returnLocation
+                                ? "white"
+                                : "black",
                           }}
-                          onClick={handleLocationClick}
+                          onClick={(e) => {
+                            handleLocationClick(e, item);
+                          }}
                           onMouseEnter={() => setHoveredItem(item)}
                           onMouseLeave={() => setHoveredItem("")}
                         >
@@ -905,13 +945,19 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
         <Modal.Footer className="justify-content-between">
           <Button
             className="btn btn-secondary"
-            onClick={() => setReturnLocationModal(false)}
+            onClick={() => {
+              setReturnLocationModal(false);
+              setActiveInput(null);
+            }}
           >
             Close
           </Button>
           <Button
             style={{ backgroundColor: colors.themeMain, color: colors.white }}
-            onClick={() => setReturnLocationModal(false)}
+            onClick={() => {
+              setReturnLocationModal(false);
+              setActiveInput(null);
+            }}
           >
             Save Changes
           </Button>
