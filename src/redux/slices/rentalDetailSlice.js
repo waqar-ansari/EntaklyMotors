@@ -12,25 +12,15 @@ const rentalDetailSlice = createSlice({
   name: "rentalDetail",
   initialState: initialState,
   reducers: {
-    setPickupLocationSlice(state, action) {
-      state.pickupLocation = action.payload;
+    setRentalDetailDataSlice(state,action){
+        return { ...state, ...action.payload };
     },
-    setReturnLocationSlice(state, action) {
-      state.returnLocation = action.payload;
-    },
-    setPickupDateSlice(state, action) {
-      state.pickupDate = action.payload;
-    },
-    setReturnDateSlice(state, action) {
-      state.returnDate = action.payload;
-    },
-    setPickupTimeSlice(state, action) {
-      state.pickupTime = action.payload;
-    },
-    setReturnTimeSlice(state, action) {
-      state.returnTime = action.payload;
-    },
+    clearRentalDetail(){
+      return initialState;
+    }
   },
 });
-export const {setPickupLocationSlice,setReturnLocationSlice,setPickupDateSlice,setReturnDateSlice,setPickupTimeSlice,setReturnTimeSlice} =rentalDetailSlice.actions
-export default rentalDetailSlice.reducer
+export const {
+  setRentalDetailDataSlice
+} = rentalDetailSlice.actions;
+export default rentalDetailSlice.reducer;

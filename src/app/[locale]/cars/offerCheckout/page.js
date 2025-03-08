@@ -13,9 +13,13 @@ import "rsuite/Tooltip/styles/index.css";
 import { fonts } from "../../../../../public/fonts/fonts";
 import OfferCheckoutCard from "@/components/OfferCheckoutCard";
 import PriceDetailsModal from "@/components/modals/PriceDetailsModal";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedPackageSlice } from "@/redux/slices/selectedPackageSlice";
 
 const page = () => {
   const [selectedPackage, setSelectedPackage] = useState(null);
+
+
 
   const basicPacageTicks = ["Loss Damage Waiver"];
   const basicPackageCross = [
@@ -40,10 +44,32 @@ const page = () => {
     "Personal Accident Protection",
     "Roadside Protection",
   ];
+  const dispatch = useDispatch()
   const platinumPackageCross = [];
-  const handlePackageClick = (packageName) => {
+  const handlePackageClick = (packageName,packagePrice) => {
     setSelectedPackage(packageName);
+dispatch(setSelectedPackageSlice({packageName,packagePrice}))
+    
+    // dispatch(setSelectedPackageSlice(packageName))
   };
+    const totalPrice = useSelector((state) => state.totalPrice);
+    const calculateNumberOfDays = (startDate, endDate) => {
+       const start = new Date(startDate);
+       const end = new Date(endDate);
+       const timeDifference = end - start;
+       const numberOfDays = timeDifference / (1000 * 3600 * 24);
+       return Math.abs(numberOfDays);
+     };
+   
+     const rentalDetails = useSelector((state) => state.rentalDetail);
+     const selectedCarDetails = useSelector((state) => state.selectedCar);
+     const numberOfRentalDays = calculateNumberOfDays(
+       rentalDetails.pickupDate,
+       rentalDetails.returnDate
+     );
+     const selectedPackagedetail = useSelector((state)=>state.selectedPackage)
+     console.log(selectedPackagedetail,"selectedPackagedetail");
+     
   return (
     <>
       <Header />
@@ -52,7 +78,7 @@ const page = () => {
           <div className="col-12">
             <div className="d-flex justify-content-between justify-content-sm-end align-items-center mb-md-4 mb-2">
               <div>
-                <p className="mb-0">Total: 800</p>
+                <p className="mb-0">Total: {totalPrice}</p>
                 <PriceDetailsModal />
               </div>
               <Link
@@ -79,6 +105,7 @@ const page = () => {
             <OfferCheckoutCard
               packageName="Basic"
               heading="Basic Protection"
+              packagePrice={0}
               numberOfStars="1"
               excessAmount="3,000.00"
               footer="Included"
@@ -92,6 +119,7 @@ const page = () => {
             <OfferCheckoutCard
               packageName="Gold"
               heading="Smart Protection"
+              packagePrice={30}
               extraInfo="(Minimum age 25)"
               numberOfStars="2"
               footer="30 Aed/day"
@@ -107,6 +135,7 @@ const page = () => {
               packageName="Platinum"
               heading="All Inclusive Protection"
               extraInfo="(Minimum age 25)"
+              packagePrice={60}
               numberOfStars="3"
               footer="60 Aed/day"
               discount="-35% online discount"

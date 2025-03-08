@@ -1,19 +1,39 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CommonModal from "./CommonModal";
+import { useDispatch, useSelector } from "react-redux";
+import { calculateTotalPrice } from "@/redux/thunks/totalPriceThunk";
 
 const PriceDetailsModal = () => {
   const [showPriceDetailsModal, setShowPriceDetailsModal] = useState(false);
   const [priceDetailsModalContent, setPriceDetailsModalContent] = useState("");
-
+  const totalPrice = useSelector((state) => state.totalPrice);
   const openModal = (content) => {
     setPriceDetailsModalContent(content);
     setShowPriceDetailsModal(true);
   };
-
+const dispatch = useDispatch()
   const closeModal = () => {
     setShowPriceDetailsModal(false);
   };
+  const calculateNumberOfDays = (startDate, endDate) => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const timeDifference = end - start;
+    const numberOfDays = timeDifference / (1000 * 3600 * 24);
+    return Math.abs(numberOfDays);
+  };
+
+  const rentalDetails = useSelector((state) => state.rentalDetail);
+  const selectedCarDetails = useSelector((state) => state.selectedCar);
+  const numberOfRentalDays = calculateNumberOfDays(
+    rentalDetails.pickupDate,
+    rentalDetails.returnDate
+  );
+  useEffect(() => {
+    dispatch(calculateTotalPrice());
+  }, [dispatch]);
+
   return (
     <>
       <div>
@@ -27,8 +47,13 @@ const PriceDetailsModal = () => {
                 <div className="section">
                   <p className="heading3">Rental charges</p>
                   <div className="flex mb-0">
-                    <p className="mb-0">3 Rental days x AED 226.50</p>
-                    <p className="m-0">200</p>
+                    <p className="mb-0">
+                      {numberOfRentalDays} Rental days x AED{" "}
+                      {selectedCarDetails.price}
+                    </p>
+                    <p className="m-0">
+                      {numberOfRentalDays * selectedCarDetails.price}
+                    </p>
                   </div>
                 </div>
                 <div className="section">
@@ -44,7 +69,9 @@ const PriceDetailsModal = () => {
                 </div>
                 <div className="flex">
                   <p className="heading2 mb-0">Total (incl. tax)</p>
-                  <p className="heading2 mb-0">200</p>
+                  <p className="heading2 mb-0">
+                  {totalPrice}
+                  </p>
                 </div>
               </>
             )

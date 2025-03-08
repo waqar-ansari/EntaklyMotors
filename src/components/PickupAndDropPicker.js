@@ -19,16 +19,16 @@ import { TbArrowBack } from "react-icons/tb";
 import { HiMiniBuildingLibrary } from "react-icons/hi2";
 import { HiMiniHome } from "react-icons/hi2";
 import { useDispatch, useSelector } from "react-redux";
-import { setPickupLocationSlice } from "@/redux/slices/rentalDetailSlice";
+import { setRentalDetailDataSlice } from "@/redux/slices/rentalDetailSlice";
 
 const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
   const [range, setRange] = useState([null, null]);
   const [hoveredItem, setHoveredItem] = useState({});
 
-  const dispatch = useDispatch()
-  const rentalDetails = useSelector((state)=>state.rentalDetail)
-  console.log(rentalDetails,"rental details");
+  const dispatch = useDispatch();
+  const rentalDetails = useSelector((state) => state.rentalDetail);
   
+
   const [showDateModal, setShowDateModal] = useState(false);
   const [showLocations, setShowLocations] = useState(false);
   const [pickupTime, setPickupTime] = useState("");
@@ -80,13 +80,13 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
     },
   ];
 
-  useEffect(() => {
-    const pickupDate = new Date();
-    const returnDate = new Date(pickupDate);
-    returnDate.setDate(pickupDate.getDate() + 2);
+  // useEffect(() => {
+  //   const pickupDate = new Date();
+  //   const returnDate = new Date(pickupDate);
+  //   returnDate.setDate(pickupDate.getDate() + 2);
 
-    setRange([pickupDate, returnDate]);
-  }, []);
+  //   setRange([pickupDate, returnDate]);
+  // }, []);
 
   const openDatePicker = () => {
     if (pickerRef.current) {
@@ -94,16 +94,16 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
     }
   };
 
-  const formatDate = (date) => {
-    if (!date) return "";
-    return date.toLocaleString("en-GB", {
-      day: "numeric",
-      month: "short",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-    });
-  };
+  // const formatDate = (date) => {
+  //   if (!date) return "";
+  //   return date.toLocaleString("en-GB", {
+  //     day: "numeric",
+  //     month: "short",
+  //     hour: "2-digit",
+  //     minute: "2-digit",
+  //     hour12: true,
+  //   });
+  // };
   const handlePickUpDateClick = () => {
     const isLargeScreen =
       typeof window !== "undefined" &&
@@ -185,6 +185,21 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
   const handleReturnTimeClick = () => {
     setShowReturnTimeModal(true);
   };
+  const pickupDate = range[0]
+    ? range[0].toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      })
+    : "";
+  const returnDate = range[1]
+    ? range[1].toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      })
+    : "";
+    
   return (
     <div>
       {heading && <p style={styles.heading}>Rent a Car</p>}
@@ -275,13 +290,13 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
         <div className="input-group customInputGroup mobDisplayNone">
           <span className="input-group-text">
             <FaCar />
-          </span>
+          </span>          
           <div className="form-floating">
             <input
               type="text"
               className="form-control"
               id="pickupLocation"
-              value={pickupLocation}
+              value={pickupLocation || rentalDetails.pickupLocation}
               placeholder="Pickup Location"
               onClick={() => handleInputClick("pickup", "Pick-up Locations")}
             />
@@ -296,7 +311,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
             <input
               type="text"
               className="form-control"
-              value={pickupLocation}
+              value={pickupLocation || rentalDetails.pickupLocation}
               id="pickupLocation"
               placeholder="Pickup Location"
               onClick={() => {
@@ -316,7 +331,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
               type="text"
               className="form-control"
               id="returnLocation"
-              value={returnLocation}
+              value={returnLocation || rentalDetails.returnLocation}
               placeholder="Drop Location"
               onClick={() => {
                 setReturnLocationModal(true);
@@ -334,7 +349,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
             <input
               type="text"
               className="form-control"
-              value={returnLocation}
+              value={rentalDetails.returnLocation || returnLocation }
               id="returnLocation"
               placeholder="Drop Location"
               onClick={() => handleInputClick("drop", "Return Locations")}
@@ -373,15 +388,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
                 </span>
                 <div className="form-floating">
                   <input
-                    value={
-                      range[0]
-                        ? range[0].toLocaleDateString("en-GB", {
-                            day: "numeric",
-                            month: "short",
-                            year: "numeric",
-                          })
-                        : ""
-                    }
+                    value={pickupDate || rentalDetails.pickupDate}
                     className="form-control"
                     placeholder="Pickup Date & Time"
                     onClick={handlePickUpDateClick}
@@ -399,7 +406,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
                 </span>
                 <div className="form-floating">
                   <input
-                    value={pickupTime}
+                    value={pickupTime || rentalDetails.pickupTime}
                     className="form-control"
                     placeholder="Pickup Date & Time"
                     onClick={handleShowPickupTimeModalMobile}
@@ -424,15 +431,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
                 </span>
                 <div className="form-floating">
                   <input
-                    value={
-                      range[0]
-                        ? range[1].toLocaleDateString("en-GB", {
-                            day: "numeric",
-                            month: "short",
-                            year: "numeric",
-                          })
-                        : ""
-                    }
+                    value={returnDate || rentalDetails.returnDate}
                     className="form-control"
                     placeholder="Return Date"
                     onClick={handlePickUpDateClick}
@@ -450,7 +449,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
                 </span>
                 <div className="form-floating">
                   <input
-                    value={returnTime}
+                    value={returnTime || rentalDetails.returnTime}
                     className="form-control"
                     placeholder="Return Date"
                     onClick={handleShowReturnTimeModal}
@@ -474,15 +473,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
               <div className="form-floating">
                 <input
                   // value={range[0] ? formatDate(range[0]) : ""}
-                  value={
-                    range[0]
-                      ? range[0].toLocaleDateString("en-GB", {
-                          day: "numeric",
-                          month: "short",
-                          year: "numeric",
-                        })
-                      : ""
-                  }
+                  value={pickupDate || rentalDetails.pickupDate}
                   className="form-control"
                   placeholder="Pickup Date & Time"
                   onClick={handlePickUpDateClick}
@@ -505,7 +496,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
               <div className="form-floating">
                 <input
                   // value={range[0] ? formatDate(range[0]) : ""}
-                  value={pickupTime}
+                  value={pickupTime || rentalDetails.pickupTime}
                   className="form-control"
                   placeholder="Pickup Date & Time"
                   onClick={handlePickUpTimeClick}
@@ -527,15 +518,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
               <div className="form-floating">
                 <input
                   // value={range[0] ? formatDate(range[1]) : ""}
-                  value={
-                    range[0]
-                      ? range[1].toLocaleDateString("en-GB", {
-                          day: "numeric",
-                          month: "short",
-                          year: "numeric",
-                        })
-                      : ""
-                  }
+                  value={returnDate || rentalDetails.returnDate}
                   className="form-control"
                   placeholder="Return Date"
                   onClick={handlePickUpDateClick}
@@ -558,7 +541,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
               <div className="form-floating">
                 <input
                   // value={range[0] ? formatDate(range[1]) : ""}
-                  value={returnTime}
+                  value={returnTime || rentalDetails.returnTime}
                   className="form-control"
                   placeholder="Return Date"
                   onClick={handleReturnTimeClick}
@@ -570,11 +553,21 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
           </div>
         </div>
         {showCarsButton && (
-          <Link href="/cars" 
-          onClick={()=>{
-            dispatch(setPickupLocationSlice(pickupLocation))
-          }}
-          style={styles.showCarsBtn}>
+          <Link
+            href="/cars"
+            onClick={() => {
+              const rentalData = {
+                pickupLocation: pickupLocation || rentalDetails.pickupLocation,
+                returnLocation: returnLocation || rentalDetails.returnLocation,
+                pickupDate: pickupDate || rentalDetails.pickupDate,
+                returnDate: returnDate || rentalDetails.returnDate,
+                pickupTime: pickupTime || rentalDetails.pickupTime,
+                returnTime: returnTime || rentalDetails.returnTime,
+              };
+              dispatch(setRentalDetailDataSlice(rentalData));
+            }}
+            style={styles.showCarsBtn}
+          >
             Show cars
           </Link>
         )}

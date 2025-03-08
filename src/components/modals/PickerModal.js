@@ -6,7 +6,7 @@ const PickerModal = () => {
     <div
       className="modal fade"
       id="pickerModal"
-      tabindex="-1"
+      tabIndex="-1"
       aria-labelledby="pickerModalLabel"
       aria-hidden="true"
     >

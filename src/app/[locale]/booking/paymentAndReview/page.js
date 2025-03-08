@@ -13,6 +13,7 @@ import { IoInformationCircleSharp } from "react-icons/io5";
 import Image from "next/image";
 import "../../cars/cars.css";
 import { FaShop } from "react-icons/fa6";
+import { useSelector } from "react-redux";
 
 const page = () => {
   const [countryCode, setCountryCode] = useState("+971");
@@ -20,6 +21,19 @@ const page = () => {
   const handleCountryChange = (value, country) => {
     setCountryCode(`+${country.dialCode}`);
   };
+  const calculateDaysBetween = (startDate, endDate) => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const timeDifference = end - start;
+    const daysDifference = timeDifference / (1000 * 3600 * 24);
+    return Math.abs(daysDifference); // Use Math.abs to get the absolute value in case the dates are reversed
+  };
+  const rentalDetail = useSelector((state) => state.rentalDetail);
+  const numberOfRentalDays = calculateDaysBetween(
+    rentalDetail.pickupDate,
+    rentalDetail.returnDate
+  );
+const selectedCarDetail = useSelector((state)=>state.selectedCar)
   return (
     <>
       <Header />
@@ -28,7 +42,7 @@ const page = () => {
           <div className="col-md-12 pt-5 mobDisplayNone">
             <div className="d-flex justify-content-end align-items-center">
               <div>
-                <p className="mb-0">Total: 800</p>
+                <p className="mb-0">Total: {numberOfRentalDays*selectedCarDetail.price}</p>
                 <PriceDetailsModal />
               </div>
             </div>
@@ -238,7 +252,7 @@ const page = () => {
             </div> */}
             <div className="d-flex justify-content-between align-items-center">
               <h6>Total</h6>
-              <h6>800</h6>
+              <h6>{numberOfRentalDays*selectedCarDetail.price}</h6>
             </div>
             <div className="mb-5">
               <PriceDetailsModal />
@@ -248,11 +262,20 @@ const page = () => {
             </Link>
           </div>
           <div className="col-md-4">
-            <div className="sticky-top" style={{ top: "20px", backgroundColor: "#ebebf0", padding: 20, borderRadius: 10, marginBottom: 20 }}>
+            <div
+              className="sticky-top"
+              style={{
+                top: "20px",
+                backgroundColor: "#ebebf0",
+                padding: 20,
+                borderRadius: 10,
+                marginBottom: 20,
+              }}
+            >
               <div className="d-flex align-items-center mb-5">
                 <div className="reviewPageImageBg">
                   <Image
-                    src="/images/car4.png"
+                    src={selectedCarDetail.image}
                     alt="visa"
                     width={92}
                     height={71}
@@ -262,12 +285,14 @@ const page = () => {
                 <div>
                   <div className="ms-2">
                     <h6 style={{ marginBottom: 5 }}>
-                      GAC Empow GDI (Turbo) 7-Speed WDCT
+                      {selectedCarDetail.name}
                     </h6>
                     <p style={{ marginBottom: 5, color: "#828287" }}>
                       or similar | CCAR
                     </p>
-                    <p style={{ fontWeight: 600, marginBottom:0}}>3 Rental Days</p>
+                    <p style={{ fontWeight: 600, marginBottom: 0 }}>
+                      {numberOfRentalDays} Rental Days
+                    </p>
                   </div>
                 </div>
               </div>
@@ -275,25 +300,37 @@ const page = () => {
                 <FaShop className="icon-top" />
                 <div className="mb-2">
                   <p
-                    style={{ color: "#828287", marginBottom: 5, fontWeight: 600 }}
+                    style={{
+                      color: "#828287",
+                      marginBottom: 5,
+                      fontWeight: 600,
+                    }}
                   >
                     Pick-up
                   </p>
                   <h6 style={{ marginBottom: 5 }}>
-                    Dubai Int. Airport Terminal 3
+                    {rentalDetail.pickupLocation}
                   </h6>
-                  <p>Tue, 11. Mar, 2025 | 12:30</p>
+                  <p>
+                    {rentalDetail.pickupDate} | {rentalDetail.pickupTime}
+                  </p>
                 </div>
                 <div>
                   <p
-                    style={{ color: "#828287", marginBottom: 5, fontWeight: 600 }}
+                    style={{
+                      color: "#828287",
+                      marginBottom: 5,
+                      fontWeight: 600,
+                    }}
                   >
                     Return
                   </p>
                   <h6 style={{ marginBottom: 5 }}>
-                    Dubai Int. Airport Terminal 3
+                    {rentalDetail.returnLocation}
                   </h6>
-                  <p>Tue, 11. Mar, 2025 | 12:30</p>
+                  <p>
+                    {rentalDetail.returnDate} | {rentalDetail.returnTime}
+                  </p>
                 </div>
                 <FaShop className="icon-bottom" />
               </div>

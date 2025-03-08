@@ -25,7 +25,7 @@ export default function HomePage() {
     <div>
       <div>
         <p
-          className="text-danger text-center text-white mb-0 pt-1"
+          className="text-danger text-center text-white mb-0 pt-1 styleForVeryTopHeader"
           style={{ backgroundColor: colors.themeMain }}
         >
           11 years of Entakly. 11 years of tradition.
@@ -58,7 +58,7 @@ export default function HomePage() {
               <label htmlFor="rentYourCar">Rent your car</label>
             </div> */}
             <CiSearch style={{ marginRight: 10 }} />
-            Destination
+            Plan a journey...
           </div>
         </div>
       </div>
@@ -392,7 +392,7 @@ const styles = {
   },
   PickupAndDropPicker: {
     position: "sticky",
-    top: "20px",
+    top: "10px",
     maxWidth: "1320px",
     margin: "0 auto",
     padding: "20px",

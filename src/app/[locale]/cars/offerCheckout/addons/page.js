@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import PriceDetailsModal from "@/components/modals/PriceDetailsModal";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { colors } from "../../../../../../public/colors/colors";
 import { IoInformationCircleSharp } from "react-icons/io5";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
@@ -15,21 +15,26 @@ import Tooltip from "rsuite/Tooltip";
 import Whisper from "rsuite/Whisper";
 import "rsuite/Tooltip/styles/index.css";
 import { IoInformationCircleOutline } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedAddon } from "@/redux/slices/selectedAddonSlice";
 
 const addons = [
   {
+    id:"1",
     addonName: "Additional Driver",
     icon: <AiOutlineUsergroupAdd />,
     overview: "Addional Driver",
     info: "info for additional driver",
   },
   {
+    id:"2",
     addonName: "Roadside Protection",
     icon: <FaCarOn />,
     overview: "Roadside Protection",
     info: "info for roadside protection",
   },
   {
+    id:"3",
     addonName: "Baby seat (0-18 kg / Group 0+/1)",
     icon: <MdOutlineAirlineSeatReclineExtra />,
     overview: "Baby seat (0-18 kg / Group 0+/1)",
@@ -39,14 +44,21 @@ const addons = [
 
 const page = () => {
   const [activeAddons, setActiveAddons] = useState({});
-  const toggleAddon = (index) => {
+
+const dispatch = useDispatch()
+
+  const toggleAddon = (id) => {
     setActiveAddons((prev) => ({
       ...prev,
-      [index]: !prev[index],
-    }));
+      [id]: !prev[id],
+    }));    
   };
-  console.log(activeAddons, "activeAddons");
-
+const activeaddons = useSelector((state)=>state.selectedAddon)
+console.log(activeaddons,"activeaddons");
+useEffect(()=>{
+  dispatch(setSelectedAddon(activeAddons))
+},[activeAddons])
+const totalPrice = useSelector((state) => state.totalPrice);
   return (
     <>
       <Header />
@@ -55,7 +67,7 @@ const page = () => {
           <div className="col-12">
             <div className="d-flex justify-content-between justify-content-sm-end align-items-center mb-3 mb-md-4">
               <div>
-                <p className="mb-0">Total: 800</p>
+                <p className="mb-0">Total: {totalPrice}</p>
                 <PriceDetailsModal />
               </div>
               <Link
@@ -81,15 +93,13 @@ const page = () => {
         <div className="row">
           <div className="col-md-8">
             {addons.map((addon, index) => {
-              console.log("activeAddons:", activeAddons);
-
               return (
                 <AddonService
-                  key={index}
+                  key={addon.id}
                   icon={addon.icon}
                   addonName={addon.addonName}
-                  isActive={activeAddons[index]}
-                  toggleActive={() => toggleAddon(index)}
+                  isActive={activeAddons[addon.id]}
+                  toggleActive={() => toggleAddon(addon.id)}
                 />
               );
             })}
@@ -100,9 +110,9 @@ const page = () => {
             </p>
             <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
             {addons
-              .filter((_, index) => activeAddons[index])
-              .map((addon, index) => (
-                <div key={index} style={{ marginBottom: 10 }}>
+              .filter((addon) => activeAddons[addon.id])
+              .map((addon) => (
+                <div key={addon.id} style={{ marginBottom: 10 }}>
                   <div className="liContainer">
                     <li className="liTick">{addon.overview}</li>
                     <Whisper

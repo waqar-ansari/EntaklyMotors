@@ -12,6 +12,7 @@ import Image from "next/image";
 import CommonModal from "./modals/CommonModal";
 import { useState } from "react";
 import PriceDetailsModal from "./modals/PriceDetailsModal";
+import { useSelector } from "react-redux";
 // import "../styles/globals.css";
 
 export default function CarDetails({ car, onClose }) {
@@ -25,6 +26,20 @@ export default function CarDetails({ car, onClose }) {
   const closeModal = () => {
     setShowBestPriceModal(false);
   };
+  const rentalDetails = useSelector((state)=>state.rentalDetail)
+  const selectedCarDetails = useSelector((state)=>state.selectedCar)
+  const calculateNumberOfDays = (startDate, endDate) => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const timeDifference = end - start;
+    const numberOfDays = timeDifference / (1000 * 3600 * 24);
+    return Math.abs(numberOfDays);
+  };
+  const numberOfRentalDays = calculateNumberOfDays(
+    rentalDetails.pickupDate,
+    rentalDetails.returnDate
+  );
+
   return (
     <>
       <div className="carDetails">
@@ -171,7 +186,7 @@ export default function CarDetails({ car, onClose }) {
                   AED / day
                 </span>
               </span> */}
-              <p style={{marginBottom:5}}>Total : 800</p>
+              <p style={{marginBottom:5}}>Total : {numberOfRentalDays*selectedCarDetails.price +400}</p>
               <div>
               <p className="tagStyleCarDetails">Best Deal</p>
             </div>

@@ -504,4 +504,8 @@ span.input-group-text{
     overflow-y: hidden !important;
     flex-wrap: nowrap !important;
   }
+  .styleForVeryTopHeader{
+    font-size: 12px;
+    font-weight: 700;
+  }
 }

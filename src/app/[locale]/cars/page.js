@@ -7,6 +7,8 @@ import "./cars.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CustomDropdown from "@/components/dropdown/CustomDropdown";
+import { useDispatch, useSelector } from "react-redux";
+import { clearSelectedCar, setSelectedCar } from "@/redux/slices/selectedCarSlice";
 
 const carsData = [
   {
@@ -51,20 +53,31 @@ export default function CarsPage() {
   const [selectedCarId, setSelectedCarId] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
+  const dispatch = useDispatch()
   // Check for mobile screen size
   const isMobile = typeof window !== "undefined" && window.matchMedia("(max-width: 991px)").matches;
 
-  const handleCarClick = (carId) => {
-    if (selectedCarId === carId) {
-      setSelectedCarId(null); // Close if clicking the same car
+  const handleCarClick = (car) => {
+    if (selectedCarId === car.id) {
+      setSelectedCarId(null);
+      dispatch(clearSelectedCar())
       setShowModal(false);
     } else {
-      setSelectedCarId(carId);
+      setSelectedCarId(car.id);
+      const selectedCarDetails ={
+        id: car.id,
+        name: car.name,
+        image: car.image,
+        price: car.price,
+      }      
+      dispatch(setSelectedCar(selectedCarDetails))
       if (isMobile) {
         setShowModal(true);
       }
     }
   };
+  const selectedCar = useSelector((state)=>state.selectedCar)
+console.log(selectedCar,"selected car");
 
   return (
     <div>
@@ -89,7 +102,7 @@ export default function CarsPage() {
               <div key={car.id} className="col-sm-6 mb-2">
                 <CarCard
                   car={car}
-                  onClick={() => handleCarClick(car.id)}
+                  onClick={() => handleCarClick(car)}
                   isSelected={selectedCarId === car.id}
                 />
               </div>
@@ -111,7 +124,7 @@ export default function CarsPage() {
                   <div key={car.id} className="col-lg-4 col-sm-6 col-12 mb-2 mb-lg-0">
                     <CarCard
                       car={car}
-                      onClick={() => handleCarClick(car.id)}
+                      onClick={() => handleCarClick(car)}
                       isSelected={selectedCarId === car.id}
                     />
                   </div>
@@ -124,7 +137,9 @@ export default function CarsPage() {
                     <div className="col-12 mt-4">
                       <CarDetails
                         car={carsData.find((car) => car.id === selectedCarId)}
-                        onClose={() => setSelectedCarId(null)}
+                        onClose={() => {
+                          dispatch(clearSelectedCar())
+                          setSelectedCarId(null)}}
                       />
                     </div>
                   )}

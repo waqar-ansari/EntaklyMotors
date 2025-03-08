@@ -19,13 +19,14 @@ const OfferCheckoutCard = ({
   discount,
   onPackageClick,
   selectedPackage,
+  packagePrice,
   liTicks = [],
   liCross = [],
 }) => {
   const [stars, setStars] = useState(numberOfStars);
 
   return (
-    <div className="w-100 h-100" onClick={() => onPackageClick(packageName)}>
+    <div className="w-100 h-100" onClick={() => onPackageClick(packageName,packagePrice)}>
       <div
         style={
           selectedPackage === packageName
