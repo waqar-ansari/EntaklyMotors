@@ -35,8 +35,6 @@ const PriceDetailsModal = () => {
   }, [dispatch]);
   const selectedPackage = useSelector((state) => state.selectedPackage);
   const selectedAddons = useSelector((state) => state.selectedAddon);
-  console.log(selectedPackage, "selectedPackageselectedPackageselectedPackage");
-
   return (
     <>
       <div>

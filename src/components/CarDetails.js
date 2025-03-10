@@ -39,7 +39,8 @@ export default function CarDetails({ car, onClose }) {
     rentalDetails.pickupDate,
     rentalDetails.returnDate
   );
-
+  console.log(numberOfRentalDays,"number of rental days from car details");
+  
   return (
     <>
       <div className="carDetails">

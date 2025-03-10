@@ -7,7 +7,6 @@ export const calculateTotalPrice = () => (dispatch, getState) => {
   const { price } = state.selectedCar;
   const { packagePrice } = state.selectedPackage;
   const selectedAddons = state.selectedAddon; // Extract selected addons array
-console.log(selectedAddons,"selectedAddons from thunk");
 
   // Extract addon prices
   const addonPrices = selectedAddons.map(addon => addon.price);
@@ -37,7 +36,6 @@ console.log(selectedAddons,"selectedAddons from thunk");
 
   const totalPrice =
     numberOfRentalDays * carPricePerDay + 400 + currentPackagePrice + totalAddonPrice;
-  console.log(totalPrice, "total price from thunk");
 
   dispatch(setTotalPrice(totalPrice)); // ✅ Dispatch the calculated price
 };

@@ -17,9 +17,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useRef, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import ModalPickerMobile from "@/components/modals/ModalPickerMobile";
-
+import { useSelector } from "react-redux";
 export default function HomePage() {
   const t = useTranslations("HomePage");
+
+
+const rentaldataa = useSelector((state)=>state.rentalDetails)
+
+console.log(rentaldataa,"rentaldataa");
+
   const [show, setShow] = useState(false);
   return (
     <div>
@@ -144,10 +150,10 @@ export default function HomePage() {
         <div className="row" style={styles.marginB}>
           <div className="col-md-12" style={{ position: "relative" }}>
             <Image
-              src="/images/homeImage1.png"
+              src="/images/homeImage1.webp"
               alt="limousine"
-              width={1441}
-              height={619}
+              width={1400}
+              height={560}
               layout="responsive"
             />
             <div style={styles.textContainer} className="sec-4">
@@ -234,7 +240,7 @@ export default function HomePage() {
               className="sec-6-width"
             >
               <Image
-                src="/images/homeImage3.png"
+                src="/images/homeImage3.webp"
                 alt="limousine"
                 width={465}
                 height={697}

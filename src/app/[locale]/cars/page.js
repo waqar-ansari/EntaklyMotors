@@ -8,7 +8,10 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CustomDropdown from "@/components/dropdown/CustomDropdown";
 import { useDispatch, useSelector } from "react-redux";
-import { clearSelectedCar, setSelectedCar } from "@/redux/slices/selectedCarSlice";
+import {
+  clearSelectedCar,
+  setSelectedCar,
+} from "@/redux/slices/selectedCarSlice";
 
 const carsData = [
   {
@@ -53,31 +56,33 @@ export default function CarsPage() {
   const [selectedCarId, setSelectedCarId] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   // Check for mobile screen size
-  const isMobile = typeof window !== "undefined" && window.matchMedia("(max-width: 991px)").matches;
+  const isMobile =
+    typeof window !== "undefined" &&
+    window.matchMedia("(max-width: 991px)").matches;
 
   const handleCarClick = (car) => {
     if (selectedCarId === car.id) {
       setSelectedCarId(null);
-      dispatch(clearSelectedCar())
+      dispatch(clearSelectedCar());
       setShowModal(false);
     } else {
       setSelectedCarId(car.id);
-      const selectedCarDetails ={
+      const selectedCarDetails = {
         id: car.id,
         name: car.name,
         image: car.image,
         price: car.price,
-      }      
-      dispatch(setSelectedCar(selectedCarDetails))
+      };
+      dispatch(setSelectedCar(selectedCarDetails));
       if (isMobile) {
         setShowModal(true);
       }
     }
   };
-  const selectedCar = useSelector((state)=>state.selectedCar)
-console.log(selectedCar,"selected car");
+  const selectedCar = useSelector((state) => state.selectedCar);
+  console.log(selectedCar, "selected car");
 
   return (
     <div>
@@ -121,7 +126,10 @@ console.log(selectedCar,"selected car");
             .map((row, rowIndex) => (
               <div key={rowIndex} className="row mb-3">
                 {row.map((car) => (
-                  <div key={car.id} className="col-lg-4 col-sm-6 col-12 mb-2 mb-lg-0">
+                  <div
+                    key={car.id}
+                    className="col-lg-4 col-sm-6 col-12 mb-2 mb-lg-0"
+                  >
                     <CarCard
                       car={car}
                       onClick={() => handleCarClick(car)}
@@ -138,8 +146,9 @@ console.log(selectedCar,"selected car");
                       <CarDetails
                         car={carsData.find((car) => car.id === selectedCarId)}
                         onClose={() => {
-                          dispatch(clearSelectedCar())
-                          setSelectedCarId(null)}}
+                          dispatch(clearSelectedCar());
+                          setSelectedCarId(null);
+                        }}
                       />
                     </div>
                   )}
@@ -149,7 +158,12 @@ console.log(selectedCar,"selected car");
       </div>
 
       {/* Modal for smaller screens */}
-      <Modal show={showModal} onHide={() => setShowModal(false)} fullscreen centered>
+      <Modal
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        fullscreen
+        centered
+      >
         <Modal.Header closeButton>
           <Modal.Title>Car Details</Modal.Title>
         </Modal.Header>

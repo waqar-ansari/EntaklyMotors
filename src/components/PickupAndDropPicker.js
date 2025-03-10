@@ -1,5 +1,11 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import { Button, DateRangePicker, Input } from "rsuite";
 import "rsuite/dist/rsuite.css";
 import { colors } from "../../public/colors/colors";
@@ -21,13 +27,12 @@ import { HiMiniHome } from "react-icons/hi2";
 import { useDispatch, useSelector } from "react-redux";
 import { setRentalDetailDataSlice } from "@/redux/slices/rentalDetailSlice";
 
-const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
+const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCarsClick }) => {
   const [range, setRange] = useState([null, null]);
   const [hoveredItem, setHoveredItem] = useState({});
 
   const dispatch = useDispatch();
   const rentalDetails = useSelector((state) => state.rentalDetail);
-  
 
   const [showDateModal, setShowDateModal] = useState(false);
   const [showLocations, setShowLocations] = useState(false);
@@ -199,7 +204,25 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
         year: "numeric",
       })
     : "";
-    
+  const handleShowCarsClick = () => {
+    const rentalData = {
+          pickupLocation: pickupLocation || rentalDetails.pickupLocation,
+          returnLocation: returnLocation || rentalDetails.returnLocation,
+          pickupDate: pickupDate || rentalDetails.pickupDate,
+          returnDate: returnDate || rentalDetails.returnDate,
+          pickupTime: pickupTime || rentalDetails.pickupTime,
+          returnTime: returnTime || rentalDetails.returnTime,
+        };
+        dispatch(setRentalDetailDataSlice(rentalData));
+        console.log("button clicked from outside");
+        if (onShowCarsClick) {
+          console.log(onShowCarsClick,"button clicked");
+          
+          onShowCarsClick();  // Trigger the prop function passed from the parent
+        }
+  };
+
+
   return (
     <div>
       {heading && <p style={styles.heading}>Rent a Car</p>}
@@ -290,7 +313,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
         <div className="input-group customInputGroup mobDisplayNone">
           <span className="input-group-text">
             <FaCar />
-          </span>          
+          </span>
           <div className="form-floating">
             <input
               type="text"
@@ -349,7 +372,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
             <input
               type="text"
               className="form-control"
-              value={rentalDetails.returnLocation || returnLocation }
+              value={returnLocation || rentalDetails.returnLocation}
               id="returnLocation"
               placeholder="Drop Location"
               onClick={() => handleInputClick("drop", "Return Locations")}
@@ -555,17 +578,18 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true }) => {
         {showCarsButton && (
           <Link
             href="/cars"
-            onClick={() => {
-              const rentalData = {
-                pickupLocation: pickupLocation || rentalDetails.pickupLocation,
-                returnLocation: returnLocation || rentalDetails.returnLocation,
-                pickupDate: pickupDate || rentalDetails.pickupDate,
-                returnDate: returnDate || rentalDetails.returnDate,
-                pickupTime: pickupTime || rentalDetails.pickupTime,
-                returnTime: returnTime || rentalDetails.returnTime,
-              };
-              dispatch(setRentalDetailDataSlice(rentalData));
-            }}
+            // onClick={() => {
+            //   const rentalData = {
+            //     pickupLocation: pickupLocation || rentalDetails.pickupLocation,
+            //     returnLocation: returnLocation || rentalDetails.returnLocation,
+            //     pickupDate: pickupDate || rentalDetails.pickupDate,
+            //     returnDate: returnDate || rentalDetails.returnDate,
+            //     pickupTime: pickupTime || rentalDetails.pickupTime,
+            //     returnTime: returnTime || rentalDetails.returnTime,
+            //   };
+            //   dispatch(setRentalDetailDataSlice(rentalData));
+            // }}
+            onClick={handleShowCarsClick}
             style={styles.showCarsBtn}
           >
             Show cars
