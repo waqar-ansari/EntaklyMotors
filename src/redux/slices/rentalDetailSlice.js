@@ -21,6 +21,6 @@ const rentalDetailSlice = createSlice({
   },
 });
 export const {
-  setRentalDetailDataSlice
+  setRentalDetailDataSlice,clearRentalDetail
 } = rentalDetailSlice.actions;
 export default rentalDetailSlice.reducer;

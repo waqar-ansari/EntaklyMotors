@@ -1,7 +1,7 @@
 "use client";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../../../components/modals/commonModal.css";
 import Link from "next/link";
 import { colors } from "../../../../../public/colors/colors";
@@ -15,11 +15,10 @@ import OfferCheckoutCard from "@/components/OfferCheckoutCard";
 import PriceDetailsModal from "@/components/modals/PriceDetailsModal";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedPackageSlice } from "@/redux/slices/selectedPackageSlice";
+import { calculateTotalPrice } from "@/redux/thunks/totalPriceThunk";
 
 const page = () => {
-  const [selectedPackage, setSelectedPackage] = useState(null);
-
-
+  const [selectedPackage, setSelectedPackage] = useState("Basic");
 
   const basicPacageTicks = ["Loss Damage Waiver"];
   const basicPackageCross = [
@@ -44,32 +43,41 @@ const page = () => {
     "Personal Accident Protection",
     "Roadside Protection",
   ];
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const platinumPackageCross = [];
-  const handlePackageClick = (packageName,packagePrice) => {
+  const handlePackageClick = (packageName, packagePrice) => {
     setSelectedPackage(packageName);
-dispatch(setSelectedPackageSlice({packageName,packagePrice}))
-    
-    // dispatch(setSelectedPackageSlice(packageName))
+    dispatch(setSelectedPackageSlice({ packageName, packagePrice }));
   };
-    const totalPrice = useSelector((state) => state.totalPrice);
-    const calculateNumberOfDays = (startDate, endDate) => {
-       const start = new Date(startDate);
-       const end = new Date(endDate);
-       const timeDifference = end - start;
-       const numberOfDays = timeDifference / (1000 * 3600 * 24);
-       return Math.abs(numberOfDays);
-     };
-   
-     const rentalDetails = useSelector((state) => state.rentalDetail);
-     const selectedCarDetails = useSelector((state) => state.selectedCar);
-     const numberOfRentalDays = calculateNumberOfDays(
-       rentalDetails.pickupDate,
-       rentalDetails.returnDate
-     );
-     const selectedPackagedetail = useSelector((state)=>state.selectedPackage)
-     console.log(selectedPackagedetail,"selectedPackagedetail");
-     
+  useEffect(() => {
+    dispatch(calculateTotalPrice());
+  }, [selectedPackage]);
+
+  const totalPrice = useSelector((state) => state.totalPrice);
+  const calculateNumberOfDays = (startDate, endDate) => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const timeDifference = end - start;
+    const numberOfDays = timeDifference / (1000 * 3600 * 24);
+    return Math.abs(numberOfDays);
+  };
+
+  const rentalDetails = useSelector((state) => state.rentalDetail);
+  const selectedCarDetails = useSelector((state) => state.selectedCar);
+  const numberOfRentalDays = calculateNumberOfDays(
+    rentalDetails.pickupDate,
+    rentalDetails.returnDate
+  );
+  const selectedPackagedetail = useSelector((state) => state.selectedPackage);
+  // useEffect(() => {
+  //   const defaultPackage = {
+  //     packageName: "Basic",
+  //     packagePrice: 0,
+  //   };
+  //   dispatch(setSelectedPackageSlice(defaultPackage));
+  
+  //   dispatch(calculateTotalPrice());
+  // }, []);
   return (
     <>
       <Header />

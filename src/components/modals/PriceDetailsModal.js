@@ -12,7 +12,7 @@ const PriceDetailsModal = () => {
     setPriceDetailsModalContent(content);
     setShowPriceDetailsModal(true);
   };
-const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const closeModal = () => {
     setShowPriceDetailsModal(false);
   };
@@ -33,6 +33,9 @@ const dispatch = useDispatch()
   useEffect(() => {
     dispatch(calculateTotalPrice());
   }, [dispatch]);
+  const selectedPackage = useSelector((state) => state.selectedPackage);
+  const selectedAddons = useSelector((state) => state.selectedAddon);
+  console.log(selectedPackage, "selectedPackageselectedPackageselectedPackage");
 
   return (
     <>
@@ -55,6 +58,15 @@ const dispatch = useDispatch()
                       {numberOfRentalDays * selectedCarDetails.price}
                     </p>
                   </div>
+
+                  {selectedAddons.map((addon, index) => {
+                    return (
+                      <div className="flex mb-0" key={index}>
+                        <p className="mb-0">{addon.name}</p>
+                        <p className="m-0">{addon.price}</p>
+                      </div>
+                    );
+                  })}
                 </div>
                 <div className="section">
                   <p className="heading3">Taxes and fees</p>
@@ -67,11 +79,16 @@ const dispatch = useDispatch()
                     <p className="m-0">200</p>
                   </div>
                 </div>
+              {selectedPackage.packageName!==null &&  <div className="section">
+                  <p className="heading3">Protection Package</p>
+                  <div className="flex">
+                    <p className="mb-0">{selectedPackage.packageName}</p>
+                    <p className="m-0">{selectedPackage.packagePrice}</p>
+                  </div>
+                </div>}
                 <div className="flex">
                   <p className="heading2 mb-0">Total (incl. tax)</p>
-                  <p className="heading2 mb-0">
-                  {totalPrice}
-                  </p>
+                  <p className="heading2 mb-0">{totalPrice}</p>
                 </div>
               </>
             )

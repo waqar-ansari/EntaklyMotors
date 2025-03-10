@@ -4,7 +4,7 @@ import { fonts } from "../../public/fonts/fonts";
 import Toggle from "rsuite/Toggle";
 import "rsuite/Toggle/styles/index.css";
 
-const AddonService = ({ icon, isActive, toggleActive, addonName }) => {
+const AddonService = ({ icon, isActive, toggleActive, addonName, addonPrice }) => {
   const [showDetails, setShowDetails] = useState(false);
   const handleAddon = () => {
   };
@@ -38,7 +38,7 @@ const AddonService = ({ icon, isActive, toggleActive, addonName }) => {
             </div>
           </div>
           <p style={styles.addonPrice}>
-            3434 <span style={styles.addonPriceUnit}>/day & driver</span>
+          {addonPrice} AED<span style={styles.addonPriceUnit}>/day</span>
           </p>
 
           {showDetails && (

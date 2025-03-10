@@ -14,7 +14,7 @@ import storage from "redux-persist/lib/storage";
 const persistConfig = {
   key: "root",
   storage, // You can change storage to sessionStorage or AsyncStorage for React Native
-  whitelist: ["selectedCar", "auth", "rentalDetail","selectedPackage","selectedAddonReducer","totalPrice"], // Specify which reducers you want to persist
+  whitelist: ["selectedCar", "auth", "rentalDetail","selectedPackage","selectedAddon","totalPrice","profile"], // Specify which reducers you want to persist
 };
 
 const rootReducer = combineReducers({

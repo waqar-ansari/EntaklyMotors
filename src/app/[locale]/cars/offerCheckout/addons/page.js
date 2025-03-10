@@ -17,48 +17,82 @@ import "rsuite/Tooltip/styles/index.css";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedAddon } from "@/redux/slices/selectedAddonSlice";
+import { calculateTotalPrice } from "@/redux/thunks/totalPriceThunk";
 
 const addons = [
   {
-    id:"1",
+    id: "1",
     addonName: "Additional Driver",
     icon: <AiOutlineUsergroupAdd />,
     overview: "Addional Driver",
     info: "info for additional driver",
+    addonPrice: 12,
   },
   {
-    id:"2",
+    id: "2",
     addonName: "Roadside Protection",
     icon: <FaCarOn />,
     overview: "Roadside Protection",
     info: "info for roadside protection",
+    addonPrice: 50,
   },
   {
-    id:"3",
+    id: "3",
     addonName: "Baby seat (0-18 kg / Group 0+/1)",
     icon: <MdOutlineAirlineSeatReclineExtra />,
     overview: "Baby seat (0-18 kg / Group 0+/1)",
     info: "info for baby seat",
+    addonPrice: 70,
   },
 ];
 
 const page = () => {
   const [activeAddons, setActiveAddons] = useState({});
 
-const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const toggleAddon = (id) => {
-    setActiveAddons((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));    
+
+  // const toggleAddon = (addon) => {
+  //   setActiveAddons((prev) => {
+  //     const isSelected = !prev[addon.id]; // Toggle selection
+  
+  //     return {
+  //       ...prev,
+  //       [addon.id]: isSelected, // Toggle selection state
+  //       addonDetails: isSelected
+  //         ? [...(prev.addonDetails || []), { name: addon.addonName, price: addon.addonPrice }]
+  //         : (prev.addonDetails || []).filter(item => item.price !== addon.addonPrice), // Remove if deselected
+  //     };
+  //   });
+  // };
+  const toggleAddon = (addon) => {
+    setActiveAddons((prev) => {
+      const isSelected = !prev[addon.id]; // Toggle selection state
+      
+      // Update the addonDetails array based on selection state
+      const updatedAddonDetails = isSelected
+        ? [...(prev.addonDetails || []), { id: addon.id, name: addon.addonName, price: addon.addonPrice }]
+        : (prev.addonDetails || []).filter(item => item.id !== addon.id); // Remove addon if deselected
+  
+      return {
+        ...prev,
+        [addon.id]: isSelected, // Update the selection state for the addon
+        addonDetails: updatedAddonDetails, // Update the details array
+      };
+    });
   };
-const activeaddons = useSelector((state)=>state.selectedAddon)
-console.log(activeaddons,"activeaddons");
-useEffect(()=>{
-  dispatch(setSelectedAddon(activeAddons))
-},[activeAddons])
-const totalPrice = useSelector((state) => state.totalPrice);
+
+
+  useEffect(() => {    
+    dispatch(setSelectedAddon(activeAddons.addonDetails));
+  }, [activeAddons]);
+
+
+
+  const totalPrice = useSelector((state) => state.totalPrice);
+  useEffect(() => {
+    dispatch(calculateTotalPrice());
+  }, [activeAddons]);
   return (
     <>
       <Header />
@@ -81,7 +115,12 @@ const totalPrice = useSelector((state) => state.totalPrice);
 
             <div className="d-flex align-items-center mb-3 mb-md-5">
               <IoInformationCircleSharp
-                style={{ fontSize: 20, marginRight: 20, fontSize:16, flex:"0 0 auto" }}
+                style={{
+                  fontSize: 20,
+                  marginRight: 20,
+                  fontSize: 16,
+                  flex: "0 0 auto",
+                }}
               />
               <p className="mb-0">
                 Drivers must have held their driver's license for at least 1
@@ -97,9 +136,10 @@ const totalPrice = useSelector((state) => state.totalPrice);
                 <AddonService
                   key={addon.id}
                   icon={addon.icon}
+                  addonPrice={addon.addonPrice}
                   addonName={addon.addonName}
                   isActive={activeAddons[addon.id]}
-                  toggleActive={() => toggleAddon(addon.id)}
+                  toggleActive={() => toggleAddon(addon)}
                 />
               );
             })}
@@ -109,22 +149,22 @@ const totalPrice = useSelector((state) => state.totalPrice);
               Your booking overview
             </p>
             <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
-            {addons
-              .filter((addon) => activeAddons[addon.id])
-              .map((addon) => (
-                <div key={addon.id} style={{ marginBottom: 10 }}>
-                  <div className="liContainer">
-                    <li className="liTick">{addon.overview}</li>
-                    <Whisper
-                      placement="left"
-                      trigger="hover"
-                      speaker={<Tooltip>{addon.info}</Tooltip>}
-                    >
-                      <IoInformationCircleOutline style={styles.iIcon} />
-                    </Whisper>
+              {addons
+                .filter((addon) => activeAddons[addon.id])
+                .map((addon) => (
+                  <div key={addon.id} style={{ marginBottom: 10 }}>
+                    <div className="liContainer">
+                      <li className="liTick">{addon.overview}</li>
+                      <Whisper
+                        placement="left"
+                        trigger="hover"
+                        speaker={<Tooltip>{addon.info}</Tooltip>}
+                      >
+                        <IoInformationCircleOutline style={styles.iIcon} />
+                      </Whisper>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </ul>
           </div>
         </div>
@@ -152,8 +192,8 @@ const styles = {
     marginTop: 15,
     marginLeft: 15,
   },
-  iIcon:{
+  iIcon: {
     flex: "0 0 auto",
-    fontSize:16,
-  }
+    fontSize: 16,
+  },
 };
