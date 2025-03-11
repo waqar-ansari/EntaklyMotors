@@ -27,7 +27,7 @@ import { HiMiniHome } from "react-icons/hi2";
 import { useDispatch, useSelector } from "react-redux";
 import { setRentalDetailDataSlice } from "@/redux/slices/rentalDetailSlice";
 
-const PickupAndDropPicker = ({ heading = true, showCarsButton = true  }) => {
+const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCarsClick }) => {
   const [range, setRange] = useState([null, null]);
   const [hoveredItem, setHoveredItem] = useState({});
 
@@ -213,7 +213,11 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true  }) => {
           pickupTime: pickupTime || rentalDetails.pickupTime,
           returnTime: returnTime || rentalDetails.returnTime,
         };
-        dispatch(setRentalDetailDataSlice(rentalData));     
+        dispatch(setRentalDetailDataSlice(rentalData));
+        if (onShowCarsClick) {
+          
+          onShowCarsClick();  // Trigger the prop function passed from the parent
+        }
   };
 
 
@@ -569,17 +573,20 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true  }) => {
             </div>
           </div>
         </div>
-        <Link
-            href="/cars"
-            onClick={handleShowCarsClick}
-            style={styles.showCarsBtn}
-            className="tabDisplayNone"
-          >
-            Show cars
-          </Link>
         {showCarsButton && (
           <Link
             href="/cars"
+            // onClick={() => {
+            //   const rentalData = {
+            //     pickupLocation: pickupLocation || rentalDetails.pickupLocation,
+            //     returnLocation: returnLocation || rentalDetails.returnLocation,
+            //     pickupDate: pickupDate || rentalDetails.pickupDate,
+            //     returnDate: returnDate || rentalDetails.returnDate,
+            //     pickupTime: pickupTime || rentalDetails.pickupTime,
+            //     returnTime: returnTime || rentalDetails.returnTime,
+            //   };
+            //   dispatch(setRentalDetailDataSlice(rentalData));
+            // }}
             onClick={handleShowCarsClick}
             style={styles.showCarsBtn}
           >
@@ -645,13 +652,13 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true  }) => {
             ))}
           </div>
         </Modal.Body>
-        <Modal.Footer className="justify-content-between">
-          <Button
+        <Modal.Footer>
+          {/* <Button
             className="btn btn-secondary"
             onClick={() => setShowPickupTimeModal(false)}
           >
             Close
-          </Button>
+          </Button> */}
           <Button
             style={{
               background: colors.themeMain,

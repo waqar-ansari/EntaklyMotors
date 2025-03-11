@@ -1,9 +1,10 @@
 import Image from "next/image";
-import "../app/[locale]/cars/cars.css";
+import "../app/cars/cars.css";
 import { FaUser, FaSuitcase, FaCheck } from "react-icons/fa";
 import { TbAutomaticGearbox } from "react-icons/tb";
 import { TiArrowSortedDown } from "react-icons/ti";
 import { colors } from "../../public/colors/colors";
+
 
 export default function CarCard({ car, onClick, isSelected }) {
   const isLargeScreen =

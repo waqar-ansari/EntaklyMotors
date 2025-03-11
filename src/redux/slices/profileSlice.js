@@ -1,9 +1,7 @@
 import { editProfile, getProfile } from "@/app/api/profileApi";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
-
 export const fetchProfile = createAsyncThunk("profile/getProfile", async () => {
-  console.log("fetchprofile called from profileslice");
   
   const data = await getProfile();  
   return data;
@@ -12,11 +10,7 @@ export const fetchProfile = createAsyncThunk("profile/getProfile", async () => {
 export const updateProfile = createAsyncThunk(
   "profile/editProfile",
   async (profileData) => {
-    console.log(profileData,"profile data before sending to api");
-    
-    const data = await editProfile(profileData);
-    console.log(data,"user which you saved");
-    
+    const data = await editProfile(profileData);    
     return data;
   }
 );

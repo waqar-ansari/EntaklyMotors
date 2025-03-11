@@ -1,5 +1,5 @@
 "use client";
-import "../app/[locale]/cars/cars.css";
+import "../app/cars/cars.css";
 import { FaUser, FaSuitcase, FaShoppingBag, FaDoorOpen } from "react-icons/fa";
 import { TbAutomaticGearbox } from "react-icons/tb";
 import { IoInformationCircleOutline } from "react-icons/io5";
@@ -39,7 +39,6 @@ export default function CarDetails({ car, onClose }) {
     rentalDetails.pickupDate,
     rentalDetails.returnDate
   );
-  console.log(numberOfRentalDays,"number of rental days from car details");
   
   return (
     <>
