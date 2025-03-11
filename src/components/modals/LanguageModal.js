@@ -97,8 +97,11 @@ import { MdOutlineCheck } from "react-icons/md";
 import { IoLanguageSharp } from "react-icons/io5";
 import { fonts } from "../../../public/fonts/fonts";
 import { colors } from "../../../public/colors/colors";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const LanguageModal = ({ showModal, closeModal, selectLanguage }) => {
+
+  const { t, changeLanguage, language } = useTranslation();
   return (
     <Modal
       show={showModal}
@@ -113,6 +116,7 @@ const LanguageModal = ({ showModal, closeModal, selectLanguage }) => {
         <div className="bg-dark text-white px-3 py-2 rounded">
           <IoLanguageSharp className="me-2 mb-1" />
           <h5 className="mb-0 d-inline">Language</h5>
+          {/* <h1>{t("welcome")}</h1> */}
         </div>
       </Modal.Header>
       <Modal.Body>
@@ -120,7 +124,7 @@ const LanguageModal = ({ showModal, closeModal, selectLanguage }) => {
           <div className="row">
             <div className="col-md-6">
               <div
-                onClick={() => selectLanguage("English")}
+                onClick={() => changeLanguage("en")}
                 style={styles.button}
               >
                 <div>
@@ -132,7 +136,7 @@ const LanguageModal = ({ showModal, closeModal, selectLanguage }) => {
             </div>
             <div className="col-md-6">
               <div
-                onClick={() => selectLanguage("Arabic")}
+               onClick={() => changeLanguage("ar")}
                 style={styles.button}
               >
                 <div>

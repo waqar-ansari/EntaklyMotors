@@ -1,6 +1,5 @@
 "use client";
 
-// import { Link } from "@/i18n/routing";
 import Link from "next/link";
 import Header from "@/components/Header";
 // import "../../styles/globals.css";
@@ -147,11 +146,12 @@ const rentaldataa = useSelector((state)=>state.rentalDetails)
         <div className="row" style={styles.marginB}>
           <div className="col-md-12" style={{ position: "relative" }}>
             <Image
-              src="/images/homeImage1.webp"
+              src="/images/homeImage1.jpeg"
               alt="limousine"
               width={1400}
               height={560}
               layout="responsive"
+              style={{borderRadius:20}}
             />
             <div style={styles.textContainer} className="sec-4">
               <p style={styles.imageHeading} className="heading">
@@ -237,11 +237,12 @@ const rentaldataa = useSelector((state)=>state.rentalDetails)
               className="sec-6-width"
             >
               <Image
-                src="/images/homeImage3.webp"
+                src="/images/homeImage3.jpeg"
                 alt="limousine"
                 width={465}
                 height={697}
                 layout="responsive"
+                style={{borderRadius:20}}
               />
               {/* Overlay text */}
               <div

@@ -38,7 +38,9 @@ const Footer = () => {
                     style={{ marginRight: 24 }}
                   />
                 </Link>
-                <Link href="https://www.facebook.com/share/1BqqnjbLqC/?mibextid=wwXIfr">
+                <Link href="https://www.facebook.com/share/1BqqnjbLqC/?mibextid=wwXIfr"
+                target="_blank"
+                >
                   <Image
                     src="/icons/facebookLogo.png"
                     alt="logo"
@@ -58,7 +60,9 @@ const Footer = () => {
                     style={{ marginRight: 24 }}
                   />
                 </Link>
-                <Link href="#">
+                <Link href="https://t.me/ENTAKLY_MOTORS"
+                target="_blank"
+                >
                   <Image
                     src="/icons/telegramLogo.png"
                     alt="logo"

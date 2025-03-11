@@ -13,6 +13,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { Modal, Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import ModalPickerMobile from "./modals/ModalPickerMobile";
+import { useTranslation } from "@/hooks/useTranslation";
 
 
 
@@ -20,7 +21,7 @@ const Header = ({ headerPickupAndDrop }) => {
   const [showPicker, setShowPicker] = useState(false);
   const [showPickerModal, setShowPickerModal] = useState(false);
   const [show, setShow] = useState(false);
-
+  const { t, changeLanguage, language } = useTranslation();
   const openPickerModal = () => setShowPickerModal(true);
   const closePickerModal = () => setShowPickerModal(false);
 
@@ -45,6 +46,7 @@ const Header = ({ headerPickupAndDrop }) => {
         <div className="container-xxl">
           <nav className="navbar navbar-expand-lg">
             <div className="container-fluid headerGapInCarsPageMobile">
+            {/* <h1>{t("welcome")}</h1> */}
               <Link className="navbar-brand py-0" href="/">
                 <Image
                   src="/icons/entaklyLogo.svg"
