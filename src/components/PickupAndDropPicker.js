@@ -26,6 +26,7 @@ import { HiMiniBuildingLibrary } from "react-icons/hi2";
 import { HiMiniHome } from "react-icons/hi2";
 import { useDispatch, useSelector } from "react-redux";
 import { setRentalDetailDataSlice } from "@/redux/slices/rentalDetailSlice";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCarsClick }) => {
   const [range, setRange] = useState([null, null]);
@@ -220,10 +221,11 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
         }
   };
 
-
+  const { t, changeLanguage, language } = useTranslation();
   return (
     <div>
       {heading && <p style={styles.heading}>Rent a Car</p>}
+     
       <div
         className="d-md-flex justify-content-center pickupAndDropPicker flex-wrap position-relative "
         style={{ gap: "15px" }}

@@ -116,7 +116,7 @@ const LanguageModal = ({ showModal, closeModal, selectLanguage }) => {
         <div className="bg-dark text-white px-3 py-2 rounded">
           <IoLanguageSharp className="me-2 mb-1" />
           <h5 className="mb-0 d-inline">Language</h5>
-          {/* <h1>{t("welcome")}</h1> */}
+          <h1>{t("welcome")}</h1>
         </div>
       </Modal.Header>
       <Modal.Body>

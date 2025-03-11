@@ -66,10 +66,12 @@ const rentaldataa = useSelector((state)=>state.rentalDetails)
       </div>
       <div className="position-relative">
         <Image
-          src="/images/heroImage.webp"
+          src="/images/heroImage.jpeg"
           alt="Hero Image"
-          width={1600}
-          height={686}
+          // width={1600}
+          // height={686}
+          width={1280}
+          height={720}
           className="marginTopHeroImage"
           // style={{ marginTop: "-200px" }}
           layout="responsive"
@@ -153,14 +155,16 @@ const rentaldataa = useSelector((state)=>state.rentalDetails)
               layout="responsive"
               style={{borderRadius:20}}
             />
-            <div style={styles.textContainer} className="sec-4">
-              <p style={styles.imageHeading} className="heading">
-                Luxury Car Service with ENTAKLY
-              </p>
-              <p style={styles.imageText} className="text">
-                Enjoy a professional journey with Entakly’s premium luxury car
-                service
-              </p>
+            <div style={styles.textContainer} className="sec-4 d-flex flex-column justify-content-between">
+             <div>
+                <p style={styles.imageHeading} className="heading">
+                  Luxury Car Service with ENTAKLY
+                </p>
+                <p style={styles.imageText} className="text">
+                  Enjoy a professional journey with Entakly’s premium luxury car
+                  service
+                </p>
+             </div>
               <Link href="#" style={styles.imageButton} className="imageButton">
                 Book now
               </Link>
@@ -223,7 +227,7 @@ const rentaldataa = useSelector((state)=>state.rentalDetails)
       <div className="container-fluid" id="pickUpAndDropoff">
         <div className="row justify-content-center">
           <div style={styles.moreEntakly} className="sec-6">
-            <p style={styles.heading} className="secHeading">
+            <p style={styles.heading} className="secHeading text-uppercase">
               More Entakly
             </p>
             <div
@@ -259,13 +263,15 @@ const rentaldataa = useSelector((state)=>state.rentalDetails)
                   bottom: 0,
                 }}
               >
-                <div style={styles.textContainer2} className="textContainer">
-                  <p style={styles.imageHeading2} className="heading">
-                    Entakly Business
-                  </p>
-                  <p style={styles.imageText} className="text">
-                    Pick-up and drop-off across UAE
-                  </p>
+                <div style={styles.textContainer2} className="textContainer d-flex justify-content-between flex-column align-items-center">
+                  <div>
+                    <p style={styles.imageHeading2} className="heading">
+                      Entakly Business
+                    </p>
+                    <p style={styles.imageText} className="text">
+                      Pick-up and drop-off across UAE
+                    </p>
+                  </div>
                   <Link
                     href="https://wa.me/+971044536000"
                     target="_blank"
@@ -283,7 +289,7 @@ const rentaldataa = useSelector((state)=>state.rentalDetails)
         <div className="row">
           <div style={{ position: "relative" }} className="col-md-12 p-0 sec-7">
             <Image
-              src="/images/homeImage4.png"
+              src="/images/homeImage4.jpeg"
               alt="limousine"
               width={1441}
               height={619}
@@ -323,12 +329,14 @@ const styles = {
   },
   textContainer: {
     position: "absolute",
-    bottom: "48px",
+    bottom: "40px",
     left: "40px",
+    height:"85%"
   },
   textContainer2: {
     position: "absolute",
-    top: "48px",
+    top: "30px",
+    height:"85%"
   },
   textContainer3: {
     position: "absolute",
@@ -374,9 +382,10 @@ const styles = {
     color: colors.white,
     fontFamily: fonts.helvetica400,
     border: "1px solid white",
-    padding: "10px 14px",
+    padding: "15px 50px",
     borderRadius: 30,
     textDecoration: "none",
+    width:"fit-content"
   },
   marginB: {
     marginBottom: 40,

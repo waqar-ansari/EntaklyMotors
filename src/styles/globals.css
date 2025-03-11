@@ -428,8 +428,8 @@ span.input-group-text{
   }
 
   .sec-6 .chatNowButton {
-    font-size: 14px;
-    padding: 6px 8px;
+    font-size: 12px;
+    padding: 6px 10px !important;
   }
 
   .sec-6 .sec-6-width {
