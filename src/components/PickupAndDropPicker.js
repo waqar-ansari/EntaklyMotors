@@ -26,7 +26,7 @@ import { HiMiniBuildingLibrary } from "react-icons/hi2";
 import { HiMiniHome } from "react-icons/hi2";
 import { useDispatch, useSelector } from "react-redux";
 import { setRentalDetailDataSlice } from "@/redux/slices/rentalDetailSlice";
-import { useTranslation } from "@/hooks/useTranslation";
+import { useTranslation } from "../context/LanguageProvider";
 
 const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCarsClick }) => {
   const [range, setRange] = useState([null, null]);
@@ -221,10 +221,10 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
         }
   };
 
-  const { t, changeLanguage, language } = useTranslation();
+  const { t } = useTranslation();
   return (
     <div>
-      {heading && <p style={styles.heading}>Rent a Car</p>}
+      {heading && <p style={styles.heading}>{t("rent_a_car")}</p>}
      
       <div
         className="d-md-flex justify-content-center pickupAndDropPicker flex-wrap position-relative "
@@ -575,20 +575,16 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
             </div>
           </div>
         </div>
+        <Link
+            href="/cars"
+            onClick={handleShowCarsClick}
+            style={styles.showCarsBtn}
+          >
+            Show cars
+          </Link>
         {showCarsButton && (
           <Link
             href="/cars"
-            // onClick={() => {
-            //   const rentalData = {
-            //     pickupLocation: pickupLocation || rentalDetails.pickupLocation,
-            //     returnLocation: returnLocation || rentalDetails.returnLocation,
-            //     pickupDate: pickupDate || rentalDetails.pickupDate,
-            //     returnDate: returnDate || rentalDetails.returnDate,
-            //     pickupTime: pickupTime || rentalDetails.pickupTime,
-            //     returnTime: returnTime || rentalDetails.returnTime,
-            //   };
-            //   dispatch(setRentalDetailDataSlice(rentalData));
-            // }}
             onClick={handleShowCarsClick}
             style={styles.showCarsBtn}
           >
@@ -602,7 +598,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
         fullscreen
         scrollable
       >
-        <Modal.Header>
+        <Modal.Header closeButton>
           <Modal.Title>Choose Date</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -628,7 +624,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
         onHide={handleClose}
         backdrop
       >
-        <Modal.Header>
+        <Modal.Header closeButton>
           <Modal.Title>Pick-up Time</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -677,7 +673,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
         </Modal.Footer>
       </Modal>
       <Modal show={showPickupTimeModalMobile} fullscreen onHide={handleClose}>
-        <Modal.Header>
+        <Modal.Header closeButton>
           <Modal.Title>Pick-up Time</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -732,7 +728,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
         onHide={handleClose}
         backdrop
       >
-        <Modal.Header>
+        <Modal.Header closeButton>
           <Modal.Title>Return Time</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -780,7 +776,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
         </Modal.Footer>
       </Modal>
       <Modal show={showReturnTimeModalMobile} fullscreen onHide={handleClose}>
-        <Modal.Header>
+        <Modal.Header closeButton>
           <Modal.Title>Return Time</Modal.Title>
         </Modal.Header>
         <Modal.Body>

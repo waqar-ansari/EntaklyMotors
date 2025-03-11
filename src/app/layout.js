@@ -28,6 +28,7 @@ import "../styles/globals.css";        // Global styles
 import "bootstrap/dist/css/bootstrap.css"; // Bootstrap styles
 import BootstrapJs from "@/components/BootstrapJs"; // Bootstrap JS
 import ReduxProvider from "../redux/ReduxProvider"; // Redux provider
+import { LanguageProvider } from "@/context/LanguageProvider";
 
 export default function Layout({ children }) {
   return (
@@ -37,7 +38,9 @@ export default function Layout({ children }) {
       </head>
       <body>
         <ReduxProvider>
+        <LanguageProvider>
           {children}
+        </LanguageProvider>
         </ReduxProvider>
         <BootstrapJs />
       </body>

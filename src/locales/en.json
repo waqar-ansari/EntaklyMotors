@@ -1,4 +1,8 @@
 {
-    "welcome": "Welcome to our website!",
-    "book_now": "Book Now"
-  }
+  "welcome": "Welcome to our website!",
+  "book_now": "Book Now",
+  "rent_a_car": "Rent a Car",
+  "rent_first_class":"Rent First Class",
+  "pay_economy":"Pay Economy"
+
+}

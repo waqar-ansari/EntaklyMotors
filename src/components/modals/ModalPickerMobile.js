@@ -17,17 +17,17 @@ const ModalPickerMobile = ({ show, onHide, showCarsButton = true }) => {
       <Modal.Body scrollable>
         <PickupAndDropPicker showCarsButton={false} />
       </Modal.Body>
-      {/* <Modal.Footer className="d-flex justify-content-between">
+       <Modal.Footer className="d-flex justify-content-between">
         <Button variant="secondary" onClick={onHide}>
           Close
         </Button>
-        {showCarsButton && (
+       {/* {showCarsButton && (
           <Link href="/cars" style={styles.showCarsBtn}
           >
             Show cars
           </Link>
-        )}
-      </Modal.Footer> */}
+        )} */}
+      </Modal.Footer>
     </Modal>
   );
 };

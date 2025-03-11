@@ -91,17 +91,16 @@
 
 // export default LanguageModal;
 
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { MdOutlineCheck } from "react-icons/md";
 import { IoLanguageSharp } from "react-icons/io5";
 import { fonts } from "../../../public/fonts/fonts";
 import { colors } from "../../../public/colors/colors";
-import { useTranslation } from "@/hooks/useTranslation";
+import { LanguageContext } from "../../context/LanguageProvider";
 
 const LanguageModal = ({ showModal, closeModal, selectLanguage }) => {
-
-  const { t, changeLanguage, language } = useTranslation();
+  const { t, changeLanguage, language } = useContext(LanguageContext);
   return (
     <Modal
       show={showModal}
@@ -116,34 +115,36 @@ const LanguageModal = ({ showModal, closeModal, selectLanguage }) => {
         <div className="bg-dark text-white px-3 py-2 rounded">
           <IoLanguageSharp className="me-2 mb-1" />
           <h5 className="mb-0 d-inline">Language</h5>
-          <h1>{t("welcome")}</h1>
         </div>
       </Modal.Header>
       <Modal.Body>
         <div className="container my-5">
           <div className="row">
-            <div className="col-md-6">
-              <div
-                onClick={() => changeLanguage("en")}
-                style={styles.button}
-              >
+            <div className="col-md-4">
+              <div onClick={() => changeLanguage("en")} style={styles.button}>
                 <div>
                   <p style={styles.languageName}>English</p>
                   <p style={styles.languageCountry}>United States</p>
                 </div>
-                <MdOutlineCheck size={30} />
+                {language==="en" && <MdOutlineCheck size={30} />}
               </div>
             </div>
-            <div className="col-md-6">
-              <div
-               onClick={() => changeLanguage("ar")}
-                style={styles.button}
-              >
+            <div className="col-md-4">
+              <div onClick={() => changeLanguage("ar")} style={styles.button}>
                 <div>
                   <p style={styles.languageName}>Arabic</p>
                   <p style={styles.languageCountry}>United Arab Emirates</p>
                 </div>
-                <MdOutlineCheck size={30} />
+                {language==="ar" &&<MdOutlineCheck size={30} />}
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div onClick={() => changeLanguage("ru")} style={styles.button}>
+                <div>
+                  <p style={styles.languageName}>Russian</p>
+                  <p style={styles.languageCountry}>Russia</p>
+                </div>
+                {language==="ru" &&<MdOutlineCheck size={30} />}
               </div>
             </div>
           </div>

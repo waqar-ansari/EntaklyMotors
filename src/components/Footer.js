@@ -122,13 +122,15 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-        <div className="row mt-5">
+        <div className="row mt-sm-5 mt-3">
           <div className="col-12">
             <Image
               src="/icons/allPaymentMethodsWithBg.png"
               alt="logo"
-              width={300}
-              height={101}
+              width={600}
+              height={52}
+              layout="responsive"
+              style={{maxWidth:600}}
             />
           </div>
         </div>

@@ -17,12 +17,14 @@ import { useEffect, useRef, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import ModalPickerMobile from "@/components/modals/ModalPickerMobile";
 import { useSelector } from "react-redux";
+import { useTranslation } from "@/context/LanguageProvider";
 export default function HomePage() {
 
 
 
 const rentaldataa = useSelector((state)=>state.rentalDetails)
   const [show, setShow] = useState(false);
+    const { t } = useTranslation();
   return (
     <div>
       <div>
@@ -66,12 +68,12 @@ const rentaldataa = useSelector((state)=>state.rentalDetails)
       </div>
       <div className="position-relative">
         <Image
-          src="/images/heroImage.jpeg"
+          src="/images/heroImage.png"
           alt="Hero Image"
-          // width={1600}
-          // height={686}
-          width={1280}
-          height={720}
+          width={1600}
+          height={686}
+          // width={1280}
+          // height={720}
           className="marginTopHeroImage"
           // style={{ marginTop: "-200px" }}
           layout="responsive"
@@ -97,7 +99,7 @@ const rentaldataa = useSelector((state)=>state.rentalDetails)
           }}
           className="heroHeading"
         >
-          Rent first class. <br /> Pay economy.
+          {t("rent_first_class")} <br /> {t("pay_economy")}
         </h1>
         <p className="mb-md-3 mb-0">Premium car rental at affordable rates.</p>
       </div>
@@ -148,7 +150,7 @@ const rentaldataa = useSelector((state)=>state.rentalDetails)
         <div className="row" style={styles.marginB}>
           <div className="col-md-12" style={{ position: "relative" }}>
             <Image
-              src="/images/homeImage1.jpeg"
+              src="/images/homeImage1.jpg"
               alt="limousine"
               width={1400}
               height={560}
