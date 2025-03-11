@@ -579,6 +579,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
             href="/cars"
             onClick={handleShowCarsClick}
             style={styles.showCarsBtn}
+            className="tabDisplayNone"
           >
             Show cars
           </Link>
