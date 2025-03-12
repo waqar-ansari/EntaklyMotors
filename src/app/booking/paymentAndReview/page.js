@@ -204,7 +204,7 @@ const selectedCarDetail = useSelector((state)=>state.selectedCar)
                 </label>
               </div>
             </div>
-            <div className="mt-4">
+            {/* <div className="mt-4">
               <h3>What is your invoice address?</h3>
             </div>
             <div className="input-box form-floating">
@@ -247,7 +247,7 @@ const selectedCarDetail = useSelector((state)=>state.selectedCar)
                   City
                 </label>
               </div>
-            </div>
+            </div> */}
             {/* <div className="d-flex justify-content-between align-items-center">
                 <span>Total</span>
                 <span>1000 Aed</span>

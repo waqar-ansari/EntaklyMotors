@@ -24,17 +24,20 @@
 
 
 
-import "../styles/globals.css";        // Global styles
-import "bootstrap/dist/css/bootstrap.css"; // Bootstrap styles
-import BootstrapJs from "@/components/BootstrapJs"; // Bootstrap JS
-import ReduxProvider from "../redux/ReduxProvider"; // Redux provider
+import "../styles/globals.css";
+import "bootstrap/dist/css/bootstrap.css";
+import BootstrapJs from "@/components/BootstrapJs";
+import ReduxProvider from "../redux/ReduxProvider";
 import { LanguageProvider } from "@/context/LanguageProvider";
 
 export default function Layout({ children }) {
   return (
-    <html> {/* Default to 'en' for all pages */}
+    <html>
       <head>
-        {/* You can add additional meta tags, title, etc. here */}
+      <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css"
+/>
       </head>
       <body>
         <ReduxProvider>

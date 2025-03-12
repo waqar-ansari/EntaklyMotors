@@ -14,7 +14,7 @@ export const LanguageProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem("language", language);
-    // document.documentElement.setAttribute("dir", language === "ar" ? "rtl" : "ltr");
+    document.documentElement.setAttribute("dir", language === "ar" ? "rtl" : "ltr");
   }, [language]);
 
   const t = (key) => translations[language]?.[key] || key;

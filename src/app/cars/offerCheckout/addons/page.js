@@ -26,7 +26,7 @@ const addons = [
     icon: <AiOutlineUsergroupAdd />,
     overview: "Addional Driver",
     info: "info for additional driver",
-    addonPrice: 12,
+    addonPrice: 250,
   },
   {
     id: "2",

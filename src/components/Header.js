@@ -13,6 +13,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { Modal, Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import ModalPickerMobile from "./modals/ModalPickerMobile";
+import { useTranslation } from "@/context/LanguageProvider";
 
 
 
@@ -34,7 +35,7 @@ const Header = ({ headerPickupAndDrop }) => {
     setSelectedLanguage(language);
     closeModal();
   };
-
+  const { t, language } = useTranslation();
   const token = "abcd";
   return (
     <div>
@@ -54,7 +55,7 @@ const Header = ({ headerPickupAndDrop }) => {
                   priority
                 />
               </Link>
-              {headerPickupAndDrop && (
+              {/* {headerPickupAndDrop && (
                 <div
                   data-bs-toggle="modal"
                   data-bs-target="#pickerModal"
@@ -73,7 +74,7 @@ const Header = ({ headerPickupAndDrop }) => {
                     <FaPen />
                   </div>
                 </div>
-              )}
+              )} */}
               <div className="mobileHeaderIcons">
                 <ul className="navbar-nav mt-0 flex-row">
                   <li className="nav-item d-flex align-items-center me-sm-4 me-2 mb-0">
@@ -177,7 +178,7 @@ const Header = ({ headerPickupAndDrop }) => {
                     </a>
                   </li>
                   {token ? (
-                    <li className="nav-item d-flex align-items-center mb-0">
+                    <li className={`nav-item d-flex align-items-center mb-0 ${language === "ar" ? "me-sm-4 me-2" : ""}`}>
                       <FaUserCircle
                         style={{ color: colors.white, fontSize: 22 }}
                       />

@@ -123,14 +123,14 @@ const Footer = () => {
           </div>
         </div>
         <div className="row mt-sm-5 mt-3">
-          <div className="col-12">
+          <div className="col-12 col-md-6">
             <Image
               src="/icons/allPaymentMethodsWithBg.png"
               alt="logo"
-              width={600}
-              height={52}
+              width={1200}
+              height={104}
               layout="responsive"
-              style={{maxWidth:600}}
+              // style={{maxWidth:600}}
             />
           </div>
         </div>

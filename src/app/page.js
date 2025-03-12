@@ -19,12 +19,9 @@ import ModalPickerMobile from "@/components/modals/ModalPickerMobile";
 import { useSelector } from "react-redux";
 import { useTranslation } from "@/context/LanguageProvider";
 export default function HomePage() {
-
-
-
-const rentaldataa = useSelector((state)=>state.rentalDetails)
+  const rentaldataa = useSelector((state) => state.rentalDetails);
   const [show, setShow] = useState(false);
-    const { t } = useTranslation();
+  const { t } = useTranslation();
   return (
     <div>
       <div>
@@ -68,7 +65,7 @@ const rentaldataa = useSelector((state)=>state.rentalDetails)
       </div>
       <div className="position-relative">
         <Image
-          src="/images/heroImage.png"
+          src="/images/heroImage.webp"
           alt="Hero Image"
           width={1600}
           height={686}
@@ -155,10 +152,13 @@ const rentaldataa = useSelector((state)=>state.rentalDetails)
               width={1400}
               height={560}
               layout="responsive"
-              style={{borderRadius:20}}
+              style={{ borderRadius: 20 }}
             />
-            <div style={styles.textContainer} className="sec-4 d-flex flex-column justify-content-between">
-             <div>
+            <div
+              style={styles.textContainer}
+              className="sec-4 d-flex flex-column justify-content-between"
+            >
+              <div>
                 <p style={styles.imageHeading} className="heading">
                   Luxury Car Service with ENTAKLY
                 </p>
@@ -166,7 +166,7 @@ const rentaldataa = useSelector((state)=>state.rentalDetails)
                   Enjoy a professional journey with Entakly’s premium luxury car
                   service
                 </p>
-             </div>
+              </div>
               <Link href="#" style={styles.imageButton} className="imageButton">
                 Book now
               </Link>
@@ -200,13 +200,15 @@ const rentaldataa = useSelector((state)=>state.rentalDetails)
             </div>
           </div>
           <div className="col-md-4 d-flex justify-content-center align-items-center">
-            <Image
-              src="/icons/whatsappQrCode.jpeg"
-              alt="limousine"
-              width={200}
-              height={200}
-              className="mb-3 mb-md-0"
-            />
+            <Link href="https://wa.me/+971044536000" target="_blank">
+              <Image
+                src="/icons/whatsappQrCode.jpeg"
+                alt="limousine"
+                width={200}
+                height={200}
+                className="mb-3 mb-md-0 imgDimension"
+              />
+            </Link>
           </div>
           <div className="col-md-4 my-auto">
             <Link
@@ -248,7 +250,7 @@ const rentaldataa = useSelector((state)=>state.rentalDetails)
                 width={465}
                 height={697}
                 layout="responsive"
-                style={{borderRadius:20}}
+                style={{ borderRadius: 20 }}
               />
               {/* Overlay text */}
               <div
@@ -265,7 +267,10 @@ const rentaldataa = useSelector((state)=>state.rentalDetails)
                   bottom: 0,
                 }}
               >
-                <div style={styles.textContainer2} className="textContainer d-flex justify-content-between flex-column align-items-center">
+                <div
+                  style={styles.textContainer2}
+                  className="textContainer d-flex justify-content-between flex-column align-items-center"
+                >
                   <div>
                     <p style={styles.imageHeading2} className="heading">
                       Entakly Business
@@ -333,12 +338,12 @@ const styles = {
     position: "absolute",
     bottom: "40px",
     left: "40px",
-    height:"85%"
+    height: "85%",
   },
   textContainer2: {
     position: "absolute",
     top: "30px",
-    height:"85%"
+    height: "85%",
   },
   textContainer3: {
     position: "absolute",
@@ -387,7 +392,7 @@ const styles = {
     padding: "15px 50px",
     borderRadius: 30,
     textDecoration: "none",
-    width:"fit-content"
+    width: "fit-content",
   },
   marginB: {
     marginBottom: 40,
