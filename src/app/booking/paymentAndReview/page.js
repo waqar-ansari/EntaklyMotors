@@ -14,6 +14,7 @@ import Image from "next/image";
 import "../../cars/cars.css";
 import { FaShop } from "react-icons/fa6";
 import { useSelector } from "react-redux";
+import { useTranslation } from "@/context/LanguageProvider";
 
 const page = () => {
   const [countryCode, setCountryCode] = useState("+971");
@@ -33,9 +34,10 @@ const page = () => {
     rentalDetail.pickupDate,
     rentalDetail.returnDate
   );
-const selectedCarDetail = useSelector((state)=>state.selectedCar)
+  const selectedCarDetail = useSelector((state) => state.selectedCar);
 
- const totalPrice = useSelector((state) => state.totalPrice);
+  const totalPrice = useSelector((state) => state.totalPrice);
+  const { t, language } = useTranslation();
   return (
     <>
       <Header />
@@ -141,7 +143,12 @@ const selectedCarDetail = useSelector((state)=>state.selectedCar)
               <Checkbox>I am 25 years of age or older</Checkbox>
               <div className="d-flex align-items-center mb-5 mt-3 ms-2">
                 <IoInformationCircleSharp
-                  style={{ fontSize: 20, marginRight: 20 }}
+                  style={{
+                    fontSize: 20,
+                    ...(language === "ar"
+                      ? { marginLeft: 20 }
+                      : { marginRight: 20 }),
+                  }}
                 />
                 <p className="mb-0">
                   Drivers must have held their driver's license for at least 1
@@ -204,54 +211,7 @@ const selectedCarDetail = useSelector((state)=>state.selectedCar)
                 </label>
               </div>
             </div>
-            {/* <div className="mt-4">
-              <h3>What is your invoice address?</h3>
-            </div>
-            <div className="input-box form-floating">
-              <input
-                className="form-control"
-                type="text"
-                placeholder="Street Address"
-                id="streetAddress"
-              />
-              <label for="streetAddress" className="inputLabelBg">
-                Street Address
-              </label>
-            </div>
-            <div className="d-flex justify-content-between">
-              <div
-                className="input-box form-floating mt-0"
-                style={{ width: "28%" }}
-              >
-                <input
-                  className="form-control"
-                  type="text"
-                  placeholder="Zip Code"
-                  id="zipCode"
-                />
-                <label for="zipCode" className="inputLabelBg">
-                  Zip Code
-                </label>
-              </div>
-              <div
-                className="input-box form-floating mt-0"
-                style={{ width: "68%" }}
-              >
-                <input
-                  className="form-control"
-                  type="text"
-                  placeholder="City"
-                  id="city"
-                />
-                <label for="city" className="inputLabelBg">
-                  City
-                </label>
-              </div>
-            </div> */}
-            {/* <div className="d-flex justify-content-between align-items-center">
-                <span>Total</span>
-                <span>1000 Aed</span>
-            </div> */}
+
             <div className="d-flex justify-content-between align-items-center">
               <h6>Total</h6>
               <h6>{totalPrice}</h6>

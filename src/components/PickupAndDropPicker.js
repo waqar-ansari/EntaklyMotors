@@ -221,7 +221,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
         }
   };
 
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   return (
     <div>
       {heading && <p style={styles.heading}>{t("rent_a_car")}</p>}
@@ -234,7 +234,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
           <div
             ref={showLocationsRef}
             className="position-absolute mobDisplayNone"
-            style={{ top: 70, left: 40, width: "70%" }}
+            style={{ top: 70, ...(language ==="ar"?{right:40}:{left: 40}), width: "70%" }}
           >
             <div
               style={{
@@ -292,6 +292,10 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
                               24-hour return
                             </span>
                           </div>
+
+
+
+
                         </div>
                         <p className="hoverAddressStyle">
                           {hoveredItem.locationName}
@@ -488,7 +492,14 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
           <div className="d-flex">
             <div
               className="input-group customInputGroup pcInputFixedWidth"
-              style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
+              style={
+                language === 'ar'
+                  ? { borderTopLeftRadius: 0, borderBottomLeftRadius: 0}
+                  : { 
+                    borderTopRightRadius: 0, borderBottomRightRadius: 0
+                    }
+              }
+               
             >
               <span className="input-group-text">
                 <FaCalendarAlt />
@@ -507,11 +518,17 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
             </div>
             <div
               className="input-group customInputGroup pcTimeInputFixedWidth"
-              style={{
-                borderLeft: 0,
-                borderTopLeftRadius: 0,
-                borderBottomLeftRadius: 0,
-              }}
+              style={
+                language === 'ar'
+                  ? {borderRight: 0, 
+                    borderTopRightRadius: 0, 
+                    borderBottomRightRadius: 0 }
+                  : { 
+                      borderLeft: 0, 
+                      borderTopLeftRadius: 0, 
+                      borderBottomLeftRadius: 0 
+                    }
+              }
             >
               {/* <span className="input-group-text">
                 <FaCalendarAlt />
@@ -533,7 +550,13 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
           <div className="d-flex">
             <div
               className="input-group customInputGroup pcInputFixedWidth"
-              style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
+              style={
+                
+                language === 'ar'
+                  ? { borderTopLeftRadius: 0, borderBottomLeftRadius: 0}
+                  : { borderTopRightRadius: 0, borderBottomRightRadius: 0 }
+              }
+                
             >
               <span className="input-group-text">
                 <FaCalendarAlt />
@@ -552,11 +575,18 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
             </div>
             <div
               className="input-group customInputGroup pcTimeInputFixedWidth"
-              style={{
-                borderLeft: 0,
-                borderTopLeftRadius: 0,
-                borderBottomLeftRadius: 0,
-              }}
+              style={
+                
+                language === 'ar'
+                ? {  borderTopRightRadius: 0,
+                  borderBottomRightRadius: 0,
+                borderRight:0}
+                : { borderLeft: 0,
+                  borderTopLeftRadius: 0,
+                  borderBottomLeftRadius: 0, }
+                
+                
+               }
             >
               {/* <span className="input-group-text">
                 <FaCalendarAlt />

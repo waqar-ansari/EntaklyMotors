@@ -10,6 +10,9 @@
 html[dir="ltr"] {
   text-align: left;
 } */
+[dir="rtl"] .btn-close {
+  margin-left: 0 !important;
+}
 
 html,
 body {
@@ -198,6 +201,12 @@ input[type="password"]::-webkit-textfield-decoration-container {
   cursor: pointer;
 }
 
+:dir(rtl) .liTick:before {
+  content: "\2713";
+  margin-left: 12px;
+  margin-right: 0px;
+  color: #1a1a1a;
+}
 .liTick:before {
   content: "\2713";
   margin-right: 12px;
@@ -225,6 +234,12 @@ input[type="password"]::-webkit-textfield-decoration-container {
   text-indent: -25px;
 }
 
+:dir(rtl) .liCross:before {
+  content: "\2715";
+  margin-left: 12px;
+  margin-right: 0px;
+  color: #c9c9cf;
+}
 .liCross:before {
   content: "\2715";
   margin-right: 12px;
@@ -258,6 +273,8 @@ input[type="password"]::-webkit-textfield-decoration-container {
   gap: 15px;
 }
 .pickupRetunSpanStyle{
+display: inline-flex;
+align-items: center;
 padding: 2px 5px;
 border: 1px solid #292268;
 border-radius: 30px;
@@ -288,7 +305,10 @@ span.input-group-text{
   padding-left: 0 !important;
   padding-right: 12px !important;
 }
-
+.input-group-text{
+  background-color: transparent !important;
+  border: 0 !important;
+}
 @media (min-width: 1200px) {}
 
 @media(max-width:1200px) {
@@ -521,5 +541,11 @@ span.input-group-text{
   .imgDimension{
     width:100px !important;
     height: 100px !important;
+  }
+}
+@media (max-width: 380px) {
+  .headerLogo{
+    width: 135px !important;
+    height: auto !important;
   }
 }

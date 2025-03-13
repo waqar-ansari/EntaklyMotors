@@ -15,6 +15,21 @@ export const LanguageProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem("language", language);
     document.documentElement.setAttribute("dir", language === "ar" ? "rtl" : "ltr");
+    const link = document.getElementById("bootstrap-css");
+    if (link) {
+      link.remove(); // Remove the previous link if exists
+    }
+
+    const newLink = document.createElement("link");
+    newLink.rel = "stylesheet";
+    newLink.id = "bootstrap-css";
+    if (language === "ar") {
+      newLink.href = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css";
+    } else {
+      newLink.href = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css";
+    }
+
+    document.head.appendChild(newLink);
   }, [language]);
 
   const t = (key) => translations[language]?.[key] || key;

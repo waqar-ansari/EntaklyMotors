@@ -3,8 +3,11 @@ import { colors } from "../../public/colors/colors";
 import Image from "next/image";
 import Link from "next/link";
 import { fonts } from "../../public/fonts/fonts";
+import { useTranslation } from "@/context/LanguageProvider";
 
 const Footer = () => {
+  const {t, language} = useTranslation()
+
   return (
     <div style={styles.footerContainer} className="footer">
       <div className="container">
@@ -26,7 +29,11 @@ const Footer = () => {
                     alt="logo"
                     width={30}
                     height={30}
-                    style={{ marginRight: 24, borderRadius: 10 }}
+                    style={
+                      
+                      language==="ar"?{marginRight: 0,borderRadius: 10}:
+                      
+                      { marginRight: 24, borderRadius: 10 }}
                   />
                 </Link>
                 <Link href="https://www.instagram.com/entaklymotors?igsh=aDQ3bDBpeGo2cXkz&utm_source=qr">
@@ -68,6 +75,7 @@ const Footer = () => {
                     alt="logo"
                     width={30}
                     height={30}
+                    style={ language==="ar"?{ marginRight:24}:{}}
                   />
                 </Link>
               </div>
@@ -81,6 +89,7 @@ const Footer = () => {
               style={{
                 listStyle: "none",
                 paddingLeft: 0,
+                paddingRight:0,
                 ...styles.footerList,
               }}
             >
@@ -104,6 +113,7 @@ const Footer = () => {
               style={{
                 listStyle: "none",
                 paddingLeft: 0,
+                paddingRight:0,
                 ...styles.footerList,
               }}
             >
@@ -125,12 +135,12 @@ const Footer = () => {
         <div className="row mt-sm-5 mt-3">
           <div className="col-12 col-md-6">
             <Image
-              src="/icons/allPaymentMethodsWithBg.png"
+              src="/icons/allPaymentMethodsWithBg.webp"
               alt="logo"
               width={1200}
               height={104}
               layout="responsive"
-              // style={{maxWidth:600}}
+              style={{maxWidth:600}}
             />
           </div>
         </div>

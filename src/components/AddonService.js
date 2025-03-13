@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { fonts } from "../../public/fonts/fonts";
 import Toggle from "rsuite/Toggle";
 import "rsuite/Toggle/styles/index.css";
+import { useTranslation } from "@/context/LanguageProvider";
 
 const AddonService = ({ icon, isActive, toggleActive, addonName, addonPrice }) => {
   const [showDetails, setShowDetails] = useState(false);
@@ -12,6 +13,51 @@ const AddonService = ({ icon, isActive, toggleActive, addonName, addonPrice }) =
     setShowDetails(!showDetails);
     event.stopPropagation();
   };
+  const {t,language} = useTranslation()
+  const styles = {
+    addonServiceContainer: {
+      padding: 20,
+      borderRadius: 10,
+      boxShadow: "0 0 0 1px #ccc",
+      marginBottom: 20,
+      cursor: "pointer",
+    },
+    iconStyle: {
+      fontSize: 20,
+      marginRight: language === "ar" ? 0 : 20,
+      marginLeft: language === "ar" ? 20 : 0, 
+    },
+    addonName: {
+      fontSize: 16,
+      fontFamily: fonts.helvetica400,
+      fontWeight: 600,
+    },
+    addonDetails: {
+      fontSize: 14,
+      fontFamily: fonts.helvetica400,
+      textDecoration: "underline",
+      marginRight: language === "ar" ? 0 : 10,
+      marginLeft: language === "ar" ? 10 : 0, 
+    },
+    addonPrice: {
+      fontSize: 14,
+      fontFamily: fonts.helvetica400,
+      fontWeight: 600,
+    },
+    addonPriceUnit: {
+      fontSize: 12,
+      fontFamily: fonts.helvetica400,
+      fontWeight: 500,
+    },
+    addonDetailsText: {
+      padding: 20,
+    },
+    activeAddon: {
+      boxShadow: "0 0 0 2px black",
+      border: "0px",
+    },
+  };
+  
   return (
     <div
       onClick={toggleActive}
@@ -51,44 +97,3 @@ const AddonService = ({ icon, isActive, toggleActive, addonName, addonPrice }) =
 };
 
 export default AddonService;
-const styles = {
-  addonServiceContainer: {
-    padding: 20,
-    borderRadius: 10,
-    boxShadow: "0 0 0 1px #ccc",
-    marginBottom: 20,
-    cursor: "pointer",
-  },
-  iconStyle: {
-    fontSize: 20,
-    marginRight: 20,
-  },
-  addonName: {
-    fontSize: 16,
-    fontFamily: fonts.helvetica400,
-    fontWeight: 600,
-  },
-  addonDetails: {
-    fontSize: 14,
-    fontFamily: fonts.helvetica400,
-    textDecoration: "underline",
-    marginRight: 10,
-  },
-  addonPrice: {
-    fontSize: 14,
-    fontFamily: fonts.helvetica400,
-    fontWeight: 600,
-  },
-  addonPriceUnit: {
-    fontSize: 12,
-    fontFamily: fonts.helvetica400,
-    fontWeight: 500,
-  },
-  addonDetailsText: {
-    padding: 20,
-  },
-  activeAddon: {
-    boxShadow: "0 0 0 2px black",
-    border: "0px",
-  },
-};

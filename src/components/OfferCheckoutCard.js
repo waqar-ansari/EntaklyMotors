@@ -8,6 +8,7 @@ import Whisper from "rsuite/Whisper";
 import "rsuite/Tooltip/styles/index.css";
 import { colors } from "../../public/colors/colors";
 import { fonts } from "../../public/fonts/fonts";
+import { useTranslation } from "@/context/LanguageProvider";
 
 const OfferCheckoutCard = ({
   heading,
@@ -24,7 +25,7 @@ const OfferCheckoutCard = ({
   liCross = [],
 }) => {
   const [stars, setStars] = useState(numberOfStars);
-
+const {t,language} = useTranslation()
   return (
     <div className="w-100 h-100" onClick={() => onPackageClick(packageName,packagePrice)}>
       <div
@@ -59,7 +60,7 @@ const OfferCheckoutCard = ({
               <div
                 style={{
                   color: colors.themeMain,
-                  marginLeft: 15,
+                  ...(language === "ar" ? { marginRight: 15 } : { marginLeft: 15 }),
                   display: "inline-block",
                   alignItems: "center",
                 }}

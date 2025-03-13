@@ -257,6 +257,10 @@
    position: relative;
    padding-left: 40px;
  }
+ :dir(rtl).pickupAndReturn {
+  padding-right: 40px;
+  padding-left: 0px;
+}
 
  .pickupAndReturn::before {
    content: "";
@@ -267,7 +271,9 @@
    height: calc(100% - 100px);
    width: 1px;
  }
-
+ :dir(rtl).pickupAndReturn::before {
+  right: 10px;
+ }
  .icon-top {
    position: absolute;
    left: 0px;
@@ -275,11 +281,16 @@
    font-size: 20px;
    color: #000;
  }
-
+ :dir(rtl).icon-top{
+  right: 0px;
+ }
  .icon-bottom {
    position: absolute;
    left: 0px;
    bottom: 20px;
    font-size: 20px;
    color: #000;
+ }
+ :dir(rtl).icon-bottom{
+  right: 0px;
  }

@@ -12,6 +12,9 @@ import {
   clearSelectedCar,
   setSelectedCar,
 } from "@/redux/slices/selectedCarSlice";
+import { useTranslation } from "@/context/LanguageProvider";
+import { AiOutlineClose } from "react-icons/ai";
+
 
 const carsData = [
   {
@@ -82,7 +85,7 @@ export default function CarsPage() {
     }
   };
   const selectedCar = useSelector((state) => state.selectedCar);
-
+const {t, language} = useTranslation()
   return (
     <div>
       <Header headerPickupAndDrop={true} />
@@ -92,11 +95,14 @@ export default function CarsPage() {
           Which car do you want to drive?
         </h3>
         <CustomDropdown
-          title={"MultiSelect"}
-          multiSelect={true}
-          showSelectedItemCount={true}
-          containerstyles={{ marginRight: 20 }}
-        />
+  title={"MultiSelect"}
+  multiSelect={true}
+  showSelectedItemCount={true}
+  containerstyles={{
+    ...(language === "ar" ? { marginLeft: 20 } : { marginRight: 20 })
+  }}
+/>
+
         <CustomDropdown title={"Sort By"} />
 
         {/* For mobile, render just a simple list of car cards */}
@@ -163,8 +169,9 @@ export default function CarsPage() {
         fullscreen
         centered
       >
-        <Modal.Header closeButton>
+        <Modal.Header className="d-flex">
           <Modal.Title>Car Details</Modal.Title>
+          <span onClick={()=>setShowModal(false)}><AiOutlineClose /></span>
         </Modal.Header>
         <Modal.Body className="px-0">
           {selectedCarId && (

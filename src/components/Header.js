@@ -46,13 +46,14 @@ const Header = ({ headerPickupAndDrop }) => {
         <div className="container-xxl">
           <nav className="navbar navbar-expand-lg">
             <div className="container-fluid headerGapInCarsPageMobile">
-              <Link className="navbar-brand py-0" href="/">
+              <Link className="navbar-brand py-0 mx-0" href="/">
                 <Image
                   src="/icons/entaklyLogo.svg"
                   alt="Logo"
                   width={200}
                   height={53}
                   priority
+                  className="headerLogo"
                 />
               </Link>
               {/* {headerPickupAndDrop && (
@@ -109,7 +110,7 @@ const Header = ({ headerPickupAndDrop }) => {
                     </a>
                   </li>
                   {token ? (
-                    <li className="nav-item d-flex align-items-center mb-0">
+                    <li className="nav-item d-flex align-items-center ms-2 mb-0">
                       <Link
                         href="/auth/login&Signup"
                         className="nav-link text-white text-decoration-none"
@@ -120,7 +121,7 @@ const Header = ({ headerPickupAndDrop }) => {
                       </Link>
                     </li>
                   ) : (
-                    <li className="nav-item d-flex align-items-center mb-0">
+                    <li className="nav-item d-flex align-items-center ms-2 mb-0">
                       <Link
                         href="/auth/login&Signup"
                         className="nav-link text-white text-decoration-none"

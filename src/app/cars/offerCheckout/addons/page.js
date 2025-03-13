@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSelectedAddon } from "@/redux/slices/selectedAddonSlice";
 import { calculateTotalPrice } from "@/redux/thunks/totalPriceThunk";
 import { fonts } from "../../../../../public/fonts/fonts";
+import { useTranslation } from "@/context/LanguageProvider";
 
 const addons = [
   {
@@ -93,6 +94,30 @@ const page = () => {
   useEffect(() => {
     dispatch(calculateTotalPrice());
   }, [activeAddons]);
+  const {t, language} = useTranslation()
+  const styles = {
+    nextButton: {
+      backgroundColor: colors.themeMain,
+      color: colors.white,
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      textDecoration: "none",
+      width: 200,
+      padding: 10,
+      fontSize: 16,
+      border: "none",
+      borderRadius: 5,
+      cursor: "pointer",
+      marginTop: 15,
+      marginLeft: language === "ar" ? 0 : 15,
+      marginRight: language === "ar" ? 15 : 0, 
+    },
+    iIcon: {
+      flex: "0 0 auto",
+      fontSize: 16,
+    },
+  };
   return (
     <>
       <Header />
@@ -117,7 +142,7 @@ const page = () => {
               <IoInformationCircleSharp
                 style={{
                   fontSize: 20,
-                  marginRight: 20,
+                  ...(language==="ar"?{marginLeft: 20}:{marginRight: 20}),
                   fontSize: 16,
                   flex: "0 0 auto",
                 }}
@@ -175,25 +200,4 @@ const page = () => {
 };
 
 export default page;
-const styles = {
-  nextButton: {
-    backgroundColor: colors.themeMain,
-    color: colors.white,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    textDecoration: "none",
-    width: 200,
-    padding: 10,
-    fontSize: 16,
-    border: "none",
-    borderRadius: 5,
-    cursor: "pointer",
-    marginTop: 15,
-    marginLeft: 15,
-  },
-  iIcon: {
-    flex: "0 0 auto",
-    fontSize: 16,
-  },
-};
+

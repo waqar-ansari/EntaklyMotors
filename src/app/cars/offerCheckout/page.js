@@ -16,6 +16,7 @@ import PriceDetailsModal from "@/components/modals/PriceDetailsModal";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedPackageSlice } from "@/redux/slices/selectedPackageSlice";
 import { calculateTotalPrice } from "@/redux/thunks/totalPriceThunk";
+import { useTranslation } from "@/context/LanguageProvider";
 
 const page = () => {
   const [selectedPackage, setSelectedPackage] = useState("Basic");
@@ -43,6 +44,7 @@ const page = () => {
     "Personal Accident Protection",
     "Roadside Protection",
   ];
+
   const dispatch = useDispatch();
   const platinumPackageCross = [];
   const handlePackageClick = (packageName, packagePrice) => {
@@ -78,6 +80,61 @@ const page = () => {
   
   //   dispatch(calculateTotalPrice());
   // }, []);
+
+  const {t,language} = useTranslation()
+    const styles = {
+    nextButton: {
+      backgroundColor: colors.themeMain,
+      color: colors.white,
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      textDecoration: "none",
+      width: 200,
+      padding: 10,
+      fontSize: 16,
+      border: "none",
+      borderRadius: 5,
+      cursor: "pointer",
+      marginTop: 15,
+      marginLeft: language === "ar" ? 0 : 15,
+      marginRight: language === "ar" ? 15 : 0, 
+    },
+    cardContainer: {
+      cursor: "pointer",
+      boxShadow: "0 0 0 1px #ccc",
+      borderRadius: 10,
+      padding: 16,
+      height: "100%",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-between",
+    },
+    cardHeading: {
+      fontSize: 24,
+      color: colors.lightBlack,
+      fontWeight: 700,
+    },
+    radioButton: {
+      width: 20,
+      height: 20,
+      borderRadius: 10,
+      border: "1px solid #ccc",
+      marginLeft: 20,
+      flex: "0 0 auto",
+    },
+    iIcon: {
+      fontSize: 18,
+    },
+    activePackage: {
+      boxShadow: "0 0 0 2px black",
+      border: "0px",
+    },
+    activeRadio: {
+      boxSizing: "border-box",
+      border: "5px solid #000",
+    },
+  };
   return (
     <>
       <Header />
@@ -99,7 +156,7 @@ const page = () => {
             </div>
             <div className="d-flex align-items-center mb-md-5 mb-4">
               <IoInformationCircleSharp
-                style={{ fontSize: 20, marginRight: 20 }}
+                style={{ fontSize: 20, ...(language==="ar"?{marginLeft: 20}:{marginRight: 20}) }}
               />
               <p className="mb-0">
                 Drivers must have held their driver's license for at least 1
@@ -205,57 +262,7 @@ const page = () => {
   );
 };
 
+
 export default page;
 
-const styles = {
-  nextButton: {
-    backgroundColor: colors.themeMain,
-    color: colors.white,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    textDecoration: "none",
-    width: 200,
-    padding: 10,
-    fontSize: 16,
-    border: "none",
-    borderRadius: 5,
-    cursor: "pointer",
-    marginTop: 15,
-    marginLeft: 15,
-  },
-  cardContainer: {
-    cursor: "pointer",
-    boxShadow: "0 0 0 1px #ccc",
-    borderRadius: 10,
-    padding: 16,
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-  },
-  cardHeading: {
-    fontSize: 24,
-    color: colors.lightBlack,
-    fontWeight: 700,
-  },
-  radioButton: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    border: "1px solid #ccc",
-    marginLeft: 20,
-    flex: "0 0 auto",
-  },
-  iIcon: {
-    fontSize: 18,
-  },
-  activePackage: {
-    boxShadow: "0 0 0 2px black",
-    border: "0px",
-  },
-  activeRadio: {
-    boxSizing: "border-box",
-    border: "5px solid #000",
-  },
-};
+
