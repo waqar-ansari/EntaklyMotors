@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import { colors } from "../../public/colors/colors";
 import Image from "next/image";
