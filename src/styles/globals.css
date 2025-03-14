@@ -542,6 +542,9 @@ span.input-group-text{
     width:100px !important;
     height: 100px !important;
   }
+  .sec-4 .heading{
+    font-size: 15px !important;
+  }
 }
 @media (max-width: 380px) {
   .headerLogo{
