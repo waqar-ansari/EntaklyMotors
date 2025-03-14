@@ -46,7 +46,7 @@ const page = () => {
           <div className="col-md-12 pt-5 mobDisplayNone">
             <div className="d-flex justify-content-end align-items-center">
               <div>
-                <p className="mb-0">Total: {totalPrice}</p>
+                <p className="mb-0">{t("total")}: {totalPrice}</p>
                 <PriceDetailsModal />
               </div>
             </div>
@@ -55,7 +55,7 @@ const page = () => {
         <div className="row mt-4">
           <div className="col-md-8">
             <div>
-              <h3>Who will drive?</h3>
+              <h3>{t("who_will_drive")}</h3>
             </div>
             <div className="input-box form-floating">
               <input
@@ -65,7 +65,7 @@ const page = () => {
                 id="company"
               />
               <label for="company" className="inputLabelBg">
-                Company
+                {t("company")}
               </label>
             </div>
             <div className="d-flex justify-content-between">
@@ -76,11 +76,11 @@ const page = () => {
                 <input
                   className="form-control"
                   type="text"
-                  placeholder="First name"
+                  placeholder={t("first_name")}
                   id="firstName"
                 />
                 <label for="firstName" className="inputLabelBg">
-                  First name
+                {t("first_name")}
                 </label>
               </div>
               <div
@@ -90,11 +90,11 @@ const page = () => {
                 <input
                   className="form-control"
                   type="text"
-                  placeholder="Surname"
+                  placeholder= {t("surname")}
                   id="surname"
                 />
                 <label for="surname" className="inputLabelBg">
-                  Surname
+                  {t("surname")}
                 </label>
               </div>
             </div>
@@ -102,11 +102,11 @@ const page = () => {
               <input
                 className="form-control"
                 type="email"
-                placeholder="Email"
+                placeholder={t("email")}
                 id="email"
               />
               <label for="email" className="inputLabelBg">
-                Email
+                {t("email")}
               </label>
             </div>
             <div
@@ -128,19 +128,19 @@ const page = () => {
                 <input
                   className="form-control"
                   type="text"
-                  placeholder="Phone Number"
+                  placeholder={t("phone_number")}
                   id="phoneNumber"
                   // value={`${countryCode} ${phoneNumber}`}
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
                 />
                 <label for="phoneNumber" className="inputLabelBg">
-                  Phone Number
+                  {t("phone_number")}
                 </label>
               </div>
             </div>
             <div>
-              <Checkbox>I am 25 years of age or older</Checkbox>
+              <Checkbox>{t("i_am_21_years_of_age")}</Checkbox>
               <div className="d-flex align-items-center mb-5 mt-3 ms-2">
                 <IoInformationCircleSharp
                   style={{
@@ -151,34 +151,33 @@ const page = () => {
                   }}
                 />
                 <p className="mb-0">
-                  Drivers must have held their driver's license for at least 1
-                  year(s) for this vehicle
+                {t("drivers_must_have_held")}
                 </p>
               </div>
             </div>
             <div>
-              <h3>How would you like to pay?</h3>
+              <h3>{t("how_would_you_like_to_pay")}</h3>
             </div>
             <div className="input-box form-floating">
               <input
                 className="form-control"
                 type="text"
-                placeholder="Card number"
+                placeholder={t("card_number")}
                 id="cardNumber"
               />
               <label for="cardNumber" className="inputLabelBg">
-                Card number
+                {t("card_number")}
               </label>
             </div>
             <div className="input-box form-floating">
               <input
                 className="form-control"
                 type="text"
-                placeholder="Cardholder name"
+                placeholder={t("cardholder_name")}
                 id="cardholderName"
               />
               <label for="cardholderName" className="inputLabelBg">
-                Cardholder name
+                {t("cardholder_name")}
               </label>
             </div>
             <div className="d-flex justify-content-between">
@@ -189,11 +188,11 @@ const page = () => {
                 <input
                   className="form-control"
                   type="text"
-                  placeholder="Expiration date (MM/YY)"
+                  placeholder={t("expiration_date")}
                   id="expirationDate"
                 />
                 <label for="expirationDate" className="inputLabelBg">
-                  Expiration date (MM/YY)
+                  {t("expiration_date")}
                 </label>
               </div>
               <div
@@ -203,24 +202,24 @@ const page = () => {
                 <input
                   className="form-control"
                   type="text"
-                  placeholder="CVV"
+                  placeholder={t("cvv")}
                   id="cvv"
                 />
                 <label for="cvv" className="inputLabelBg">
-                  CVV
+                  {t("cvv")}
                 </label>
               </div>
             </div>
 
             <div className="d-flex justify-content-between align-items-center">
-              <h6>Total</h6>
+              <h6>{t("total")}</h6>
               <h6>{totalPrice}</h6>
             </div>
             <div className="mb-5">
               <PriceDetailsModal />
             </div>
             <Link href="#" className="mt-0" style={styles.payAndBookButton}>
-              Pay and Book
+              {t("pay_and_book")}
             </Link>
           </div>
           <div className="col-md-4">
@@ -268,7 +267,7 @@ const page = () => {
                       fontWeight: 600,
                     }}
                   >
-                    Pick-up
+                    {t("pick_up")}
                   </p>
                   <h6 style={{ marginBottom: 5 }}>
                     {rentalDetail.pickupLocation}
@@ -285,7 +284,7 @@ const page = () => {
                       fontWeight: 600,
                     }}
                   >
-                    Return
+                    {t("return")}
                   </p>
                   <h6 style={{ marginBottom: 5 }}>
                     {rentalDetail.returnLocation}
@@ -297,11 +296,11 @@ const page = () => {
                 <FaShop className="icon-bottom" />
               </div>
               <hr className="hrStyle" />
-              <h6 className="mb-3">Your Booking overview:</h6>
-              <ul style={{ listStyleType: "none" }}>
+              <h6 className="mb-3">{t("booking_overview")}:</h6>
+              <ul style={{ listStyleType: "none", paddingLeft:0 }}>
                 <li className="liTick">Third party insurance</li>
                 <li className="liTick">
-                  600 km are included, each additional kilometer costs AED 1.35
+                  200 km are included, each additional kilometer costs AED 1.50
                 </li>
                 <li className="liTick">
                   Smart Protection (Minimum age 25) - No excess

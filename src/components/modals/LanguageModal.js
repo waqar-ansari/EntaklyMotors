@@ -90,7 +90,6 @@
 // };
 
 // export default LanguageModal;
-
 import React, { useContext, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { MdOutlineCheck } from "react-icons/md";
@@ -110,11 +109,13 @@ const LanguageModal = ({ showModal, closeModal, selectLanguage }) => {
       aria-labelledby="languageModalLabel"
       centered
       backdrop="true"
+      dir="ltr"
+       className="language-modal"
     >
-      <Modal.Header closeButton>
+      <Modal.Header closeButton >
         <div className="bg-dark text-white px-3 py-2 rounded">
-          <IoLanguageSharp className="me-2 mb-1" />
-          <h5 className="mb-0 d-inline">Language</h5>
+        <IoLanguageSharp style={{ marginRight: "8px", marginLeft: "0" }} className="mb-1" />
+          <h5 className="mb-0 d-inline">{t("language")}</h5>
         </div>
       </Modal.Header>
       <Modal.Body>

@@ -43,7 +43,7 @@ const addons = [
     icon: <MdOutlineAirlineSeatReclineExtra />,
     overview: "Baby seat (0-18 kg / Group 0+/1)",
     info: "info for baby seat",
-    addonPrice: 70,
+    addonPrice: 40,
   },
 ];
 
@@ -126,7 +126,7 @@ const page = () => {
           <div className="col-12">
             <div className="d-flex justify-content-between justify-content-sm-end align-items-center mb-3 mb-md-4">
               <div>
-                <p className="mb-0">Total: {totalPrice}</p>
+                <p className="mb-0">{t("total")}: {totalPrice}</p>
                 <PriceDetailsModal />
               </div>
               <Link
@@ -134,7 +134,7 @@ const page = () => {
                 className="mt-0"
                 style={styles.nextButton}
               >
-                Continue
+                {t("continue")}
               </Link>
             </div>
 
@@ -148,8 +148,7 @@ const page = () => {
                 }}
               />
               <p className="mb-0">
-                Drivers must have held their driver's license for at least 1
-                year(s) for this vehicle
+              {t("drivers_must_have_held")}
               </p>
             </div>
           </div>
@@ -171,7 +170,7 @@ const page = () => {
           </div>
           <div className="col-md-4">
             <p style={{ fontFamily: fonts.helvetica700 }}>
-              Your booking overview
+              {t("booking_overview")}
             </p>
             <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
               {addons

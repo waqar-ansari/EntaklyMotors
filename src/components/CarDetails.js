@@ -13,6 +13,7 @@ import CommonModal from "./modals/CommonModal";
 import { useState } from "react";
 import PriceDetailsModal from "./modals/PriceDetailsModal";
 import { useSelector } from "react-redux";
+import { useTranslation } from "@/context/LanguageProvider";
 // import "../styles/globals.css";
 
 export default function CarDetails({ car, onClose }) {
@@ -39,7 +40,7 @@ export default function CarDetails({ car, onClose }) {
     rentalDetails.pickupDate,
     rentalDetails.returnDate
   );
-  
+  const{t, language} = useTranslation()
   return (
     <>
       <div className="carDetails">
@@ -80,8 +81,7 @@ export default function CarDetails({ car, onClose }) {
               </div>
               <div className="text-center">
                 <p>
-                  <FaRegIdCard style={styles.iconStyles} /> Minimum age of the
-                  youngest driver : 18
+                  <FaRegIdCard style={styles.iconStyles} /> {t("minimum_age_of_youngest_driver")}
                 </p>
               </div>
             </div>
@@ -92,7 +92,7 @@ export default function CarDetails({ car, onClose }) {
         <div className="carInfo">
           <div>
             <div className="d-flex justify-content-between align-items-center">
-              <p style={styles.carDetailsH}>Booking option</p>
+              <p style={styles.carDetailsH}>{t("booking_option")}</p>
               <Link
                 href="#"
                 onClick={(e) => {
@@ -113,7 +113,7 @@ export default function CarDetails({ car, onClose }) {
                   </p>
                 </div>
                 <span style={styles.included}>
-                  Included{" "}
+                {t("included")}
                   <IoInformationCircleOutline
                     style={{
                       fontWeight: 800,
@@ -150,24 +150,24 @@ export default function CarDetails({ car, onClose }) {
               </div>
             </div>
 
-            <p style={styles.carDetailsH}>Mileage</p>
+            <p style={styles.carDetailsH}>{t("mileage")}</p>
             <div className="infoBox">
               <div className="infoContent">
                 <div>
-                  <strong>2,426 miles</strong>
-                  <p className="mb-0">+AED 0.66 / for every additional mile</p>
+                  <strong>200 kms</strong>
+                  <p className="mb-0">+AED 1.50 / {t("for_every_additional_mile")}</p>
                 </div>
-                <span style={styles.included}>Included</span>
+                <span style={styles.included}>{t("included")}</span>
               </div>
             </div>
-            <p style={styles.carDetailsH}>Deposit</p>
+            <p style={styles.carDetailsH}>{t("deposit")}</p>
             <div className="infoBox">
               <div className="infoContent">
                 <div>
-                  <strong>Zero Deposit</strong>
-                  <p className="mb-0">No deposit required — get started right away!</p>
+                  <strong>{t("zero_deposit")}</strong>
+                  <p className="mb-0">{t("no_deposit_required")}</p>
                 </div>
-                <span style={styles.included}>Included</span>
+                <span style={styles.included}>{t("included")}</span>
               </div>
             </div>
           </div>
@@ -186,7 +186,7 @@ export default function CarDetails({ car, onClose }) {
                   AED / day
                 </span>
               </span> */}
-              <p style={{marginBottom:5}}>Total : {numberOfRentalDays*selectedCarDetails.price +400}</p>
+              <p style={{marginBottom:5}}>{t("total")} : {numberOfRentalDays*selectedCarDetails.price +400}</p>
               <div>
               <p className="tagStyleCarDetails">Best Deal</p>
             </div>
@@ -199,7 +199,7 @@ export default function CarDetails({ car, onClose }) {
               className="nextButton"
               style={styles.nextButton}
             >
-              Next
+              {t("next")}
             </Link>
           </div>
         </div>

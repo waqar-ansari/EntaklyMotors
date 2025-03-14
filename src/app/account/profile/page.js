@@ -14,6 +14,7 @@ import "react-phone-input-2/lib/bootstrap.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile, updateProfile } from "@/redux/slices/profileSlice";
 import api from "@/app/api/axiosInstance";
+import { useTranslation } from "@/context/LanguageProvider";
 
 const Page = () => {
   const router = useRouter();
@@ -156,7 +157,7 @@ const Page = () => {
       );
     }
   };
-
+const {t, language} = useTranslation()
   return (
     <>
       <Header />
@@ -169,12 +170,12 @@ const Page = () => {
               id="nav-tabs"
               className="mb-3 custom-tabs border-0"
             >
-              <Tab eventKey="bookings" title="Bookings">
+              <Tab eventKey="bookings" title={t("bookings")}>
                 <Bookings />
               </Tab>
               <Tab eventKey="profile" title="Profile">
-                <h3 className="mt-5">Profile</h3>
-                <h5>One place to manage your account</h5>
+                <h3 className="mt-5">{t("profile")}</h3>
+                <h5>{t("one_place_to_manage_your_account")}</h5>
 
                 <Tabs
                   activeKey={profileSubTab}
@@ -196,11 +197,11 @@ const Page = () => {
                           value={profileData.fullname}
                           name="fullname"
                           onChange={handleInputChange}
-                          placeholder="Name"
+                          placeholder={t("name")}
                           id="fullname"
                         />
                         <label htmlFor="fullname" className="inputLabelBg">
-                          Name
+                        {t("name")}
                         </label>
                       </div>
 
@@ -223,7 +224,7 @@ const Page = () => {
                           <input
                             className="form-control"
                             type="text"
-                            placeholder="Phone Number"
+                            placeholder={t("phone_number")}
                             name="number"
                             id="phonenumber"
                             value={
@@ -233,16 +234,16 @@ const Page = () => {
                             onChange={handleInputChange}
                           />
                           <label htmlFor="phonenumber" className="inputLabelBg">
-                            Phone Number
+                          {t("phone_number")}
                           </label>
                         </div>
                       </div>
                       <button type="submit" className="submitButton mt-5">
-                        Save
+                        {t("save")}
                       </button>
                     </form>
                   </Tab>
-                  <Tab eventKey="email" title="Email Address">
+                  <Tab eventKey="email" title={t("email_address")}>
                     <form onSubmit={(e) => handleSubmit(e, "email")}>
                       <div className="input-box form-floating">
                         <input
@@ -251,19 +252,19 @@ const Page = () => {
                           value={profileData.email}
                           name="email"
                           onChange={handleInputChange}
-                          placeholder="Email Address"
+                          placeholder={t("email_address")}
                           id="email"
                         />
                         <label htmlFor="email" className="inputLabelBg">
-                          Email Address
+                        {t("email_address")}
                         </label>
                       </div>
                       <button type="submit" className="submitButton">
-                        Save
+                      {t("save")}
                       </button>
                     </form>
                   </Tab>
-                  <Tab eventKey="changepassword" title="Change Password">
+                  <Tab eventKey="changepassword" title={t("change_password")}>
                     <form onSubmit={handleSubmitChangePassword}>
                       <div className="input-box form-floating position-relative">
                         <input
@@ -272,14 +273,14 @@ const Page = () => {
                           name="currentPassword"
                           value={changePasswords.currentPassword}
                           onChange={handleChangePassword}
-                          placeholder="Current Password"
+                          placeholder={t("current_password")}
                           id="currentPassword"
                         />
                         <label
                           htmlFor="currentPassword"
                           className="inputLabelBg"
                         >
-                          Current Password
+                         {t("current_password")}
                         </label>
                         <span
                           className="password-toggle-icon"
@@ -305,11 +306,11 @@ const Page = () => {
                           name="newPassword"
                           value={changePasswords.newPassword}
                           onChange={handleChangePassword}
-                          placeholder="New Password"
+                          placeholder={t("new_password")}
                           id="newPassword"
                         />
                         <label htmlFor="newPassword" className="inputLabelBg">
-                          New Password
+                        {t("new_password")}
                         </label>
                         <span
                           className="password-toggle-icon"
@@ -326,11 +327,11 @@ const Page = () => {
                         </span>
                       </div>
                       <button type="submit" className="submitButton">
-                        Save
+                      {t("save")}
                       </button>
                     </form>
                   </Tab>
-                  <Tab eventKey="address" title="Address (optional)">
+                  <Tab eventKey="address" title={t("address_optional")}>
                     <form onSubmit={(e) => handleSubmit(e, "address")}>
                       <div className="input-box form-floating">
                         <input
@@ -339,25 +340,25 @@ const Page = () => {
                           name="address.recipient"
                           value={profileData.address.recipient}
                           onChange={handleInputChange}
-                          placeholder="Recipient"
+                          placeholder={t("recipient")}
                           id="recipient"
                         />
                         <label htmlFor="recipient" className="inputLabelBg">
-                          Recipient
+                        {t("recipient")}
                         </label>
                       </div>
                       <div className="input-box form-floating">
                         <input
                           className="form-control"
                           type="text"
-                          placeholder="Zipcode"
+                          placeholder={t("zipcode")}
                           name="address.zipcode"
                           value={profileData.address.zipcode}
                           onChange={handleInputChange}
                           id="zipcode"
                         />
                         <label htmlFor="zipcode" className="inputLabelBg">
-                          Zipcode
+                        {t("zipcode")}
                         </label>
                       </div>
                       <div className="input-box form-floating">
@@ -367,11 +368,11 @@ const Page = () => {
                           name="address.city"
                           value={profileData.address.city}
                           onChange={handleInputChange}
-                          placeholder="City"
+                          placeholder={t("city")}
                           id="city"
                         />
                         <label htmlFor="city" className="inputLabelBg">
-                          City
+                        {t("city")}
                         </label>
                       </div>
                       <div className="input-box form-floating">
@@ -381,29 +382,29 @@ const Page = () => {
                           name="address.state"
                           value={profileData.address.state}
                           onChange={handleInputChange}
-                          placeholder="State"
+                          placeholder={t("state")}
                           id="state"
                         />
                         <label htmlFor="state" className="inputLabelBg">
-                          State
+                        {t("state")}
                         </label>
                       </div>
                       <div className="input-box form-floating">
                         <input
                           className="form-control"
                           type="text"
-                          placeholder="Country"
+                          placeholder={t("country")}
                           name="address.country"
                           value={profileData.address.country}
                           onChange={handleInputChange}
                           id="country"
                         />
                         <label htmlFor="country" className="inputLabelBg">
-                          Country
+                        {t("country")}
                         </label>
                       </div>
                       <button type="submit" className="submitButton">
-                        Save
+                      {t("save")}
                       </button>
                     </form>
                   </Tab>

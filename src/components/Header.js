@@ -157,7 +157,7 @@ const Header = ({ headerPickupAndDrop }) => {
                       aria-current="page"
                       href="#"
                     >
-                      Manage Booking
+                      {t("manage_booking")}
                     </a>
                   </li>
                   <li className="nav-item d-flex align-items-center me-sm-4 me-2 mb-0">
@@ -206,7 +206,7 @@ const Header = ({ headerPickupAndDrop }) => {
                         href="/auth/login&Signup"
                         className="nav-link text-white text-decoration-none"
                       >
-                        Login | Register
+                        {t("login_register")}
                       </Link>
                     </li>
                   )}

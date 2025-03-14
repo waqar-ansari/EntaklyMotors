@@ -10,6 +10,7 @@ const CommonModal = ({ show, handleClose, content }) => {
       onHide={handleClose}
       style={styles.modalContainer}
       centered
+      
     >
       <Modal.Header closeButton style={styles.modalHeader}></Modal.Header>
       <Modal.Body>

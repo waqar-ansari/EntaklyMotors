@@ -139,7 +139,7 @@ const styles = {
           className="text-danger text-center text-white mb-0 pt-1 styleForVeryTopHeader"
           style={{ backgroundColor: colors.themeMain }}
         >
-          11 years of Entakly. 11 years of tradition.
+          {t("11_years_of_entakly")}
         </p>
       </div>
 
@@ -208,7 +208,7 @@ const styles = {
         >
           {t("rent_first_class")} <br /> {t("pay_economy")}
         </h1>
-        <p className="mb-md-3 mb-0">Premium car rental at affordable rates.</p>
+        <p className="mb-md-3 mb-0">{t("premium_car_rental")}</p>
       </div>
 
       <div className="container">
@@ -221,9 +221,9 @@ const styles = {
                 width={32}
                 height={32}
               />
-              <p style={styles.subHeading}>UAE reach</p>
+              <p style={styles.subHeading}>{t("uae_reach")}</p>
             </div>
-            <h4 className="subText">500+ Entakly stations in Dubai</h4>
+            <h4 className="subText">{t("500_entakly_stations")}</h4>
           </div>
           <div className="col-md-4 mb-4 mb-md-0">
             <div className="d-sm-flex align-items-center flex-justify mb-2">
@@ -233,10 +233,10 @@ const styles = {
                 width={32}
                 height={32}
               />
-              <p style={styles.subHeading}>Distinctive fleet</p>
+              <p style={styles.subHeading}>{t("distinctive_fleet")}</p>
             </div>
             <h4 className="subText">
-              From high-end convertibles to premium SUVs
+              {t("high_end_convertibles")}
             </h4>
           </div>
           <div className="col-md-4 mb-4 mb-md-0">
@@ -247,10 +247,10 @@ const styles = {
                 width={32}
                 height={32}
               />
-              <p style={styles.subHeading}>Exceptional service</p>
+              <p style={styles.subHeading}>{t("exceptional_service")}</p>
             </div>
             <h4 className="subText">
-              Stress-free, trustworthy, no hidden costs
+              {t("stress_free")}
             </h4>
           </div>
         </div>
@@ -270,15 +270,14 @@ const styles = {
             >
               <div>
                 <p style={styles.imageHeading} className="heading">
-                  Luxury Car Service with ENTAKLY
+                  {t("luxury_car_with_entakly")}
                 </p>
                 <p style={styles.imageText} className="text">
-                  Enjoy a professional journey with Entakly’s premium luxury car
-                  service
+                  {t("enjoy_professional_journey")}
                 </p>
               </div>
               <Link href="#" style={styles.imageButton} className="imageButton">
-                Book now
+                {t("book_now")}
               </Link>
             </div>
           </div>
@@ -293,7 +292,7 @@ const styles = {
                 style={{ fontFamily: fonts.helvetica700, fontSize: 24 }}
                 className="heading"
               >
-                ENTAKLY App Offers
+                {t("entakly_app_offers")}
               </p>
               <p
                 style={{
@@ -303,9 +302,7 @@ const styles = {
                 }}
                 className="text"
               >
-                Download the Dubai App now and get a 10% discount! LinkGram:
-                Phase One Launch – Your All-in-One App with 250+ Features! Note:
-                The app is still under construction.
+                {t("download_the_dubai_app")}
               </p>
             </div>
           </div>
@@ -342,7 +339,7 @@ const styles = {
         <div className="row justify-content-center">
           <div style={styles.moreEntakly} className="sec-6">
             <p style={styles.heading} className="secHeading text-uppercase">
-              More Entakly
+              {t("more_entakly")}
             </p>
             <div
               style={{
@@ -383,10 +380,10 @@ const styles = {
                 >
                   <div>
                     <p style={styles.imageHeading2} className="heading">
-                      Entakly Business
+                      {t("entakly_motors_business")}
                     </p>
                     <p style={styles.imageText} className="text">
-                      Pick-up and drop-off across UAE
+                      {t("pick_up_and_drop_off_across_uae")}
                     </p>
                   </div>
                   <Link
@@ -396,7 +393,7 @@ const styles = {
                     className="chatNowButton"
                   >
                     <FaWhatsapp style={{ marginBottom: 2, marginRight: 3 }} />{" "}
-                    Chat now
+                    {t("chat_now")}
                   </Link>
                 </div>
               </div>
@@ -406,7 +403,7 @@ const styles = {
         <div className="row">
           <div style={{ position: "relative" }} className="col-md-12 p-0 sec-7">
             <Image
-              src="/images/homeImage4.jpeg"
+              src="/images/homeImage4.webp"
               alt="limousine"
               width={1441}
               height={619}
@@ -414,12 +411,12 @@ const styles = {
             />
             <div style={styles.textContainer3} className="imageText">
               <p style={styles.imageHeading3} className="textOnImage">
-                Amazing experience with ENTAKLY. They provide amazing cars and{" "}
+                Amazing experience with ENTAKLY. They provide amazing cars and
                 <span className="d-md-block"></span>
                 quick service!
               </p>
               <p style={styles.imageText} className="sub-text">
-                Dubai
+                {t("dubai")}
               </p>
               {/* <Link href="#" style={styles.imageButton}>
                 Book now

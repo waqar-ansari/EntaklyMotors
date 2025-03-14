@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, signupUser } from "@/redux/slices/authSlice";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "@/context/LanguageProvider";
 
 export default function LoginPage() {
   const [isActive, setIsActive] = useState(false);
@@ -43,7 +44,7 @@ export default function LoginPage() {
       console.log("Signup failed:", error);
     }
   };
-
+  const { t, language } = useTranslation();
   return (
     <div>
       <Header />
@@ -53,11 +54,11 @@ export default function LoginPage() {
           {!isForgotPassword ? (
             <div className="form-box login">
               <form action="#">
-                <h1>Login</h1>
+                <h1>{t("login")}</h1>
                 <div className="input-box">
                   <input
                     type="text"
-                    placeholder="Email"
+                    placeholder={t("email")}
                     onChange={(e) => {
                       setEmail(e.target.value);
                     }}
@@ -67,7 +68,7 @@ export default function LoginPage() {
                 <div className="input-box">
                   <input
                     type="password"
-                    placeholder="Password"
+                    placeholder={t("password")}
                     onChange={(e) => {
                       setPassword(e.target.value);
                     }}
@@ -81,7 +82,7 @@ export default function LoginPage() {
                     onClick={() => setIsForgotPassword(true)}
                     style={{ color: colors.themeMain }}
                   >
-                    Forgot Password?
+                    {t("forgot_password")}
                   </button>
                 </div>
 
@@ -91,7 +92,7 @@ export default function LoginPage() {
                   className="btn text-decoration-none"
                   onClick={handleLogin}
                 >
-                  Login
+                  {t("login")}
                 </Link>
               </form>
             </div>
@@ -99,23 +100,23 @@ export default function LoginPage() {
             /* Forgot Password Form */
             <div className="form-box forgot-password">
               <form action="#">
-                <h1>Forgot Password</h1>
+                <h1> {t("forgot_password")}</h1>
                 <div className="input-box">
-                  <input type="email" placeholder="Enter your email" required />
+                  <input type="email" placeholder={t("enter_your_email")} required />
                   <i className="bx bxs-envelope"></i>
                 </div>
                 <button type="submit" className="btn">
-                  Submit
+                  {t("submit")}
                 </button>
                 <p>
-                  Remembered your password?{" "}
+                  {t("remembered_your_password")}{" "}
                   <button
                     type="button"
                     className="forgot-btn text-decoration-none"
                     onClick={() => setIsForgotPassword(false)}
                     style={{ color: colors.themeMain }}
                   >
-                    Go back to Login
+                    {t("go_back_to_login")}
                   </button>
                 </p>
               </form>
@@ -125,7 +126,7 @@ export default function LoginPage() {
           {/* Register Form */}
           <div className="form-box register">
             <form action="#">
-              <h1>Registration</h1>
+              <h1>{t("registration")}</h1>
               {/* <div className="input-box">
                     <input type="text" placeholder="Username" required />
                     <i className="bx bxs-user"></i>
@@ -133,9 +134,8 @@ export default function LoginPage() {
               <div className="input-box">
                 <input
                   type="email"
-                  placeholder="Email"
+                  placeholder={t("email")}
                   name="signupEmail"
-
                   required
                   onChange={(e) => {
                     setRegisterEmail(e.target.value);
@@ -146,7 +146,7 @@ export default function LoginPage() {
               <div className="input-box">
                 <input
                   type="password"
-                  placeholder="Password"
+                  placeholder={t("password")}
                   name="signupPassword"
                   required
                   onChange={(e) => {
@@ -161,7 +161,7 @@ export default function LoginPage() {
                 className="btn text-decoration-none"
                 onClick={handleRegister}
               >
-                Register
+                {t("register")}
               </Link>
             </form>
           </div>
@@ -169,24 +169,24 @@ export default function LoginPage() {
           {/* Toggle Box */}
           <div className="toggle-box">
             <div className="toggle-panel toggle-left">
-              <h1>Hello, Welcome!</h1>
-              <p>Don't have an account?</p>
+              <h1>{t("hello_welcome")}</h1>
+              <p>{t("dont_have_account")}</p>
               <button
                 className="btn register-btn"
                 onClick={() => setIsActive(true)}
               >
-                Register
+                {t("register")}
               </button>
             </div>
 
             <div className="toggle-panel toggle-right">
-              <h1>Welcome Back!</h1>
-              <p>Already have an account?</p>
+              <h1>{t("welcome_back")}</h1>
+              <p>{t("already_have_account")}</p>
               <button
                 className="btn login-btn"
                 onClick={() => setIsActive(false)}
               >
-                Login
+                {t("login")}
               </button>
             </div>
           </div>

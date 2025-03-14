@@ -15,7 +15,6 @@ import {
 import { useTranslation } from "@/context/LanguageProvider";
 import { AiOutlineClose } from "react-icons/ai";
 
-
 const carsData = [
   {
     id: 1,
@@ -85,25 +84,25 @@ export default function CarsPage() {
     }
   };
   const selectedCar = useSelector((state) => state.selectedCar);
-const {t, language} = useTranslation()
+  const { t, language } = useTranslation();
   return (
     <div>
       <Header headerPickupAndDrop={true} />
 
       <div className="container mt-5">
         <h3 style={{ textTransform: "uppercase", marginBottom: 20 }}>
-          Which car do you want to drive?
+          {t("which_car_you_want_to_drive")}
         </h3>
-        <CustomDropdown
-  title={"MultiSelect"}
-  multiSelect={true}
-  showSelectedItemCount={true}
-  containerstyles={{
-    ...(language === "ar" ? { marginLeft: 20 } : { marginRight: 20 })
-  }}
-/>
+        {/* <CustomDropdown
+          title={"MultiSelect"}
+          multiSelect={true}
+          showSelectedItemCount={true}
+          containerstyles={{
+            ...(language === "ar" ? { marginLeft: 20 } : { marginRight: 20 }),
+          }}
+        />
 
-        <CustomDropdown title={"Sort By"} />
+        <CustomDropdown title={t("sort_by")} /> */}
 
         {/* For mobile, render just a simple list of car cards */}
         {isMobile ? (
@@ -171,7 +170,9 @@ const {t, language} = useTranslation()
       >
         <Modal.Header className="d-flex">
           <Modal.Title>Car Details</Modal.Title>
-          <span onClick={()=>setShowModal(false)}><AiOutlineClose /></span>
+          <span onClick={() => setShowModal(false)}>
+            <AiOutlineClose />
+          </span>
         </Modal.Header>
         <Modal.Body className="px-0">
           {selectedCarId && (

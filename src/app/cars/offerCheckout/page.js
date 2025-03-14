@@ -143,7 +143,7 @@ const page = () => {
           <div className="col-12">
             <div className="d-flex justify-content-between justify-content-sm-end align-items-center mb-md-4 mb-2">
               <div>
-                <p className="mb-0">Total: {totalPrice}</p>
+                <p className="mb-0">{t("total")}: {totalPrice}</p>
                 <PriceDetailsModal />
               </div>
               <Link
@@ -159,8 +159,7 @@ const page = () => {
                 style={{ fontSize: 20, ...(language==="ar"?{marginLeft: 20}:{marginRight: 20}) }}
               />
               <p className="mb-0">
-                Drivers must have held their driver's license for at least 1
-                year(s) for this vehicle
+                {t("drivers_must_have_held")}
               </p>
             </div>
           </div>
@@ -184,10 +183,10 @@ const page = () => {
             <OfferCheckoutCard
               packageName="Gold"
               heading="Smart Protection"
-              packagePrice={30}
+              packagePrice={40}
               extraInfo="(Minimum age 25)"
               numberOfStars="2"
-              footer="30 Aed/day"
+              footer="40 Aed/day"
               discount="-19% online discount"
               selectedPackage={selectedPackage}
               onPackageClick={handlePackageClick}
@@ -200,9 +199,9 @@ const page = () => {
               packageName="Platinum"
               heading="All Inclusive Protection"
               extraInfo="(Minimum age 25)"
-              packagePrice={60}
+              packagePrice={80}
               numberOfStars="3"
-              footer="60 Aed/day"
+              footer="80 Aed/day"
               discount="-35% online discount"
               selectedPackage={selectedPackage}
               onPackageClick={handlePackageClick}

@@ -1,8 +1,21 @@
 {
-    "welcome": "Welcome to our website!",
-    "book_now": "Book Now",
-    "rent_a_car": "арендовать машину",
-    "rent_first_class":"Аренда первого класса",
-    "pay_economy":"Платная экономика"
-  }
-  
+  "11_years_of_entakly": "11 лет Entakly Mototrs. 11 лет Традиции.",
+  "manage_booking": "Управление Бронированием",
+  "login_register": "Войти | Зарегистрироваться",
+  "pick_up": "Место самовывоза",
+  "return": "Место возврата",
+  "pick_up_date":"Дата самовывоза",
+  "return_date":"Дата возврата",
+  "show_cars":"Показать автомобили",
+  "premium_car_rental": "Премиальные автомобили по доступным ценам",
+  "uae_reach": "Охват по ОАЭ",
+  "500_entakly_stations": "500+ пунктов Entakly Motors в Дубае",
+  "distinctive_fleet": "Уникальный автопарк",
+  "": "",
+  "": "",
+  "": "",
+  "": "",
+  "rent_a_car": "арендовать машину",
+  "rent_first_class": "Аренда первого класса",
+  "pay_economy": "Платная экономика"
+}

@@ -309,6 +309,9 @@ span.input-group-text{
   background-color: transparent !important;
   border: 0 !important;
 }
+.language-modal .btn-close {
+  margin-right: 0 !important;
+}
 @media (min-width: 1200px) {}
 
 @media(max-width:1200px) {

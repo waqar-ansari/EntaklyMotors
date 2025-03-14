@@ -85,7 +85,7 @@ const Footer = () => {
         </div>
         <div className="row">
           <div className="col-md-4 mt-4">
-            <p style={styles.footerHeading}>Our Services</p>
+            <p style={styles.footerHeading}>{t("our_Services")}</p>
             <ul
               style={{
                 listStyle: "none",
@@ -95,21 +95,21 @@ const Footer = () => {
               }}
             >
               <li style={styles.LinkItems}>
-                <Link href="#" className="footerLinks">Car Rental</Link>
+                <Link href="#" className="footerLinks">{t("car_rental")}</Link>
               </li>
               <li style={styles.LinkItems}>
-                <Link href="/#pickUpAndDropoff" className="footerLinks">Pick-up and Drop-off</Link>
+                <Link href="/#pickUpAndDropoff" className="footerLinks">{t("pick_up_and_drop_off")}</Link>
               </li>
               <li style={styles.LinkItems}>
-                <Link href="/leaseCar" className="footerLinks">Lease to on 24 months 20% down payment</Link>
+                <Link href="/leaseCar" className="footerLinks">{t("lease_for_24_months")}</Link>
               </li>
               <li style={styles.LinkItems}>
-                <Link href="/luxuryMercedes" className="footerLinks">V class Maybach services</Link>
+                <Link href="/luxuryMercedes" className="footerLinks">{t("v_class_maybach_services")}</Link>
               </li>
             </ul>
           </div>
           <div className="col-md-4 mt-4">
-            <p style={styles.footerHeading}>Help and more</p>
+            <p style={styles.footerHeading}>{t("help_and_more")}</p>
             <ul
               style={{
                 listStyle: "none",
@@ -119,16 +119,16 @@ const Footer = () => {
               }}
             >
               <li style={styles.LinkItems}>
-                <Link href="/contactUs" className="footerLinks">Contact Us</Link>
+                <Link href="/contactUs" className="footerLinks">{t("contact_us")}</Link>
               </li>
               <li style={styles.LinkItems}>
-                <Link href="/aboutUs" className="footerLinks">About Us</Link>
+                <Link href="/aboutUs" className="footerLinks">{t("about_us")}</Link>
               </li>
               <li style={styles.LinkItems}>
-                <Link href="/socialResonsibility" className="footerLinks">Corporate Responsibility</Link>
+                <Link href="/socialResonsibility" className="footerLinks">{t("corporate_responsibility")}</Link>
               </li>
               <li style={styles.LinkItems}>
-                <Link href="/terms&Conditions" className="footerLinks">Terms And Conditions</Link>
+                <Link href="/terms&Conditions" className="footerLinks">{t("terms_and_conditions")}</Link>
               </li>
             </ul>
           </div>
@@ -162,7 +162,7 @@ const Footer = () => {
           </div>
         </div> */}
         <div className="row mt-4 text-white text-center">
-          <div className="col-12">© 2025 Entakly. All rights reserved.</div>
+          <div className="col-12">{t("copyright_text")}</div>
         </div>
       </div>
     </div>

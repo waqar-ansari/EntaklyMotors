@@ -327,7 +327,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
               placeholder="Pickup Location"
               onClick={() => handleInputClick("pickup", "Pick-up Locations")}
             />
-            <label htmlFor="pickupLocation">Pick-up</label>
+            <label htmlFor="pickupLocation">{t("pick_up")}</label>
           </div>
         </div>
         <div className="input-group customInputGroup tabDisplayNone">
@@ -346,7 +346,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
                 handleInputClick("pickup", "Pick-up Locations");
               }}
             />
-            <label htmlFor="pickupLocation">Pick-up</label>
+            <label htmlFor="pickupLocation">{t("pick_up")}</label>
           </div>
         </div>
         <div className="mb-0 input-group customInputGroup tabDisplayNone ">
@@ -365,7 +365,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
                 handleInputClick("drop", "Return Locations");
               }}
             />
-            <label htmlFor="returnLocation">Return</label>
+            <label htmlFor="returnLocation">{t("return")}</label>
           </div>
         </div>
         <div className="mb-0 input-group customInputGroup mobDisplayNone ">
@@ -381,7 +381,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
               placeholder="Drop Location"
               onClick={() => handleInputClick("drop", "Return Locations")}
             />
-            <label htmlFor="returnLocation">Return</label>
+            <label htmlFor="returnLocation">{t("return")}</label>
           </div>
         </div>
 
@@ -421,7 +421,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
                     onClick={handlePickUpDateClick}
                     readOnly
                   />
-                  <label htmlFor="floatingInputGroup1">Pick-up Date</label>
+                  <label htmlFor="floatingInputGroup1">{t("pick_up_date")}</label>
                 </div>
               </div>
               <div
@@ -439,7 +439,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
                     onClick={handleShowPickupTimeModalMobile}
                     readOnly
                   />
-                  <label htmlFor="floatingInputGroup1">Pick-up Time</label>
+                  <label htmlFor="floatingInputGroup1">{t("return_date")}</label>
                 </div>
               </div>
             </div>
@@ -464,7 +464,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
                     onClick={handlePickUpDateClick}
                     readOnly
                   />
-                  <label htmlFor="floatingInputGroup1">Return Date</label>
+                  <label htmlFor="floatingInputGroup1">{t("return_date")}</label>
                 </div>
               </div>
               <div
@@ -513,7 +513,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
                   onClick={handlePickUpDateClick}
                   readOnly
                 />
-                <label htmlFor="floatingInputGroup1">Pick-up Date</label>
+                <label htmlFor="floatingInputGroup1">{t("pick_up_date")}</label>
               </div>
             </div>
             <div
@@ -570,7 +570,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
                   onClick={handlePickUpDateClick}
                   readOnly
                 />
-                <label htmlFor="floatingInputGroup1">Return Date</label>
+                <label htmlFor="floatingInputGroup1">{t("return_date")}</label>
               </div>
             </div>
             <div
@@ -611,7 +611,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
             style={styles.showCarsBtn}
             className="tabDisplayNone"
           >
-            Show cars
+            {t("show_cars")}
           </Link>
         {showCarsButton && (
           <Link
@@ -619,7 +619,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
             onClick={handleShowCarsClick}
             style={styles.showCarsBtn}
           >
-            Show cars
+           {t("show_cars")}
           </Link>
         )}
       </div>
