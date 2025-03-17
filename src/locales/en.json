@@ -70,7 +70,7 @@
   "booking_option":"Booking option",
   "minimum_age_of_youngest_driver":"Minimum age of the youngest driver : 18",
   "mileage":"Mileage",
-  "for_every_additional_mile":"for every additional mile",
+  "for_every_additional_km":"for every additional km",
   "included":"Included",
   "deposit":"Deposit",
   "zero_deposit":"Zero Deposit",
@@ -92,21 +92,25 @@
   "company":"Company",
   "first_name":"First name",
   "surname":"Surname",
-  "i_am_21_years_of_age":"I am 21 years of age or older",
+  "i_am_25_years_of_age":"I am 21 years of age or older",
   "how_would_you_like_to_pay":"How would you like to pay?",
   "card_number":"Card number",
   "cardholder_name":"Cardholder name",
   "expiration_date":"Expiration date (MM/YY)",
   "cvv":"CVV",
   "pay_and_book":"Pay and Book",
-  "":"",
-  "":"",
-  "":"",
-  "":"",
-  "welcome": "Welcome to our website!",
   "book_now": "Book Now",
+  "pick_up_locations":"Pick-up Locations",
+  "return_locations":"Return Locations",
+"pick_up_time":"Pick-up Time",
+"return_time":"Return Time",
+"":"",
+"":"",
+
+
+
+
   "rent_a_car": "Rent a Car",
   "rent_first_class":"Rent First Class",
   "pay_economy":"Pay Economy"
-
 }

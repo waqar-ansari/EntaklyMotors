@@ -19,117 +19,116 @@ import ModalPickerMobile from "@/components/modals/ModalPickerMobile";
 import { useSelector } from "react-redux";
 import { useTranslation } from "@/context/LanguageProvider";
 export default function HomePage() {
-
-const {t,language} = useTranslation()
-const styles = {
-  subHeading: {
-    marginBottom: 0,
-    marginLeft: language === "ar" ? "auto" : 10, // If language is "ar", no marginLeft, else 10
-    marginRight: language === "ar" ? 10 : "auto", 
-    fontSize: 16,
-    fontFamily: fonts.helvetica400,
-  },
-  textContainer: {
-    position: "absolute",
-    bottom: "40px",
-    left: "40px",
-    height: "85%",
-  },
-  textContainer2: {
-    position: "absolute",
-    top: "30px",
-    height: "85%",
-  },
-  textContainer3: {
-    position: "absolute",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    background:"rgba(0,0,0,0.5)"
-  },
-  imageHeading: {
-    fontSize: "40px",
-    textTransform: "uppercase",
-    color: colors.white,
-    fontFamily: fonts.helvetica700,
-    marginBottom: 0,
-  },
-  imageHeading2: {
-    fontSize: "28px",
-    textTransform: "uppercase",
-    color: colors.white,
-    fontFamily: fonts.helvetica700,
-    marginBottom: 0,
-  },
-  imageHeading3: {
-    fontSize: "40px",
-    color: colors.white,
-    fontFamily: fonts.helvetica400,
-    marginBottom: 0,
-    lineHeight: "45px",
-  },
-  imageText: {
-    fontSize: 16,
-    color: colors.white,
-    fontFamily: fonts.helvetica400,
-    marginBottom: 20,
-  },
-  imageButton: {
-    fontSize: 12,
-    color: colors.white,
-    fontFamily: fonts.helvetica400,
-    border: "1px solid white",
-    padding: "15px 50px",
-    borderRadius: 30,
-    textDecoration: "none",
-    width: "fit-content",
-  },
-  marginB: {
-    marginBottom: 40,
-  },
-  moreEntakly: {
-    background: "#EBEBF0",
-    padding: "60px 0px",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    textAlign: "center",
-  },
-  heading: {
-    fontFamily: fonts.helvetica900,
-    fontSize: 60,
-    textAlign: "center",
-  },
-  PickupAndDropPicker: {
-    position: "sticky",
-    top: "10px",
-    maxWidth: "1320px",
-    margin: "0 auto",
-    padding: "20px",
-    background: colors.white,
-    borderRadius: 8,
-    zIndex: 1,
-    marginTop: 10,
-    boxShadow: "2px 2px 16px 1px rgba(0, 0, 0, 0.75)",
-  },
-  showCarsBtn: {
-    padding: "10px 25px",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 10,
-    background: colors.themeMain,
-    color: colors.white,
-    fontFamily: fonts.helvetica400,
-    textDecoration: "none",
-  },
-};
+  const { t, language } = useTranslation();
+  const styles = {
+    subHeading: {
+      marginBottom: 0,
+      marginLeft: language === "ar" ? "auto" : 10, // If language is "ar", no marginLeft, else 10
+      marginRight: language === "ar" ? 10 : "auto",
+      fontSize: 16,
+      fontFamily: fonts.helvetica400,
+    },
+    textContainer: {
+      position: "absolute",
+      bottom: "40px",
+      left: "40px",
+      height: "85%",
+    },
+    textContainer2: {
+      position: "absolute",
+      top: "30px",
+      height: "85%",
+    },
+    textContainer3: {
+      position: "absolute",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      textAlign: "center",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      background: "rgba(0,0,0,0.5)",
+    },
+    imageHeading: {
+      fontSize: "40px",
+      textTransform: "uppercase",
+      color: colors.white,
+      fontFamily: fonts.helvetica700,
+      marginBottom: 0,
+    },
+    imageHeading2: {
+      fontSize: "28px",
+      textTransform: "uppercase",
+      color: colors.white,
+      fontFamily: fonts.helvetica700,
+      marginBottom: 0,
+    },
+    imageHeading3: {
+      fontSize: "40px",
+      color: colors.white,
+      fontFamily: fonts.helvetica400,
+      marginBottom: 0,
+      lineHeight: "45px",
+    },
+    imageText: {
+      fontSize: 16,
+      color: colors.white,
+      fontFamily: fonts.helvetica400,
+      marginBottom: 20,
+    },
+    imageButton: {
+      fontSize: 12,
+      color: colors.white,
+      fontFamily: fonts.helvetica400,
+      border: "1px solid white",
+      padding: "15px 50px",
+      borderRadius: 30,
+      textDecoration: "none",
+      width: "fit-content",
+    },
+    marginB: {
+      marginBottom: 40,
+    },
+    moreEntakly: {
+      background: "#EBEBF0",
+      padding: "60px 0px",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      textAlign: "center",
+    },
+    heading: {
+      fontFamily: fonts.helvetica900,
+      fontSize: 60,
+      textAlign: "center",
+    },
+    PickupAndDropPicker: {
+      position: "sticky",
+      top: "10px",
+      maxWidth: "1320px",
+      margin: "0 auto",
+      padding: "20px",
+      background: colors.white,
+      borderRadius: 8,
+      zIndex: 1,
+      marginTop: 10,
+      boxShadow: "2px 2px 16px 1px rgba(0, 0, 0, 0.75)",
+    },
+    showCarsBtn: {
+      padding: "10px 25px",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      borderRadius: 10,
+      background: colors.themeMain,
+      color: colors.white,
+      fontFamily: fonts.helvetica400,
+      textDecoration: "none",
+    },
+  };
   const rentaldataa = useSelector((state) => state.rentalDetails);
   const [show, setShow] = useState(false);
   return (
@@ -168,7 +167,13 @@ const styles = {
               />
               <label htmlFor="rentYourCar">Rent your car</label>
             </div> */}
-            <CiSearch style={{...(language ==="ar"?{ marginLeft: 10}:{ marginRight: 10}) }} />
+            <CiSearch
+              style={{
+                ...(language === "ar"
+                  ? { marginLeft: 10 }
+                  : { marginRight: 10 }),
+              }}
+            />
             Plan a journey...
           </div>
         </div>
@@ -235,9 +240,7 @@ const styles = {
               />
               <p style={styles.subHeading}>{t("distinctive_fleet")}</p>
             </div>
-            <h4 className="subText">
-              {t("high_end_convertibles")}
-            </h4>
+            <h4 className="subText">{t("high_end_convertibles")}</h4>
           </div>
           <div className="col-md-4 mb-4 mb-md-0">
             <div className="d-sm-flex align-items-center flex-justify mb-2">
@@ -249,9 +252,7 @@ const styles = {
               />
               <p style={styles.subHeading}>{t("exceptional_service")}</p>
             </div>
-            <h4 className="subText">
-              {t("stress_free")}
-            </h4>
+            <h4 className="subText">{t("stress_free")}</h4>
           </div>
         </div>
         <div className="row" style={styles.marginB}>
@@ -386,15 +387,45 @@ const styles = {
                       {t("pick_up_and_drop_off_across_uae")}
                     </p>
                   </div>
-                  <Link
-                    href="https://wa.me/+971044536000"
-                    target="_blank"
-                    style={styles.imageButton}
-                    className="chatNowButton"
-                  >
-                    <FaWhatsapp style={{ marginBottom: 2, marginRight: 3 }} />{" "}
-                    {t("chat_now")}
-                  </Link>
+                  <div style={{ width:"90%"}}>
+                    <div style={{color:"#fff", display: "flex", gap: 20, width:"100%"}} className="mb-2 mb-md-4">
+                      <div className="entakly-business-services">
+                        <p className="mb-0">Dxb Airport</p>
+                        <p className="mb-0">AED 200</p>
+                      </div>
+                      <div className="entakly-business-services">
+                        <p className="mb-0">Sharjah Airport</p>
+                        <p className="mb-0">AED 300</p>
+                      </div>
+                      <div className="entakly-business-services">
+                        <p className="mb-0">Al Maktoum  Airport</p>
+                        <p className="mb-0">AED 150</p>
+                      </div>
+                    </div>
+                    <div style={{color:"#fff", display: "flex", gap: 20, width:"100%"}} className="mb-2 mb-md-4">
+                      <div className="entakly-business-services">
+                        <p className="mb-0">Abu Dhabi Airport</p>
+                        <p className="mb-0">AED 700</p>
+                      </div>
+                      <div className="entakly-business-services">
+                        <p className="mb-0">10 hours/day</p>
+                        <p className="mb-0">AED 700</p>
+                      </div>
+                      <div className="entakly-business-services">
+                        <p className="mb-0">Inside Dubai</p>
+                        <p className="mb-0">Ahead 100</p>
+                      </div>
+                    </div>
+                    <Link
+                      href="https://wa.me/+971044536000"
+                      target="_blank"
+                      style={styles.imageButton}
+                      className="chatNowButton mt-4"
+                    >
+                      <FaWhatsapp style={{ marginBottom: 2, marginRight: 3 }} />{" "}
+                      {t("chat_now")}
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -433,6 +464,4 @@ const styles = {
       <ModalPickerMobile show={show} onHide={() => setShow(false)} />
     </div>
   );
-  
 }
-

@@ -325,7 +325,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
               id="pickupLocation"
               value={pickupLocation || rentalDetails.pickupLocation}
               placeholder="Pickup Location"
-              onClick={() => handleInputClick("pickup", "Pick-up Locations")}
+              onClick={() => handleInputClick("pickup", t("pick_up_locations"))}
             />
             <label htmlFor="pickupLocation">{t("pick_up")}</label>
           </div>
@@ -343,7 +343,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
               placeholder="Pickup Location"
               onClick={() => {
                 setPickupLocationModal(true);
-                handleInputClick("pickup", "Pick-up Locations");
+                handleInputClick("pickup", t("pick_up_locations"));
               }}
             />
             <label htmlFor="pickupLocation">{t("pick_up")}</label>
@@ -362,7 +362,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
               placeholder="Drop Location"
               onClick={() => {
                 setReturnLocationModal(true);
-                handleInputClick("drop", "Return Locations");
+                handleInputClick("drop", t("return_locations"));
               }}
             />
             <label htmlFor="returnLocation">{t("return")}</label>
@@ -379,7 +379,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
               value={returnLocation || rentalDetails.returnLocation}
               id="returnLocation"
               placeholder="Drop Location"
-              onClick={() => handleInputClick("drop", "Return Locations")}
+              onClick={() => handleInputClick("drop", t("return_locations"))}
             />
             <label htmlFor="returnLocation">{t("return")}</label>
           </div>
@@ -482,7 +482,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
                     onClick={handleShowReturnTimeModal}
                     readOnly
                   />
-                  <label htmlFor="floatingInputGroup1">Return Time</label>
+                  <label htmlFor="floatingInputGroup1">{t("return_time")}</label>
                 </div>
               </div>
             </div>
@@ -542,7 +542,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
                   onClick={handlePickUpTimeClick}
                   readOnly
                 />
-                <label htmlFor="floatingInputGroup1">Pick-up Time</label>
+                <label htmlFor="floatingInputGroup1">{t("pick_up_time")}</label>
               </div>
             </div>
           </div>
@@ -656,7 +656,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
         backdrop
       >
         <Modal.Header closeButton>
-          <Modal.Title>Pick-up Time</Modal.Title>
+          <Modal.Title>{t("pick_up_time")}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
@@ -705,7 +705,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
       </Modal>
       <Modal show={showPickupTimeModalMobile} fullscreen onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Pick-up Time</Modal.Title>
+          <Modal.Title>{t("pick_up_time")}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
@@ -760,7 +760,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
         backdrop
       >
         <Modal.Header closeButton>
-          <Modal.Title>Return Time</Modal.Title>
+          <Modal.Title>{t("return_time")}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
@@ -808,7 +808,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
       </Modal>
       <Modal show={showReturnTimeModalMobile} fullscreen onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Return Time</Modal.Title>
+          <Modal.Title>{t("return_time")}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
@@ -861,7 +861,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
         className="tabDisplayNone"
       >
         <Modal.Header>
-          <Modal.Title>Pick-up Locations</Modal.Title>
+          <Modal.Title>{t("pick_up_locations")}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {/* <div className="position-absolute"> */}
@@ -937,7 +937,7 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
         className="tabDisplayNone"
       >
         <Modal.Header>
-          <Modal.Title>Return Locations</Modal.Title>
+          <Modal.Title>{t("return_locations")}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="position-absolute">

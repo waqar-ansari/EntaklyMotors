@@ -154,8 +154,8 @@ export default function CarDetails({ car, onClose }) {
             <div className="infoBox">
               <div className="infoContent">
                 <div>
-                  <strong>200 kms</strong>
-                  <p className="mb-0">+AED 1.50 / {t("for_every_additional_mile")}</p>
+                  <strong>200 km</strong>
+                  <p className="mb-0">+AED 1.50 / {t("for_every_additional_km")}</p>
                 </div>
                 <span style={styles.included}>{t("included")}</span>
               </div>

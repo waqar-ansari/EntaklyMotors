@@ -140,7 +140,7 @@ const page = () => {
               </div>
             </div>
             <div>
-              <Checkbox>{t("i_am_21_years_of_age")}</Checkbox>
+              <Checkbox>{t("i_am_25_years_of_age")}</Checkbox>
               <div className="d-flex align-items-center mb-5 mt-3 ms-2">
                 <IoInformationCircleSharp
                   style={{

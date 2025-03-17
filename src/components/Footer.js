@@ -95,10 +95,12 @@ const Footer = () => {
               }}
             >
               <li style={styles.LinkItems}>
-                <Link href="#" className="footerLinks">{t("car_rental")}</Link>
+                <Link href="/cars" className="footerLinks">{t("car_rental")}</Link>
               </li>
               <li style={styles.LinkItems}>
-                <Link href="/#pickUpAndDropoff" className="footerLinks">{t("pick_up_and_drop_off")}</Link>
+              <Link 
+                  href="https://wa.me/+971044536000"
+                  target="_blank" className="footerLinks">{t("pick_up_and_drop_off")}</Link>
               </li>
               <li style={styles.LinkItems}>
                 <Link href="/leaseCar" className="footerLinks">{t("lease_for_24_months")}</Link>
