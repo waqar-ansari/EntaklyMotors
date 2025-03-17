@@ -106,10 +106,9 @@ export default function CarDetails({ car, onClose }) {
             <div className="infoBox">
               <div className="infoContent">
                 <div>
-                  <strong>Stay flexible</strong>
+                  <strong>{t("stay_flexible")}</strong>
                   <p className="mb-0">
-                    Pay online, free cancellation and rebooking any time
-                    before pick-up time
+                    {t("pay_online_free_cancellation")}
                   </p>
                 </div>
                 <span style={styles.included}>

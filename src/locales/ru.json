@@ -104,6 +104,8 @@
   "return_locations":"Места возврата",
   "pick_up_time":"Время получения",
 "return_time":"Время возврата",
+"stay_flexible":"Гибкая опция",
+"pay_online_free_cancellation":"Оплатите онлайн, бесплатная отмена и перепланировка в любое время до времени забора",
 
   "rent_a_car": "Rent a Car",
   "rent_first_class":"Rent First Class",

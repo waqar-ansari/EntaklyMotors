@@ -68,7 +68,7 @@
   "which_car_you_want_to_drive":"Which car do you want to drive?",
   "sort_by":"Sort By",
   "booking_option":"Booking option",
-  "minimum_age_of_youngest_driver":"Minimum age of the youngest driver : 18",
+  "minimum_age_of_youngest_driver":"Minimum age of the youngest driver : 21",
   "mileage":"Mileage",
   "for_every_additional_km":"for every additional km",
   "included":"Included",
@@ -104,7 +104,9 @@
   "return_locations":"Return Locations",
 "pick_up_time":"Pick-up Time",
 "return_time":"Return Time",
-"":"",
+"stay_flexible":"Stay Flexible",
+"pay_online_free_cancellation":"Pay online, free cancellation and rebooking any time before pick-up time",
+
 "":"",
 
 

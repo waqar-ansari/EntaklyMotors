@@ -94,7 +94,7 @@ const PriceDetailsModal = () => {
             )
           }
         >
-          Price details
+          {t("price_details")}
         </p>
       </div>
       <CommonModal
