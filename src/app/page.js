@@ -388,32 +388,32 @@ export default function HomePage() {
                     </p>
                   </div>
                   <div style={{ width:"90%"}}>
-                    <div style={{color:"#fff", display: "flex", gap: 20, width:"100%"}} className="mb-2 mb-md-4">
+                    <div style={{color:"#fff", display: "flex", gap: 10, width:"100%"}} className="mb-2 mb-md-4">
                       <div className="entakly-business-services">
-                        <p className="mb-0">Dxb Airport</p>
-                        <p className="mb-0">AED 200</p>
+                        <p className="my-0">Dxb Airport</p>
+                        <p className="my-0">AED 200</p>
                       </div>
                       <div className="entakly-business-services">
-                        <p className="mb-0">Sharjah Airport</p>
-                        <p className="mb-0">AED 300</p>
+                        <p className="my-0">Sharjah Airport</p>
+                        <p className="my-0">AED 300</p>
                       </div>
                       <div className="entakly-business-services">
-                        <p className="mb-0">Al Maktoum  Airport</p>
-                        <p className="mb-0">AED 150</p>
+                        <p className="my-0">Al Maktoum  Airport</p>
+                        <p className="my-0">AED 150</p>
                       </div>
                     </div>
-                    <div style={{color:"#fff", display: "flex", gap: 20, width:"100%"}} className="mb-2 mb-md-4">
+                    <div style={{color:"#fff", display: "flex", gap: 10, width:"100%"}} className="mb-2 mb-md-4">
                       <div className="entakly-business-services">
-                        <p className="mb-0">Abu Dhabi Airport</p>
-                        <p className="mb-0">AED 700</p>
+                        <p className="my-0">Abu Dhabi Airport</p>
+                        <p className="my-0">AED 700</p>
                       </div>
                       <div className="entakly-business-services">
-                        <p className="mb-0">10 hours/day</p>
-                        <p className="mb-0">AED 700</p>
+                        <p className="my-0">10 hours/day</p>
+                        <p className="my-0">AED 700</p>
                       </div>
                       <div className="entakly-business-services">
-                        <p className="mb-0">Inside Dubai</p>
-                        <p className="mb-0">Ahead 100</p>
+                        <p className="my-0">Inside Dubai</p>
+                        <p className="my-0">Ahead 100</p>
                       </div>
                     </div>
                     <Link
