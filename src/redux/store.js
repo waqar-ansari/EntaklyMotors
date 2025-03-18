@@ -9,11 +9,12 @@ import selectedAddonReducer from "./slices/selectedAddonSlice";
 import totalPriceReducer from "./slices/totalPriceSlice";
 import { combineReducers } from "redux";
 import { persistReducer, persistStore } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+// import storage from "redux-persist/lib/storage";
+import storageSession from 'redux-persist/lib/storage/session'
 
 const persistConfig = {
   key: "root",
-  storage, // You can change storage to sessionStorage or AsyncStorage for React Native
+  storage: storageSession,
   whitelist: ["selectedCar", "auth", "rentalDetail","selectedPackage","selectedAddon","totalPrice","profile"], // Specify which reducers you want to persist
 };
 

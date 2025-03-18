@@ -28,7 +28,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { setRentalDetailDataSlice } from "@/redux/slices/rentalDetailSlice";
 import { useTranslation } from "../context/LanguageProvider";
 
-const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCarsClick }) => {
+const PickupAndDropPicker = ({
+  heading = true,
+  showCarsButton = true,
+  onShowCarsClick,
+}) => {
   const [range, setRange] = useState([null, null]);
   const [hoveredItem, setHoveredItem] = useState({});
 
@@ -86,13 +90,13 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
     },
   ];
 
-  // useEffect(() => {
-  //   const pickupDate = new Date();
-  //   const returnDate = new Date(pickupDate);
-  //   returnDate.setDate(pickupDate.getDate() + 2);
+  useEffect(() => {
+    const pickupDate = new Date();
+    const returnDate = new Date(pickupDate);
+    returnDate.setDate(pickupDate.getDate() + 2);
 
-  //   setRange([pickupDate, returnDate]);
-  // }, []);
+    setRange([pickupDate, returnDate]);
+  }, []);
 
   const openDatePicker = () => {
     if (pickerRef.current) {
@@ -207,25 +211,24 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
     : "";
   const handleShowCarsClick = () => {
     const rentalData = {
-          pickupLocation: pickupLocation || rentalDetails.pickupLocation,
-          returnLocation: returnLocation || rentalDetails.returnLocation,
-          pickupDate: pickupDate || rentalDetails.pickupDate,
-          returnDate: returnDate || rentalDetails.returnDate,
-          pickupTime: pickupTime || rentalDetails.pickupTime,
-          returnTime: returnTime || rentalDetails.returnTime,
-        };
-        dispatch(setRentalDetailDataSlice(rentalData));
-        if (onShowCarsClick) {
-          
-          onShowCarsClick();  // Trigger the prop function passed from the parent
-        }
+      pickupLocation: pickupLocation || rentalDetails.pickupLocation,
+      returnLocation: returnLocation || rentalDetails.returnLocation,
+      pickupDate: pickupDate || rentalDetails.pickupDate,
+      returnDate: returnDate || rentalDetails.returnDate,
+      pickupTime: pickupTime || rentalDetails.pickupTime,
+      returnTime: returnTime || rentalDetails.returnTime,
+    };
+    dispatch(setRentalDetailDataSlice(rentalData));
+    if (onShowCarsClick) {
+      onShowCarsClick(); // Trigger the prop function passed from the parent
+    }
   };
 
   const { t, language } = useTranslation();
   return (
     <div>
       {heading && <p style={styles.heading}>{t("rent_a_car")}</p>}
-     
+
       <div
         className="d-md-flex justify-content-center pickupAndDropPicker flex-wrap position-relative "
         style={{ gap: "15px" }}
@@ -234,7 +237,11 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
           <div
             ref={showLocationsRef}
             className="position-absolute mobDisplayNone"
-            style={{ top: 70, ...(language ==="ar"?{right:40}:{left: 40}), width: "70%" }}
+            style={{
+              top: 70,
+              ...(language === "ar" ? { right: 40 } : { left: 40 }),
+              width: "70%",
+            }}
           >
             <div
               style={{
@@ -292,10 +299,6 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
                               24-hour return
                             </span>
                           </div>
-
-
-
-
                         </div>
                         <p className="hoverAddressStyle">
                           {hoveredItem.locationName}
@@ -421,7 +424,9 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
                     onClick={handlePickUpDateClick}
                     readOnly
                   />
-                  <label htmlFor="floatingInputGroup1">{t("pick_up_date")}</label>
+                  <label htmlFor="floatingInputGroup1">
+                    {t("pick_up_date")}
+                  </label>
                 </div>
               </div>
               <div
@@ -439,7 +444,9 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
                     onClick={handleShowPickupTimeModalMobile}
                     readOnly
                   />
-                  <label htmlFor="floatingInputGroup1">{t("return_date")}</label>
+                  <label htmlFor="floatingInputGroup1">
+                    {t("return_date")}
+                  </label>
                 </div>
               </div>
             </div>
@@ -464,7 +471,9 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
                     onClick={handlePickUpDateClick}
                     readOnly
                   />
-                  <label htmlFor="floatingInputGroup1">{t("return_date")}</label>
+                  <label htmlFor="floatingInputGroup1">
+                    {t("return_date")}
+                  </label>
                 </div>
               </div>
               <div
@@ -482,7 +491,9 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
                     onClick={handleShowReturnTimeModal}
                     readOnly
                   />
-                  <label htmlFor="floatingInputGroup1">{t("return_time")}</label>
+                  <label htmlFor="floatingInputGroup1">
+                    {t("return_time")}
+                  </label>
                 </div>
               </div>
             </div>
@@ -493,13 +504,13 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
             <div
               className="input-group customInputGroup pcInputFixedWidth"
               style={
-                language === 'ar'
-                  ? { borderTopLeftRadius: 0, borderBottomLeftRadius: 0}
-                  : { 
-                    borderTopRightRadius: 0, borderBottomRightRadius: 0
+                language === "ar"
+                  ? { borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }
+                  : {
+                      borderTopRightRadius: 0,
+                      borderBottomRightRadius: 0,
                     }
               }
-               
             >
               <span className="input-group-text">
                 <FaCalendarAlt />
@@ -519,14 +530,16 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
             <div
               className="input-group customInputGroup pcTimeInputFixedWidth"
               style={
-                language === 'ar'
-                  ? {borderRight: 0, 
-                    borderTopRightRadius: 0, 
-                    borderBottomRightRadius: 0 }
-                  : { 
-                      borderLeft: 0, 
-                      borderTopLeftRadius: 0, 
-                      borderBottomLeftRadius: 0 
+                language === "ar"
+                  ? {
+                      borderRight: 0,
+                      borderTopRightRadius: 0,
+                      borderBottomRightRadius: 0,
+                    }
+                  : {
+                      borderLeft: 0,
+                      borderTopLeftRadius: 0,
+                      borderBottomLeftRadius: 0,
                     }
               }
             >
@@ -551,12 +564,10 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
             <div
               className="input-group customInputGroup pcInputFixedWidth"
               style={
-                
-                language === 'ar'
-                  ? { borderTopLeftRadius: 0, borderBottomLeftRadius: 0}
+                language === "ar"
+                  ? { borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }
                   : { borderTopRightRadius: 0, borderBottomRightRadius: 0 }
               }
-                
             >
               <span className="input-group-text">
                 <FaCalendarAlt />
@@ -576,17 +587,18 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
             <div
               className="input-group customInputGroup pcTimeInputFixedWidth"
               style={
-                
-                language === 'ar'
-                ? {  borderTopRightRadius: 0,
-                  borderBottomRightRadius: 0,
-                borderRight:0}
-                : { borderLeft: 0,
-                  borderTopLeftRadius: 0,
-                  borderBottomLeftRadius: 0, }
-                
-                
-               }
+                language === "ar"
+                  ? {
+                      borderTopRightRadius: 0,
+                      borderBottomRightRadius: 0,
+                      borderRight: 0,
+                    }
+                  : {
+                      borderLeft: 0,
+                      borderTopLeftRadius: 0,
+                      borderBottomLeftRadius: 0,
+                    }
+              }
             >
               {/* <span className="input-group-text">
                 <FaCalendarAlt />
@@ -606,20 +618,20 @@ const PickupAndDropPicker = ({ heading = true, showCarsButton = true , onShowCar
           </div>
         </div>
         <Link
-            href="/cars"
-            onClick={handleShowCarsClick}
-            style={styles.showCarsBtn}
-            className="tabDisplayNone"
-          >
-            {t("show_cars")}
-          </Link>
+          href="/cars"
+          onClick={handleShowCarsClick}
+          style={styles.showCarsBtn}
+          className="tabDisplayNone"
+        >
+          {t("show_cars")}
+        </Link>
         {showCarsButton && (
           <Link
             href="/cars"
             onClick={handleShowCarsClick}
             style={styles.showCarsBtn}
           >
-           {t("show_cars")}
+            {t("show_cars")}
           </Link>
         )}
       </div>

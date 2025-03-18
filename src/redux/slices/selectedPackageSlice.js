@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const selectedPackageSlice = createSlice({
   name: "selectedPackage",
   initialState: {
-    packageName: null,
-    packagePrice: null,
+    packageName: "Basic Protection",
+    packagePrice: 0,
   },
   reducers: {
     setSelectedPackageSlice(state, action) {

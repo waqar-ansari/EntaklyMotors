@@ -15,8 +15,6 @@ import { useSelector } from "react-redux";
 import ModalPickerMobile from "./modals/ModalPickerMobile";
 import { useTranslation } from "@/context/LanguageProvider";
 
-
-
 const Header = ({ headerPickupAndDrop }) => {
   const [showPicker, setShowPicker] = useState(false);
   const [showPickerModal, setShowPickerModal] = useState(false);
@@ -37,16 +35,21 @@ const Header = ({ headerPickupAndDrop }) => {
   };
   const { t, language } = useTranslation();
   const token = "abcd";
+  const rentalDetail = useSelector((state) => state.rentalDetail);
+  console.log(rentalDetail, "rental details");
+const handleNavIconClick =()=>{
+  
+}
   return (
     <div>
-      <PickerModal showModal={showPickerModal}  closeModal={closePickerModal} />
+      <PickerModal showModal={showPickerModal} closeModal={closePickerModal} />
       <div
         style={{ background: colors.themeMain, fontFamily: fonts.helvetica400 }}
       >
         <div className="container-xxl">
           <nav className="navbar navbar-expand-lg">
             <div className="container-fluid headerGapInCarsPageMobile">
-              <Link className="navbar-brand py-0 mx-0" href="/">
+              <Link className="navbar-brand py-0 mx-0" href="/" onClick={handleNavIconClick}>
                 <Image
                   src="/icons/entaklyLogo.svg"
                   alt="Logo"
@@ -56,7 +59,7 @@ const Header = ({ headerPickupAndDrop }) => {
                   className="headerLogo"
                 />
               </Link>
-              {/* {headerPickupAndDrop && (
+              {headerPickupAndDrop && (
                 <div
                   data-bs-toggle="modal"
                   data-bs-target="#pickerModal"
@@ -66,16 +69,23 @@ const Header = ({ headerPickupAndDrop }) => {
                   <div className="d-flex justify-content-between align-items-center">
                     <div style={{ marginRight: 30 }}>
                       <p className="mb-0" style={styles.location}>
-                        New York LGA Airport - New York LGA Airport
+                        {rentalDetail.pickupLocation
+                          ? rentalDetail.pickupLocation
+                          : "Select Pickup Location"}{" "}
+                        -{" "}
+                        {rentalDetail.returnLocation
+                          ? rentalDetail.returnLocation
+                          : "Select Return Location"}
                       </p>
                       <p className="mb-0" style={styles.dateAndTime}>
-                        13. Apr | 8:00 AM - 15. Apr | 8:30 AM
+                        {rentalDetail.pickupDate} | {rentalDetail.pickupTime} -{" "}
+                        {rentalDetail.returnDate} | {rentalDetail.returnTime}
                       </p>
                     </div>
                     <FaPen />
                   </div>
                 </div>
-              )} */}
+              )}
               <div className="mobileHeaderIcons">
                 <ul className="navbar-nav mt-0 flex-row">
                   <li className="nav-item d-flex align-items-center me-sm-4 me-2 mb-0">
@@ -179,7 +189,11 @@ const Header = ({ headerPickupAndDrop }) => {
                     </a>
                   </li>
                   {token ? (
-                    <li className={`nav-item d-flex align-items-center mb-0 ${language === "ar" ? "me-sm-4 me-2" : ""}`}>
+                    <li
+                      className={`nav-item d-flex align-items-center mb-0 ${
+                        language === "ar" ? "me-sm-4 me-2" : ""
+                      }`}
+                    >
                       <FaUserCircle
                         style={{ color: colors.white, fontSize: 22 }}
                       />

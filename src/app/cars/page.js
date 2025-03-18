@@ -19,13 +19,13 @@ const carsData = [
   {
     id: 1,
     name: "Premium (BMW 2 Series)",
-    image: "/images/car5.png",
+    image: "/images/car4.png",
     price: 175,
   },
   {
     id: 2,
     name: "Luxury (BMW 3 Series)",
-    image: "/images/car6.png",
+    image: "/images/car4.png",
     price: 184,
   },
   {
@@ -37,19 +37,19 @@ const carsData = [
   {
     id: 4,
     name: "Luxury (Mercedes C-Class)",
-    image: "/images/car2.png",
+    image: "/images/car4.png",
     price: 200,
   },
   {
     id: 5,
     name: "SUV (Toyota Highlander)",
-    image: "/images/car1.png",
+    image: "/images/car4.png",
     price: 190,
   },
   {
     id: 6,
     name: "Electric (Tesla Model 3)",
-    image: "/images/car3.png",
+    image: "/images/car4.png",
     price: 210,
   },
 ];

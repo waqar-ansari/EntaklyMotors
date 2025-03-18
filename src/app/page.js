@@ -37,7 +37,7 @@ export default function HomePage() {
     textContainer2: {
       position: "absolute",
       top: "30px",
-      height: "85%",
+      height: "90%",
     },
     textContainer3: {
       position: "absolute",
@@ -390,7 +390,7 @@ export default function HomePage() {
                   <div style={{ width:"90%"}}>
                     <div style={{color:"#fff", display: "flex", gap: 10, width:"100%"}} className="mb-2 mb-md-4">
                       <div className="entakly-business-services">
-                        <p className="my-0">Dxb Airport</p>
+                        <p className="my-0">Dubai Airport</p>
                         <p className="my-0">AED 200</p>
                       </div>
                       <div className="entakly-business-services">
@@ -402,7 +402,7 @@ export default function HomePage() {
                         <p className="my-0">AED 150</p>
                       </div>
                     </div>
-                    <div style={{color:"#fff", display: "flex", gap: 10, width:"100%"}} className="mb-2 mb-md-4">
+                    <div style={{color:"#fff", display: "flex", gap: 10, width:"100%"}} className="mb-3 mb-md-4">
                       <div className="entakly-business-services">
                         <p className="my-0">Abu Dhabi Airport</p>
                         <p className="my-0">AED 700</p>
@@ -413,7 +413,7 @@ export default function HomePage() {
                       </div>
                       <div className="entakly-business-services">
                         <p className="my-0">Inside Dubai</p>
-                        <p className="my-0">Ahead 100</p>
+                        <p className="my-0">AED 100</p>
                       </div>
                     </div>
                     <Link
