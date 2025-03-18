@@ -336,7 +336,9 @@ span.input-group-text {
 .pickerModalBodyFlex{
   overflow: visible !important;
 }
-
+.sec-6-box-container{
+  width: 100%;
+}
 @media (min-width: 1200px) {}
 
 @media(max-width:1200px) {
@@ -497,7 +499,9 @@ span.input-group-text {
   .mobDisplayNone {
     display: none !important;
   }
-
+  .sec-6-box-container{
+    width: 90%;
+  }
 
 }
 

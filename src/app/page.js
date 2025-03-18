@@ -37,7 +37,7 @@ export default function HomePage() {
     textContainer2: {
       position: "absolute",
       top: "30px",
-      height: "90%",
+      height: "85%",
     },
     textContainer3: {
       position: "absolute",
@@ -343,14 +343,16 @@ export default function HomePage() {
               {t("more_entakly")}
             </p>
             <div
-              style={{
-                position: "relative",
-                width: "25%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              className="sec-6-width"
+              // style={{
+              //   position: "relative",
+              //   width: "25%",
+              //   display: "flex",
+              //   justifyContent: "center",
+              //   alignItems: "center",
+              // }}
+              // className="sec-6-width"
+              className="col-12 col-md-3 mx-auto d-flex justify-content-center align-items-center"
+              style={{ position: "relative" }}
             >
               <Image
                 src="/images/homeImage3.jpeg"
@@ -387,7 +389,7 @@ export default function HomePage() {
                       {t("pick_up_and_drop_off_across_uae")}
                     </p>
                   </div>
-                  <div style={{ width:"90%"}}>
+                  <div className="sec-6-box-container">
                     <div style={{color:"#fff", display: "flex", gap: 10, width:"100%"}} className="mb-2 mb-md-4">
                       <div className="entakly-business-services">
                         <p className="my-0">Dubai Airport</p>
@@ -402,7 +404,7 @@ export default function HomePage() {
                         <p className="my-0">AED 150</p>
                       </div>
                     </div>
-                    <div style={{color:"#fff", display: "flex", gap: 10, width:"100%"}} className="mb-3 mb-md-4">
+                    <div style={{color:"#fff", display: "flex", gap: 10, width:"100%"}} className="mb-3 mb-md-5">
                       <div className="entakly-business-services">
                         <p className="my-0">Abu Dhabi Airport</p>
                         <p className="my-0">AED 700</p>

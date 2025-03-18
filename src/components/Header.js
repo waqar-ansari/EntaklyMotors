@@ -11,7 +11,7 @@ import PickupAndDropPicker from "./PickupAndDropPicker";
 import PickerModal from "./modals/PickerModal";
 import { FaUserCircle } from "react-icons/fa";
 import { Modal, Button } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ModalPickerMobile from "./modals/ModalPickerMobile";
 import { useTranslation } from "@/context/LanguageProvider";
 
@@ -19,7 +19,7 @@ const Header = ({ headerPickupAndDrop }) => {
   const [showPicker, setShowPicker] = useState(false);
   const [showPickerModal, setShowPickerModal] = useState(false);
   const [show, setShow] = useState(false);
-
+const dispatch = useDispatch()
   const openPickerModal = () => setShowPickerModal(true);
   const closePickerModal = () => setShowPickerModal(false);
 
@@ -38,7 +38,7 @@ const Header = ({ headerPickupAndDrop }) => {
   const rentalDetail = useSelector((state) => state.rentalDetail);
   console.log(rentalDetail, "rental details");
 const handleNavIconClick =()=>{
-  
+  // dispatch()
 }
   return (
     <div>
