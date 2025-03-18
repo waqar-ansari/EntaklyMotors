@@ -16,10 +16,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useRef, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import ModalPickerMobile from "@/components/modals/ModalPickerMobile";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "@/context/LanguageProvider";
+import { clearSelectedAddons } from "@/redux/slices/selectedAddonSlice";
+import { clearSelectedPackage } from "@/redux/slices/selectedPackageSlice";
 export default function HomePage() {
   const { t, language } = useTranslation();
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(clearSelectedAddons())
+    dispatch(clearSelectedPackage())
+      },[])
   const styles = {
     subHeading: {
       marginBottom: 0,
@@ -110,7 +117,7 @@ export default function HomePage() {
       top: "10px",
       maxWidth: "1320px",
       margin: "0 auto",
-      padding: "20px",
+      padding: "20px 20px 10px 20px",
       background: colors.white,
       borderRadius: 8,
       zIndex: 1,
@@ -131,6 +138,7 @@ export default function HomePage() {
   };
   const rentaldataa = useSelector((state) => state.rentalDetails);
   const [show, setShow] = useState(false);
+
   return (
     <div>
       <div>

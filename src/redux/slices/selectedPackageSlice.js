@@ -14,7 +14,10 @@ const selectedPackageSlice = createSlice({
       };
     },
     clearSelectedPackage() {
-      return initialState;
+      return {
+        packageName: 'Basic Protection',
+        packagePrice: 0,
+      };
     },
   },
 });

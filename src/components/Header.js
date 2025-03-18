@@ -14,12 +14,15 @@ import { Modal, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import ModalPickerMobile from "./modals/ModalPickerMobile";
 import { useTranslation } from "@/context/LanguageProvider";
+import { clearSelectedAddons } from "@/redux/slices/selectedAddonSlice";
+import { clearSelectedPackage } from "@/redux/slices/selectedPackageSlice";
+import { useRouter } from "next/router";
 
 const Header = ({ headerPickupAndDrop }) => {
   const [showPicker, setShowPicker] = useState(false);
   const [showPickerModal, setShowPickerModal] = useState(false);
   const [show, setShow] = useState(false);
-const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const openPickerModal = () => setShowPickerModal(true);
   const closePickerModal = () => setShowPickerModal(false);
 
@@ -37,9 +40,7 @@ const dispatch = useDispatch()
   const token = "abcd";
   const rentalDetail = useSelector((state) => state.rentalDetail);
   console.log(rentalDetail, "rental details");
-const handleNavIconClick =()=>{
-  // dispatch()
-}
+
   return (
     <div>
       <PickerModal showModal={showPickerModal} closeModal={closePickerModal} />
@@ -49,7 +50,7 @@ const handleNavIconClick =()=>{
         <div className="container-xxl">
           <nav className="navbar navbar-expand-lg">
             <div className="container-fluid headerGapInCarsPageMobile">
-              <Link className="navbar-brand py-0 mx-0" href="/" onClick={handleNavIconClick}>
+              <Link className="navbar-brand py-0 mx-0" href="/">
                 <Image
                   src="/icons/entaklyLogo.svg"
                   alt="Logo"
@@ -78,8 +79,14 @@ const handleNavIconClick =()=>{
                           : "Select Return Location"}
                       </p>
                       <p className="mb-0" style={styles.dateAndTime}>
-                        {rentalDetail.pickupDate} | {rentalDetail.pickupTime} -{" "}
-                        {rentalDetail.returnDate} | {rentalDetail.returnTime}
+                        {rentalDetail.pickupDate}{" "}
+                        {rentalDetail.pickupTime
+                          ? `| ${rentalDetail.pickupTime}`
+                          : ""}{" "}
+                        - {rentalDetail.returnDate}{" "}
+                        {rentalDetail.returnTime
+                          ? `| ${rentalDetail.returnTime}`
+                          : ""}
                       </p>
                     </div>
                     <FaPen />

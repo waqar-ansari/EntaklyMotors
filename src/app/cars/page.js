@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import CarCard from "@/components/CarCard";
 import CarDetails from "@/components/CarDetails";
@@ -14,6 +14,8 @@ import {
 } from "@/redux/slices/selectedCarSlice";
 import { useTranslation } from "@/context/LanguageProvider";
 import { AiOutlineClose } from "react-icons/ai";
+import { clearSelectedAddons } from "@/redux/slices/selectedAddonSlice";
+import { clearSelectedPackage } from "@/redux/slices/selectedPackageSlice";
 
 const carsData = [
   {
@@ -83,6 +85,11 @@ export default function CarsPage() {
       }
     }
   };
+useEffect(()=>{
+  dispatch(clearSelectedAddons())
+  dispatch(clearSelectedPackage())
+},[])
+
   const selectedCar = useSelector((state) => state.selectedCar);
   const { t, language } = useTranslation();
   return (

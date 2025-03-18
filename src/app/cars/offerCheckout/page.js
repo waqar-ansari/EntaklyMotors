@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSelectedPackageSlice } from "@/redux/slices/selectedPackageSlice";
 import { calculateTotalPrice } from "@/redux/thunks/totalPriceThunk";
 import { useTranslation } from "@/context/LanguageProvider";
+import { clearSelectedAddons } from "@/redux/slices/selectedAddonSlice";
 
 const page = () => {
   const [selectedPackage, setSelectedPackage] = useState("Basic");
@@ -54,6 +55,9 @@ const page = () => {
   useEffect(() => {
     dispatch(calculateTotalPrice());
   }, [selectedPackage]);
+  useEffect(() => {
+    dispatch(clearSelectedAddons());
+  }, []);
 
   const totalPrice = useSelector((state) => state.totalPrice);
   const calculateNumberOfDays = (startDate, endDate) => {
@@ -77,12 +81,12 @@ const page = () => {
   //     packagePrice: 0,
   //   };
   //   dispatch(setSelectedPackageSlice(defaultPackage));
-  
+
   //   dispatch(calculateTotalPrice());
   // }, []);
 
-  const {t,language} = useTranslation()
-    const styles = {
+  const { t, language } = useTranslation();
+  const styles = {
     nextButton: {
       backgroundColor: colors.themeMain,
       color: colors.white,
@@ -98,7 +102,7 @@ const page = () => {
       cursor: "pointer",
       marginTop: 15,
       marginLeft: language === "ar" ? 0 : 15,
-      marginRight: language === "ar" ? 15 : 0, 
+      marginRight: language === "ar" ? 15 : 0,
     },
     cardContainer: {
       cursor: "pointer",
@@ -143,7 +147,9 @@ const page = () => {
           <div className="col-12">
             <div className="d-flex justify-content-between justify-content-sm-end align-items-center mb-md-4 mb-2">
               <div>
-                <p className="mb-0">{t("total")}: {totalPrice}</p>
+                <p className="mb-0">
+                  {t("total")}: {totalPrice}
+                </p>
                 <PriceDetailsModal />
               </div>
               <Link
@@ -156,11 +162,14 @@ const page = () => {
             </div>
             <div className="d-flex align-items-center mb-md-5 mb-4">
               <IoInformationCircleSharp
-                style={{ fontSize: 20, ...(language==="ar"?{marginLeft: 20}:{marginRight: 20}) }}
+                style={{
+                  fontSize: 20,
+                  ...(language === "ar"
+                    ? { marginLeft: 20 }
+                    : { marginRight: 20 }),
+                }}
               />
-              <p className="mb-0">
-                {t("drivers_must_have_held")}
-              </p>
+              <p className="mb-0">{t("drivers_must_have_held")}</p>
             </div>
           </div>
         </div>
@@ -261,7 +270,4 @@ const page = () => {
   );
 };
 
-
 export default page;
-
-

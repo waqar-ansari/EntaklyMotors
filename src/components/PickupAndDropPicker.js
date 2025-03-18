@@ -27,6 +27,8 @@ import { HiMiniHome } from "react-icons/hi2";
 import { useDispatch, useSelector } from "react-redux";
 import { setRentalDetailDataSlice } from "@/redux/slices/rentalDetailSlice";
 import { useTranslation } from "../context/LanguageProvider";
+import { useRouter } from "next/navigation";
+
 
 const PickupAndDropPicker = ({
   heading = true,
@@ -54,9 +56,11 @@ const PickupAndDropPicker = ({
   const [pickupLocationModal, setPickupLocationModal] = useState(false);
   const [returnLocationModal, setReturnLocationModal] = useState(false);
   const [showLocationHeading, setShowLocationHeading] = useState("");
+  const [error, setError] = useState("");
   const [activeInput, setActiveInput] = useState(null);
   const pickerRef = useRef(null);
   const showLocationsRef = useRef(null);
+  const router = useRouter();
   const loactionData = [
     {
       locationName: "Dubai International Airport Terminal 1",
@@ -134,6 +138,7 @@ const PickupAndDropPicker = ({
 
     if (activeInput === "pickup") {
       setPickupLocation(item.locationName);
+      setError("")
     } else if (activeInput === "drop") {
       setReturnLocation(item.locationName);
     }
@@ -209,29 +214,55 @@ const PickupAndDropPicker = ({
         year: "numeric",
       })
     : "";
-  const handleShowCarsClick = () => {
+  // const handleShowCarsClick = () => {
+  //   const rentalData = {
+  //     pickupLocation: pickupLocation || rentalDetails.pickupLocation,
+  //     returnLocation: returnLocation || rentalDetails.returnLocation || pickupLocation,
+  //     pickupDate: pickupDate || rentalDetails.pickupDate,
+  //     returnDate: returnDate || rentalDetails.returnDate,
+  //     pickupTime: pickupTime || rentalDetails.pickupTime,
+  //     returnTime: returnTime || rentalDetails.returnTime,
+  //   };
+  //   dispatch(setRentalDetailDataSlice(rentalData));
+  //   if (onShowCarsClick) {
+  //     onShowCarsClick(); // Trigger the prop function passed from the parent
+  //   }
+  // };
+
+  const handleShowCarsClick = (e) => {
+    if (!pickupLocation) {
+      setError("Please select a pickup location.");
+      e.preventDefault(); // Prevent the link from navigating
+      return;
+    }
+
+    setError(""); // Clear previous errors
+
     const rentalData = {
       pickupLocation: pickupLocation || rentalDetails.pickupLocation,
-      returnLocation: returnLocation || rentalDetails.returnLocation,
+      returnLocation: returnLocation || rentalDetails.returnLocation || pickupLocation,
       pickupDate: pickupDate || rentalDetails.pickupDate,
       returnDate: returnDate || rentalDetails.returnDate,
       pickupTime: pickupTime || rentalDetails.pickupTime,
       returnTime: returnTime || rentalDetails.returnTime,
     };
+
     dispatch(setRentalDetailDataSlice(rentalData));
+
     if (onShowCarsClick) {
       onShowCarsClick(); // Trigger the prop function passed from the parent
     }
-  };
 
+    router.push('/cars'); // Manually navigate only if valid
+  };
   const { t, language } = useTranslation();
   return (
     <div>
       {heading && <p style={styles.heading}>{t("rent_a_car")}</p>}
-
+     
       <div
         className="d-md-flex justify-content-center pickupAndDropPicker flex-wrap position-relative "
-        style={{ gap: "15px" }}
+        style={{ gap: "15px", paddingBottom: error ? "0px" : "24px" }}
       >
         {showLocations && (
           <div
@@ -371,6 +402,8 @@ const PickupAndDropPicker = ({
             <label htmlFor="returnLocation">{t("return")}</label>
           </div>
         </div>
+        
+
         <div className="mb-0 input-group customInputGroup mobDisplayNone ">
           <span className="input-group-text">
             <FaCar />
@@ -626,15 +659,16 @@ const PickupAndDropPicker = ({
           {t("show_cars")}
         </Link>
         {showCarsButton && (
-          <Link
-            href="/cars"
+          <button
+            // href="/cars"
             onClick={handleShowCarsClick}
             style={styles.showCarsBtn}
           >
             {t("show_cars")}
-          </Link>
+          </button>
         )}
       </div>
+      {error && <p style={{ color: "red", marginLeft:40, marginBottom:0 }}>{error}</p>}
       <Modal
         show={showDateModal}
         onHide={() => setShowDateModal(false)}

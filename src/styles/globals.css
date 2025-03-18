@@ -269,7 +269,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
 }
 
 .marginTopHeroImage {
-  margin-top: -183px;
+  margin-top: -197;
 }
 
 .datePickerGroup {
@@ -337,7 +337,7 @@ span.input-group-text {
   overflow: visible !important;
 }
 .sec-6-box-container{
-  width: 100%;
+  width: 90%;
 }
 @media (min-width: 1200px) {}
 
