@@ -344,7 +344,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      <div className="container-fluid" id="pickUpAndDropoff">
+      <div className="container" id="pickUpAndDropoff">
         <div className="row justify-content-center">
           <div style={styles.moreEntakly} className="sec-6">
             <p style={styles.heading} className="secHeading text-uppercase">
@@ -359,7 +359,7 @@ export default function HomePage() {
               //   alignItems: "center",
               // }}
               // className="sec-6-width"
-              className="col-12 col-md-3 mx-auto d-flex justify-content-center align-items-center"
+              className="col-12 col-md-4 mx-auto d-flex justify-content-center align-items-center"
               style={{ position: "relative" }}
             >
               <Image
