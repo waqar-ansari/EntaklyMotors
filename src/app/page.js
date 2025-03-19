@@ -387,7 +387,7 @@ export default function HomePage() {
               >
                 <div
                   style={styles.textContainer2}
-                  className="textContainer d-flex justify-content-between flex-column align-items-center"
+                  className="textContainer d-flex justify-content-between flex-column align-items-center w-100"
                 >
                   <div>
                     <p style={styles.imageHeading2} className="heading">
