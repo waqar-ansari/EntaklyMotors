@@ -21,8 +21,8 @@ const OfferCheckoutCard = ({
   onPackageClick,
   selectedPackage,
   packagePrice,
-  liTicks = [],
-  liCross = [],
+  packagePros = [],
+  packageCons = [],
 }) => {
   const [stars, setStars] = useState(numberOfStars);
 const {t,language} = useTranslation()
@@ -92,7 +92,7 @@ const {t,language} = useTranslation()
           </div>
         </div>
         <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
-          {liTicks.map((item, index) => {
+          {packagePros.map((item, index) => {
             return (
               <div className="liContainer" key={index}>
                 <li className="liTick">{item}</li>
@@ -106,7 +106,7 @@ const {t,language} = useTranslation()
               </div>
             );
           })}
-          {liCross.map((item, index) => {
+          {packageCons.map((item, index) => {
             return (
               <div className="liContainer" key={index}>
                 <li className="liCross">{item}</li>

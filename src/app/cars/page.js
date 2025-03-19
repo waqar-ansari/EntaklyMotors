@@ -16,6 +16,7 @@ import { useTranslation } from "@/context/LanguageProvider";
 import { AiOutlineClose } from "react-icons/ai";
 import { clearSelectedAddons } from "@/redux/slices/selectedAddonSlice";
 import { clearSelectedPackage } from "@/redux/slices/selectedPackageSlice";
+import { setBookingOverview } from "@/redux/slices/bookingOverviewSlice";
 
 const carsData = [
   {
@@ -23,50 +24,64 @@ const carsData = [
     name: "Premium (BMW 2 Series)",
     image: "/images/car4.png",
     price: 175,
+    km_included: 100,
+    km_price: 0.5,
   },
   {
     id: 2,
     name: "Luxury (BMW 3 Series)",
     image: "/images/car4.png",
     price: 184,
+    km_included: 150,
+    km_price: 1.5,
   },
   {
     id: 3,
     name: "Standard (Chevrolet Blazer)",
     image: "/images/car4.png",
     price: 199,
+    km_included: 200,
+    km_price: 1.0,
   },
   {
     id: 4,
     name: "Luxury (Mercedes C-Class)",
     image: "/images/car4.png",
     price: 200,
+    km_included: 180,
+    km_price: 2.0,
   },
   {
     id: 5,
     name: "SUV (Toyota Highlander)",
     image: "/images/car4.png",
     price: 190,
+    km_included: 250,
+    km_price: 2.2,
   },
   {
     id: 6,
     name: "Electric (Tesla Model 3)",
     image: "/images/car4.png",
     price: 210,
+    km_included: 100,
+    km_price: 1.8,
   },
 ];
 
 export default function CarsPage() {
   const [selectedCarId, setSelectedCarId] = useState(null);
   const [showModal, setShowModal] = useState(false);
+const bookingOverview = useSelector((state) => state.bookingOverview);
+console.log(bookingOverview,"bookingOverview");
 
   const dispatch = useDispatch();
-  // Check for mobile screen size
   const isMobile =
     typeof window !== "undefined" &&
     window.matchMedia("(max-width: 991px)").matches;
 
   const handleCarClick = (car) => {
+    
     if (selectedCarId === car.id) {
       setSelectedCarId(null);
       dispatch(clearSelectedCar());
@@ -79,16 +94,19 @@ export default function CarsPage() {
         image: car.image,
         price: car.price,
       };
+      const bookingOverviewForSelectedCar = [`${car.km_included} km are included, each additional kilometer costs AED ${car.km_price}`];
+      // bookingOverviewForSelectedCar.map((item) => dispatch(setBookingOverview(item)));
+      dispatch(setBookingOverview(bookingOverviewForSelectedCar));
       dispatch(setSelectedCar(selectedCarDetails));
       if (isMobile) {
         setShowModal(true);
       }
     }
   };
-useEffect(()=>{
-  dispatch(clearSelectedAddons())
-  dispatch(clearSelectedPackage())
-},[])
+  useEffect(() => {
+    dispatch(clearSelectedAddons());
+    dispatch(clearSelectedPackage());
+  }, []);
 
   const selectedCar = useSelector((state) => state.selectedCar);
   const { t, language } = useTranslation();
@@ -111,7 +129,6 @@ useEffect(()=>{
 
         <CustomDropdown title={t("sort_by")} /> */}
 
-        {/* For mobile, render just a simple list of car cards */}
         {isMobile ? (
           <div className="row">
             {carsData.map((car) => (
@@ -125,7 +142,6 @@ useEffect(()=>{
             ))}
           </div>
         ) : (
-          // For larger screens, use the reduce function to group cars into rows
           carsData
             .reduce((rows, car, index) => {
               if (index % 3 === 0) {
@@ -149,7 +165,6 @@ useEffect(()=>{
                   </div>
                 ))}
 
-                {/* Render Car Details below the row on large screens */}
                 {!isMobile &&
                   selectedCarId &&
                   row.some((car) => car.id === selectedCarId) && (
@@ -168,7 +183,6 @@ useEffect(()=>{
         )}
       </div>
 
-      {/* Modal for smaller screens */}
       <Modal
         show={showModal}
         onHide={() => setShowModal(false)}

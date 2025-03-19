@@ -25,10 +25,9 @@ import { TbArrowBack } from "react-icons/tb";
 import { HiMiniBuildingLibrary } from "react-icons/hi2";
 import { HiMiniHome } from "react-icons/hi2";
 import { useDispatch, useSelector } from "react-redux";
-import { setRentalDetailDataSlice } from "@/redux/slices/rentalDetailSlice";
+import { clearRentalDetail, setRentalDetailDataSlice } from "@/redux/slices/rentalDetailSlice";
 import { useTranslation } from "../context/LanguageProvider";
 import { useRouter } from "next/navigation";
-
 
 const PickupAndDropPicker = ({
   heading = true,
@@ -93,13 +92,16 @@ const PickupAndDropPicker = ({
       locationIcon: <IoMdAirplane />,
     },
   ];
+  console.log(pickupTime, "pickup time");
 
   useEffect(() => {
     const pickupDate = new Date();
+    pickupDate.setDate(pickupDate.getDate() + 1);
     const returnDate = new Date(pickupDate);
     returnDate.setDate(pickupDate.getDate() + 2);
-
     setRange([pickupDate, returnDate]);
+    setPickupTime("10:00 AM");
+    setReturnTime("10:00 AM");
   }, []);
 
   const openDatePicker = () => {
@@ -138,7 +140,7 @@ const PickupAndDropPicker = ({
 
     if (activeInput === "pickup") {
       setPickupLocation(item.locationName);
-      setError("")
+      setError("");
     } else if (activeInput === "drop") {
       setReturnLocation(item.locationName);
     }
@@ -230,17 +232,18 @@ const PickupAndDropPicker = ({
   // };
 
   const handleShowCarsClick = (e) => {
-    if (!pickupLocation) {
+    if (!pickupLocation && !rentalDetails.pickupLocation) {
       setError("Please select a pickup location.");
-      e.preventDefault(); // Prevent the link from navigating
+      e.preventDefault();
       return;
     }
 
-    setError(""); // Clear previous errors
+    setError("");
 
     const rentalData = {
       pickupLocation: pickupLocation || rentalDetails.pickupLocation,
-      returnLocation: returnLocation || rentalDetails.returnLocation || pickupLocation,
+      returnLocation:
+        returnLocation || rentalDetails.returnLocation || pickupLocation,
       pickupDate: pickupDate || rentalDetails.pickupDate,
       returnDate: returnDate || rentalDetails.returnDate,
       pickupTime: pickupTime || rentalDetails.pickupTime,
@@ -253,13 +256,13 @@ const PickupAndDropPicker = ({
       onShowCarsClick(); // Trigger the prop function passed from the parent
     }
 
-    router.push('/cars'); // Manually navigate only if valid
+    router.push("/cars"); // Manually navigate only if valid
   };
   const { t, language } = useTranslation();
   return (
     <div>
       {heading && <p style={styles.heading}>{t("rent_a_car")}</p>}
-     
+
       <div
         className="d-md-flex justify-content-center pickupAndDropPicker flex-wrap position-relative "
         style={{ gap: "15px", paddingBottom: error ? "0px" : "24px" }}
@@ -402,7 +405,6 @@ const PickupAndDropPicker = ({
             <label htmlFor="returnLocation">{t("return")}</label>
           </div>
         </div>
-        
 
         <div className="mb-0 input-group customInputGroup mobDisplayNone ">
           <span className="input-group-text">
@@ -668,7 +670,9 @@ const PickupAndDropPicker = ({
           </button>
         )}
       </div>
-      {error && <p style={{ color: "red", marginLeft:40, marginBottom:0 }}>{error}</p>}
+      {error && (
+        <p style={{ color: "red", marginLeft: 40, marginBottom: 0 }}>{error}</p>
+      )}
       <Modal
         show={showDateModal}
         onHide={() => setShowDateModal(false)}

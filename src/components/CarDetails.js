@@ -27,8 +27,8 @@ export default function CarDetails({ car, onClose }) {
   const closeModal = () => {
     setShowBestPriceModal(false);
   };
-  const rentalDetails = useSelector((state)=>state.rentalDetail)
-  const selectedCarDetails = useSelector((state)=>state.selectedCar)
+  const rentalDetails = useSelector((state) => state.rentalDetail);
+  const selectedCarDetails = useSelector((state) => state.selectedCar);
   const calculateNumberOfDays = (startDate, endDate) => {
     const start = new Date(startDate);
     const end = new Date(endDate);
@@ -40,7 +40,7 @@ export default function CarDetails({ car, onClose }) {
     rentalDetails.pickupDate,
     rentalDetails.returnDate
   );
-  const{t, language} = useTranslation()
+  const { t, language } = useTranslation();
   return (
     <>
       <div className="carDetails">
@@ -81,7 +81,8 @@ export default function CarDetails({ car, onClose }) {
               </div>
               <div className="text-center">
                 <p>
-                  <FaRegIdCard style={styles.iconStyles} /> {t("minimum_age_of_youngest_driver")}
+                  <FaRegIdCard style={styles.iconStyles} />{" "}
+                  {t("minimum_age_of_youngest_driver")}
                 </p>
               </div>
             </div>
@@ -107,12 +108,10 @@ export default function CarDetails({ car, onClose }) {
               <div className="infoContent">
                 <div>
                   <strong>{t("stay_flexible")}</strong>
-                  <p className="mb-0">
-                    {t("pay_online_free_cancellation")}
-                  </p>
+                  <p className="mb-0">{t("pay_online_free_cancellation")}</p>
                 </div>
                 <span style={styles.included}>
-                {t("included")}
+                  {t("included")}
                   <IoInformationCircleOutline
                     style={{
                       fontWeight: 800,
@@ -153,8 +152,10 @@ export default function CarDetails({ car, onClose }) {
             <div className="infoBox">
               <div className="infoContent">
                 <div>
-                  <strong>200 km</strong>
-                  <p className="mb-0">+AED 1.50 / {t("for_every_additional_km")}</p>
+                  <strong>{car.km_included} km</strong>
+                  <p className="mb-0">
+                    +AED {car.km_price} / {t("for_every_additional_km")}
+                  </p>
                 </div>
                 <span style={styles.included}>{t("included")}</span>
               </div>
@@ -185,10 +186,13 @@ export default function CarDetails({ car, onClose }) {
                   AED / day
                 </span>
               </span> */}
-              <p style={{marginBottom:5}}>{t("total")} : {numberOfRentalDays*selectedCarDetails.price +400}</p>
+              <p style={{ marginBottom: 5 }}>
+                {t("total")} :{" "}
+                {numberOfRentalDays * selectedCarDetails.price + 400}
+              </p>
               <div>
-              <p className="tagStyleCarDetails">Best Deal</p>
-            </div>
+                <p className="tagStyleCarDetails">Best Deal</p>
+              </div>
 
               <PriceDetailsModal />
             </div>

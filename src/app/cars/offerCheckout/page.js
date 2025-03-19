@@ -18,6 +18,7 @@ import { setSelectedPackageSlice } from "@/redux/slices/selectedPackageSlice";
 import { calculateTotalPrice } from "@/redux/thunks/totalPriceThunk";
 import { useTranslation } from "@/context/LanguageProvider";
 import { clearSelectedAddons } from "@/redux/slices/selectedAddonSlice";
+import { setBookingOverview } from "@/redux/slices/bookingOverviewSlice";
 
 const page = () => {
   const [selectedPackage, setSelectedPackage] = useState("Basic");
@@ -46,10 +47,61 @@ const page = () => {
     "Roadside Protection",
   ];
 
+  const packages = [
+    {
+      packageName: "Basic",
+      heading: "Basic Protection",
+      packagePrice: 0,
+      numberOfStars: "1",
+      excessAmount: "3,000.00",
+      footer: "Included",
+      packagePros: ["Loss Damage Waiver"],
+      packageCons: [
+        "Tyre and Windscreen Protection",
+        "Interior Protection",
+        "Personal Accident Protection",
+        "Roadside Protection",
+      ],
+    },
+    {
+      packageName: "Gold",
+      heading: "Smart Protection",
+      packagePrice: 40,
+      extraInfo: "(Minimum age 25)",
+      numberOfStars: "2",
+      footer: "40 Aed/day",
+      discount: "-19% online discount",
+      packagePros: ["Loss Damage Waiver", "Tyre and Windscreen Protection"],
+      packageCons: [
+        "Interior Protection",
+        "Personal Accident Protection",
+        "Roadside Protection",
+      ],
+    },
+    {
+      packageName: "Platinum",
+      heading: "All Inclusive Protection",
+      extraInfo: "(Minimum age 25)",
+      packagePrice: 80,
+      numberOfStars: "3",
+      footer: "80 Aed/day",
+      discount: "-35% online discount",
+      packagePros: [
+        "Loss Damage Waiver",
+        "Tyre and Windscreen Protection",
+        "Interior Protection",
+        "Personal Accident Protection",
+        "Roadside Protection",
+      ],
+      packageCons: [],
+    },
+  ];
+
   const dispatch = useDispatch();
   const platinumPackageCross = [];
   const handlePackageClick = (packageName, packagePrice) => {
     setSelectedPackage(packageName);
+    // dispatch(setBookingOverview(["dfsdf"]))
     dispatch(setSelectedPackageSlice({ packageName, packagePrice }));
   };
   useEffect(() => {
@@ -84,6 +136,7 @@ const page = () => {
 
   //   dispatch(calculateTotalPrice());
   // }, []);
+  const bookingOverview = useSelector((state) => state.bookingOverview);
 
   const { t, language } = useTranslation();
   const styles = {
@@ -174,7 +227,25 @@ const page = () => {
           </div>
         </div>
         <div className="row mb-5">
-          <div className="col-md-4 mb-4 col-sm-6 col-12 d-flex">
+          {packages.map((protectionsPackage, index) => {
+            return (
+              <div className="col-md-4 mb-4 col-sm-6 col-12 d-flex" key={index}>
+                <OfferCheckoutCard
+                  packageName={protectionsPackage.packageName}
+                  heading={protectionsPackage.heading}
+                  packagePrice={protectionsPackage.packagePrice}
+                  numberOfStars={protectionsPackage.numberOfStars}
+                  excessAmount={protectionsPackage.excessAmount}
+                  footer={protectionsPackage.footer}
+                  selectedPackage={selectedPackage}
+                  onPackageClick={handlePackageClick}
+                  packagePros={protectionsPackage.packagePros}
+                  packageCons={protectionsPackage.packageCons}
+                />
+              </div>
+            );
+          })}
+          {/* <div className="col-md-4 mb-4 col-sm-6 col-12 d-flex">
             <OfferCheckoutCard
               packageName="Basic"
               heading="Basic Protection"
@@ -184,8 +255,8 @@ const page = () => {
               footer="Included"
               selectedPackage={selectedPackage}
               onPackageClick={handlePackageClick}
-              liTicks={basicPacageTicks}
-              liCross={basicPackageCross}
+              packagePros={basicPacageTicks}
+              packageCons={basicPackageCross}
             />
           </div>
           <div className="col-md-4 mb-4 col-sm-6 col-12 d-flex">
@@ -199,8 +270,8 @@ const page = () => {
               discount="-19% online discount"
               selectedPackage={selectedPackage}
               onPackageClick={handlePackageClick}
-              liTicks={goldPackageTicks}
-              liCross={goldPackageCross}
+              packagePros={goldPackageTicks}
+              packageCons={goldPackageCross}
             />
           </div>
           <div className="col-md-4 mb-4 col-sm-6 col-12 d-flex">
@@ -214,10 +285,10 @@ const page = () => {
               discount="-35% online discount"
               selectedPackage={selectedPackage}
               onPackageClick={handlePackageClick}
-              liTicks={platinumPackageTicks}
-              liCross={platinumPackageCross}
+              packagePros={platinumPackageTicks}
+              packageCons={platinumPackageCross}
             />
-          </div>
+          </div> */}
         </div>
         <div className="row mb-5">
           <div className="col-md-6">
@@ -228,39 +299,20 @@ const page = () => {
               style={{ listStyleType: "none", paddingLeft: 0 }}
               className="bookingOverview"
             >
-              <div className="liContainer">
-                <li className="liTick">Third party insurance</li>
-                <Whisper
-                  placement="left"
-                  trigger="hover"
-                  speaker={<Tooltip>Information Information</Tooltip>}
-                >
-                  <IoInformationCircleOutline style={styles.iIcon} />
-                </Whisper>
-              </div>
-              <div className="liContainer">
-                <li className="liTick">
-                  Loss Damage Waiver up to AED 3,000.00 financial responsibility
-                </li>
-              </div>
-              <div className="liContainer">
-                <li className="liTick">
-                  600 km are included, each additional kilometer costs AED 1.35
-                </li>
-                <Whisper
-                  placement="left"
-                  trigger="hover"
-                  speaker={<Tooltip>Information Information</Tooltip>}
-                >
-                  <IoInformationCircleOutline style={styles.iIcon} />
-                </Whisper>
-              </div>
-              <div className="liContainer">
-                <li className="liTick">
-                  Booking option: Best price - Pay now, cancel and rebook for a
-                  fee
-                </li>
-              </div>
+              {bookingOverview.map((item, index) => {
+                return (
+                  <div className="liContainer" key={index}>
+                    <li className="liTick">{item}</li>
+                    <Whisper
+                      placement="left"
+                      trigger="hover"
+                      speaker={<Tooltip>Information Information</Tooltip>}
+                    >
+                      <IoInformationCircleOutline style={styles.iIcon} />
+                    </Whisper>
+                  </div>
+                );
+              })}
             </ul>
           </div>
         </div>
