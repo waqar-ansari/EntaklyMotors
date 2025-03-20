@@ -425,10 +425,14 @@ export default function HomePage() {
                         <p className="my-0">Sharjah Airport</p>
                         <p className="my-0">AED 300</p>
                       </Link>
-                      <div className="entakly-business-services">
+                      <Link
+                        href="https://buy.stripe.com/28o14Jd7ugYw4PmdQT"
+                        target="_blank"
+                        className="entakly-business-services text-decoration-none text-white"
+                      >
                         <p className="my-0">Al Maktoum Airport</p>
                         <p className="my-0">AED 150</p>
-                      </div>
+                      </Link>
                     </div>
                     <div
                       style={{
@@ -439,18 +443,30 @@ export default function HomePage() {
                       }}
                       className="mb-3 mb-md-5"
                     >
-                      <div className="entakly-business-services">
+                      <Link
+                        href="https://buy.stripe.com/dR66p33wUbEc4PmfZ2"
+                        target="_blank"
+                        className="entakly-business-services text-decoration-none text-white"
+                      >
                         <p className="my-0">Abu Dhabi Airport</p>
                         <p className="my-0">AED 700</p>
-                      </div>
-                      <div className="entakly-business-services">
+                      </Link>
+                      <Link
+                        href="https://buy.stripe.com/9AQ00F6J69w4gy4dQV"
+                        target="_blank"
+                        className="entakly-business-services text-decoration-none text-white"
+                      >
                         <p className="my-0">10 hours/day</p>
-                        <p className="my-0">AED 700</p>
-                      </div>
-                      <div className="entakly-business-services">
+                        <p className="my-0">AED 800</p>
+                      </Link>
+                      <Link
+                        href="https://buy.stripe.com/dR64gV9Vi23CchObIK"
+                        target="_blank"
+                        className="entakly-business-services text-decoration-none text-white"
+                      >
                         <p className="my-0">Inside Dubai</p>
                         <p className="my-0">AED 100</p>
-                      </div>
+                      </Link>
                     </div>
                     <Link
                       href="https://wa.me/+971044536000"
@@ -478,8 +494,8 @@ export default function HomePage() {
             />
             <div style={styles.textContainer3} className="imageText">
               <p style={styles.imageHeading3} className="textOnImage">
-              {t("amazing_experience_with_entakly")} <br/>
-              {t("we_provide_amazing_car")}
+                {t("amazing_experience_with_entakly")} <br />
+                {t("we_provide_amazing_car")}
               </p>
               {/* <p style={styles.imageText} className="sub-text">
                 {t("dubai")}
