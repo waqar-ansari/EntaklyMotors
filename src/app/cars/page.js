@@ -16,7 +16,7 @@ import { useTranslation } from "@/context/LanguageProvider";
 import { AiOutlineClose } from "react-icons/ai";
 import { clearSelectedAddons } from "@/redux/slices/selectedAddonSlice";
 import { clearSelectedPackage } from "@/redux/slices/selectedPackageSlice";
-import { setBookingOverview } from "@/redux/slices/bookingOverviewSlice";
+import { setCarBookingOverview } from "@/redux/slices/bookingOverviewSlice";
 
 const carsData = [
   {
@@ -72,8 +72,7 @@ const carsData = [
 export default function CarsPage() {
   const [selectedCarId, setSelectedCarId] = useState(null);
   const [showModal, setShowModal] = useState(false);
-const bookingOverview = useSelector((state) => state.bookingOverview);
-console.log(bookingOverview,"bookingOverview");
+  const bookingOverview = useSelector((state) => state.bookingOverview);
 
   const dispatch = useDispatch();
   const isMobile =
@@ -81,7 +80,6 @@ console.log(bookingOverview,"bookingOverview");
     window.matchMedia("(max-width: 991px)").matches;
 
   const handleCarClick = (car) => {
-    
     if (selectedCarId === car.id) {
       setSelectedCarId(null);
       dispatch(clearSelectedCar());
@@ -94,9 +92,11 @@ console.log(bookingOverview,"bookingOverview");
         image: car.image,
         price: car.price,
       };
-      const bookingOverviewForSelectedCar = [`${car.km_included} km are included, each additional kilometer costs AED ${car.km_price}`];
+      const bookingOverviewForSelectedCar = [
+        `${car.km_included} km are included, each additional kilometer costs AED ${car.km_price}`,
+      ];
       // bookingOverviewForSelectedCar.map((item) => dispatch(setBookingOverview(item)));
-      dispatch(setBookingOverview(bookingOverviewForSelectedCar));
+      dispatch(setCarBookingOverview(bookingOverviewForSelectedCar));
       dispatch(setSelectedCar(selectedCarDetails));
       if (isMobile) {
         setShowModal(true);

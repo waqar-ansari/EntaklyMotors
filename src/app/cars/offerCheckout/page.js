@@ -18,34 +18,34 @@ import { setSelectedPackageSlice } from "@/redux/slices/selectedPackageSlice";
 import { calculateTotalPrice } from "@/redux/thunks/totalPriceThunk";
 import { useTranslation } from "@/context/LanguageProvider";
 import { clearSelectedAddons } from "@/redux/slices/selectedAddonSlice";
-import { setBookingOverview } from "@/redux/slices/bookingOverviewSlice";
+import { selectBookingOverview, setPackageBookingOverview } from "@/redux/slices/bookingOverviewSlice";
 
 const page = () => {
   const [selectedPackage, setSelectedPackage] = useState("Basic");
 
-  const basicPacageTicks = ["Loss Damage Waiver"];
-  const basicPackageCross = [
-    "Tyre and Windscreen Protection",
-    "Interior Protection",
-    "Personal Accident Protection",
-    "Roadside Protection",
-  ];
-  const goldPackageTicks = [
-    "Loss Damage Waiver",
-    "Tyre and Windscreen Protection",
-  ];
-  const goldPackageCross = [
-    "Interior Protection",
-    "Personal Accident Protection",
-    "Roadside Protection",
-  ];
-  const platinumPackageTicks = [
-    "Loss Damage Waiver",
-    "Tyre and Windscreen Protection",
-    "Interior Protection",
-    "Personal Accident Protection",
-    "Roadside Protection",
-  ];
+  // const basicPacageTicks = ["Loss Damage Waiver"];
+  // const basicPackageCross = [
+  //   "Tyre and Windscreen Protection",
+  //   "Interior Protection",
+  //   "Personal Accident Protection",
+  //   "Roadside Protection",
+  // ];
+  // const goldPackageTicks = [
+  //   "Loss Damage Waiver",
+  //   "Tyre and Windscreen Protection",
+  // ];
+  // const goldPackageCross = [
+  //   "Interior Protection",
+  //   "Personal Accident Protection",
+  //   "Roadside Protection",
+  // ];
+  // const platinumPackageTicks = [
+  //   "Loss Damage Waiver",
+  //   "Tyre and Windscreen Protection",
+  //   "Interior Protection",
+  //   "Personal Accident Protection",
+  //   "Roadside Protection",
+  // ];
 
   const packages = [
     {
@@ -54,6 +54,7 @@ const page = () => {
       packagePrice: 0,
       numberOfStars: "1",
       excessAmount: "3,000.00",
+      overview:"Basic Protection - Excess: up to AED3,000.00",
       footer: "Included",
       packagePros: ["Loss Damage Waiver"],
       packageCons: [
@@ -69,6 +70,7 @@ const page = () => {
       packagePrice: 40,
       extraInfo: "(Minimum age 25)",
       numberOfStars: "2",
+      overview:"Smart Protection - No excess",
       footer: "40 Aed/day",
       discount: "-19% online discount",
       packagePros: ["Loss Damage Waiver", "Tyre and Windscreen Protection"],
@@ -83,6 +85,7 @@ const page = () => {
       heading: "All Inclusive Protection",
       extraInfo: "(Minimum age 25)",
       packagePrice: 80,
+      overview:"All Inclusive Protection - No excess",
       numberOfStars: "3",
       footer: "80 Aed/day",
       discount: "-35% online discount",
@@ -97,11 +100,15 @@ const page = () => {
     },
   ];
 
+
   const dispatch = useDispatch();
   const platinumPackageCross = [];
-  const handlePackageClick = (packageName, packagePrice) => {
+  const handlePackageClick = (packageName, packagePrice,overview) => {
     setSelectedPackage(packageName);
-    // dispatch(setBookingOverview(["dfsdf"]))
+
+    console.log(overview,"overviewww");
+    
+    dispatch(setPackageBookingOverview([`${overview}`]));
     dispatch(setSelectedPackageSlice({ packageName, packagePrice }));
   };
   useEffect(() => {
@@ -109,8 +116,20 @@ const page = () => {
   }, [selectedPackage]);
   useEffect(() => {
     dispatch(clearSelectedAddons());
+    dispatch(setPackageBookingOverview([]))
   }, []);
 
+  useEffect(() => {
+    const defaultPackage = packages.find(pkg => pkg.packageName === "Basic");
+  
+    if (defaultPackage) {
+      dispatch(setPackageBookingOverview([defaultPackage.overview]));
+      dispatch(setSelectedPackageSlice({
+        packageName: defaultPackage.packageName,
+        packagePrice: defaultPackage.packagePrice,
+      }));
+    }
+  }, [dispatch]);
   const totalPrice = useSelector((state) => state.totalPrice);
   const calculateNumberOfDays = (startDate, endDate) => {
     const start = new Date(startDate);
@@ -136,7 +155,8 @@ const page = () => {
 
   //   dispatch(calculateTotalPrice());
   // }, []);
-  const bookingOverview = useSelector((state) => state.bookingOverview);
+  // const bookingOverview = useSelector((state) => state.selectBookingOverview);
+  const bookingOverview = useSelector(selectBookingOverview);
 
   const { t, language } = useTranslation();
   const styles = {
@@ -238,7 +258,12 @@ const page = () => {
                   excessAmount={protectionsPackage.excessAmount}
                   footer={protectionsPackage.footer}
                   selectedPackage={selectedPackage}
-                  onPackageClick={handlePackageClick}
+                  // onPackageClick={handlePackageClick}
+                  onPackageClick={() => handlePackageClick(
+                    protectionsPackage.packageName,
+                    protectionsPackage.packagePrice,
+                    protectionsPackage.overview
+                  )}
                   packagePros={protectionsPackage.packagePros}
                   packageCons={protectionsPackage.packageCons}
                 />

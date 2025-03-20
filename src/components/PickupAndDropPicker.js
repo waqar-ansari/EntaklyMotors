@@ -92,7 +92,6 @@ const PickupAndDropPicker = ({
       locationIcon: <IoMdAirplane />,
     },
   ];
-  console.log(pickupTime, "pickup time");
 
   useEffect(() => {
     const pickupDate = new Date();

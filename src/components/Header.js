@@ -39,7 +39,6 @@ const Header = ({ headerPickupAndDrop }) => {
   const { t, language } = useTranslation();
   const token = "abcd";
   const rentalDetail = useSelector((state) => state.rentalDetail);
-  console.log(rentalDetail, "rental details");
 
   return (
     <div>

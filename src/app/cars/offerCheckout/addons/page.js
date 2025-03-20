@@ -19,6 +19,10 @@ import { setSelectedAddon } from "@/redux/slices/selectedAddonSlice";
 import { calculateTotalPrice } from "@/redux/thunks/totalPriceThunk";
 import { fonts } from "../../../../../public/fonts/fonts";
 import { useTranslation } from "@/context/LanguageProvider";
+import {
+  selectBookingOverview,
+  setAddonBookingOverview,
+} from "@/redux/slices/bookingOverviewSlice";
 
 const addons = [
   {
@@ -52,49 +56,46 @@ const page = () => {
 
   const dispatch = useDispatch();
 
-
-  // const toggleAddon = (addon) => {
-  //   setActiveAddons((prev) => {
-  //     const isSelected = !prev[addon.id]; // Toggle selection
-  
-  //     return {
-  //       ...prev,
-  //       [addon.id]: isSelected, // Toggle selection state
-  //       addonDetails: isSelected
-  //         ? [...(prev.addonDetails || []), { name: addon.addonName, price: addon.addonPrice }]
-  //         : (prev.addonDetails || []).filter(item => item.price !== addon.addonPrice), // Remove if deselected
-  //     };
-  //   });
-  // };
   const toggleAddon = (addon) => {
     setActiveAddons((prev) => {
-      const isSelected = !prev[addon.id]; // Toggle selection state
-      
-      // Update the addonDetails array based on selection state
+      const isSelected = !prev[addon.id];
+
       const updatedAddonDetails = isSelected
-        ? [...(prev.addonDetails || []), { id: addon.id, name: addon.addonName, price: addon.addonPrice }]
-        : (prev.addonDetails || []).filter(item => item.id !== addon.id); // Remove addon if deselected
-  
+        ? [
+            ...(prev.addonDetails || []),
+            { id: addon.id, name: addon.addonName, price: addon.addonPrice },
+          ]
+        : (prev.addonDetails || []).filter((item) => item.id !== addon.id);
+      const updatedAddonBookingOverview = isSelected
+        ? [...(prev.addonBookingOverview || []), addon.overview]
+        : (prev.addonBookingOverview || []).filter(
+            (overview) => overview !== addon.overview
+          );
+
+      dispatch(setAddonBookingOverview(updatedAddonBookingOverview));
       return {
         ...prev,
-        [addon.id]: isSelected, // Update the selection state for the addon
-        addonDetails: updatedAddonDetails, // Update the details array
+        [addon.id]: isSelected,
+        addonDetails: updatedAddonDetails,
+        addonBookingOverview: updatedAddonBookingOverview,
       };
     });
   };
 
-
-  useEffect(() => {    
+  useEffect(() => {
     dispatch(setSelectedAddon(activeAddons.addonDetails));
   }, [activeAddons]);
 
-
+  useEffect(()=>{
+    dispatch(setAddonBookingOverview([]));
+  },[])
+  const bookingOverview = useSelector(selectBookingOverview);
 
   const totalPrice = useSelector((state) => state.totalPrice);
   useEffect(() => {
     dispatch(calculateTotalPrice());
   }, [activeAddons]);
-  const {t, language} = useTranslation()
+  const { t, language } = useTranslation();
   const styles = {
     nextButton: {
       backgroundColor: colors.themeMain,
@@ -111,7 +112,7 @@ const page = () => {
       cursor: "pointer",
       marginTop: 15,
       marginLeft: language === "ar" ? 0 : 15,
-      marginRight: language === "ar" ? 15 : 0, 
+      marginRight: language === "ar" ? 15 : 0,
     },
     iIcon: {
       flex: "0 0 auto",
@@ -126,7 +127,9 @@ const page = () => {
           <div className="col-12">
             <div className="d-flex justify-content-between justify-content-sm-end align-items-center mb-3 mb-md-4">
               <div>
-                <p className="mb-0">{t("total")}: {totalPrice}</p>
+                <p className="mb-0">
+                  {t("total")}: {totalPrice}
+                </p>
                 <PriceDetailsModal />
               </div>
               <Link
@@ -142,14 +145,14 @@ const page = () => {
               <IoInformationCircleSharp
                 style={{
                   fontSize: 20,
-                  ...(language==="ar"?{marginLeft: 20}:{marginRight: 20}),
+                  ...(language === "ar"
+                    ? { marginLeft: 20 }
+                    : { marginRight: 20 }),
                   fontSize: 16,
                   flex: "0 0 auto",
                 }}
               />
-              <p className="mb-0">
-              {t("drivers_must_have_held")}
-              </p>
+              <p className="mb-0">{t("drivers_must_have_held")}</p>
             </div>
           </div>
         </div>
@@ -173,6 +176,22 @@ const page = () => {
               {t("booking_overview")}
             </p>
             <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
+              {bookingOverview.map((item, index) => {
+                return (
+                  <div className="liContainer" key={index}>
+                    <li className="liTick">{item}</li>
+                    <Whisper
+                      placement="left"
+                      trigger="hover"
+                      speaker={<Tooltip>Information Information</Tooltip>}
+                    >
+                      <IoInformationCircleOutline style={styles.iIcon} />
+                    </Whisper>
+                  </div>
+                );
+              })}
+            </ul>
+            {/* <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
               {addons
                 .filter((addon) => activeAddons[addon.id])
                 .map((addon) => (
@@ -189,7 +208,7 @@ const page = () => {
                     </div>
                   </div>
                 ))}
-            </ul>
+            </ul> */}
           </div>
         </div>
       </div>
@@ -199,4 +218,3 @@ const page = () => {
 };
 
 export default page;
-

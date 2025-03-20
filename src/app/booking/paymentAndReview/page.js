@@ -15,6 +15,7 @@ import "../../cars/cars.css";
 import { FaShop } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import { useTranslation } from "@/context/LanguageProvider";
+import { selectBookingOverview } from "@/redux/slices/bookingOverviewSlice";
 
 const page = () => {
   const [countryCode, setCountryCode] = useState("+971");
@@ -36,6 +37,7 @@ const page = () => {
   );
   const selectedCarDetail = useSelector((state) => state.selectedCar);
 
+  const bookingOverview =useSelector(selectBookingOverview)
   const totalPrice = useSelector((state) => state.totalPrice);
   const { t, language } = useTranslation();
   return (
@@ -298,8 +300,15 @@ const page = () => {
               <hr className="hrStyle" />
               <h6 className="mb-3">{t("booking_overview")}:</h6>
               <ul style={{ listStyleType: "none", paddingLeft:0 }}>
-                <li className="liTick">Third party insurance</li>
-                <li className="liTick">
+                {
+                  bookingOverview.map((item,index)=>{
+                    return(
+<li className="liTick" key={index}>{item}</li>
+                    )
+                  })
+                }
+                
+                {/* <li className="liTick">
                   200 km are included, each additional kilometer costs AED 1.50
                 </li>
                 <li className="liTick">
@@ -308,7 +317,7 @@ const page = () => {
                 <li className="liTick">
                   Booking option: Best price - Pay now, cancel and rebook for a
                   fee
-                </li>
+                </li> */}
               </ul>
             </div>
           </div>

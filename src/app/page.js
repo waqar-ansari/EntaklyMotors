@@ -20,13 +20,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "@/context/LanguageProvider";
 import { clearSelectedAddons } from "@/redux/slices/selectedAddonSlice";
 import { clearSelectedPackage } from "@/redux/slices/selectedPackageSlice";
+import { clearBookingOverview } from "@/redux/slices/bookingOverviewSlice";
 export default function HomePage() {
   const { t, language } = useTranslation();
-  const dispatch = useDispatch()
-  useEffect(()=>{
-    dispatch(clearSelectedAddons())
-    dispatch(clearSelectedPackage())
-      },[])
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(clearSelectedAddons());
+    dispatch(clearSelectedPackage());
+    dispatch(clearBookingOverview());
+  }, []);
   const styles = {
     subHeading: {
       marginBottom: 0,
@@ -360,7 +362,7 @@ export default function HomePage() {
               // }}
               // className="sec-6-width"
               className="col-12 col-md-4 mx-auto d-flex justify-content-center align-items-center sec-6-width"
-              style={{ position: "relative"}}
+              style={{ position: "relative" }}
             >
               <Image
                 src="/images/homeImage3.jpeg"
@@ -398,21 +400,45 @@ export default function HomePage() {
                     </p>
                   </div>
                   <div className="sec-6-box-container">
-                    <div style={{color:"#fff", display: "flex", gap: 10, width:"100%"}} className="mb-2 mb-md-4">
-                      <div className="entakly-business-services">
+                    <div
+                      style={{
+                        color: "#fff",
+                        display: "flex",
+                        gap: 10,
+                        width: "100%",
+                      }}
+                      className="mb-2 mb-md-4"
+                    >
+                      <Link
+                        href="https://buy.stripe.com/7sIcNrc3q9w41Da6oo"
+                        target="_blank"
+                        className="entakly-business-services text-decoration-none text-white"
+                      >
                         <p className="my-0">Dubai Airport</p>
                         <p className="my-0">AED 200</p>
-                      </div>
-                      <div className="entakly-business-services">
+                      </Link>
+                      <Link
+                        href="https://buy.stripe.com/dR6dRv9Vi6jSdlSaEF"
+                        target="_blank"
+                        className="entakly-business-services text-decoration-none text-white"
+                      >
                         <p className="my-0">Sharjah Airport</p>
                         <p className="my-0">AED 300</p>
-                      </div>
+                      </Link>
                       <div className="entakly-business-services">
-                        <p className="my-0">Al Maktoum  Airport</p>
+                        <p className="my-0">Al Maktoum Airport</p>
                         <p className="my-0">AED 150</p>
                       </div>
                     </div>
-                    <div style={{color:"#fff", display: "flex", gap: 10, width:"100%"}} className="mb-3 mb-md-5">
+                    <div
+                      style={{
+                        color: "#fff",
+                        display: "flex",
+                        gap: 10,
+                        width: "100%",
+                      }}
+                      className="mb-3 mb-md-5"
+                    >
                       <div className="entakly-business-services">
                         <p className="my-0">Abu Dhabi Airport</p>
                         <p className="my-0">AED 700</p>
@@ -452,13 +478,12 @@ export default function HomePage() {
             />
             <div style={styles.textContainer3} className="imageText">
               <p style={styles.imageHeading3} className="textOnImage">
-                Amazing experience with ENTAKLY. They provide amazing cars and
-                <span className="d-md-block"></span>
-                quick service!
+              {t("amazing_experience_with_entakly")} <br/>
+              {t("we_provide_amazing_car")}
               </p>
-              <p style={styles.imageText} className="sub-text">
+              {/* <p style={styles.imageText} className="sub-text">
                 {t("dubai")}
-              </p>
+              </p> */}
               {/* <Link href="#" style={styles.imageButton}>
                 Book now
               </Link> */}

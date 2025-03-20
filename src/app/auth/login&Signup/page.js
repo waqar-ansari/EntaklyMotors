@@ -36,7 +36,6 @@ export default function LoginPage() {
   const handleRegister = async (e) => {
     e.preventDefault();
     const signupCredentials = { registerEmail, registerPassword };
-
     try {
       const result = await dispatch(signupUser(signupCredentials)).unwrap();
       router.push("/auth/login&Signup");
