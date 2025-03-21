@@ -13,6 +13,7 @@ import { useTranslation } from "@/context/LanguageProvider";
 export default function LoginPage() {
   const [isActive, setIsActive] = useState(false);
   const [isForgotPassword, setIsForgotPassword] = useState(false);
+  const [error, setError] = useState("");
 
   const [email, setEmail] = useState("");
   const [registerEmail, setRegisterEmail] = useState("");
@@ -29,9 +30,10 @@ export default function LoginPage() {
     try {
       const result = await dispatch(loginUser(credentials)).unwrap();
       console.log(result, "result from login");
-      if(result.status==="error"){
-        console.log(result.status,"Invalid email or password");
-        return
+      if (result.status === "error") {
+        console.log(result.status, "Invalid email or password");
+        setError("Invalid email or password");
+        return;
       }
       router.push("/account/profile");
     } catch (error) {
@@ -41,10 +43,10 @@ export default function LoginPage() {
   const handleRegister = async (e) => {
     e.preventDefault();
     const credentials = { email: registerEmail, password: registerPassword };
-    try {      
+    try {
       const result = await dispatch(signupUser(credentials)).unwrap();
-      console.log(result,"result from register");
-      
+      console.log(result, "result from register");
+
       router.push("/auth/login&Signup");
     } catch (error) {
       console.log("Signup failed:", error);
@@ -81,6 +83,7 @@ export default function LoginPage() {
                   />
                   <i className="bx bxs-lock-alt"></i>
                 </div>
+                <p className="text-danger">{error}</p>
                 <div className="forgot-link">
                   <button
                     type="button"

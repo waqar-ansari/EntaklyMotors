@@ -939,7 +939,21 @@ const PickupAndDropPicker = ({
           <div className="container-fluid">
             <div className="row">
               <div className="col-md-6">
-                {locationData.map((item, index) => {
+                <div className="input-box form-floating mt-0">
+                  <input
+                    className="form-control"
+                    type="text"
+                    value={locationSearch}
+                    name="searchLocation"
+                    onChange={(e) => handleLocationSearch(e.target.value)}
+                    placeholder={t("search_location")}
+                    id="searchLocation"
+                  />
+                  <label htmlFor="searchLocation" className="inputLabelBg">
+                    {t("search_location")}
+                  </label>
+                </div>
+                {filteredLocations.map((item, index) => {
                   return (
                     <div
                       key={index}
@@ -1016,6 +1030,20 @@ const PickupAndDropPicker = ({
               <div className="container-fluid">
                 <div className="row">
                   <div className="col-md-6">
+                    <div className="input-box form-floating mt-0">
+                      <input
+                        className="form-control"
+                        type="text"
+                        value={locationSearch}
+                        name="searchLocation"
+                        onChange={(e) => handleLocationSearch(e.target.value)}
+                        placeholder={t("search_location")}
+                        id="searchLocation"
+                      />
+                      <label htmlFor="searchLocation" className="inputLabelBg">
+                        {t("search_location")}
+                      </label>
+                    </div>
                     {locationData.map((item, index) => {
                       return (
                         <div

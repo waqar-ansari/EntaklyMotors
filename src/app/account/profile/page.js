@@ -63,26 +63,30 @@ const Page = () => {
   const handleSubmit = (e, subTab) => {
     e.preventDefault();
 
-    let updatedData = {};
+    // let updatedData = {};
+    let updatedData = new FormData();
 
     if (subTab === "profileInformation") {
-      updatedData = {
-        fullname: profileData.fullname,
-        phonenumber: profileData.phonenumber,
-      };
+      // updatedData = {
+      //   fullname: profileData.fullname,
+      //   phonenumber: profileData.phonenumber,
+      // };
+      updatedData.append("fullname", profileData.fullname);
+      updatedData.append("phonenumber", profileData.phonenumber);
     } else if (subTab === "email") {
-      updatedData = {
-        email: profileData.email,
-      };
+      // updatedData = {
+      //   email: profileData.email,
+      // };
+      updatedData.append("email", profileData.email);
     } else if (subTab === "address") {
-      updatedData = {
-        address: profileData.address,
-      };
+      // updatedData = {
+      //   address: profileData.address,
+      // };
+      updatedData.append("address", profileData.address);
     }
 
     dispatch(updateProfile(updatedData));
   };
-
 
   const handleCountryChange = (value) => {
     setProfileData((prev) => ({
@@ -157,7 +161,7 @@ const Page = () => {
       );
     }
   };
-const {t, language} = useTranslation()
+  const { t, language } = useTranslation();
   return (
     <>
       <Header />
@@ -201,7 +205,7 @@ const {t, language} = useTranslation()
                           id="fullname"
                         />
                         <label htmlFor="fullname" className="inputLabelBg">
-                        {t("name")}
+                          {t("name")}
                         </label>
                       </div>
 
@@ -234,7 +238,7 @@ const {t, language} = useTranslation()
                             onChange={handleInputChange}
                           />
                           <label htmlFor="phonenumber" className="inputLabelBg">
-                          {t("phone_number")}
+                            {t("phone_number")}
                           </label>
                         </div>
                       </div>
@@ -256,11 +260,11 @@ const {t, language} = useTranslation()
                           id="email"
                         />
                         <label htmlFor="email" className="inputLabelBg">
-                        {t("email_address")}
+                          {t("email_address")}
                         </label>
                       </div>
                       <button type="submit" className="submitButton">
-                      {t("save")}
+                        {t("save")}
                       </button>
                     </form>
                   </Tab>
@@ -280,7 +284,7 @@ const {t, language} = useTranslation()
                           htmlFor="currentPassword"
                           className="inputLabelBg"
                         >
-                         {t("current_password")}
+                          {t("current_password")}
                         </label>
                         <span
                           className="password-toggle-icon"
@@ -310,7 +314,7 @@ const {t, language} = useTranslation()
                           id="newPassword"
                         />
                         <label htmlFor="newPassword" className="inputLabelBg">
-                        {t("new_password")}
+                          {t("new_password")}
                         </label>
                         <span
                           className="password-toggle-icon"
@@ -327,7 +331,7 @@ const {t, language} = useTranslation()
                         </span>
                       </div>
                       <button type="submit" className="submitButton">
-                      {t("save")}
+                        {t("save")}
                       </button>
                     </form>
                   </Tab>
@@ -344,7 +348,7 @@ const {t, language} = useTranslation()
                           id="recipient"
                         />
                         <label htmlFor="recipient" className="inputLabelBg">
-                        {t("recipient")}
+                          {t("recipient")}
                         </label>
                       </div>
                       <div className="input-box form-floating">
@@ -358,7 +362,7 @@ const {t, language} = useTranslation()
                           id="zipcode"
                         />
                         <label htmlFor="zipcode" className="inputLabelBg">
-                        {t("zipcode")}
+                          {t("zipcode")}
                         </label>
                       </div>
                       <div className="input-box form-floating">
@@ -372,7 +376,7 @@ const {t, language} = useTranslation()
                           id="city"
                         />
                         <label htmlFor="city" className="inputLabelBg">
-                        {t("city")}
+                          {t("city")}
                         </label>
                       </div>
                       <div className="input-box form-floating">
@@ -386,7 +390,7 @@ const {t, language} = useTranslation()
                           id="state"
                         />
                         <label htmlFor="state" className="inputLabelBg">
-                        {t("state")}
+                          {t("state")}
                         </label>
                       </div>
                       <div className="input-box form-floating">
@@ -400,11 +404,11 @@ const {t, language} = useTranslation()
                           id="country"
                         />
                         <label htmlFor="country" className="inputLabelBg">
-                        {t("country")}
+                          {t("country")}
                         </label>
                       </div>
                       <button type="submit" className="submitButton">
-                      {t("save")}
+                        {t("save")}
                       </button>
                     </form>
                   </Tab>
