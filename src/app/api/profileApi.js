@@ -6,6 +6,6 @@ export const getProfile =async()=>{
 }
 
 export const editProfile = async(profileData)=>{
-    const response = await api.put(`/profile/edit`,profileData)
+    const response = await api.post(`/profile`,profileData)
     return response.data
 }

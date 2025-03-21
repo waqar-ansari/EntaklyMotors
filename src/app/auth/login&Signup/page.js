@@ -28,6 +28,11 @@ export default function LoginPage() {
 
     try {
       const result = await dispatch(loginUser(credentials)).unwrap();
+      console.log(result, "result from login");
+      if(result.status==="error"){
+        console.log(result.status,"Invalid email or password");
+        return
+      }
       router.push("/account/profile");
     } catch (error) {
       console.log("Login failed:", error);
@@ -35,9 +40,11 @@ export default function LoginPage() {
   };
   const handleRegister = async (e) => {
     e.preventDefault();
-    const signupCredentials = { registerEmail, registerPassword };
-    try {
-      const result = await dispatch(signupUser(signupCredentials)).unwrap();
+    const credentials = { email: registerEmail, password: registerPassword };
+    try {      
+      const result = await dispatch(signupUser(credentials)).unwrap();
+      console.log(result,"result from register");
+      
       router.push("/auth/login&Signup");
     } catch (error) {
       console.log("Signup failed:", error);
@@ -101,7 +108,11 @@ export default function LoginPage() {
               <form action="#">
                 <h1> {t("forgot_password")}</h1>
                 <div className="input-box">
-                  <input type="email" placeholder={t("enter_your_email")} required />
+                  <input
+                    type="email"
+                    placeholder={t("enter_your_email")}
+                    required
+                  />
                   <i className="bx bxs-envelope"></i>
                 </div>
                 <button type="submit" className="btn">

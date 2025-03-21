@@ -25,9 +25,14 @@ import { TbArrowBack } from "react-icons/tb";
 import { HiMiniBuildingLibrary } from "react-icons/hi2";
 import { HiMiniHome } from "react-icons/hi2";
 import { useDispatch, useSelector } from "react-redux";
-import { clearRentalDetail, setRentalDetailDataSlice } from "@/redux/slices/rentalDetailSlice";
+import "../styles/inputFields.css";
+import {
+  clearRentalDetail,
+  setRentalDetailDataSlice,
+} from "@/redux/slices/rentalDetailSlice";
 import { useTranslation } from "../context/LanguageProvider";
 import { useRouter } from "next/navigation";
+import { locationData } from "../../public/locations/allLocations";
 
 const PickupAndDropPicker = ({
   heading = true,
@@ -55,44 +60,13 @@ const PickupAndDropPicker = ({
   const [pickupLocationModal, setPickupLocationModal] = useState(false);
   const [returnLocationModal, setReturnLocationModal] = useState(false);
   const [showLocationHeading, setShowLocationHeading] = useState("");
+  const [locationSearch, setLocationSearch] = useState("");
+  const [filteredLocations, setFilteredLocations] = useState([]);
   const [error, setError] = useState("");
   const [activeInput, setActiveInput] = useState(null);
   const pickerRef = useRef(null);
   const showLocationsRef = useRef(null);
   const router = useRouter();
-  const loactionData = [
-    {
-      locationName: "Dubai International Airport Terminal 1",
-      address: "Airport Road D89 Al Garhoud, Dubai 1, AE",
-      locationIcon: <HiMiniHome />,
-    },
-    {
-      locationName: "Dubai Airport",
-      address: "Airport Road D89 Al Garhoud, Dubai 2, AE",
-      locationIcon: <IoMdAirplane />,
-    },
-    {
-      locationName: "Sharjah International Airport",
-      address: "Airport Road D89 Al Garhoud, Dubai 3, AE",
-      locationIcon: <HiMiniBuildingLibrary />,
-    },
-    {
-      locationName: "Abu Dhabi International Airport",
-      address: "Airport Road D89 Al Garhoud, Dubai 4, AE",
-      locationIcon: <IoMdAirplane />,
-    },
-    {
-      locationName: "Dubai International Airport Terminal 5",
-      address: "Airport Road D89 Al Garhoud, Dubai 5, AE",
-      locationIcon: <HiMiniBuildingLibrary />,
-    },
-    {
-      locationName: "Dubai International Airport Terminal 6",
-      address: "Airport Road D89 Al Garhoud, Dubai 6, AE",
-      locationIcon: <IoMdAirplane />,
-    },
-  ];
-
   useEffect(() => {
     const pickupDate = new Date();
     pickupDate.setDate(pickupDate.getDate() + 1);
@@ -119,6 +93,9 @@ const PickupAndDropPicker = ({
   //     hour12: true,
   //   });
   // };
+  useEffect(() => {
+    setFilteredLocations(locationData);
+  }, []);
   const handlePickUpDateClick = () => {
     const isLargeScreen =
       typeof window !== "undefined" &&
@@ -258,6 +235,17 @@ const PickupAndDropPicker = ({
     router.push("/cars"); // Manually navigate only if valid
   };
   const { t, language } = useTranslation();
+  const handleLocationSearch = (input) => {
+    setLocationSearch(input);
+    if (input.trim() === "") {
+      setFilteredLocations(locationData);
+      return;
+    }
+    const result = locationData.filter((loc) =>
+      loc.locationName.toLowerCase().includes(input.toLowerCase())
+    );
+    setFilteredLocations(result);
+  };
   return (
     <div>
       {heading && <p style={styles.heading}>{t("rent_a_car")}</p>}
@@ -285,16 +273,39 @@ const PickupAndDropPicker = ({
                 paddingTop: 20,
                 position: "relative",
                 zIndex: 999,
+                height: "70vh",
               }}
               onClick={handleLocationClick}
             >
               <div className="fs-4 mb-4 fw-bold" style={{ paddingLeft: 16 }}>
                 {showLocationHeading}
               </div>
+
               <div className="container-fluid">
                 <div className="row">
-                  <div className="col-md-6">
-                    {loactionData.map((item, index) => {
+                  <div
+                    className="col-md-6"
+                    style={{
+                      overflowY: "auto",
+                      height: "60vh",
+                    }}
+                  >
+                    <div className="input-box form-floating">
+                      <input
+                        className="form-control"
+                        type="text"
+                        value={locationSearch}
+                        name="searchLocation"
+                        onChange={(e) => handleLocationSearch(e.target.value)}
+                        placeholder={t("search_location")}
+                        id="searchLocation"
+                      />
+                      <label htmlFor="searchLocation" className="inputLabelBg">
+                        {t("search_location")}
+                      </label>
+                    </div>
+
+                    {filteredLocations.map((item, index) => {
                       return (
                         <div
                           key={index}
@@ -316,7 +327,16 @@ const PickupAndDropPicker = ({
                       );
                     })}
                   </div>
-                  <div className="col-md-6">
+                  <div
+                    className="col-md-6"
+                    style={
+                      {
+                        // height: "60vh", // Match the height of the first column
+                        // overflowY: "hidden", // Disable scrolling
+                        // paddingLeft: "20px", // Add some padding for spacing
+                      }
+                    }
+                  >
                     {" "}
                     {hoveredItem ? (
                       <div>
@@ -361,7 +381,9 @@ const PickupAndDropPicker = ({
               id="pickupLocation"
               value={pickupLocation || rentalDetails.pickupLocation}
               placeholder="Pickup Location"
-              onClick={() => handleInputClick("pickup", t("pick_up_locations"))}
+              onClick={() => {
+                handleInputClick("pickup", t("pick_up_locations"));
+              }}
             />
             <label htmlFor="pickupLocation">{t("pick_up")}</label>
           </div>
@@ -917,7 +939,7 @@ const PickupAndDropPicker = ({
           <div className="container-fluid">
             <div className="row">
               <div className="col-md-6">
-                {loactionData.map((item, index) => {
+                {locationData.map((item, index) => {
                   return (
                     <div
                       key={index}
@@ -994,7 +1016,7 @@ const PickupAndDropPicker = ({
               <div className="container-fluid">
                 <div className="row">
                   <div className="col-md-6">
-                    {loactionData.map((item, index) => {
+                    {locationData.map((item, index) => {
                       return (
                         <div
                           key={index}

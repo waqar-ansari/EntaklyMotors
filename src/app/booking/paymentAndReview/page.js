@@ -16,6 +16,7 @@ import { FaShop } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import { useTranslation } from "@/context/LanguageProvider";
 import { selectBookingOverview } from "@/redux/slices/bookingOverviewSlice";
+import {loadStripe} from '@stripe/stripe-js';
 
 const page = () => {
   const [countryCode, setCountryCode] = useState("+971");
@@ -37,9 +38,33 @@ const page = () => {
   );
   const selectedCarDetail = useSelector((state) => state.selectedCar);
 
-  const bookingOverview =useSelector(selectBookingOverview)
+  const bookingOverview = useSelector(selectBookingOverview);
   const totalPrice = useSelector((state) => state.totalPrice);
   const { t, language } = useTranslation();
+  const makePayment=async()=>{
+   const stripe = await loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+
+   const body={
+
+   }
+    const response=await fetch('http://localhost:3001/payment',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify(body)
+    })
+    const session=await response.json();
+    console.log(session);
+    const result=await stripe.redirectToCheckout({
+      sessionId:session.id
+    })
+    console.log(result);
+    if(result.error){
+      console.log(result.error.message);
+    }
+    
+  }
   return (
     <>
       <Header />
@@ -48,7 +73,9 @@ const page = () => {
           <div className="col-md-12 pt-5 mobDisplayNone">
             <div className="d-flex justify-content-end align-items-center">
               <div>
-                <p className="mb-0">{t("total")}: {totalPrice}</p>
+                <p className="mb-0">
+                  {t("total")}: {totalPrice}
+                </p>
                 <PriceDetailsModal />
               </div>
             </div>
@@ -82,7 +109,7 @@ const page = () => {
                   id="firstName"
                 />
                 <label for="firstName" className="inputLabelBg">
-                {t("first_name")}
+                  {t("first_name")}
                 </label>
               </div>
               <div
@@ -92,7 +119,7 @@ const page = () => {
                 <input
                   className="form-control"
                   type="text"
-                  placeholder= {t("surname")}
+                  placeholder={t("surname")}
                   id="surname"
                 />
                 <label for="surname" className="inputLabelBg">
@@ -152,9 +179,7 @@ const page = () => {
                       : { marginRight: 20 }),
                   }}
                 />
-                <p className="mb-0">
-                {t("drivers_must_have_held")}
-                </p>
+                <p className="mb-0">{t("drivers_must_have_held")}</p>
               </div>
             </div>
             <div>
@@ -220,7 +245,7 @@ const page = () => {
             <div className="mb-5">
               <PriceDetailsModal />
             </div>
-            <Link href="#" className="mt-0" style={styles.payAndBookButton}>
+            <Link href="#" onClick={makePayment} className="mt-0" style={styles.payAndBookButton}>
               {t("pay_and_book")}
             </Link>
           </div>
@@ -299,15 +324,15 @@ const page = () => {
               </div>
               <hr className="hrStyle" />
               <h6 className="mb-3">{t("booking_overview")}:</h6>
-              <ul style={{ listStyleType: "none", paddingLeft:0 }}>
-                {
-                  bookingOverview.map((item,index)=>{
-                    return(
-<li className="liTick" key={index}>{item}</li>
-                    )
-                  })
-                }
-                
+              <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
+                {bookingOverview.map((item, index) => {
+                  return (
+                    <li className="liTick" key={index}>
+                      {item}
+                    </li>
+                  );
+                })}
+
                 {/* <li className="liTick">
                   200 km are included, each additional kilometer costs AED 1.50
                 </li>
