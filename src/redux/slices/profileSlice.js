@@ -10,6 +10,8 @@ export const fetchProfile = createAsyncThunk("profile/getProfile", async () => {
 export const updateProfile = createAsyncThunk(
   "profile/editProfile",
   async (profileData) => {
+    console.log(profileData, "profileData from updateProfile slice");
+    
     const data = await editProfile(profileData);    
     return data;
   }

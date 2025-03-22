@@ -9,11 +9,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser, signupUser } from "@/redux/slices/authSlice";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "@/context/LanguageProvider";
+import axios from "axios";
 
 export default function LoginPage() {
   const [isActive, setIsActive] = useState(false);
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const [email, setEmail] = useState("");
   const [registerEmail, setRegisterEmail] = useState("");
@@ -28,6 +30,8 @@ export default function LoginPage() {
     const credentials = { email, password };
 
     try {
+      console.log(credentials, "credentials");
+
       const result = await dispatch(loginUser(credentials)).unwrap();
       console.log(result, "result from login");
       if (result.status === "error") {
@@ -40,14 +44,25 @@ export default function LoginPage() {
       console.log("Login failed:", error);
     }
   };
+
   const handleRegister = async (e) => {
+    setError("");
+    setSuccess("");
     e.preventDefault();
     const credentials = { email: registerEmail, password: registerPassword };
     try {
       const result = await dispatch(signupUser(credentials)).unwrap();
       console.log(result, "result from register");
-
-      router.push("/auth/login&Signup");
+      if (result.status === "error") {
+        console.log(result.message);
+        setError(result.message);
+        return;
+      }
+      if (result.status === "success") {
+        console.log(result.message);
+        setSuccess(result.message);
+        router.push("/auth/login&Signup");
+      }
     } catch (error) {
       console.log("Signup failed:", error);
     }
@@ -168,6 +183,8 @@ export default function LoginPage() {
                 />
                 <i className="bx bxs-lock-alt"></i>
               </div>
+              <p className="text-danger">{error}</p>
+              <p className="text-success">{success}</p>
               <Link
                 type="button"
                 href="/auth/login&Signup"
@@ -186,7 +203,11 @@ export default function LoginPage() {
               <p>{t("dont_have_account")}</p>
               <button
                 className="btn register-btn"
-                onClick={() => setIsActive(true)}
+                onClick={() => {
+                  setError("");
+                  setSuccess("");
+                  setIsActive(true);
+                }}
               >
                 {t("register")}
               </button>
@@ -197,7 +218,11 @@ export default function LoginPage() {
               <p>{t("already_have_account")}</p>
               <button
                 className="btn login-btn"
-                onClick={() => setIsActive(false)}
+                onClick={() => {
+                  setError("");
+                  setSuccess("");
+                  setIsActive(false);
+                }}
               >
                 {t("login")}
               </button>

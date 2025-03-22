@@ -285,12 +285,14 @@ const PickupAndDropPicker = ({
                 <div className="row">
                   <div
                     className="col-md-6"
-                    style={{
-                      overflowY: "auto",
-                      height: "60vh",
-                    }}
+                    style={
+                      {
+                        // overflowY: "auto",
+                        // height: "60vh",
+                      }
+                    }
                   >
-                    <div className="input-box form-floating">
+                    <div className="input-box form-floating mt-0">
                       <input
                         className="form-control"
                         type="text"
@@ -305,27 +307,34 @@ const PickupAndDropPicker = ({
                       </label>
                     </div>
 
-                    {filteredLocations.map((item, index) => {
-                      return (
-                        <div
-                          key={index}
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            paddingBottom: 40,
-                            cursor: "pointer",
-                          }}
-                          onClick={(e) => handleLocationClick(e, item)}
-                          onMouseEnter={() => setHoveredItem(item)}
-                          onMouseLeave={() => setHoveredItem("")}
-                        >
-                          <span className="me-2 fs-4 d-flex justify-content-center align-items-center">
-                            {item.locationIcon}
-                          </span>
-                          <span className="mb-0">{item.locationName}</span>
-                        </div>
-                      );
-                    })}
+                    <div
+                      style={{
+                        overflowY: "auto",
+                        height: "60vh",
+                      }}
+                    >
+                      {filteredLocations.map((item, index) => {
+                        return (
+                          <div
+                            key={index}
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              paddingBottom: 40,
+                              cursor: "pointer",
+                            }}
+                            onClick={(e) => handleLocationClick(e, item)}
+                            onMouseEnter={() => setHoveredItem(item)}
+                            onMouseLeave={() => setHoveredItem("")}
+                          >
+                            <span className="me-2 fs-4 d-flex justify-content-center align-items-center">
+                              {item.locationIcon}
+                            </span>
+                            <span className="mb-0">{item.locationName}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                   <div
                     className="col-md-6"

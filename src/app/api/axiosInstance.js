@@ -7,11 +7,18 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    const authToken = localStorage.getItem("authToken");
+    const authToken = localStorage.getItem("userId");
 
-    if (authToken) {
-      config.headers["Authorization"] = `Bearer ${authToken}`;
-    }
+    // if (authToken) {
+      config.headers["Authorization"] = GLOBAL_TOKEN;
+    // }
+
+    // if (config.url.includes("/get_all_cars")) {
+    //   config.headers["Authorization"] = GLOBAL_TOKEN;
+    // }
+    // else if (authToken) {
+    //   config.headers["Authorization"] = `Bearer ${authToken}`;
+    // }
     return config;
   },
   (error) => {

@@ -148,7 +148,7 @@ const Page = () => {
     e.preventDefault();
     const passwordsWithMail = { ...changePasswords, email };
     try {
-      const response = await api.post("/user/change-password", {
+      const response = await api.post("/change_password.php", {
         passwordsWithMail,
       });
       // setMessage(response.data.message);
