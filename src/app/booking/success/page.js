@@ -8,14 +8,14 @@ const BookingConfirmation = () => {
     carName: "Hyundai Getz or similar",
     pickupLocation: "Dubai - Downtown",
     dropoffLocation: "Dubai Hills",
-    pickupDate: "Sat 27 Apr 2013",
+    pickupDate: "Sat 27 Apr 2025",
     pickupTime: "10:00",
-    dropoffDate: "Tue 30 Apr 2013",
+    dropoffDate: "Tue 30 Apr 2025",
     dropoffTime: "10:00",
     address: "JBR Dubai",
     totalCost: "AED 200.00",
     cancellationPolicy: "FREE Cancellation",
-    amendmentPolicy: "FREE Amendment",
+    amendmentPolicy: "FREE 200km/day",
   };
 
   return (
