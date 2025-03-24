@@ -97,7 +97,7 @@ const Header = ({ headerPickupAndDrop }) => {
                     <a
                       className="nav-link active text-white text-decoration-none"
                       aria-current="page"
-                      href="#"
+                      href="/auth/login&Signup"
                     >
                       <Image
                         src="/icons/car.png"
@@ -170,7 +170,7 @@ const Header = ({ headerPickupAndDrop }) => {
                     <a
                       className="nav-link active text-white text-decoration-none"
                       aria-current="page"
-                      href="#"
+                      href="/auth/login&Signup"
                     >
                       {t("manage_booking")}
                     </a>
