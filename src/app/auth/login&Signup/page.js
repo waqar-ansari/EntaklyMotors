@@ -187,22 +187,11 @@ export default function LoginPage() {
                 <h1 className="mb-4">Login with</h1>
 
                 <div className="d-flex mb-4">
-                  <button
-                    type="button"
-                    className=" me-2 customLoginFormBtn"
-                    style={{
-                      backgroundColor: isPhoneLogin ? "#292268" : "#fff",
-                      color: isPhoneLogin ? "#fff" : "#000",
-                      border: "2px solid #292268",
-                    }}
-                    onClick={() => handleLoginWith(true)}
-                  >
-                    Phone
-                  </button>
+                 
 
                   <button
                     type="button"
-                    className=" customLoginFormBtn"
+                    className="customLoginFormBtn me-2"
                     style={{
                       backgroundColor: !isPhoneLogin ? "#292268" : "#fff",
                       color: !isPhoneLogin ? "#fff" : "#000",
@@ -211,6 +200,18 @@ export default function LoginPage() {
                     onClick={() => handleLoginWith(false)}
                   >
                     Email
+                  </button>
+                  <button
+                    type="button"
+                    className="customLoginFormBtn"
+                    style={{
+                      backgroundColor: isPhoneLogin ? "#292268" : "#fff",
+                      color: isPhoneLogin ? "#fff" : "#000",
+                      border: "2px solid #292268",
+                    }}
+                    onClick={() => handleLoginWith(true)}
+                  >
+                    Phone
                   </button>
                 </div>
 
