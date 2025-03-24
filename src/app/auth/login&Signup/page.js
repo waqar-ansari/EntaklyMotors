@@ -187,8 +187,6 @@ export default function LoginPage() {
                 <h1 className="mb-4">Login with</h1>
 
                 <div className="d-flex mb-4">
-                 
-
                   <button
                     type="button"
                     className="customLoginFormBtn me-2"

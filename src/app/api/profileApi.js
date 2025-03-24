@@ -1,7 +1,7 @@
 import api from "./axiosInstance"
 
 export const getProfile =async()=>{
-    const response = await api.get(`/getprofile`)
+    const response = await api.get(`/get_profile`)
     return response.data
 }
 

@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import PriceDetailsModal from "@/components/modals/PriceDetailsModal";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { colors } from "../../../../public/colors/colors";
 import "react-phone-input-2/lib/bootstrap.css";
 import PhoneInput from "react-phone-input-2";
@@ -17,10 +17,32 @@ import { useSelector } from "react-redux";
 import { useTranslation } from "@/context/LanguageProvider";
 import { selectBookingOverview } from "@/redux/slices/bookingOverviewSlice";
 import {loadStripe} from '@stripe/stripe-js';
+import { Button, Modal } from "react-bootstrap";
+import Lottie from "react-lottie-player";
+import confettiAnimation from "../../../../public/confetti/confetti.json";
 
 const page = () => {
   const [countryCode, setCountryCode] = useState("+971");
   const [phoneNumber, setPhoneNumber] = useState("");
+const [playConfetti, setPlayConfetti] = useState(false);
+const [successModal, setSuccessModal] = useState(false);
+
+
+
+useEffect(() => {
+
+
+  if (successModal) {
+    setPlayConfetti(true);
+
+    // Set timeout to stop animation after it completes
+    setTimeout(() => setPlayConfetti(false), 3000); // Adjust based on animation duration
+
+
+  }
+}, [successModal]);
+
+
   const handleCountryChange = (value, country) => {
     setCountryCode(`+${country.dialCode}`);
   };
@@ -42,6 +64,9 @@ const page = () => {
   const totalPrice = useSelector((state) => state.totalPrice);
   const { t, language } = useTranslation();
   const makePayment=async()=>{
+
+    setSuccessModal(true);
+
    const stripe = await loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
    const body={
@@ -349,6 +374,33 @@ const page = () => {
         </div>
       </div>
       <Footer />
+      <Modal
+      show={successModal}
+      onHide={() => setSuccessModal(false)}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Payment successful
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        {/* <h4>Centered Modal</h4> */}
+        <Lottie
+            animationData={confettiAnimation}
+            play
+            style={{ width: 500, height: 300 }}
+          />
+        <p>
+        Congratulations! Your payment has been successful. Your booking has been confirmed.
+        </p>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button >Close</Button>
+      </Modal.Footer>
+    </Modal>
     </>
   );
 };
