@@ -18,31 +18,14 @@ import { useTranslation } from "@/context/LanguageProvider";
 import { selectBookingOverview } from "@/redux/slices/bookingOverviewSlice";
 import {loadStripe} from '@stripe/stripe-js';
 import { Button, Modal } from "react-bootstrap";
-import Lottie from "react-lottie-player";
-import confettiAnimation from "../../../../public/confetti/confetti.json";
+import { useRouter } from "next/navigation";
+
 
 const page = () => {
   const [countryCode, setCountryCode] = useState("+971");
   const [phoneNumber, setPhoneNumber] = useState("");
-const [playConfetti, setPlayConfetti] = useState(false);
-const [successModal, setSuccessModal] = useState(false);
 
-
-
-useEffect(() => {
-
-
-  if (successModal) {
-    setPlayConfetti(true);
-
-    // Set timeout to stop animation after it completes
-    setTimeout(() => setPlayConfetti(false), 3000); // Adjust based on animation duration
-
-
-  }
-}, [successModal]);
-
-
+const router = useRouter();
   const handleCountryChange = (value, country) => {
     setCountryCode(`+${country.dialCode}`);
   };
@@ -65,29 +48,31 @@ useEffect(() => {
   const { t, language } = useTranslation();
   const makePayment=async()=>{
 
-    setSuccessModal(true);
+    router.push("/booking/success");
 
-   const stripe = await loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+    console.log("make payment");
+    
+  //  const stripe = await loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
-   const body={
+  //  const body={
 
-   }
-    const response=await fetch('http://localhost:3001/payment',{
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json'
-      },
-      body:JSON.stringify(body)
-    })
-    const session=await response.json();
-    console.log(session);
-    const result=await stripe.redirectToCheckout({
-      sessionId:session.id
-    })
-    console.log(result);
-    if(result.error){
-      console.log(result.error.message);
-    }
+  //  }
+  //   const response=await fetch('http://localhost:3001/payment',{
+  //     method:'POST',
+  //     headers:{
+  //       'Content-Type':'application/json'
+  //     },
+  //     body:JSON.stringify(body)
+  //   })
+  //   const session=await response.json();
+  //   console.log(session);
+  //   const result=await stripe.redirectToCheckout({
+  //     sessionId:session.id
+  //   })
+  //   console.log(result);
+  //   if(result.error){
+  //     console.log(result.error.message);
+  //   }
     
   }
   return (
@@ -270,7 +255,7 @@ useEffect(() => {
             <div className="mb-5">
               <PriceDetailsModal />
             </div>
-            <Link href="#" onClick={makePayment} className="mt-0" style={styles.payAndBookButton}>
+            <Link href="/booking/success" onClick={makePayment} className="mt-0" style={styles.payAndBookButton}>
               {t("pay_and_book")}
             </Link>
           </div>
@@ -374,33 +359,7 @@ useEffect(() => {
         </div>
       </div>
       <Footer />
-      <Modal
-      show={successModal}
-      onHide={() => setSuccessModal(false)}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Payment successful
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        {/* <h4>Centered Modal</h4> */}
-        {/* <Lottie
-            animationData={confettiAnimation}
-            play
-            style={{ width: 500, height: 300 }}
-          /> */}
-        <p>
-        Congratulations! Your payment has been successful. Your booking has been confirmed.
-        </p>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button >Close</Button>
-      </Modal.Footer>
-    </Modal>
+    
     </>
   );
 };
