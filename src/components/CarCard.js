@@ -4,11 +4,14 @@ import { FaUser, FaSuitcase, FaCheck } from "react-icons/fa";
 import { TbAutomaticGearbox } from "react-icons/tb";
 import { TiArrowSortedDown } from "react-icons/ti";
 import { colors } from "../../public/colors/colors";
+import { useTranslation } from "@/context/LanguageProvider";
 
 
 export default function CarCard({ car, onClick, isSelected }) {
   const isLargeScreen =
   typeof window !== "undefined" && window.matchMedia("(min-width: 992px)").matches;
+
+    const { t, language } = useTranslation();
   return (
     <div>
       <div
@@ -48,7 +51,7 @@ export default function CarCard({ car, onClick, isSelected }) {
           </div>
           <div>
             <p className="carIncluded">
-              <FaCheck className="checkIcon" /> 1,000 miles included
+              <FaCheck className="checkIcon" />{car.km_included} <span className="text-lowercase">{t("km_included")}</span>
             </p>
             <div className="carPricing">
               <span className="dailyRate">{car.price} AED / day</span>

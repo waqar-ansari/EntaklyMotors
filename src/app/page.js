@@ -400,7 +400,7 @@ export default function HomePage() {
                     </p>
                   </div>
                   <div className="sec-6-box-container">
-                    <div
+                    {/* <div
                       style={{
                         color: "#fff",
                         display: "flex",
@@ -467,7 +467,7 @@ export default function HomePage() {
                         <p className="my-0">Inside Dubai</p>
                         <p className="my-0">AED 100</p>
                       </Link>
-                    </div>
+                    </div> */}
                     <Link
                       href="https://wa.me/+971044536000"
                       target="_blank"

@@ -152,7 +152,7 @@ export default function CarDetails({ car, onClose }) {
             <div className="infoBox">
               <div className="infoContent">
                 <div>
-                  <strong>{car.km_included} km</strong>
+                  <strong>{car.km_included}km</strong>
                   <p className="mb-0">
                     +AED {car.km_price} / {t("for_every_additional_km")}
                   </p>

@@ -24,7 +24,7 @@ const carsData = [
     name: "Premium (BMW 2 Series)",
     image: "/images/car4.png",
     price: 175,
-    km_included: 100,
+    km_included: 200,
     km_price: 0.5,
   },
   {
@@ -32,7 +32,7 @@ const carsData = [
     name: "Luxury (BMW 3 Series)",
     image: "/images/car4.png",
     price: 184,
-    km_included: 150,
+    km_included: 200,
     km_price: 1.5,
   },
   {
@@ -48,7 +48,7 @@ const carsData = [
     name: "Luxury (Mercedes C-Class)",
     image: "/images/car4.png",
     price: 200,
-    km_included: 180,
+    km_included: 200,
     km_price: 2.0,
   },
   {
@@ -56,7 +56,7 @@ const carsData = [
     name: "SUV (Toyota Highlander)",
     image: "/images/car4.png",
     price: 190,
-    km_included: 250,
+    km_included: 200,
     km_price: 2.2,
   },
   {
@@ -64,7 +64,7 @@ const carsData = [
     name: "Electric (Tesla Model 3)",
     image: "/images/car4.png",
     price: 210,
-    km_included: 100,
+    km_included: 200,
     km_price: 1.8,
   },
 ];

@@ -354,11 +354,11 @@ const PickupAndDropPicker = ({
                           <div>
                             <span className="pickupRetunSpanStyle me-2">
                               <MdKey className="me-2" />
-                              24-hour pick-up
+                              {t("24_hour_pickup")}
                             </span>
                             <span className="pickupRetunSpanStyle">
                               <TbArrowBack className="me-2" />
-                              24-hour return
+                              {t("24_hour_return")}
                             </span>
                           </div>
                         </div>
@@ -779,7 +779,7 @@ const PickupAndDropPicker = ({
               setShowReturnTimeModal(true);
             }}
           >
-            Select Return Date <FaArrowRightLong style={{ marginLeft: 15 }} />
+            {t("select_return_date")} <FaArrowRightLong style={{ marginLeft: 15 }} />
           </Button>
         </Modal.Footer>
       </Modal>
@@ -828,7 +828,7 @@ const PickupAndDropPicker = ({
               setShowReturnTimeModalMobile(true);
             }}
           >
-            Select Return Date <FaArrowRightLong style={{ marginLeft: 15 }} />
+            {t("select_return_date")}<FaArrowRightLong style={{ marginLeft: 15 }} />
           </Button>
         </Modal.Footer>
       </Modal>
@@ -870,7 +870,7 @@ const PickupAndDropPicker = ({
             className="btn btn-secondary"
             onClick={() => setShowReturnTimeModal(false)}
           >
-            Close
+            {t("close")}
           </Button>
           <Button
             style={{
@@ -882,7 +882,7 @@ const PickupAndDropPicker = ({
               setShowReturnTimeModal(false);
             }}
           >
-            Save Changes
+            {t("save_changes")}
           </Button>
         </Modal.Footer>
       </Modal>
@@ -930,7 +930,7 @@ const PickupAndDropPicker = ({
               setShowReturnTimeModalMobile(false);
             }}
           >
-            Save Changes
+           {t("save_changes")}
           </Button>
         </Modal.Footer>
       </Modal>
@@ -1020,7 +1020,7 @@ const PickupAndDropPicker = ({
               setActiveInput("drop");
             }}
           >
-            Select Return Location <FaArrowRightLong className="ms-2" />
+            {t("select_return_location")} <FaArrowRightLong className="ms-2" />
           </Button>
         </Modal.Footer>
       </Modal>
@@ -1111,7 +1111,7 @@ const PickupAndDropPicker = ({
               setActiveInput(null);
             }}
           >
-            Save Changes
+          {t("save_changes")}
           </Button>
         </Modal.Footer>
       </Modal>

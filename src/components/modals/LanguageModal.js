@@ -133,7 +133,7 @@ const LanguageModal = ({ showModal, closeModal, selectLanguage }) => {
             <div className="col-md-4">
               <div onClick={() => changeLanguage("ar")} style={styles.button}>
                 <div>
-                  <p style={styles.languageName}>Arabic</p>
+                  <p style={styles.languageName}>{t("arabic")}</p>
                   <p style={styles.languageCountry}>United Arab Emirates</p>
                 </div>
                 {language==="ar" &&<MdOutlineCheck size={30} />}

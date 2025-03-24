@@ -46,6 +46,7 @@
   "already_have_account":"Already have an account?",
   "hello_welcome":"Hello, Welcome!",
   "dont_have_account":"Don't have an account?",
+  "email/mobile":"Email / Mobile",
   "email":"Email",
   "password":"Password",
   "enter_your_email":"Enter your email",
@@ -89,7 +90,7 @@
   "continue":"Continue",
   "booking_overview":"Your booking overview",
   "who_will_drive":"Who will drive?",
-  "company":"Company",
+  "company":"متابعة",
   "first_name":"First name",
   "surname":"Surname",
   "i_am_25_years_of_age":"I am 21 years of age or older",
@@ -110,8 +111,17 @@
 "we_provide_amazing_car":"We provide amazing cars and quick service in Dubai",
 "search_location":"Search Location",
 
+"24_hour_pickup":"24-hour pick-up",
+"24_hour_return":"24-hour return",
+"select_return_location":"Select Return Location",
+"arabic":"Arabic",
+"save_changes":"Save Changes",
+"select_return_date":"Select Return Date",
+"close":"Close",
+"km_included":"Km included",
 "":"",
-
+"":"",
+"":"",
 
 
 

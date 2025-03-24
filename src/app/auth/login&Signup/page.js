@@ -81,7 +81,7 @@ export default function LoginPage() {
                 <div className="input-box">
                   <input
                     type="text"
-                    placeholder={t("email")}
+                    placeholder={t("email/mobile")}
                     onChange={(e) => {
                       setEmail(e.target.value);
                     }}
@@ -162,7 +162,7 @@ export default function LoginPage() {
               <div className="input-box">
                 <input
                   type="email"
-                  placeholder={t("email")}
+                  placeholder={t("email/mobile")}
                   name="signupEmail"
                   required
                   onChange={(e) => {
