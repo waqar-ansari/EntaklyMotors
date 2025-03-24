@@ -35,7 +35,7 @@ export const calculateTotalPrice = () => (dispatch, getState) => {
   const currentPackagePrice = packagePrice ? packagePrice : 0;
 
   const totalPrice =
-    numberOfRentalDays * carPricePerDay + 400 + currentPackagePrice + totalAddonPrice;
+    numberOfRentalDays * carPricePerDay + currentPackagePrice + totalAddonPrice;
 
   dispatch(setTotalPrice(totalPrice)); // ✅ Dispatch the calculated price
 };

@@ -184,7 +184,7 @@ export default function HomePage() {
                   : { marginRight: 10 }),
               }}
             />
-            Plan a journey...
+            {t("plan_a_journey")}
           </div>
         </div>
       </div>

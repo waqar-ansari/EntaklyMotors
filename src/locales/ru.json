@@ -114,6 +114,11 @@
   "select_return_date":"select_return_date",
   "close":"close",
   "km_included":"Включенные километры",
+  "day":"",
+  "aed":"aed",
+  "plan_a_journey":"plan_a_journey",
+  "search_location":"Поиск местоположения",
+  "5%_vat":"5%_vat",
   "":"",
   "":"",
 

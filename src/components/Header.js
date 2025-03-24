@@ -39,7 +39,6 @@ const Header = ({ headerPickupAndDrop }) => {
   const { t, language } = useTranslation();
   const token = "abcd";
   const rentalDetail = useSelector((state) => state.rentalDetail);
-
   return (
     <div>
       <PickerModal showModal={showPickerModal} closeModal={closePickerModal} />
@@ -250,10 +249,25 @@ const Header = ({ headerPickupAndDrop }) => {
                 <div className="d-flex justify-content-between align-items-center">
                   <div style={{ marginRight: 30 }}>
                     <p className="mb-0" style={styles.location}>
-                      New York LGA Airport - New York LGA Airport
+                      {/* {rentalDetail.pickupLocation} - {rentalDetail.returnLocation} */}
+
+                      {rentalDetail.pickupLocation
+                          ? rentalDetail.pickupLocation
+                          : "Select Pickup Location"}{" "}
+                        -{" "}
+                        {rentalDetail.returnLocation
+                          ? rentalDetail.returnLocation
+                          : "Select Return Location"}
                     </p>
                     <p className="mb-0" style={styles.dateAndTime}>
-                      13. Apr | 8:00 AM - 15. Apr | 8:30 AM
+                    {rentalDetail.pickupDate}{" "}
+                        {rentalDetail.pickupTime
+                          ? `| ${rentalDetail.pickupTime}`
+                          : ""}{" "}
+                        - {rentalDetail.returnDate}{" "}
+                        {rentalDetail.returnTime
+                          ? `| ${rentalDetail.returnTime}`
+                          : ""}
                     </p>
                   </div>
                   <FaPen />

@@ -68,17 +68,7 @@ const PriceDetailsModal = () => {
                     );
                   })}
                 </div>
-                <div className="section">
-                  <p className="heading3">{t("taxes_and_fees")}</p>
-                  <div className="flex">
-                    <p className="mb-0">{t("premium_location_fee")}</p>
-                    <p className="m-0">200</p>
-                  </div>
-                  <div className="flex mb-0">
-                    <p className="mb-0">{t("vehicle_license_fee")}</p>
-                    <p className="m-0">200</p>
-                  </div>
-                </div>
+                
               {selectedPackage.packageName!==null &&  <div className="section">
                   <p className="heading3">{t("protection_package")}</p>
                   <div className="flex">
@@ -86,6 +76,16 @@ const PriceDetailsModal = () => {
                     <p className="m-0">{selectedPackage.packagePrice}</p>
                   </div>
                 </div>}
+
+                {/* <div className="section">
+                  <p className="heading3">{t("taxes_and_fees")}</p>
+                  <div className="flex">
+                    <p className="mb-0">{t("5%_vat")}</p>
+                    <p className="m-0">200</p>
+                  </div>
+                </div> */}
+
+
                 <div className="flex">
                   <p className="heading2 mb-0">{t("total")} ({t("incl_tax")})</p>
                   <p className="heading2 mb-0">{totalPrice}</p>
