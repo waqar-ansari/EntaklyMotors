@@ -10,6 +10,8 @@ import { loginUser, signupUser } from "@/redux/slices/authSlice";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "@/context/LanguageProvider";
 import axios from "axios";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/bootstrap.css";
 
 export default function LoginPage() {
   const [isActive, setIsActive] = useState(false);
@@ -21,7 +23,15 @@ export default function LoginPage() {
   const [registerEmail, setRegisterEmail] = useState("");
   const [password, setPassword] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
+  // const [phone, setPhone] = useState("");
+  const [countryCode, setCountryCode] = useState("ae");
+  const [isPhoneLogin, setIsPhoneLogin] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("");
   // const [isForgotPassword, setIsForgotPassword] = useState(false);
+
+  const handleLoginWith = (usePhone) => {
+    setIsPhoneLogin(usePhone);
+  };
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -71,53 +81,181 @@ export default function LoginPage() {
   return (
     <div>
       <Header />
+
       <div className="d-flex justify-content-center align-items-center">
         <div className={`loginContainer ${isActive ? "active" : ""}`}>
           {/* Login Form */}
           {!isForgotPassword ? (
+            // <div className="form-box login">
+            //   <form action="#">
+            //     <h1 className="mb-4">{t("login")}</h1>
+            //    <div className="d-flex">
+            //       <Link
+            //         type="button"
+            //         href="/account/profile"
+            //         className="btn text-decoration-none me-2 d-flex"
+            //         onClick={handleLoginWith}
+            //       >
+            //         Login with Number
+            //       </Link>
+            //       <Link
+            //         type="button"
+            //         href="/account/profile"
+            //         className="btn text-decoration-none d-flex"
+            //         onClick={handleLoginWith}
+            //       >
+            //         Login with Email
+            //       </Link>
+            //    </div>
+
+            //     <div className="input-box">
+            //       <input
+            //         type="text"
+            //         placeholder={t("email/mobile")}
+            //         onChange={(e) => {
+            //           setEmail(e.target.value);
+            //         }}
+            //       />
+            //       <i className="bx bxs-user"></i>
+            //     </div>
+
+            //     <div className="d-flex align-items-center">
+            //             <PhoneInput
+            //               country={"ae"}
+            //               value={"hjgh"}
+            //               inputStyle={{ display: "none" }}
+            //               onChange={handleCountryChange}
+            //               name="countryCode"
+            //               enableSearch
+            //               searchPlaceholder="Search..."
+            //               searchStyle={{ width: 280, marginLeft: 0 }}
+            //             />
+            //             <div style={{ margin: "0px 10px" }}>
+            //               {"+888"}
+            //             </div>
+
+            //             <div className="input-box form-floating w-100 my-0">
+            //               <input
+            //                 className="form-control"
+            //                 type="text"
+            //                 placeholder={t("phone_number")}
+            //                 name="number"
+            //                 id="phonenumber"
+            //                 value={"hgfhgjk"}
+            //                 onChange={()=>{}}
+            //               />
+            //               <label htmlFor="phonenumber" className="inputLabelBg">
+            //                 {t("phone_number")}
+            //               </label>
+            //             </div>
+            //           </div>
+
+            //     <div className="input-box">
+            //       <input
+            //         type="password"
+            //         placeholder={t("password")}
+            //         onChange={(e) => {
+            //           setPassword(e.target.value);
+            //         }}
+            //       />
+            //       <i className="bx bxs-lock-alt"></i>
+            //     </div>
+            //     <p className="text-danger">{error}</p>
+            //     <div className="forgot-link">
+            //       <button
+            //         type="button"
+            //         className="forgot-btn text-decoration-none"
+            //         onClick={() => setIsForgotPassword(true)}
+            //         style={{ color: colors.themeMain }}
+            //       >
+            //         {t("forgot_password")}
+            //       </button>
+            //     </div>
+
+            //     <Link
+            //       type="button"
+            //       href="/account/profile"
+            //       className="btn text-decoration-none d-flex"
+            //       onClick={handleLogin}
+            //     >
+            //       {t("login")}
+            //     </Link>
+            //   </form>
+            // </div>
             <div className="form-box login">
               <form action="#">
-                <h1>{t("login")}</h1>
-                <div className="input-box">
-                  <input
-                    type="text"
-                    placeholder={t("email/mobile")}
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                    }}
-                  />
-                  <i className="bx bxs-user"></i>
-                </div>
-                <div className="input-box">
-                  <input
-                    type="password"
-                    placeholder={t("password")}
-                    onChange={(e) => {
-                      setPassword(e.target.value);
-                    }}
-                  />
-                  <i className="bx bxs-lock-alt"></i>
-                </div>
-                <p className="text-danger">{error}</p>
-                <div className="forgot-link">
+                <h1 className="mb-4">Login</h1>
+
+                <div className="d-flex mb-4">
                   <button
                     type="button"
-                    className="forgot-btn text-decoration-none"
-                    onClick={() => setIsForgotPassword(true)}
-                    style={{ color: colors.themeMain }}
+                    className={`btn me-2 ${
+                      isPhoneLogin ? "btn-primary" : "btn-light"
+                    }`}
+                    onClick={() => handleLoginWith(true)}
                   >
-                    {t("forgot_password")}
+                    Login with Number
+                  </button>
+                  <button
+                    type="button"
+                    className={`btn ${
+                      !isPhoneLogin ? "btn-primary" : "btn-light"
+                    }`}
+                    onClick={() => handleLoginWith(false)}
+                  >
+                    Login with Email
                   </button>
                 </div>
 
-                <Link
-                  type="button"
-                  href="/account/profile"
-                  className="btn text-decoration-none"
-                  onClick={handleLogin}
-                >
-                  {t("login")}
-                </Link>
+                {!isPhoneLogin ? (
+                  <div className="input-box">
+                    <input
+                      type="email"
+                      placeholder="Email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <i className="bx bxs-user"></i>
+                  </div>
+                ) : (
+                  <div className="d-flex align-items-center">
+                    <PhoneInput
+                      country={countryCode}
+                      // value={phone}
+                      onChange={(value, country) => {
+                        // setPhone(value);
+                        setCountryCode(country.countryCode);
+                      }}
+                      enableSearch
+                      searchPlaceholder="Search..."
+                      searchStyle={{ width: 280, marginLeft: 0 }}
+                    />
+                    <div className="input-box my-0">
+                      <input
+                        type="text"
+                        placeholder="Phone Number"
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                      />
+                      <i className="bx bxs-lock-alt"></i>
+                    </div>
+                  </div>
+                )}
+
+                {/* Password Input */}
+                <div className="input-box">
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <i className="bx bxs-lock-alt"></i>
+                </div>
+
+                <button type="submit" className="btn d-flex">
+                  Login
+                </button>
               </form>
             </div>
           ) : (

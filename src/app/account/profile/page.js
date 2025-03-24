@@ -100,20 +100,17 @@ const Page = () => {
 
     setProfileData((prev) => {
       if (name === "number") {
-        // Update phone number
         return {
           ...prev,
           phonenumber: { ...prev.phonenumber, number: value },
         };
       } else if (name.includes(".")) {
-        // Handle nested fields like address.street
         const [parent, child] = name.split(".");
         return {
           ...prev,
           [parent]: { ...prev[parent], [child]: value },
         };
       } else {
-        // Update root-level fields
         return { ...prev, [name]: value };
       }
     });
