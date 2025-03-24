@@ -276,7 +276,11 @@ input[type="password"]::-webkit-textfield-decoration-container {
   display: flex;
   gap: 15px;
 }
-
+/* button.customLoginFormBtn {
+  background-color: white !important;
+  color: black !important;
+  border: 2px solid transparent !important;
+} */
 .pickupRetunSpanStyle {
   display: inline-flex;
   align-items: center;

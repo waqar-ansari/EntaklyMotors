@@ -184,26 +184,33 @@ export default function LoginPage() {
             // </div>
             <div className="form-box login">
               <form action="#">
-                <h1 className="mb-4">Login</h1>
+                <h1 className="mb-4">Login with</h1>
 
                 <div className="d-flex mb-4">
                   <button
                     type="button"
-                    className={`btn me-2 ${
-                      isPhoneLogin ? "btn-primary" : "btn-light"
-                    }`}
+                    className=" me-2 customLoginFormBtn"
+                    style={{
+                      backgroundColor: isPhoneLogin ? "#292268" : "#fff",
+                      color: isPhoneLogin ? "#fff" : "#000",
+                      border: "2px solid #292268",
+                    }}
                     onClick={() => handleLoginWith(true)}
                   >
-                    Login with Number
+                    Phone
                   </button>
+
                   <button
                     type="button"
-                    className={`btn ${
-                      !isPhoneLogin ? "btn-primary" : "btn-light"
-                    }`}
+                    className=" customLoginFormBtn"
+                    style={{
+                      backgroundColor: !isPhoneLogin ? "#292268" : "#fff",
+                      color: !isPhoneLogin ? "#fff" : "#000",
+                      border: "2px solid #292268",
+                    }}
                     onClick={() => handleLoginWith(false)}
                   >
-                    Login with Email
+                    Email
                   </button>
                 </div>
 
