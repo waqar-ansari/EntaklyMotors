@@ -388,11 +388,11 @@ useEffect(() => {
       </Modal.Header>
       <Modal.Body>
         {/* <h4>Centered Modal</h4> */}
-        <Lottie
+        {/* <Lottie
             animationData={confettiAnimation}
             play
             style={{ width: 500, height: 300 }}
-          />
+          /> */}
         <p>
         Congratulations! Your payment has been successful. Your booking has been confirmed.
         </p>
