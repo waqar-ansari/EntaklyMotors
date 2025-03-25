@@ -23,12 +23,18 @@ const Page = () => {
   const profileSubTab = searchParams.get("subTab") || "profileInformation";
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
+  const [localUserId, setLocalUserId] = useState(null);
+  const [changePasswordMessage, setChangePasswordMessage] = useState("");
   const [changePasswords, setChangePasswords] = useState({
-    currentPassword: "",
-    newPassword: "",
+    current_password: "",
+    new_password: "",
   });
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setLocalUserId(localStorage.getItem("userId"));
+  }, []);
 
   const [profileData, setProfileData] = useState({
     fullname: "",
@@ -53,6 +59,8 @@ const Page = () => {
   };
 
   useEffect(() => {
+    console.log("fetch profile called");
+
     dispatch(fetchProfile());
   }, [dispatch]);
 
@@ -63,27 +71,28 @@ const Page = () => {
   const handleSubmit = (e, subTab) => {
     e.preventDefault();
 
-    // let updatedData = {};
-    let updatedData = new FormData();
+    let updatedData = {};
+    // let updatedData = new FormData();
 
     if (subTab === "profileInformation") {
-      // updatedData = {
-      //   fullname: profileData.fullname,
-      //   phonenumber: profileData.phonenumber,
-      // };
-      updatedData.append("fullname", profileData.fullname);
-      updatedData.append("phonenumber", profileData.phonenumber);
+      updatedData = {
+        fullname: profileData.fullname,
+        phonenumber: profileData.phonenumber,
+      };
+      // updatedData.append("fullname", profileData.fullname);
+      // updatedData.append("phonenumber", profileData.phonenumber);
     } else if (subTab === "email") {
-      // updatedData = {
-      //   email: profileData.email,
-      // };
-      updatedData.append("email", profileData.email);
+      updatedData = {
+        email: profileData.email,
+      };
+      // updatedData.append("email", profileData.email);
     } else if (subTab === "address") {
-      // updatedData = {
-      //   address: profileData.address,
-      // };
-      updatedData.append("address", profileData.address);
+      updatedData = {
+        address: profileData.address,
+      };
+      // updatedData.append("address", profileData.address);
     }
+    console.log(updatedData, "updated dataa");
 
     dispatch(updateProfile(updatedData));
   };
@@ -137,19 +146,39 @@ const Page = () => {
     }
   }, [fullname, email, phonenumber, address, loading, error]);
   const handleChangePassword = (e) => {
+    setChangePasswordMessage("");
     const { name, value } = e.target;
     setChangePasswords((prev) => ({ ...prev, [name]: value }));
   };
+  console.log(changePasswords, "changePasswords");
 
   const handleSubmitChangePassword = async (e) => {
     e.preventDefault();
-    const passwordsWithMail = { ...changePasswords, email };
+
+    const passwordsWithUserId = {
+      ...changePasswords,
+      user_id: Number(localUserId),
+    };
+
     try {
-      const response = await api.post("/change_password.php", {
-        passwordsWithMail,
-      });
-      // setMessage(response.data.message);
-      setChangePasswords({ currentPassword: "", newPassword: "" });
+      console.log(passwordsWithUserId, "passwordsWithUserId");
+
+      const response = await api.post(
+        "/change_password.php",
+        passwordsWithUserId
+      );
+      if (response.data.status === "error") {
+      setChangePasswordMessage(response.data.message)
+        return;
+      }
+      else {
+        setChangePasswordMessage(response.data.message)
+        setChangePasswords({ current_password: "", new_password: "" });
+        return;
+      }
+
+
+
     } catch (error) {
       // setMessage(error.response?.data?.error || "Something went wrong");
       console.error(
@@ -271,14 +300,14 @@ const Page = () => {
                         <input
                           className="form-control"
                           type={showCurrentPassword ? "text" : "password"}
-                          name="currentPassword"
-                          value={changePasswords.currentPassword}
+                          name="current_password"
+                          value={changePasswords.current_password}
                           onChange={handleChangePassword}
                           placeholder={t("current_password")}
-                          id="currentPassword"
+                          id="current_password"
                         />
                         <label
-                          htmlFor="currentPassword"
+                          htmlFor="current_password"
                           className="inputLabelBg"
                         >
                           {t("current_password")}
@@ -304,13 +333,13 @@ const Page = () => {
                         <input
                           className="form-control"
                           type={showNewPassword ? "text" : "password"}
-                          name="newPassword"
-                          value={changePasswords.newPassword}
+                          name="new_password"
+                          value={changePasswords.new_password}
                           onChange={handleChangePassword}
                           placeholder={t("new_password")}
-                          id="newPassword"
+                          id="new_password"
                         />
-                        <label htmlFor="newPassword" className="inputLabelBg">
+                        <label htmlFor="new_password" className="inputLabelBg">
                           {t("new_password")}
                         </label>
                         <span
@@ -327,6 +356,7 @@ const Page = () => {
                           {showNewPassword ? <FaEyeSlash /> : <FaEye />}
                         </span>
                       </div>
+                      <p style={{ color: "red" }}>{changePasswordMessage}</p>
                       <button type="submit" className="submitButton">
                         {t("save")}
                       </button>

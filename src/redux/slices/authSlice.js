@@ -14,7 +14,7 @@ export const signupUser = createAsyncThunk(
   "register",
   async (signupCredentials) => {
     console.log(signupCredentials, "signupCredentials from register slice");
-    
+
     const response = await api.post("/register.php", signupCredentials);
     return response.data;
   }
@@ -42,7 +42,9 @@ const authSlice = createSlice({
       state.loading = false;
       state.user = action.payload;
       // state.token = action.payload.token;
-      // localStorage.setItem("authToken", action.payload.token);
+      console.log(action.payload, "action.payload from login slice");
+      
+      localStorage.setItem("userId", action.payload.User_id);
     });
     builder.addCase(loginUser.rejected, (state) => {
       state.loading = false;

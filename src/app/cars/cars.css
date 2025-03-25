@@ -251,6 +251,15 @@
    background-size: cover;
    border-radius: 10px;
  }
+ .successPageImageBg {
+   position: relative;
+
+   width: 92px;
+   height: 71px;
+   background: url('/images/carBg.webp') no-repeat center center;
+   background-size: cover;
+   border-radius: 10px;
+ }
 
 
  .pickupAndReturn {

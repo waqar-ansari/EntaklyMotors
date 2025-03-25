@@ -96,13 +96,13 @@ const {t,language} = useTranslation()
             return (
               <div className="liContainer" key={index}>
                 <li className="liTick">{item}</li>
-                <Whisper
+                {/* <Whisper
                   placement="left"
                   trigger="hover"
                   speaker={<Tooltip>Information Information</Tooltip>}
                 >
                   <IoInformationCircleOutline style={styles.iIcon} />
-                </Whisper>
+                </Whisper> */}
               </div>
             );
           })}
@@ -110,13 +110,13 @@ const {t,language} = useTranslation()
             return (
               <div className="liContainer" key={index}>
                 <li className="liCross">{item}</li>
-                <Whisper
+                {/* <Whisper
                   placement="left"
                   trigger="hover"
                   speaker={<Tooltip>Information Information</Tooltip>}
                 >
                   <IoInformationCircleOutline style={styles.iIcon} />
-                </Whisper>
+                </Whisper> */}
               </div>
             );
           })}

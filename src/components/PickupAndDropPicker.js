@@ -274,6 +274,7 @@ const PickupAndDropPicker = ({
                 position: "relative",
                 zIndex: 999,
                 height: "70vh",
+                overflow:"hidden"
               }}
               onClick={handleLocationClick}
             >
@@ -282,13 +283,13 @@ const PickupAndDropPicker = ({
               </div>
 
               <div className="container-fluid">
-                <div className="row">
+                <div className="row" style={{height: "100%"}}>
                   <div
                     className="col-md-6"
                     style={
                       {
                         // overflowY: "auto",
-                        // height: "60vh",
+                        height: "100%",
                       }
                     }
                   >
@@ -311,6 +312,7 @@ const PickupAndDropPicker = ({
                       style={{
                         overflowY: "auto",
                         height: "60vh",
+                        paddingBottom:50
                       }}
                     >
                       {filteredLocations.map((item, index) => {
@@ -779,7 +781,8 @@ const PickupAndDropPicker = ({
               setShowReturnTimeModal(true);
             }}
           >
-            {t("select_return_date")} <FaArrowRightLong style={{ marginLeft: 15 }} />
+            {t("select_return_date")}{" "}
+            <FaArrowRightLong style={{ marginLeft: 15 }} />
           </Button>
         </Modal.Footer>
       </Modal>
@@ -828,7 +831,8 @@ const PickupAndDropPicker = ({
               setShowReturnTimeModalMobile(true);
             }}
           >
-            {t("select_return_date")}<FaArrowRightLong style={{ marginLeft: 15 }} />
+            {t("select_return_date")}
+            <FaArrowRightLong style={{ marginLeft: 15 }} />
           </Button>
         </Modal.Footer>
       </Modal>
@@ -930,7 +934,7 @@ const PickupAndDropPicker = ({
               setShowReturnTimeModalMobile(false);
             }}
           >
-           {t("save_changes")}
+            {t("save_changes")}
           </Button>
         </Modal.Footer>
       </Modal>
@@ -1111,7 +1115,7 @@ const PickupAndDropPicker = ({
               setActiveInput(null);
             }}
           >
-          {t("save_changes")}
+            {t("save_changes")}
           </Button>
         </Modal.Footer>
       </Modal>

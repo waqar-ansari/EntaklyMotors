@@ -274,7 +274,7 @@ const router = useRouter();
                 <div className="reviewPageImageBg">
                   <Image
                     src={selectedCarDetail.image}
-                    alt="visa"
+                    alt={selectedCarDetail.name}
                     width={92}
                     height={71}
                     // style={{ position: "absolute", top: 0, right: 0 }}

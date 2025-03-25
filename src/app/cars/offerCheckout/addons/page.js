@@ -23,6 +23,7 @@ import {
   selectBookingOverview,
   setAddonBookingOverview,
 } from "@/redux/slices/bookingOverviewSlice";
+import api from "@/app/api/axiosInstance";
 
 const addons = [
   {
@@ -55,6 +56,10 @@ const page = () => {
   const [activeAddons, setActiveAddons] = useState({});
 
   const dispatch = useDispatch();
+
+
+
+
 
   const toggleAddon = (addon) => {
     setActiveAddons((prev) => {
@@ -180,13 +185,13 @@ const page = () => {
                 return (
                   <div className="liContainer" key={index}>
                     <li className="liTick">{item}</li>
-                    <Whisper
+                    {/* <Whisper
                       placement="left"
                       trigger="hover"
                       speaker={<Tooltip>Information Information</Tooltip>}
                     >
                       <IoInformationCircleOutline style={styles.iIcon} />
-                    </Whisper>
+                    </Whisper> */}
                   </div>
                 );
               })}

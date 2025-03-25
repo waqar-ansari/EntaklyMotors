@@ -49,7 +49,7 @@ const page = () => {
 
   const packages = [
     {
-      packageName: "Basic",
+      packageName: "Basic Protection",
       heading: "Basic Protection",
       packagePrice: 0,
       numberOfStars: "1",
@@ -65,7 +65,7 @@ const page = () => {
       ],
     },
     {
-      packageName: "Gold",
+      packageName: "Smart Protection",
       heading: "Smart Protection",
       packagePrice: 40,
       extraInfo: "(Minimum age 25)",
@@ -81,7 +81,7 @@ const page = () => {
       ],
     },
     {
-      packageName: "Platinum",
+      packageName: "All Inclusive Protection",
       heading: "All Inclusive Protection",
       extraInfo: "(Minimum age 25)",
       packagePrice: 80,
@@ -328,13 +328,13 @@ const page = () => {
                 return (
                   <div className="liContainer" key={index}>
                     <li className="liTick">{item}</li>
-                    <Whisper
+                    {/* <Whisper
                       placement="left"
                       trigger="hover"
                       speaker={<Tooltip>Information Information</Tooltip>}
                     >
                       <IoInformationCircleOutline style={styles.iIcon} />
-                    </Whisper>
+                    </Whisper> */}
                   </div>
                 );
               })}

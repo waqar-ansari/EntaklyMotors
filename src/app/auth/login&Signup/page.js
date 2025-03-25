@@ -259,9 +259,18 @@ export default function LoginPage() {
                   <i className="bx bxs-lock-alt"></i>
                 </div>
 
-                <button type="submit" className="btn d-flex">
+                {/* <button type="submit" className="btn d-flex">
                   Login
-                </button>
+                </button> */}
+
+                <Link
+                  type="button"
+                  href="/account/profile"
+                  className="btn text-decoration-none d-flex"
+                  onClick={handleLogin}
+                >
+                  {t("login")}
+                </Link>
               </form>
             </div>
           ) : (

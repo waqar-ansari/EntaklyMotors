@@ -17,8 +17,9 @@ import { AiOutlineClose } from "react-icons/ai";
 import { clearSelectedAddons } from "@/redux/slices/selectedAddonSlice";
 import { clearSelectedPackage } from "@/redux/slices/selectedPackageSlice";
 import { setCarBookingOverview } from "@/redux/slices/bookingOverviewSlice";
+import api from "../api/axiosInstance";
 
-const carsData = [
+const carsDataa = [
   {
     id: 1,
     name: "Premium (BMW 2 Series)",
@@ -72,6 +73,7 @@ const carsData = [
 export default function CarsPage() {
   const [selectedCarId, setSelectedCarId] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [carsData, setCarsData] = useState([]);
   const bookingOverview = useSelector((state) => state.bookingOverview);
 
   const dispatch = useDispatch();
@@ -103,6 +105,27 @@ export default function CarsPage() {
       }
     }
   };
+const localUserId = localStorage.getItem("userId")
+  useEffect(() => {
+    const fetchCars = async () => {
+      try {
+        const response = await api.get("/get_all_cars.php", { user_id: localUserId});
+        if(response.data.error){
+          console.log(response.data.error)
+        }
+       else{
+        // const carsData = response.data.cars;
+        setCarsData(response.data.cars)
+       }
+      } catch (error) {
+        console.error("Error fetching cars:", error);
+      }
+    };
+  
+    fetchCars();
+  }, []);
+
+
   useEffect(() => {
     dispatch(clearSelectedAddons());
     dispatch(clearSelectedPackage());
@@ -131,7 +154,7 @@ export default function CarsPage() {
 
         {isMobile ? (
           <div className="row">
-            {carsData.map((car) => (
+            {carsDataa.map((car) => (
               <div key={car.id} className="col-sm-6 mb-2">
                 <CarCard
                   car={car}
@@ -142,7 +165,7 @@ export default function CarsPage() {
             ))}
           </div>
         ) : (
-          carsData
+          carsDataa
             .reduce((rows, car, index) => {
               if (index % 3 === 0) {
                 rows.push([]);
@@ -170,7 +193,7 @@ export default function CarsPage() {
                   row.some((car) => car.id === selectedCarId) && (
                     <div className="col-12 mt-4">
                       <CarDetails
-                        car={carsData.find((car) => car.id === selectedCarId)}
+                        car={carsDataa.find((car) => car.id === selectedCarId)}
                         onClose={() => {
                           dispatch(clearSelectedCar());
                           setSelectedCarId(null);
@@ -198,7 +221,7 @@ export default function CarsPage() {
         <Modal.Body className="px-0">
           {selectedCarId && (
             <CarDetails
-              car={carsData.find((car) => car.id === selectedCarId)}
+              car={carsDataa.find((car) => car.id === selectedCarId)}
               onClose={() => setShowModal(false)}
             />
           )}

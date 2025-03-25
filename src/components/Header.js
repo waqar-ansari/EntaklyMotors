@@ -208,7 +208,8 @@ const Header = ({ headerPickupAndDrop }) => {
                         className="nav-link text-white text-decoration-none"
                       >
                         {/* {user.fullName} */}
-                        {user ? user?.user?.fullname : "Guest"}
+                        {/* {user ? user?.user?.fullname : "Guest"} */}
+                        Guest
                       </Link>
                     </li>
                   ) : (

@@ -329,6 +329,9 @@ span.input-group-text {
 .language-modal .btn-close {
   margin-right: 0 !important;
 }
+.displayBlock{
+  display: block;
+}
 
 .sec-6 .entakly-business-services {
   border: 1px solid #fff;
