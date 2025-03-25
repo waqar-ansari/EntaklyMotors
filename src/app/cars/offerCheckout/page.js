@@ -21,7 +21,7 @@ import { clearSelectedAddons } from "@/redux/slices/selectedAddonSlice";
 import { selectBookingOverview, setPackageBookingOverview } from "@/redux/slices/bookingOverviewSlice";
 
 const page = () => {
-  const [selectedPackage, setSelectedPackage] = useState("Basic");
+  const [selectedPackage, setSelectedPackage] = useState("Basic Protection");
 
   // const basicPacageTicks = ["Loss Damage Waiver"];
   // const basicPackageCross = [
