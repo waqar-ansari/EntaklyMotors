@@ -297,6 +297,7 @@ const page = () => {
                     alt={selectedCarDetail.name}
                     width={92}
                     height={71}
+                    unoptimized
                     // style={{ position: "absolute", top: 0, right: 0 }}
                   />
                 </div>

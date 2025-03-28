@@ -61,6 +61,8 @@ export default function CarDetails({ car, onClose }) {
                 width={752}
                 height={500}
                 layout="responsive"
+                unoptimized
+
               />
             </div>
             <div style={{ marginBottom: 20 }}>
