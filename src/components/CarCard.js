@@ -44,9 +44,9 @@ export default function CarCard({ car, onClick, isSelected }) {
           </div>
           <div>
             <Image
-              src={`https://admin.entaklymotors.com/storage/${car.car_image}`}
+              // src={`https://admin.entaklymotors.com/storage/${car.car_image}`}
               // src={`/images/final_1.png`}
-              // src="https://admin.entaklymotors.com/storage/cars/9.jpg"
+              src="https://admin.entaklymotors.com/storage/cars/9.jpg"
               alt={car.name}
               width={700}
               height={420}
