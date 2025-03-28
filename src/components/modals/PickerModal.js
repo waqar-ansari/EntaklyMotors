@@ -22,7 +22,6 @@ const PickerModal = ({closePickerModal}) => {
             className="modal-body pickerModalBodyFlex"
           >
             <PickupAndDropPicker heading={false} closePickerModal={closePickerModal} />
-            <button onClick={closePickerModal}>close modal</button>
           </div>
         </div>
       </div>
