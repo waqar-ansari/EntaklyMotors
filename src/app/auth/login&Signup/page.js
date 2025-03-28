@@ -20,30 +20,51 @@ export default function LoginPage() {
   const [success, setSuccess] = useState("");
 
   const [email, setEmail] = useState("");
-  const [registerEmail, setRegisterEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerPhoneNumber, setRegisterPhoneNumber] = useState("");
+  const [registerCountryCode, setRegisterCountryCode] = useState("ae");
+  const [password, setPassword] = useState("");
   // const [phone, setPhone] = useState("");
   const [countryCode, setCountryCode] = useState("ae");
   const [isPhoneLogin, setIsPhoneLogin] = useState(false);
+  const [isPhoneRegister, setIsPhoneRegister] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   // const [isForgotPassword, setIsForgotPassword] = useState(false);
 
   const handleLoginWith = (usePhone) => {
     setIsPhoneLogin(usePhone);
   };
+  const handleRegisterWith = (usePhone) => {
+    setError("")
+    setIsPhoneRegister(usePhone);
+  };
+console.log(registerCountryCode,"register country code");
 
   const dispatch = useDispatch();
   const router = useRouter();
+  console.log(countryCode,"country code");
+  
   const handleLogin = async (e) => {
     e.preventDefault();
-    const credentials = { email, password };
+    const credentials = isPhoneLogin
+    ? {
+        phone_number: {
+          countryCode: countryCode,
+          number: phoneNumber,
+        },
+        password: password,
+      }
+    : {
+        email: email,
+        password: password,
+      };
 
     try {
-      console.log(credentials, "credentials");
+
 
       const result = await dispatch(loginUser(credentials)).unwrap();
-      console.log(result, "result from login");
+
       if (result.status === "error") {
         console.log(result.status, "Invalid email or password");
         setError("Invalid email or password");
@@ -59,17 +80,28 @@ export default function LoginPage() {
     setError("");
     setSuccess("");
     e.preventDefault();
-    const credentials = { email: registerEmail, password: registerPassword };
+    const credentials = isPhoneRegister
+    ? {
+        phone_number: {
+          countryCode: registerCountryCode,
+          number: registerPhoneNumber,
+        },
+        password: registerPassword,
+      }
+    : {
+        email: registerEmail,
+        password: registerPassword,
+      };
+  console.log(credentials,"register credentials");
+  
     try {
       const result = await dispatch(signupUser(credentials)).unwrap();
-      console.log(result, "result from register");
+
       if (result.status === "error") {
-        console.log(result.message);
         setError(result.message);
         return;
       }
       if (result.status === "success") {
-        console.log(result.message);
         setSuccess(result.message);
         router.push("/auth/login&Signup");
       }
@@ -230,7 +262,7 @@ export default function LoginPage() {
                       // value={phone}
                       onChange={(value, country) => {
                         // setPhone(value);
-                        setCountryCode(country.countryCode);
+                        setCountryCode("+" + country.dialCode);
                       }}
                       enableSearch
                       searchPlaceholder="Search..."
@@ -307,15 +339,47 @@ export default function LoginPage() {
           {/* Register Form */}
           <div className="form-box register">
             <form action="#">
-              <h1>{t("registration")}</h1>
-              {/* <div className="input-box">
-                    <input type="text" placeholder="Username" required />
-                    <i className="bx bxs-user"></i>
-                  </div> */}
+              <h1 className="mb-4">Register with</h1>
+              
+
+
+
+              <div className="d-flex mb-4">
+                  <button
+                    type="button"
+                    className="customLoginFormBtn me-2"
+                    style={{
+                      backgroundColor: !isPhoneRegister ? "#292268" : "#fff",
+                      color: !isPhoneRegister ? "#fff" : "#000",
+                      border: "2px solid #292268",
+                    }}
+                    onClick={() => handleRegisterWith(false)}
+                  >
+                    Email
+                  </button>
+                  <button
+                    type="button"
+                    className="customLoginFormBtn"
+                    style={{
+                      backgroundColor: isPhoneRegister ? "#292268" : "#fff",
+                      color: isPhoneRegister ? "#fff" : "#000",
+                      border: "2px solid #292268",
+                    }}
+                    onClick={() => handleRegisterWith(true)}
+                  >
+                    Phone
+                  </button>
+                </div>
+
+
+
+                {!isPhoneRegister ? (
+
+
               <div className="input-box">
                 <input
                   type="email"
-                  placeholder={t("email/mobile")}
+                  placeholder={t("email")}
                   name="signupEmail"
                   required
                   onChange={(e) => {
@@ -324,6 +388,30 @@ export default function LoginPage() {
                 />
                 <i className="bx bxs-envelope"></i>
               </div>
+                ):
+                <div className="d-flex align-items-center">
+                    <PhoneInput
+                      country={registerCountryCode}
+                      // value={phone}
+                      onChange={(value, country) => {
+                        // setPhone(value);
+                        setRegisterCountryCode("+" + country.dialCode);
+                      }}
+                      enableSearch
+                      searchPlaceholder="Search..."
+                      searchStyle={{ width: 280, marginLeft: 0 }}
+                    />
+                    <div className="input-box my-0">
+                      <input
+                        type="text"
+                        placeholder="Phone Number"
+                        value={registerPhoneNumber}
+                        onChange={(e) => setRegisterPhoneNumber(e.target.value)}
+                      />
+                      <i className="bx bxs-lock-alt"></i>
+                    </div>
+                  </div>
+                }
               <div className="input-box">
                 <input
                   type="password"
@@ -341,7 +429,7 @@ export default function LoginPage() {
               <Link
                 type="button"
                 href="/auth/login&Signup"
-                className="btn text-decoration-none"
+                className="btn text-decoration-none d-flex"
                 onClick={handleRegister}
               >
                 {t("register")}

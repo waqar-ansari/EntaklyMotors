@@ -105,8 +105,6 @@ const page = () => {
   const platinumPackageCross = [];
   const handlePackageClick = (packageName, packagePrice,overview) => {
     setSelectedPackage(packageName);
-
-    console.log(overview,"overviewww");
     
     dispatch(setPackageBookingOverview([`${overview}`]));
     dispatch(setSelectedPackageSlice({ packageName, packagePrice }));

@@ -1,7 +1,9 @@
 import React from "react";
 import PickupAndDropPicker from "../PickupAndDropPicker";
 
-const PickerModal = () => {
+const PickerModal = ({closePickerModal}) => {
+  console.log(closePickerModal,"close picker modal");
+  
   return (
     <div
       className="modal fade"
@@ -19,7 +21,8 @@ const PickerModal = () => {
             style={styles.modalbody}
             className="modal-body pickerModalBodyFlex"
           >
-            <PickupAndDropPicker heading={false} />
+            <PickupAndDropPicker heading={false} closePickerModal={closePickerModal} />
+            <button onClick={closePickerModal}>close modal</button>
           </div>
         </div>
       </div>

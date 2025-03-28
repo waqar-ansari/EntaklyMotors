@@ -23,9 +23,20 @@ const Header = ({ headerPickupAndDrop }) => {
   const [showPickerModal, setShowPickerModal] = useState(false);
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
-  const openPickerModal = () => setShowPickerModal(true);
-  const closePickerModal = () => setShowPickerModal(false);
 
+  const closePickerModal = () => {
+    // This will close the Bootstrap modal
+    const modal = document.getElementById('pickerModal');
+    if (modal) {
+      const bootstrapModal = bootstrap.Modal.getInstance(modal);
+      if (bootstrapModal) {
+        bootstrapModal.hide();
+      } else {
+        // If no instance exists, create one and hide it
+        new bootstrap.Modal(modal).hide();
+      }
+    }
+  };
   const [showModal, setShowModal] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(null);
 
@@ -41,7 +52,7 @@ const Header = ({ headerPickupAndDrop }) => {
   const rentalDetail = useSelector((state) => state.rentalDetail);
   return (
     <div>
-      <PickerModal showModal={showPickerModal} closeModal={closePickerModal} />
+      <PickerModal closePickerModal={closePickerModal}/>
       <div
         style={{ background: colors.themeMain, fontFamily: fonts.helvetica400 }}
       >
@@ -170,7 +181,7 @@ const Header = ({ headerPickupAndDrop }) => {
                     <a
                       className="nav-link active text-white text-decoration-none"
                       aria-current="page"
-                      href="/auth/login&Signup"
+                      href={`/auth/login&Signup`}
                     >
                       {t("manage_booking")}
                     </a>
@@ -208,6 +219,7 @@ const Header = ({ headerPickupAndDrop }) => {
                         className="nav-link text-white text-decoration-none"
                       >
                         {/* {user.fullName} */}
+                        
                         {/* {user ? user?.user?.fullname : "Guest"} */}
                         Guest
                       </Link>

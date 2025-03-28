@@ -48,12 +48,14 @@ export default function CarDetails({ car, onClose }) {
         <div className="carImageContainer">
           <div className="carDetailsOverlay">
             <div className="ms-4 mt-3">
-              <h2 className="carTitle">MIDSIZE ({car.name})</h2>
+              <h2 className="carTitle">{car.name}</h2>
               <p className="carSubtitle">or similar | Saloon</p>
             </div>
             <div>
               <Image
-                src={car.image}
+                  // src={`https://admin.entaklymotors.com/storage/${car.car_image}`}
+                  src="https://admin.entaklymotors.com/storage/cars/9.jpg"
+                  // src="/images/final_3.png"
                 className="carDetailsImage"
                 alt={car.name}
                 width={752}
@@ -64,7 +66,7 @@ export default function CarDetails({ car, onClose }) {
             <div style={{ marginBottom: 20 }}>
               <div className="carIcons" style={styles.carDetailsFacilities}>
                 <span>
-                  <FaUser style={styles.iconStyles} /> 5 Seats
+                  <FaUser style={styles.iconStyles} /> {car.number_of_seats} Seats
                 </span>
                 <span>
                   <FaSuitcase style={styles.iconStyles} /> 2 Suitcase(s)
@@ -76,7 +78,7 @@ export default function CarDetails({ car, onClose }) {
                   <TbAutomaticGearbox style={styles.iconStyles} /> Automatic
                 </span>
                 <span>
-                  <FaDoorOpen style={styles.iconStyles} /> 4 Doors
+                  <FaDoorOpen style={styles.iconStyles} /> {car.number_of_doors} Doors
                 </span>
               </div>
               <div className="text-center">
@@ -152,9 +154,9 @@ export default function CarDetails({ car, onClose }) {
             <div className="infoBox">
               <div className="infoContent">
                 <div>
-                  <strong>{car.km_included}km</strong>
+                  <strong>{car.mileage}km</strong>
                   <p className="mb-0">
-                    +AED {car.km_price} / {t("for_every_additional_km")}
+                    +AED {car.additional_km_price} / {t("for_every_additional_km")}
                   </p>
                 </div>
                 <span style={styles.included}>{t("included")}</span>
@@ -188,7 +190,7 @@ export default function CarDetails({ car, onClose }) {
               </span> */}
               <p style={{ marginBottom: 5 }}>
                 {t("total")} :{" "}
-                {numberOfRentalDays * selectedCarDetails.price + 400}
+                {numberOfRentalDays * selectedCarDetails.price}
               </p>
               <div>
                 <p className="tagStyleCarDetails">Best Deal</p>

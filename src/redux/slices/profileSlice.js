@@ -1,18 +1,15 @@
 import { editProfile, getProfile } from "@/app/api/profileApi";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
-export const fetchProfile = createAsyncThunk("profile/getProfile", async () => {
-  
-  const data = await getProfile();  
+export const fetchProfile = createAsyncThunk("profile/getProfile", async (user_id) => {
+  const data = await getProfile(user_id);
   return data;
 });
 
 export const updateProfile = createAsyncThunk(
   "profile/editProfile",
   async (profileData) => {
-    console.log(profileData, "profileData from updateProfile slice");
-    
-    const data = await editProfile(profileData);    
+    const data = await editProfile(profileData);
     return data;
   }
 );
@@ -49,11 +46,12 @@ const profileSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchProfile.fulfilled, (state, action) => {
+        
         state.loading = false;
-        state.fullname = action.payload.fullname;
-        state.phonenumber = action.payload.phonenumber;
-        state.email = action.payload.email;
-        state.address = action.payload.address;
+        state.fullname = action.payload.data.full_name;
+        state.phonenumber = action.payload.data.phone_number;
+        state.email = action.payload.data.email;
+        state.address = action.payload.data.address;
       })
       .addCase(fetchProfile.rejected, (state, action) => {
         state.loading = false;

@@ -10,21 +10,15 @@ import { IoLocationSharp } from "react-icons/io5";
 import { IoCalendarSharp } from "react-icons/io5";
 import Image from "next/image";
 import PriceDetailsModal from "@/components/modals/PriceDetailsModal";
+import { useSearchParams } from "next/navigation";
+
+
 
 const BookingConfirmation = () => {
-  const bookingDetails = {
-    carName: "Hyundai Getz or similar",
-    pickupLocation: "Dubai - Downtown",
-    dropoffLocation: "Dubai Hills",
-    pickupDate: "Sat 27 Apr 2025",
-    pickupTime: "10:00",
-    dropoffDate: "Tue 30 Apr 2025",
-    dropoffTime: "10:00",
-    address: "JBR Dubai",
-    totalCost: "AED 200.00",
-    cancellationPolicy: "FREE Cancellation",
-    amendmentPolicy: "FREE 200km/day",
-  };
+  const searchParams = useSearchParams();
+// console.log(searchParams,"search params");
+const bookingId = searchParams.get("booking_id");
+  const transactionId = searchParams.get("transaction_id");
 
   const rentalDetail = useSelector((state) => state.rentalDetail);
   const selectedCarDetail = useSelector((state) => state.selectedCar);
@@ -41,7 +35,7 @@ const BookingConfirmation = () => {
     rentalDetail.pickupDate,
     rentalDetail.returnDate
   );
-  console.log(selectedCarDetail, "selectedCarDetail");
+console.log(bookingId, transactionId,"booking and transaction id");
 
   return (
     <>
@@ -74,7 +68,7 @@ const BookingConfirmation = () => {
                   <b>No. of rental Days: {numberOfRentalDays}</b>
                 </p>
                 <p>
-                  <b>Booking Id: ABC123XYZ</b>
+                  <b>Booking Id: {bookingId}</b>
                 </p>
               
               </div>
@@ -128,7 +122,7 @@ const BookingConfirmation = () => {
                   {selectedCarDetail.name}
                 </h4>
                 <Image
-                  src={selectedCarDetail.image}
+                  src={`https://admin.entaklymotors.com/storage/${selectedCarDetail.image}`}
                   alt={selectedCarDetail.name}
                   width={400}
                   height={308}
@@ -153,7 +147,7 @@ const BookingConfirmation = () => {
             />
             <div className="d-flex justify-content-between align-items-center">
               <p className="mb-0 fw-bold">Transaction Id </p>
-              <p className="mb-0 fw-bold">ABCD123456789XYZ</p>
+              <p className="mb-0 fw-bold">{transactionId}</p>
             </div>
             <div className="d-flex align-items-center justify-content-between">
               <div>

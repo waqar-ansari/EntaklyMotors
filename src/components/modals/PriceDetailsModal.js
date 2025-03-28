@@ -33,7 +33,7 @@ const PriceDetailsModal = () => {
   );
   useEffect(() => {
     dispatch(calculateTotalPrice());
-  }, [dispatch]);
+  }, [selectedCarDetails]);
   const selectedPackage = useSelector((state) => state.selectedPackage);
   const selectedAddons = useSelector((state) => state.selectedAddon);
   const {t, language} = useTranslation()

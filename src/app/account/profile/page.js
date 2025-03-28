@@ -59,12 +59,13 @@ const Page = () => {
   };
 
   useEffect(() => {
-    console.log("fetch profile called");
 
-    dispatch(fetchProfile());
-  }, [dispatch]);
+
+    dispatch(fetchProfile({ user_id: Number(localUserId) }));
+  }, [dispatch, localUserId]);
 
   const profile = useSelector((state) => state.profile);
+
 
   const { fullname, email, phonenumber, address, loading, error } = profile;
 
@@ -72,27 +73,24 @@ const Page = () => {
     e.preventDefault();
 
     let updatedData = {};
-    // let updatedData = new FormData();
-
     if (subTab === "profileInformation") {
       updatedData = {
-        fullname: profileData.fullname,
-        phonenumber: profileData.phonenumber,
+        full_name: profileData.fullname,
+        user_id: Number(localUserId),
+        phone_number: profileData.phonenumber,
       };
-      // updatedData.append("fullname", profileData.fullname);
-      // updatedData.append("phonenumber", profileData.phonenumber);
     } else if (subTab === "email") {
       updatedData = {
         email: profileData.email,
+        user_id: Number(localUserId)
       };
-      // updatedData.append("email", profileData.email);
     } else if (subTab === "address") {
       updatedData = {
         address: profileData.address,
+        user_id: Number(localUserId)
       };
-      // updatedData.append("address", profileData.address);
     }
-    console.log(updatedData, "updated dataa");
+
 
     dispatch(updateProfile(updatedData));
   };
@@ -150,7 +148,6 @@ const Page = () => {
     const { name, value } = e.target;
     setChangePasswords((prev) => ({ ...prev, [name]: value }));
   };
-  console.log(changePasswords, "changePasswords");
 
   const handleSubmitChangePassword = async (e) => {
     e.preventDefault();
@@ -161,24 +158,18 @@ const Page = () => {
     };
 
     try {
-      console.log(passwordsWithUserId, "passwordsWithUserId");
-
       const response = await api.post(
         "/change_password.php",
         passwordsWithUserId
       );
       if (response.data.status === "error") {
-      setChangePasswordMessage(response.data.message)
+        setChangePasswordMessage(response.data.message);
         return;
-      }
-      else {
-        setChangePasswordMessage(response.data.message)
+      } else {
+        setChangePasswordMessage(response.data.message);
         setChangePasswords({ current_password: "", new_password: "" });
         return;
       }
-
-
-
     } catch (error) {
       // setMessage(error.response?.data?.error || "Something went wrong");
       console.error(

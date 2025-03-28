@@ -6,12 +6,14 @@ import { TiArrowSortedDown } from "react-icons/ti";
 import { colors } from "../../public/colors/colors";
 import { useTranslation } from "@/context/LanguageProvider";
 
-
 export default function CarCard({ car, onClick, isSelected }) {
   const isLargeScreen =
-  typeof window !== "undefined" && window.matchMedia("(min-width: 992px)").matches;
+    typeof window !== "undefined" &&
+    window.matchMedia("(min-width: 992px)").matches;
 
-    const { t, language } = useTranslation();
+  const { t, language } = useTranslation();
+
+  
   return (
     <div>
       <div
@@ -20,7 +22,7 @@ export default function CarCard({ car, onClick, isSelected }) {
       >
         <div className="carOverlay">
           <div>
-            <h4 className="carTitle">COMPACT ({car.name})</h4>
+            <h4 className="carTitle">{car.name}</h4>
             <p className="carSubtitle">or similar | Saloon</p>
             <div className="carIcons">
               <span className="cardCardIconBox">
@@ -42,19 +44,24 @@ export default function CarCard({ car, onClick, isSelected }) {
           </div>
           <div>
             <Image
-              src={car.image}
-              alt="car"
-              width={752}
-              height={500}
+              src={`https://admin.entaklymotors.com/storage/${car.car_image}`}
+              // src={`/images/final_1.png`}
+              // src="https://admin.entaklymotors.com/storage/cars/9.jpg"
+              alt={car.name}
+              width={700}
+              height={420}
               layout="responsive"
+              unoptimized
             />
           </div>
           <div>
             <p className="carIncluded">
-              <FaCheck className="checkIcon" />{car.km_included} <span className="text-lowercase">{t("km_included")}</span>
+              <FaCheck className="checkIcon" />
+              {car.mileage}{" "}
+              <span className="text-lowercase">{t("km_included")}</span>
             </p>
             <div className="carPricing">
-              <span className="dailyRate">{car.price} AED / day</span>
+              <span className="dailyRate">{car.rental_rate} AED / day</span>
             </div>
             <div>
               <p className="tagStyle">Best Deal</p>

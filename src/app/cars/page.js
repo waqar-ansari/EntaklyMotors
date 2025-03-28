@@ -19,7 +19,7 @@ import { clearSelectedPackage } from "@/redux/slices/selectedPackageSlice";
 import { setCarBookingOverview } from "@/redux/slices/bookingOverviewSlice";
 import api from "../api/axiosInstance";
 
-const carsDataa = [
+const carsData = [
   {
     id: 1,
     name: "Premium (BMW 2 Series)",
@@ -88,15 +88,17 @@ export default function CarsPage() {
       setShowModal(false);
     } else {
       setSelectedCarId(car.id);
+
       const selectedCarDetails = {
         id: car.id,
         name: car.name,
-        image: car.image,
-        price: car.price,
+        image: car.car_image,
+        price: car.rental_rate,
       };
       const bookingOverviewForSelectedCar = [
-        `${car.km_included} km are included, each additional kilometer costs AED ${car.km_price}`,
+        `${car.mileage} km are included, each additional kilometer costs AED ${car.km_price}`,
       ];
+
       // bookingOverviewForSelectedCar.map((item) => dispatch(setBookingOverview(item)));
       dispatch(setCarBookingOverview(bookingOverviewForSelectedCar));
       dispatch(setSelectedCar(selectedCarDetails));
@@ -105,26 +107,28 @@ export default function CarsPage() {
       }
     }
   };
-const localUserId = localStorage.getItem("userId")
+  const localUserId = localStorage.getItem("userId");
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const response = await api.get("/get_all_cars.php", { user_id: localUserId});
-        if(response.data.error){
-          console.log(response.data.error)
+        const response = await api.get("/get_all_cars.php", {
+          user_id: localUserId,
+        });
+        if (response.data.error) {
+          console.log(response.data.error);
+        } else {
+          // const carsData = response.data.cars;
+
+          setCarsData(response.data.cars);
         }
-       else{
-        // const carsData = response.data.cars;
-        setCarsData(response.data.cars)
-       }
       } catch (error) {
         console.error("Error fetching cars:", error);
       }
     };
-  
+
     fetchCars();
   }, []);
-
+console.log(carsData,"cars data");
 
   useEffect(() => {
     dispatch(clearSelectedAddons());
@@ -132,6 +136,7 @@ const localUserId = localStorage.getItem("userId")
   }, []);
 
   const selectedCar = useSelector((state) => state.selectedCar);
+
   const { t, language } = useTranslation();
   return (
     <div>
@@ -154,7 +159,7 @@ const localUserId = localStorage.getItem("userId")
 
         {isMobile ? (
           <div className="row">
-            {carsDataa.map((car) => (
+            {carsData.map((car) => (
               <div key={car.id} className="col-sm-6 mb-2">
                 <CarCard
                   car={car}
@@ -165,7 +170,7 @@ const localUserId = localStorage.getItem("userId")
             ))}
           </div>
         ) : (
-          carsDataa
+          carsData
             .reduce((rows, car, index) => {
               if (index % 3 === 0) {
                 rows.push([]);
@@ -175,25 +180,27 @@ const localUserId = localStorage.getItem("userId")
             }, [])
             .map((row, rowIndex) => (
               <div key={rowIndex} className="row mb-3">
-                {row.map((car) => (
-                  <div
-                    key={car.id}
-                    className="col-lg-4 col-sm-6 col-12 mb-2 mb-lg-0"
-                  >
-                    <CarCard
-                      car={car}
-                      onClick={() => handleCarClick(car)}
-                      isSelected={selectedCarId === car.id}
-                    />
-                  </div>
-                ))}
+                {row.map((car) => {
+                  return (
+                    <div
+                      key={car.id}
+                      className="col-lg-4 col-sm-6 col-12 mb-2 mb-lg-0"
+                    >
+                      <CarCard
+                        car={car}
+                        onClick={() => handleCarClick(car)}
+                        isSelected={selectedCarId === car.id}
+                      />
+                    </div>
+                  );
+                })}
 
                 {!isMobile &&
                   selectedCarId &&
                   row.some((car) => car.id === selectedCarId) && (
                     <div className="col-12 mt-4">
                       <CarDetails
-                        car={carsDataa.find((car) => car.id === selectedCarId)}
+                        car={carsData.find((car) => car.id === selectedCarId)}
                         onClose={() => {
                           dispatch(clearSelectedCar());
                           setSelectedCarId(null);
@@ -221,7 +228,7 @@ const localUserId = localStorage.getItem("userId")
         <Modal.Body className="px-0">
           {selectedCarId && (
             <CarDetails
-              car={carsDataa.find((car) => car.id === selectedCarId)}
+              car={carsData.find((car) => car.id === selectedCarId)}
               onClose={() => setShowModal(false)}
             />
           )}

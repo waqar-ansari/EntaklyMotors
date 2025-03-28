@@ -16,27 +16,40 @@ import { FaShop } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import { useTranslation } from "@/context/LanguageProvider";
 import { selectBookingOverview } from "@/redux/slices/bookingOverviewSlice";
-import {loadStripe} from '@stripe/stripe-js';
+import { loadStripe } from "@stripe/stripe-js";
 import { Button, Modal } from "react-bootstrap";
 import { useRouter } from "next/navigation";
-
+import api from "@/app/api/axiosInstance";
 
 const page = () => {
   const [countryCode, setCountryCode] = useState("+971");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [localUserId, setLocalUserId] = useState("");
+  const [fullname, setFullName] = useState("");
+  const [email, setEmail] = useState("");
 
-const router = useRouter();
+  const router = useRouter();
   const handleCountryChange = (value, country) => {
     setCountryCode(`+${country.dialCode}`);
   };
+
+  useEffect(() => {
+    setLocalUserId(localStorage.getItem("userId"));
+  }, [localUserId]);
+
   const calculateDaysBetween = (startDate, endDate) => {
     const start = new Date(startDate);
     const end = new Date(endDate);
     const timeDifference = end - start;
     const daysDifference = timeDifference / (1000 * 3600 * 24);
-    return Math.abs(daysDifference); // Use Math.abs to get the absolute value in case the dates are reversed
+    return Math.abs(daysDifference);
   };
   const rentalDetail = useSelector((state) => state.rentalDetail);
+  const selectedPackageDetails = useSelector((state) => state.selectedPackage);
+  const selectedAddonDetails = useSelector((state) => state.selectedAddon);
+
+  const selectedAddons = selectedAddonDetails.map((item) => item.name);
+
   const numberOfRentalDays = calculateDaysBetween(
     rentalDetail.pickupDate,
     rentalDetail.returnDate
@@ -46,35 +59,58 @@ const router = useRouter();
   const bookingOverview = useSelector(selectBookingOverview);
   const totalPrice = useSelector((state) => state.totalPrice);
   const { t, language } = useTranslation();
-  const makePayment=async()=>{
+  const makePayment = async () => {
+    const bookingDetails = {
+      userId: localUserId,
+      carId: JSON.stringify(selectedCarDetail.id),
+      name: fullname,
+      email: email,
+      phoneNumber: {
+        countryCode: countryCode,
+        number: phoneNumber,
+      },
+      pickupLocation: rentalDetail.pickupLocation,
+      returnLocation: rentalDetail.returnLocation,
+      pickupDate: new Date(rentalDetail.pickupDate).toISOString().split("T")[0],
+      returnDate: new Date(rentalDetail.returnDate).toISOString().split("T")[0],
+      pickupTime: rentalDetail.pickupTime,
+      returnTime: rentalDetail.returnTime,
+      protectionPackage: selectedPackageDetails.packageName,
+      addons: selectedAddons,
+      totalPrice: totalPrice,
+    };
+    console.log(bookingDetails, "booking details");
 
-    router.push("/booking/success");
+    const response = await api.post("carbooking.php", bookingDetails);
+    console.log(response.data, "response after booking");
 
-    console.log("make payment");
-    
-  //  const stripe = await loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+    // router.push("/booking/success");
 
-  //  const body={
+    const bookingData = new URLSearchParams(response.data).toString();
+    router.push(`/booking/success?${bookingData}`);
 
-  //  }
-  //   const response=await fetch('http://localhost:3001/payment',{
-  //     method:'POST',
-  //     headers:{
-  //       'Content-Type':'application/json'
-  //     },
-  //     body:JSON.stringify(body)
-  //   })
-  //   const session=await response.json();
-  //   console.log(session);
-  //   const result=await stripe.redirectToCheckout({
-  //     sessionId:session.id
-  //   })
-  //   console.log(result);
-  //   if(result.error){
-  //     console.log(result.error.message);
-  //   }
-    
-  }
+    //  const stripe = await loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+
+    //  const body={
+
+    //  }
+    //   const response=await fetch('http://localhost:3001/payment',{
+    //     method:'POST',
+    //     headers:{
+    //       'Content-Type':'application/json'
+    //     },
+    //     body:JSON.stringify(body)
+    //   })
+    //   const session=await response.json();
+    //   console.log(session);
+    //   const result=await stripe.redirectToCheckout({
+    //     sessionId:session.id
+    //   })
+    //   console.log(result);
+    //   if(result.error){
+    //     console.log(result.error.message);
+    //   }
+  };
   return (
     <>
       <Header />
@@ -96,52 +132,29 @@ const router = useRouter();
             <div>
               <h3>{t("who_will_drive")}</h3>
             </div>
-            <div className="input-box form-floating">
+            <div className="input-box form-floating mt-0">
               <input
                 className="form-control"
                 type="text"
-                placeholder="Company"
-                id="company"
+                placeholder={t("full_name")}
+                onChange={(e) => {
+                  setFullName(e.target.value);
+                }}
+                id="fullName"
               />
-              <label for="company" className="inputLabelBg">
-                {t("company")}
+              <label for="fullName" className="inputLabelBg">
+                {t("full_name")}
               </label>
             </div>
-            <div className="d-flex justify-content-between">
-              <div
-                className="input-box form-floating mt-0"
-                style={{ width: "48%" }}
-              >
-                <input
-                  className="form-control"
-                  type="text"
-                  placeholder={t("first_name")}
-                  id="firstName"
-                />
-                <label for="firstName" className="inputLabelBg">
-                  {t("first_name")}
-                </label>
-              </div>
-              <div
-                className="input-box form-floating mt-0"
-                style={{ width: "48%" }}
-              >
-                <input
-                  className="form-control"
-                  type="text"
-                  placeholder={t("surname")}
-                  id="surname"
-                />
-                <label for="surname" className="inputLabelBg">
-                  {t("surname")}
-                </label>
-              </div>
-            </div>
+
             <div className="input-box form-floating mt-0">
               <input
                 className="form-control"
                 type="email"
                 placeholder={t("email")}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
                 id="email"
               />
               <label for="email" className="inputLabelBg">
@@ -255,7 +268,12 @@ const router = useRouter();
             <div className="mb-5">
               <PriceDetailsModal />
             </div>
-            <Link href="/booking/success" onClick={makePayment} className="mt-0" style={styles.payAndBookButton}>
+            <Link
+              href="/booking/success"
+              onClick={makePayment}
+              className="mt-0"
+              style={styles.payAndBookButton}
+            >
               {t("pay_and_book")}
             </Link>
           </div>
@@ -273,7 +291,9 @@ const router = useRouter();
               <div className="d-flex align-items-center mb-5">
                 <div className="reviewPageImageBg">
                   <Image
-                    src={selectedCarDetail.image}
+                    // src={`https://admin.entaklymotors.com/storage/${selectedCarDetail.image}`}
+                    // src="/images/final_1.png"
+                    src="https://admin.entaklymotors.com/storage/cars/9.jpg"
                     alt={selectedCarDetail.name}
                     width={92}
                     height={71}
@@ -342,24 +362,12 @@ const router = useRouter();
                     </li>
                   );
                 })}
-
-                {/* <li className="liTick">
-                  200 km are included, each additional kilometer costs AED 1.50
-                </li>
-                <li className="liTick">
-                  Smart Protection (Minimum age 25) - No excess
-                </li>
-                <li className="liTick">
-                  Booking option: Best price - Pay now, cancel and rebook for a
-                  fee
-                </li> */}
               </ul>
             </div>
           </div>
         </div>
       </div>
       <Footer />
-    
     </>
   );
 };

@@ -38,6 +38,7 @@ const PickupAndDropPicker = ({
   heading = true,
   showCarsButton = true,
   onShowCarsClick,
+  closePickerModal
 }) => {
   const [range, setRange] = useState([null, null]);
   const [hoveredItem, setHoveredItem] = useState({});
@@ -192,21 +193,6 @@ const PickupAndDropPicker = ({
         year: "numeric",
       })
     : "";
-  // const handleShowCarsClick = () => {
-  //   const rentalData = {
-  //     pickupLocation: pickupLocation || rentalDetails.pickupLocation,
-  //     returnLocation: returnLocation || rentalDetails.returnLocation || pickupLocation,
-  //     pickupDate: pickupDate || rentalDetails.pickupDate,
-  //     returnDate: returnDate || rentalDetails.returnDate,
-  //     pickupTime: pickupTime || rentalDetails.pickupTime,
-  //     returnTime: returnTime || rentalDetails.returnTime,
-  //   };
-  //   dispatch(setRentalDetailDataSlice(rentalData));
-  //   if (onShowCarsClick) {
-  //     onShowCarsClick(); // Trigger the prop function passed from the parent
-  //   }
-  // };
-
   const handleShowCarsClick = (e) => {
     if (!pickupLocation && !rentalDetails.pickupLocation) {
       setError("Please select a pickup location.");
@@ -229,10 +215,10 @@ const PickupAndDropPicker = ({
     dispatch(setRentalDetailDataSlice(rentalData));
 
     if (onShowCarsClick) {
-      onShowCarsClick(); // Trigger the prop function passed from the parent
+      closePickerModal();
     }
 
-    router.push("/cars"); // Manually navigate only if valid
+    router.push("/cars");
   };
   const { t, language } = useTranslation();
   const handleLocationSearch = (input) => {

@@ -1,12 +1,13 @@
 import { setTotalPrice } from "../slices/totalPriceSlice";
 
 export const calculateTotalPrice = () => (dispatch, getState) => {
-  const state = getState(); // Get entire Redux state
+  const state = getState();
 
   const { pickupDate, returnDate } = state.rentalDetail;
   const { price } = state.selectedCar;
+  
   const { packagePrice } = state.selectedPackage;
-  const selectedAddons = state.selectedAddon; // Extract selected addons array
+  const selectedAddons = state.selectedAddon;
 
   // Extract addon prices
   const addonPrices = selectedAddons.map(addon => addon.price);
@@ -18,7 +19,7 @@ export const calculateTotalPrice = () => (dispatch, getState) => {
 
 
   if (!pickupDate || !returnDate || !price) {
-    dispatch(setTotalPrice(0)); // ✅ Ensure it always updates the state
+    dispatch(setTotalPrice(0));
     return;
   }
 
@@ -36,6 +37,7 @@ export const calculateTotalPrice = () => (dispatch, getState) => {
 
   const totalPrice =
     numberOfRentalDays * carPricePerDay + currentPackagePrice + totalAddonPrice;
+console.log(totalPrice,"total price from thunk");
 
-  dispatch(setTotalPrice(totalPrice)); // ✅ Dispatch the calculated price
+  dispatch(setTotalPrice(totalPrice));
 };

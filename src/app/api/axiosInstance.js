@@ -7,18 +7,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    // const userId = localStorage.getItem("userId");
-
-    // if (authToken) {
       config.headers["Authorization"] = `Bearer ${GLOBAL_TOKEN}`;
-    // }
-
-    // if (config.url.includes("/get_all_cars")) {
-    //   config.headers["Authorization"] = GLOBAL_TOKEN;
-    // }
-    // else if (authToken) {
-    //   config.headers["Authorization"] = `Bearer ${authToken}`;
-    // }
 
     return config;
   },
