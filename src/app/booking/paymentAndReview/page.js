@@ -305,7 +305,7 @@ const page = () => {
                       {selectedCarDetail.name}
                     </h6>
                     <p style={{ marginBottom: 5, color: "#828287" }}>
-                      or similar | CCAR
+                      or similar
                     </p>
                     <p style={{ fontWeight: 600, marginBottom: 0 }}>
                       {numberOfRentalDays} Rental Days
