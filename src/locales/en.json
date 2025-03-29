@@ -97,7 +97,7 @@
   "how_would_you_like_to_pay":"How would you like to pay?",
   "card_number":"Card number",
   "cardholder_name":"Cardholder name",
-  "expiration_date":"Expiration date (MM/YY)",
+  "expiration_date":"Expiry date (MM/YY)",
   "cvv":"CVV",
   "pay_and_book":"Pay and Book",
   "book_now": "Book Now",
