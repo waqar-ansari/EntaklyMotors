@@ -24,19 +24,19 @@ const Header = ({ headerPickupAndDrop }) => {
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
 
-  const closePickerModal = () => {
-    // This will close the Bootstrap modal
-    const modal = document.getElementById('pickerModal');
-    if (modal) {
-      const bootstrapModal = bootstrap.Modal.getInstance(modal);
-      if (bootstrapModal) {
-        bootstrapModal.hide();
-      } else {
-        // If no instance exists, create one and hide it
-        new bootstrap.Modal(modal).hide();
-      }
-    }
-  };
+  // const closePickerModal = () => {
+  //   // This will close the Bootstrap modal
+  //   const modal = document.getElementById('pickerModal');
+  //   if (modal) {
+  //     const bootstrapModal = bootstrap.Modal.getInstance(modal);
+  //     if (bootstrapModal) {
+  //       bootstrapModal.hide();
+  //     } else {
+  //       // If no instance exists, create one and hide it
+  //       new bootstrap.Modal(modal).hide();
+  //     }
+  //   }
+  // };
   const [showModal, setShowModal] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(null);
 
@@ -52,7 +52,7 @@ const Header = ({ headerPickupAndDrop }) => {
   const rentalDetail = useSelector((state) => state.rentalDetail);
   return (
     <div>
-      <PickerModal closePickerModal={closePickerModal}/>
+      <PickerModal/>
       <div
         style={{ background: colors.themeMain, fontFamily: fonts.helvetica400 }}
       >

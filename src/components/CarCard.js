@@ -34,19 +34,17 @@ export default function CarCard({ car, onClick, isSelected }) {
                   size={12}
                   style={{ marginRight: 5, marginBottom: 2 }}
                 />{" "}
-                3
+                2
               </span>
               <span className="cardCardIconBox">
                 <TbAutomaticGearbox size={14} style={{ marginRight: 5 }} />{" "}
-                Automatic
+                {car.transmission_id==="1"?"Automatic":"Manual"}
               </span>
             </div>
           </div>
           <div>
             <Image
-              // src={`https://admin.entaklymotors.com/storage/${car.car_image}`}
-              // src={`/images/final_1.png`}
-              src="https://admin.entaklymotors.com/storage/cars/9.jpg"
+              src={`https://admin.entaklymotors.com/storage/${car.car_image}`}
               alt={car.name}
               width={700}
               height={420}
@@ -57,8 +55,8 @@ export default function CarCard({ car, onClick, isSelected }) {
           <div>
             <p className="carIncluded">
               <FaCheck className="checkIcon" />
-              {car.mileage}{" "}
-              <span className="text-lowercase">{t("km_included")}</span>
+              {/* {car.mileage}{" "} */}200 
+              <span className="text-lowercase"> {t("km_included")}</span>
             </p>
             <div className="carPricing">
               <span className="dailyRate">{car.rental_rate} AED / day</span>

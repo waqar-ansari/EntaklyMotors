@@ -1,8 +1,16 @@
 import React from "react";
 import PickupAndDropPicker from "../PickupAndDropPicker";
 
-const PickerModal = ({closePickerModal}) => {
-  console.log(closePickerModal,"close picker modal");
+const PickerModal = () => {
+  const closeModal = () => {
+    const modalElement = document.getElementById("pickerModal");
+    if (modalElement) {
+      const modalInstance = bootstrap.Modal.getInstance(modalElement);
+      if (modalInstance) {
+        modalInstance.hide();
+      }
+    }
+  };
   
   return (
     <div
@@ -21,7 +29,7 @@ const PickerModal = ({closePickerModal}) => {
             style={styles.modalbody}
             className="modal-body pickerModalBodyFlex"
           >
-            <PickupAndDropPicker heading={false} closePickerModal={closePickerModal} />
+            <PickupAndDropPicker heading={false} />
           </div>
         </div>
       </div>

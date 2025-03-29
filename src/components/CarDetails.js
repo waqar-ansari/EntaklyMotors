@@ -49,13 +49,11 @@ export default function CarDetails({ car, onClose }) {
           <div className="carDetailsOverlay">
             <div className="ms-4 mt-3">
               <h2 className="carTitle">{car.name}</h2>
-              <p className="carSubtitle">or similar | Saloon</p>
+              <p className="carSubtitle">or similar</p>
             </div>
             <div>
               <Image
-                  // src={`https://admin.entaklymotors.com/storage/${car.car_image}`}
-                  src="https://admin.entaklymotors.com/storage/cars/9.jpg"
-                  // src="/images/final_3.png"
+                  src={`https://admin.entaklymotors.com/storage/${car.car_image}`}
                 className="carDetailsImage"
                 alt={car.name}
                 width={752}
@@ -77,7 +75,7 @@ export default function CarDetails({ car, onClose }) {
                   <FaShoppingBag style={styles.iconStyles} /> 1 Bag(s)
                 </span>
                 <span>
-                  <TbAutomaticGearbox style={styles.iconStyles} /> Automatic
+                  <TbAutomaticGearbox style={styles.iconStyles} /> {car.transmission_id==="1"?"Automatic":"Manual"}
                 </span>
                 <span>
                   <FaDoorOpen style={styles.iconStyles} /> {car.number_of_doors} Doors
@@ -156,9 +154,11 @@ export default function CarDetails({ car, onClose }) {
             <div className="infoBox">
               <div className="infoContent">
                 <div>
-                  <strong>{car.mileage}km</strong>
+                  {/* <strong>{car.mileage}km</strong> */}
+                  <strong>200km</strong>
                   <p className="mb-0">
-                    +AED {car.additional_km_price} / {t("for_every_additional_km")}
+                    {/* +AED {car.additional_km_price} / {t("for_every_additional_km")} */}
+                    +AED 1.50 / {t("for_every_additional_km")}
                   </p>
                 </div>
                 <span style={styles.included}>{t("included")}</span>

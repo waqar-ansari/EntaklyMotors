@@ -291,9 +291,7 @@ const page = () => {
               <div className="d-flex align-items-center mb-5">
                 <div className="reviewPageImageBg">
                   <Image
-                    // src={`https://admin.entaklymotors.com/storage/${selectedCarDetail.image}`}
-                    // src="/images/final_1.png"
-                    src="https://admin.entaklymotors.com/storage/cars/9.jpg"
+                    src={`https://admin.entaklymotors.com/storage/${selectedCarDetail.image}`}
                     alt={selectedCarDetail.name}
                     width={92}
                     height={71}

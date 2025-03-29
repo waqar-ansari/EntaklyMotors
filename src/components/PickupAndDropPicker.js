@@ -38,7 +38,6 @@ const PickupAndDropPicker = ({
   heading = true,
   showCarsButton = true,
   onShowCarsClick,
-  closePickerModal
 }) => {
   const [range, setRange] = useState([null, null]);
   const [hoveredItem, setHoveredItem] = useState({});
@@ -214,16 +213,13 @@ const PickupAndDropPicker = ({
 
     dispatch(setRentalDetailDataSlice(rentalData));
 
-    if (onShowCarsClick) {
-      closePickerModal();
-    }
 
     router.push("/cars");
   };
   const { t, language } = useTranslation();
   const handleLocationSearch = (input) => {
     setLocationSearch(input);
-    if (input.trim() === "") {
+    if (input=== "") {
       setFilteredLocations(locationData);
       return;
     }
@@ -447,6 +443,7 @@ const PickupAndDropPicker = ({
           ref={pickerRef}
           value={range}
           onChange={setRange}
+          shouldDisableDate={(date) => date < new Date()}
           showMeridiem
           style={{ width: 0, background: "transparent" }}
           showShortcuts={false}
@@ -681,6 +678,7 @@ const PickupAndDropPicker = ({
         {showCarsButton && (
           <button
             // href="/cars"
+            data-bs-dismiss="modal"
             onClick={handleShowCarsClick}
             style={styles.showCarsBtn}
           >
@@ -707,6 +705,7 @@ const PickupAndDropPicker = ({
             onOk={() => setShowDateModal(false)}
             onClose={() => setShowDateModal(false)}
             ref={pickerRef}
+            shouldDisableDate={(date) => date < new Date()}
             value={range}
             onChange={setRange}
             format="d MMMM yyyy"
@@ -1028,8 +1027,9 @@ const PickupAndDropPicker = ({
             <div onClick={handleLocationClick}>
               <div className="container-fluid">
                 <div className="row">
-                  <div className="col-md-6">
-                    <div className="input-box form-floating mt-0">
+                
+                  <div className="col-12">
+                  {/* <div className="input-box form-floating mt-0">
                       <input
                         className="form-control"
                         type="text"
@@ -1042,8 +1042,22 @@ const PickupAndDropPicker = ({
                       <label htmlFor="searchLocation" className="inputLabelBg">
                         {t("search_location")}
                       </label>
-                    </div>
-                    {locationData.map((item, index) => {
+                    </div> */}
+                    <div className="input-box form-floating mt-0">
+                  <input
+                    className="form-control"
+                    type="text"
+                    value={locationSearch}
+                    name="searchLocation"
+                    onChange={(e) => handleLocationSearch(e.target.value)}
+                    placeholder={t("search_location")}
+                    id="searchLocation"
+                  />
+                  <label htmlFor="searchLocation" className="inputLabelBg">
+                    {t("search_location")}
+                  </label>
+                </div>
+                    {filteredLocations.map((item, index) => {
                       return (
                         <div
                           key={index}

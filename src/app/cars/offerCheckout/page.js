@@ -268,50 +268,6 @@ const page = () => {
               </div>
             );
           })}
-          {/* <div className="col-md-4 mb-4 col-sm-6 col-12 d-flex">
-            <OfferCheckoutCard
-              packageName="Basic"
-              heading="Basic Protection"
-              packagePrice={0}
-              numberOfStars="1"
-              excessAmount="3,000.00"
-              footer="Included"
-              selectedPackage={selectedPackage}
-              onPackageClick={handlePackageClick}
-              packagePros={basicPacageTicks}
-              packageCons={basicPackageCross}
-            />
-          </div>
-          <div className="col-md-4 mb-4 col-sm-6 col-12 d-flex">
-            <OfferCheckoutCard
-              packageName="Gold"
-              heading="Smart Protection"
-              packagePrice={40}
-              extraInfo="(Minimum age 25)"
-              numberOfStars="2"
-              footer="40 Aed/day"
-              discount="-19% online discount"
-              selectedPackage={selectedPackage}
-              onPackageClick={handlePackageClick}
-              packagePros={goldPackageTicks}
-              packageCons={goldPackageCross}
-            />
-          </div>
-          <div className="col-md-4 mb-4 col-sm-6 col-12 d-flex">
-            <OfferCheckoutCard
-              packageName="Platinum"
-              heading="All Inclusive Protection"
-              extraInfo="(Minimum age 25)"
-              packagePrice={80}
-              numberOfStars="3"
-              footer="80 Aed/day"
-              discount="-35% online discount"
-              selectedPackage={selectedPackage}
-              onPackageClick={handlePackageClick}
-              packagePros={platinumPackageTicks}
-              packageCons={platinumPackageCross}
-            />
-          </div> */}
         </div>
         <div className="row mb-5">
           <div className="col-md-6">
