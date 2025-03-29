@@ -23,7 +23,7 @@ export default function CarCard({ car, onClick, isSelected }) {
         <div className="carOverlay">
           <div>
             <h4 className="carTitle">{car.name}</h4>
-            <p className="carSubtitle">or similar | Saloon</p>
+            <p className="carSubtitle">or similar</p>
             <div className="carIcons">
               <span className="cardCardIconBox">
                 <FaUser size={12} style={{ marginRight: 5, marginBottom: 2 }} />{" "}
