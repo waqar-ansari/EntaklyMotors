@@ -178,10 +178,10 @@ export default function HomePage() {
       </div>
       <div className="position-relative">
         <Image
-          src="/images/heroImage.webp"
+          src="/images/heroImage.gif"
           alt="Hero Image"
-          width={1600}
-          height={200}
+          width={600}
+          height={400}
           // width={1280}
           // height={720}
           className="marginTopHeroImage"
@@ -474,10 +474,10 @@ export default function HomePage() {
         <div className="row">
           <div style={{ position: "relative" }} className="col-md-12 p-0 sec-7">
             <Image
-              src="/images/homeImage4.webp"
+              src="/images/homeImage4.jpg"
               alt="limousine"
-              width={1441}
-              height={619}
+              width={931}
+              height={400}
               layout="responsive"
             />
             <div style={styles.textContainer3} className="imageText">
