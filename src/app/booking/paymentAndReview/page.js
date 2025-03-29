@@ -23,6 +23,7 @@ import api from "@/app/api/axiosInstance";
 
 const page = () => {
   const [countryCode, setCountryCode] = useState("+971");
+  const [isChecked, setIsChecked] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [localUserId, setLocalUserId] = useState("");
   const [fullname, setFullName] = useState("");
@@ -111,6 +112,9 @@ const page = () => {
     //     console.log(result.error.message);
     //   }
   };
+  const handleCheckboxChange = (value, checked) => {
+    setIsChecked(checked);
+  };
   return (
     <>
       <Header />
@@ -119,8 +123,8 @@ const page = () => {
           <div className="col-md-12 pt-5 mobDisplayNone">
             <div className="d-flex justify-content-end align-items-center">
               <div>
-                <p className="mb-0">
-                  {t("total")}: {totalPrice}
+                <p className="mb-0 fw-bold">
+                  {t("total")}: {totalPrice} AED
                 </p>
                 <PriceDetailsModal />
               </div>
@@ -192,7 +196,9 @@ const page = () => {
               </div>
             </div>
             <div>
-              <Checkbox>{t("i_am_25_years_of_age")}</Checkbox>
+              <Checkbox onChange={handleCheckboxChange}>
+                {t("i_am_25_years_of_age")}
+              </Checkbox>
               <div className="d-flex align-items-center mb-5 mt-3 ms-2">
                 <IoInformationCircleSharp
                   style={{
@@ -262,17 +268,35 @@ const page = () => {
             </div>
 
             <div className="d-flex justify-content-between align-items-center">
-              <h6>{t("total")}</h6>
-              <h6>{totalPrice}</h6>
+              <h6 className="fw-bold">{t("total")}</h6>
+              <h6 className="fw-bold">{totalPrice} {t("aed")}</h6>
             </div>
             <div className="mb-5">
               <PriceDetailsModal />
             </div>
-            <Link
+            {/* <Link
               href="/booking/success"
               onClick={makePayment}
               className="mt-0"
               style={styles.payAndBookButton}
+            >
+              {t("pay_and_book")}
+            </Link> */}
+            <Link
+              href={isChecked ? "/booking/success" : "#"}
+              onClick={(e) => {
+                if (!isChecked) {
+                  e.preventDefault();
+                } else {
+                  makePayment();
+                }
+              }}
+              className="mt-0"
+              style={{
+                ...styles.payAndBookButton,
+                pointerEvents: isChecked ? "auto" : "none",
+                opacity: isChecked ? 1 : 0.5,
+              }}
             >
               {t("pay_and_book")}
             </Link>

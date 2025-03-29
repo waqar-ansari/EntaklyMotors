@@ -165,18 +165,6 @@ export default function HomePage() {
             className="input-group customInputGroup border-0 mb-0 align-items-center  inputGroupBorRad"
             style={{ height: 30 }}
           >
-            {/* <span className="input-group-text">
-              <FaCar />
-            </span>
-            <div className="form-floating">
-              <input
-                type="text"
-                className="form-control"
-                id="rentYourCar"
-                placeholder="Rent your car"
-              />
-              <label htmlFor="rentYourCar">Rent your car</label>
-            </div> */}
             <CiSearch
               style={{
                 ...(language === "ar"
@@ -193,7 +181,7 @@ export default function HomePage() {
           src="/images/heroImage.webp"
           alt="Hero Image"
           width={1600}
-          height={686}
+          height={200}
           // width={1280}
           // height={720}
           className="marginTopHeroImage"
@@ -268,7 +256,7 @@ export default function HomePage() {
         <div className="row" style={styles.marginB}>
           <div className="col-md-12" style={{ position: "relative" }}>
             <Image
-              src="/images/homeImage1.jpg"
+              src="/images/homeImage1.jpeg"
               alt="limousine"
               width={1400}
               height={560}

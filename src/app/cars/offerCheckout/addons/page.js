@@ -25,40 +25,41 @@ import {
 } from "@/redux/slices/bookingOverviewSlice";
 import api from "@/app/api/axiosInstance";
 
-const addons = [
-  {
-    id: "1",
-    addonName: "Additional Driver",
-    icon: <AiOutlineUsergroupAdd />,
-    overview: "Addional Driver",
-    info: "info for additional driver",
-    addonPrice: 250,
-  },
-  {
-    id: "2",
-    addonName: "Roadside Protection",
-    icon: <FaCarOn />,
-    overview: "Roadside Protection",
-    info: "info for roadside protection",
-    addonPrice: 50,
-  },
-  {
-    id: "3",
-    addonName: "Baby seat (0-18 kg / Group 0+/1)",
-    icon: <MdOutlineAirlineSeatReclineExtra />,
-    overview: "Baby seat (0-18 kg / Group 0+/1)",
-    info: "info for baby seat",
-    addonPrice: 40,
-  },
-];
+
 
 const page = () => {
   const [activeAddons, setActiveAddons] = useState({});
 
   const dispatch = useDispatch();
+  const { t, language } = useTranslation();
 
 
-
+  const addons = [
+    {
+      id: "1",
+      addonName: t("additional_driver"),
+      icon: <AiOutlineUsergroupAdd />,
+      overview: "Addional Driver",
+      info: "info for additional driver",
+      addonPrice: 250,
+    },
+    {
+      id: "2",
+      addonName: t("roadside_protection"),
+      icon: <FaCarOn />,
+      overview: t("roadside_protection"),
+      info: "info for roadside protection",
+      addonPrice: 50,
+    },
+    {
+      id: "3",
+      addonName: t("baby_seat"),
+      icon: <MdOutlineAirlineSeatReclineExtra />,
+      overview: t("baby_seat"),
+      info: "info for baby seat",
+      addonPrice: 40,
+    },
+  ];
 
 
   const toggleAddon = (addon) => {
@@ -100,7 +101,6 @@ const page = () => {
   useEffect(() => {
     dispatch(calculateTotalPrice());
   }, [activeAddons]);
-  const { t, language } = useTranslation();
   const styles = {
     nextButton: {
       backgroundColor: colors.themeMain,
@@ -132,8 +132,8 @@ const page = () => {
           <div className="col-12">
             <div className="d-flex justify-content-between justify-content-sm-end align-items-center mb-3 mb-md-4">
               <div>
-                <p className="mb-0">
-                  {t("total")}: {totalPrice}
+                <p className="mb-0 fw-bold">
+                  {t("total")}: {totalPrice} {t("aed")}
                 </p>
                 <PriceDetailsModal />
               </div>

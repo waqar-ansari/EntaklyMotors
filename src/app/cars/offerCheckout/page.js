@@ -21,68 +21,45 @@ import { clearSelectedAddons } from "@/redux/slices/selectedAddonSlice";
 import { selectBookingOverview, setPackageBookingOverview } from "@/redux/slices/bookingOverviewSlice";
 
 const page = () => {
-  const [selectedPackage, setSelectedPackage] = useState("Basic Protection");
-
-  // const basicPacageTicks = ["Loss Damage Waiver"];
-  // const basicPackageCross = [
-  //   "Tyre and Windscreen Protection",
-  //   "Interior Protection",
-  //   "Personal Accident Protection",
-  //   "Roadside Protection",
-  // ];
-  // const goldPackageTicks = [
-  //   "Loss Damage Waiver",
-  //   "Tyre and Windscreen Protection",
-  // ];
-  // const goldPackageCross = [
-  //   "Interior Protection",
-  //   "Personal Accident Protection",
-  //   "Roadside Protection",
-  // ];
-  // const platinumPackageTicks = [
-  //   "Loss Damage Waiver",
-  //   "Tyre and Windscreen Protection",
-  //   "Interior Protection",
-  //   "Personal Accident Protection",
-  //   "Roadside Protection",
-  // ];
+  const { t, language } = useTranslation();
+  const [selectedPackage, setSelectedPackage] = useState(t("basic_protection"));
 
   const packages = [
     {
-      packageName: "Basic Protection",
-      heading: "Basic Protection",
+      packageName: t("basic_protection"),
+      heading: t("basic_protection"),
       packagePrice: 0,
       numberOfStars: "1",
       excessAmount: "3,000.00",
       overview:"Basic Protection - Excess: up to AED3,000.00",
-      footer: "Included",
-      packagePros: ["Loss Damage Waiver"],
+      footer: t("included"),
+      packagePros: [t("loss_damage_waiver")],
       packageCons: [
-        "Tyre and Windscreen Protection",
-        "Interior Protection",
-        "Personal Accident Protection",
-        "Roadside Protection",
+        t("tyre_and_windscreen_protection"),
+        t("interior_protection"),
+        t("personal_accident_protection"),
+        t("roadside_protection"),
       ],
     },
     {
-      packageName: "Smart Protection",
-      heading: "Smart Protection",
+      packageName: t("smart_protection"),
+      heading: t("smart_protection"),
       packagePrice: 40,
       extraInfo: "(Minimum age 25)",
       numberOfStars: "2",
       overview:"Smart Protection - No excess",
       footer: "40 Aed/day",
-      discount: "-19% online discount",
-      packagePros: ["Loss Damage Waiver", "Tyre and Windscreen Protection"],
+      discount: "-19% " + t("online_discount"),
+      packagePros: [t("loss_damage_waiver"),  t("tyre_and_windscreen_protection")],
       packageCons: [
-        "Interior Protection",
-        "Personal Accident Protection",
-        "Roadside Protection",
+        t("interior_protection"),
+        t("personal_accident_protection"),
+        t("roadside_protection"),
       ],
     },
     {
-      packageName: "All Inclusive Protection",
-      heading: "All Inclusive Protection",
+      packageName: t("all_inclusive_protection"),
+      heading: t("all_inclusive_protection"),
       extraInfo: "(Minimum age 25)",
       packagePrice: 80,
       overview:"All Inclusive Protection - No excess",
@@ -90,11 +67,11 @@ const page = () => {
       footer: "80 Aed/day",
       discount: "-35% online discount",
       packagePros: [
-        "Loss Damage Waiver",
-        "Tyre and Windscreen Protection",
-        "Interior Protection",
-        "Personal Accident Protection",
-        "Roadside Protection",
+        t("loss_damage_waiver"),
+         t("tyre_and_windscreen_protection"),
+        t("interior_protection"),
+        t("personal_accident_protection"),
+        t("roadside_protection"),
       ],
       packageCons: [],
     },
@@ -102,7 +79,6 @@ const page = () => {
 
 
   const dispatch = useDispatch();
-  const platinumPackageCross = [];
   const handlePackageClick = (packageName, packagePrice,overview) => {
     setSelectedPackage(packageName);
     
@@ -144,19 +120,8 @@ const page = () => {
     rentalDetails.returnDate
   );
   const selectedPackagedetail = useSelector((state) => state.selectedPackage);
-  // useEffect(() => {
-  //   const defaultPackage = {
-  //     packageName: "Basic",
-  //     packagePrice: 0,
-  //   };
-  //   dispatch(setSelectedPackageSlice(defaultPackage));
-
-  //   dispatch(calculateTotalPrice());
-  // }, []);
-  // const bookingOverview = useSelector((state) => state.selectBookingOverview);
   const bookingOverview = useSelector(selectBookingOverview);
 
-  const { t, language } = useTranslation();
   const styles = {
     nextButton: {
       backgroundColor: colors.themeMain,
@@ -218,8 +183,8 @@ const page = () => {
           <div className="col-12">
             <div className="d-flex justify-content-between justify-content-sm-end align-items-center mb-md-4 mb-2">
               <div>
-                <p className="mb-0">
-                  {t("total")}: {totalPrice}
+                <p className="mb-0 fw-bold">
+                  {t("total")}: {totalPrice} {t("aed")}
                 </p>
                 <PriceDetailsModal />
               </div>
@@ -228,7 +193,7 @@ const page = () => {
                 className="mt-0"
                 style={styles.nextButton}
               >
-                Continue
+                {t("continue")}
               </Link>
             </div>
             <div className="d-flex align-items-center mb-md-5 mb-4">
@@ -256,7 +221,6 @@ const page = () => {
                   excessAmount={protectionsPackage.excessAmount}
                   footer={protectionsPackage.footer}
                   selectedPackage={selectedPackage}
-                  // onPackageClick={handlePackageClick}
                   onPackageClick={() => handlePackageClick(
                     protectionsPackage.packageName,
                     protectionsPackage.packagePrice,
@@ -264,6 +228,7 @@ const page = () => {
                   )}
                   packagePros={protectionsPackage.packagePros}
                   packageCons={protectionsPackage.packageCons}
+                  // discount={protectionsPackage.discount}
                 />
               </div>
             );
@@ -272,7 +237,7 @@ const page = () => {
         <div className="row mb-5">
           <div className="col-md-6">
             <h6 style={{ color: colors.black, fontFamily: fonts.helvetica700 }}>
-              Your booking overview:
+              {t("your_booking_overview")}
             </h6>
             <ul
               style={{ listStyleType: "none", paddingLeft: 0 }}

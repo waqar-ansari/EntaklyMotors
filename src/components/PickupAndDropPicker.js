@@ -6,7 +6,10 @@ import React, {
   forwardRef,
   useImperativeHandle,
 } from "react";
-import { Button, DateRangePicker, Input } from "rsuite";
+import { Button, CustomProvider, DateRangePicker, Input } from "rsuite";
+import enUS from "rsuite/esm/locales/en_US";
+import arEG from "rsuite/esm/locales/ar_EG";
+import ruRU from "rsuite/esm/locales/ru_RU";
 import "rsuite/dist/rsuite.css";
 import { colors } from "../../public/colors/colors";
 import { fonts } from "../../public/fonts/fonts";
@@ -76,7 +79,11 @@ const PickupAndDropPicker = ({
     setPickupTime("10:00 AM");
     setReturnTime("10:00 AM");
   }, []);
-
+  const calendarLocales = {
+    en: enUS,
+    ar: arEG,
+    ru: ruRU,
+  };
   const openDatePicker = () => {
     if (pickerRef.current) {
       pickerRef.current.open();
@@ -213,13 +220,12 @@ const PickupAndDropPicker = ({
 
     dispatch(setRentalDetailDataSlice(rentalData));
 
-
     router.push("/cars");
   };
   const { t, language } = useTranslation();
   const handleLocationSearch = (input) => {
     setLocationSearch(input);
-    if (input=== "") {
+    if (input === "") {
       setFilteredLocations(locationData);
       return;
     }
@@ -256,7 +262,7 @@ const PickupAndDropPicker = ({
                 position: "relative",
                 zIndex: 999,
                 height: "70vh",
-                overflow:"hidden"
+                overflow: "hidden",
               }}
               onClick={handleLocationClick}
             >
@@ -265,15 +271,13 @@ const PickupAndDropPicker = ({
               </div>
 
               <div className="container-fluid">
-                <div className="row" style={{height: "100%"}}>
+                <div className="row" style={{ height: "100%" }}>
                   <div
                     className="col-md-6"
-                    style={
-                      {
-                        // overflowY: "auto",
-                        height: "100%",
-                      }
-                    }
+                    style={{
+                      // overflowY: "auto",
+                      height: "100%",
+                    }}
                   >
                     <div className="input-box form-floating mt-0">
                       <input
@@ -294,7 +298,7 @@ const PickupAndDropPicker = ({
                       style={{
                         overflowY: "auto",
                         height: "60vh",
-                        paddingBottom:50
+                        paddingBottom: 50,
                       }}
                     >
                       {filteredLocations.map((item, index) => {
@@ -436,21 +440,21 @@ const PickupAndDropPicker = ({
             <label htmlFor="returnLocation">{t("return")}</label>
           </div>
         </div>
-
-        <DateRangePicker
-          // format="dd MMM hh:mm"
-          format="d MMMM yyyy"
-          ref={pickerRef}
-          value={range}
-          onChange={setRange}
-          shouldDisableDate={(date) => date < new Date()}
-          showMeridiem
-          style={{ width: 0, background: "transparent" }}
-          showShortcuts={false}
-          renderFooter={() => null}
-          showHeader={false}
-          character="to"
-        />
+        <CustomProvider locale={calendarLocales[language]}>
+          <DateRangePicker
+            format="d MMMM yyyy"
+            ref={pickerRef}
+            value={range}
+            onChange={setRange}
+            shouldDisableDate={(date) => date < new Date()}
+            showMeridiem
+            style={{ width: 0, background: "transparent" }}
+            showShortcuts={false}
+            renderFooter={() => null}
+            showHeader={false}
+            character="to"
+          />
+        </CustomProvider>
         {/* date and time picker for mobile */}
         <div className="tabDisplayNone">
           <div className="d-flex gap-2">
@@ -699,6 +703,7 @@ const PickupAndDropPicker = ({
           <Modal.Title>Choose Date</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+        <CustomProvider locale={calendarLocales[language]}>
           <DateRangePicker
             showOneCalendar
             style={{ width: 0, background: "transparent" }}
@@ -712,7 +717,9 @@ const PickupAndDropPicker = ({
             defaultOpen
             showMeridiem
             character="to"
+            locale={arEG}
           />
+          </CustomProvider>
         </Modal.Body>
       </Modal>
       <Modal
@@ -1027,9 +1034,8 @@ const PickupAndDropPicker = ({
             <div onClick={handleLocationClick}>
               <div className="container-fluid">
                 <div className="row">
-                
                   <div className="col-12">
-                  {/* <div className="input-box form-floating mt-0">
+                    {/* <div className="input-box form-floating mt-0">
                       <input
                         className="form-control"
                         type="text"
@@ -1044,19 +1050,19 @@ const PickupAndDropPicker = ({
                       </label>
                     </div> */}
                     <div className="input-box form-floating mt-0">
-                  <input
-                    className="form-control"
-                    type="text"
-                    value={locationSearch}
-                    name="searchLocation"
-                    onChange={(e) => handleLocationSearch(e.target.value)}
-                    placeholder={t("search_location")}
-                    id="searchLocation"
-                  />
-                  <label htmlFor="searchLocation" className="inputLabelBg">
-                    {t("search_location")}
-                  </label>
-                </div>
+                      <input
+                        className="form-control"
+                        type="text"
+                        value={locationSearch}
+                        name="searchLocation"
+                        onChange={(e) => handleLocationSearch(e.target.value)}
+                        placeholder={t("search_location")}
+                        id="searchLocation"
+                      />
+                      <label htmlFor="searchLocation" className="inputLabelBg">
+                        {t("search_location")}
+                      </label>
+                    </div>
                     {filteredLocations.map((item, index) => {
                       return (
                         <div

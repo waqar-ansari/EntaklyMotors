@@ -158,7 +158,7 @@ export default function CarDetails({ car, onClose }) {
                   <strong>200km</strong>
                   <p className="mb-0">
                     {/* +AED {car.additional_km_price} / {t("for_every_additional_km")} */}
-                    +AED 1.50 / {t("for_every_additional_km")}
+                    +AED 0.65 / {t("for_every_additional_km")}
                   </p>
                 </div>
                 <span style={styles.included}>{t("included")}</span>
@@ -190,9 +190,9 @@ export default function CarDetails({ car, onClose }) {
                   AED / day
                 </span>
               </span> */}
-              <p style={{ marginBottom: 5 }}>
+              <p style={{ marginBottom: 5 }} className="fw-bold">
                 {t("total")} :{" "}
-                {numberOfRentalDays * selectedCarDetails.price}
+                {numberOfRentalDays * selectedCarDetails.price} {t("aed")}
               </p>
               <div>
                 <p className="tagStyleCarDetails">Best Deal</p>

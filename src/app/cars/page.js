@@ -97,7 +97,7 @@ export default function CarsPage() {
       };
       const bookingOverviewForSelectedCar = [
         // `${car.mileage} km are included, each additional kilometer costs AED ${car.km_price}`,
-        `200 km are included, each additional kilometer costs AED 1.50`,
+        `200 km are included, each additional kilometer costs AED 0.65`,
       ];
 
       // bookingOverviewForSelectedCar.map((item) => dispatch(setBookingOverview(item)));

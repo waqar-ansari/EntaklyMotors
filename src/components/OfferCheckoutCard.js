@@ -71,6 +71,7 @@ const {t,language} = useTranslation()
                     border: "1px solid #292268",
                     padding: "1px 10px",
                     borderRadius: 30,
+                    fontSize:12,
                     fontFamily: fonts.helvetica700,
                   }}
                 >
@@ -88,7 +89,7 @@ const {t,language} = useTranslation()
             }}
           >
             {" "}
-            {excessAmount ? `Excess: up to AED ${excessAmount}` : "No Excess"}
+            {excessAmount ? `${t("excess_upto")} ${excessAmount} ${t("aed")}` : t("no_excess")}
           </div>
         </div>
         <ul style={{ listStyleType: "none", paddingLeft: 0 }}>

@@ -1,5 +1,4 @@
 const { createSlice } = require("@reduxjs/toolkit");
-// const initialState = ["Free Cancellation", "Zero Deposit"]
 const initialState = {
   base: ["Free Cancellation", "Zero Deposit"],
   packageBookingOverview: [],

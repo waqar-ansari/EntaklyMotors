@@ -119,7 +119,24 @@
   "plan_a_journey":"plan_a_journey",
   "search_location":"Поиск местоположения",
   "5%_vat":"5%_vat",
-  "":"",
+
+"basic_protection":"Основная защита",
+"excess_upto":"Excess : up to",
+"smart_protection":"Умная защита",
+"all_inclusive_protection":"Защита Все включено",
+"loss_damage_waiver":"Отказ от ответственности за ущерб",
+"tyre_and_windscreen_protection":"Защита от повреждений шин и стекла",
+"interior_protection":"Защита интерьера",
+"personal_accident_protection":"Защита от аварии",
+"roadside_protection":"Защита на дороге",
+
+
+
+
+  "no_excess":"Без защиты",
+  "your_booking_overview":"Обзор вашего бронирования:",
+  "additional_driver":"Дополнительный водитель",
+  "baby_seat":"Детское сиденье (0-18 кг / Группа 0+/1)",
   "":"",
 
   "rent_a_car": "Rent a Car",

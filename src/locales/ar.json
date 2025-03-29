@@ -120,6 +120,24 @@
   "plan_a_journey": "خطط لرحلتك",
   "search_location": "بحث عن العنوان",
   "5%_vat": "5%_vat",
+
+
+"basic_protection":"الحماية الأساسية",
+"excess_upto":"تحمل ذاتي: حتى",
+"smart_protection":"حماية ذكية",
+"all_inclusive_protection":"حماية شاملة",
+"loss_damage_waiver":"التأمين ضد الأضرار والخسائر",
+"tyre_and_windscreen_protection":"حماية الإطارات والزجاج الأمامي",
+"interior_protection":"حماية المقصورة الداخلية",
+"personal_accident_protection":"تأمين ضد الحوادث الشخصية",
+"roadside_protection":"مساعدة على الطريق",
+
+
+  "no_excess": "لا تحمل ذاتي",
+  "your_booking_overview": "ملخص الحجز الخاص بك",
+  "additional_driver": "سائق إضافي",
+  "baby_seat": "مقعد طفل (٠-١٨ كجم / المجموعة ٠+/١)",
+  "": "",
   "": "",
   "": "",
   "": "",
