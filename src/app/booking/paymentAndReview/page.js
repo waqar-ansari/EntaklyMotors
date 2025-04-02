@@ -20,14 +20,24 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Button, Modal } from "react-bootstrap";
 import { useRouter } from "next/navigation";
 import api from "@/app/api/axiosInstance";
+import {
+  CardCvcElement,
+  CardElement,
+  CardExpiryElement,
+  CardNumberElement,
+  Elements,
+  useElements,
+  useStripe,
+} from "@stripe/react-stripe-js";
 
-const page = () => {
+const PaymentPage = () => {
   const [countryCode, setCountryCode] = useState("+971");
   const [isChecked, setIsChecked] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [localUserId, setLocalUserId] = useState("");
   const [fullname, setFullName] = useState("");
   const [email, setEmail] = useState("");
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const router = useRouter();
   const handleCountryChange = (value, country) => {
@@ -60,7 +70,35 @@ const page = () => {
   const bookingOverview = useSelector(selectBookingOverview);
   const totalPrice = useSelector((state) => state.totalPrice);
   const { t, language } = useTranslation();
+  const elements = useElements();
+  const stripe = useStripe();
+
   const makePayment = async () => {
+    if (!stripe || !elements) {
+      console.error("Stripe has not loaded yet.");
+      return;
+    }
+    const { error: submitError } = await elements.submit();
+    if (submitError) {
+      setErrorMessage(submitError.message);
+      return;
+    }
+    const res = await api.post("/payment_intent.php", { amount: totalPrice });
+    console.log(res.data.intent.client_secret, "res from intent", totalPrice);
+    const clientSecret = res.data.intent.client_secret;
+    const { error } = await stripe.confirmPayment({
+      elements,
+      clientSecret,
+      confirmParams: {
+        return_url: "/booking/success",
+      },
+    });
+    if (error) {
+      setErrorMessage(error.message);
+    } else {
+      console.log("success");
+    }
+
     const bookingDetails = {
       userId: localUserId,
       carId: JSON.stringify(selectedCarDetail.id),
@@ -80,41 +118,28 @@ const page = () => {
       addons: selectedAddons,
       totalPrice: totalPrice,
     };
+    const bookingData = {
+      ...bookingDetails,
+      paymentMethodId: paymentMethod.id,
+    };
     console.log(bookingDetails, "booking details");
+    console.log(bookingData, "bookingData");
 
-    const response = await api.post("carbooking.php", bookingDetails);
-    console.log(response.data, "response after booking");
+    const paymentResponse = await api.post("/carbooking.php", bookingDetails);
 
-    // router.push("/booking/success");
-
-    const bookingData = new URLSearchParams(response.data).toString();
-    router.push(`/booking/success?${bookingData}`);
-
-    //  const stripe = await loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
-
-    //  const body={
-
-    //  }
-    //   const response=await fetch('http://localhost:3001/payment',{
-    //     method:'POST',
-    //     headers:{
-    //       'Content-Type':'application/json'
-    //     },
-    //     body:JSON.stringify(body)
-    //   })
-    //   const session=await response.json();
-    //   console.log(session);
-    //   const result=await stripe.redirectToCheckout({
-    //     sessionId:session.id
-    //   })
-    //   console.log(result);
-    //   if(result.error){
-    //     console.log(result.error.message);
-    //   }
+    console.log(paymentResponse.data, "paymentIntent response");
+    if (paymentResponse.data.status === "error") {
+      console.log("error");
+    } else {
+      const bookingData = new URLSearchParams(paymentResponse.data).toString();
+      router.replace(`/booking/success?${bookingData}`);
+    }
   };
+
   const handleCheckboxChange = (value, checked) => {
     setIsChecked(checked);
   };
+
   return (
     <>
       <Header />
@@ -214,76 +239,59 @@ const page = () => {
             <div>
               <h3>{t("how_would_you_like_to_pay")}</h3>
             </div>
-            <div className="input-box form-floating">
-              <input
-                className="form-control"
-                type="text"
-                placeholder={t("card_number")}
-                id="cardNumber"
-              />
-              <label for="cardNumber" className="inputLabelBg">
-                {t("card_number")}
-              </label>
-            </div>
-            <div className="input-box form-floating">
-              <input
-                className="form-control"
-                type="text"
-                placeholder={t("cardholder_name")}
-                id="cardholderName"
-              />
-              <label for="cardholderName" className="inputLabelBg">
-                {t("cardholder_name")}
-              </label>
-            </div>
-            <div className="d-flex justify-content-between">
-              <div
-                className="input-box form-floating mt-0"
-                style={{ width: "48%" }}
-              >
-                <input
-                  className="form-control"
-                  type="text"
-                  placeholder={t("expiration_date")}
-                  id="expirationDate"
-                />
-                <label for="expirationDate" className="inputLabelBg">
-                  {t("expiration_date")}
-                </label>
+
+            <div className="payment-form">
+              <div className="input-box form-floating mb-3">
+                <div
+                  className="form-control stripe-input"
+                  style={{ backgroundColor: "#eee" }}
+                >
+                  <CardNumberElement
+                    name="cardNumber"
+                    options={{
+                      showIcon: true,
+                    }}
+                  />
+                </div>
+                <label className="inputLabelBg">Card Number</label>
               </div>
-              <div
-                className="input-box form-floating mt-0"
-                style={{ width: "48%" }}
-              >
-                <input
-                  className="form-control"
-                  type="text"
-                  placeholder={t("cvv")}
-                  id="cvv"
-                />
-                <label for="cvv" className="inputLabelBg">
-                  {t("cvv")}
-                </label>
+
+              <div className="input-box form-floating mb-3">
+                <div
+                  className="form-control stripe-input"
+                  style={{ backgroundColor: "#eee" }}
+                >
+                  <CardExpiryElement />
+                </div>
+                <label className="inputLabelBg">Expiry Date</label>
+              </div>
+
+              <div className="input-box form-floating mb-3">
+                <div
+                  className="form-control stripe-input"
+                  style={{ backgroundColor: "#eee" }}
+                >
+                  <CardCvcElement
+                    options={{
+                      placeholder: "123",
+                    }}
+                  />
+                </div>
+                <label className="inputLabelBg">CVV</label>
               </div>
             </div>
 
             <div className="d-flex justify-content-between align-items-center">
               <h6 className="fw-bold">{t("total")}</h6>
-              <h6 className="fw-bold">{totalPrice} {t("aed")}</h6>
+              <h6 className="fw-bold">
+                {totalPrice} {t("aed")}
+              </h6>
             </div>
             <div className="mb-5">
               <PriceDetailsModal />
             </div>
-            {/* <Link
-              href="/booking/success"
-              onClick={makePayment}
-              className="mt-0"
-              style={styles.payAndBookButton}
-            >
-              {t("pay_and_book")}
-            </Link> */}
             <Link
-              href={isChecked ? "/booking/success" : "#"}
+              href={isChecked ? "" : "#"}
               onClick={(e) => {
                 if (!isChecked) {
                   e.preventDefault();
@@ -392,6 +400,18 @@ const page = () => {
       </div>
       <Footer />
     </>
+  );
+};
+
+const page = () => {
+  const stripePromise = loadStripe(
+    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+  );
+
+  return (
+    <Elements stripe={stripePromise}>
+      <PaymentPage />
+    </Elements>
   );
 };
 

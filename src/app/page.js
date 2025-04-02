@@ -383,12 +383,12 @@ export default function HomePage() {
                     <p style={styles.imageHeading2} className="heading">
                       {t("entakly_motors_business")}
                     </p>
-                    <p style={styles.imageText} className="text">
+                    <p style={styles.imageText} className="text p-5">
                       {t("pick_up_and_drop_off_across_uae")}
                     </p>
                   </div>
                   <div className="sec-6-box-container">
-                    {/* <div
+                   <div
                       style={{
                         color: "#fff",
                         display: "flex",
@@ -402,27 +402,27 @@ export default function HomePage() {
                         target="_blank"
                         className="entakly-business-services text-decoration-none text-white"
                       >
-                        <p className="my-0">Dubai Airport</p>
-                        <p className="my-0">AED 200</p>
+                        <p className="my-0">Airport Pickup & Dropoff</p>
+                        <p className="my-0">AED 250</p>
                       </Link>
                       <Link
                         href="https://buy.stripe.com/dR6dRv9Vi6jSdlSaEF"
                         target="_blank"
                         className="entakly-business-services text-decoration-none text-white"
                       >
-                        <p className="my-0">Sharjah Airport</p>
-                        <p className="my-0">AED 300</p>
+                        <p className="my-0">Car & Driver 10hours/day</p>
+                        <p className="my-0">AED 1000</p>
                       </Link>
                       <Link
-                        href="https://buy.stripe.com/28o14Jd7ugYw4PmdQT"
+                        href="https://buy.stripe.com/dR64gV9Vi23CchObIK"
                         target="_blank"
                         className="entakly-business-services text-decoration-none text-white"
                       >
-                        <p className="my-0">Al Maktoum Airport</p>
-                        <p className="my-0">AED 150</p>
+                        <p className="my-0">Dubai luxury taxi</p>
+                        <p className="my-0">AED 100</p>
                       </Link>
                     </div>
-                    <div
+                    {/* <div
                       style={{
                         color: "#fff",
                         display: "flex",
@@ -455,7 +455,7 @@ export default function HomePage() {
                         <p className="my-0">Inside Dubai</p>
                         <p className="my-0">AED 100</p>
                       </Link>
-                    </div> */}
+                    </div>  */}
                     <Link
                       href="https://wa.me/+971044536000"
                       target="_blank"

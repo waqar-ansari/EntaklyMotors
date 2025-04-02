@@ -1,9 +1,13 @@
 // import { IoMdAirplane } from "react-icons/io";
+import { useTranslation } from "@/context/LanguageProvider";
 import { HiMiniHome } from "react-icons/hi2";
 
-export const locationData = [
+const {t, language} = useTranslation()
+export const getLocationData = () => {
+// export const locationData = [
+return[
   {
-    locationName: "International Airport Terminal 1",
+    locationName: t("dubai_international_airport_terminal_1"),
     address: "International Airport Terminal 1",
     locationIcon: <HiMiniHome />,
   },
@@ -598,3 +602,4 @@ export const locationData = [
     locationIcon: <HiMiniHome />,
   }
 ]
+}
