@@ -75,7 +75,7 @@ export default function CarDetails({ car, onClose }) {
                   <FaShoppingBag style={styles.iconStyles} /> 1 Bag(s)
                 </span>
                 <span>
-                  <TbAutomaticGearbox style={styles.iconStyles} /> {car.transmission_id==="1"?"Automatic":"Manual"}
+                  <TbAutomaticGearbox style={styles.iconStyles} /> {car.transmission_id==="0"?"Manual":"Automatic"}
                 </span>
                 <span>
                   <FaDoorOpen style={styles.iconStyles} /> {car.number_of_doors} Doors

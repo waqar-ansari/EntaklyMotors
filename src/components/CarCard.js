@@ -27,7 +27,7 @@ export default function CarCard({ car, onClick, isSelected }) {
             <div className="carIcons">
               <span className="cardCardIconBox">
                 <FaUser size={12} style={{ marginRight: 5, marginBottom: 2 }} />{" "}
-                5
+                {car.number_of_seats}
               </span>
               <span className="cardCardIconBox">
                 <FaSuitcase
@@ -38,7 +38,7 @@ export default function CarCard({ car, onClick, isSelected }) {
               </span>
               <span className="cardCardIconBox">
                 <TbAutomaticGearbox size={14} style={{ marginRight: 5 }} />{" "}
-                {car.transmission_id==="1"?"Automatic":"Manual"}
+                {car.transmission_id==="0"?"Manual":"Automatic"}
               </span>
             </div>
           </div>

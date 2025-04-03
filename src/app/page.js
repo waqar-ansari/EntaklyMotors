@@ -402,7 +402,7 @@ export default function HomePage() {
                         target="_blank"
                         className="entakly-business-services text-decoration-none text-white"
                       >
-                        <p className="my-0">Airport Pickup & Dropoff</p>
+                        <p className="my-0">DXB Airport</p>
                         <p className="my-0">AED 250</p>
                       </Link>
                       <Link
@@ -410,7 +410,7 @@ export default function HomePage() {
                         target="_blank"
                         className="entakly-business-services text-decoration-none text-white"
                       >
-                        <p className="my-0">Car & Driver 10hours/day</p>
+                        <p className="my-0">Full day 10 hours</p>
                         <p className="my-0">AED 1000</p>
                       </Link>
                       <Link
@@ -418,7 +418,7 @@ export default function HomePage() {
                         target="_blank"
                         className="entakly-business-services text-decoration-none text-white"
                       >
-                        <p className="my-0">Dubai luxury taxi</p>
+                        <p className="my-0">Dubai taxi</p>
                         <p className="my-0">AED 100</p>
                       </Link>
                     </div>
