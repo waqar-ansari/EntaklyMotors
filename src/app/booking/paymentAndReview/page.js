@@ -28,6 +28,7 @@ import {
   Elements,
   useElements,
   useStripe,
+  PaymentElement
 } from "@stripe/react-stripe-js";
 
 const PaymentPage = () => {
@@ -73,69 +74,164 @@ const PaymentPage = () => {
   const elements = useElements();
   const stripe = useStripe();
 
+  // const makePayment = async () => {
+  //   if (!stripe || !elements || !elements.getElement(PaymentElement)) {
+  //     console.error("Stripe has not loaded yet.");
+  //     return;
+  //   }
+  //   const { error: submitError } = await elements.submit();
+  //   if (submitError) {
+  //     setErrorMessage("submit error",submitError.message);
+  //     return;
+  //   }
+  //   const res = await api.post("/payment_intent.php", { amount: totalPrice });
+  //   console.log(res.data.intent.client_secret, "res from intent", totalPrice);
+  //   const clientSecret = res.data.intent.client_secret;
+  //   console.log("it is called after the intent");
+  //   console.log(elements,"elementselements");
+    
+  //   const { error } = await stripe.confirmPayment({
+  //     elements,
+  //     clientSecret,
+  //     confirmParams: {
+  //       return_url: "/booking/success",
+  //     },
+  //   });
+  //   if (error) {
+  //     setErrorMessage("error from confirm payment",error.message);
+  //   } else {
+  //     console.log("success");
+  //   }
+
+  //   const bookingDetails = {
+  //     userId: localUserId,
+  //     carId: JSON.stringify(selectedCarDetail.id),
+  //     name: fullname,
+  //     email: email,
+  //     phoneNumber: {
+  //       countryCode: countryCode,
+  //       number: phoneNumber,
+  //     },
+  //     pickupLocation: rentalDetail.pickupLocation,
+  //     returnLocation: rentalDetail.returnLocation,
+  //     pickupDate: new Date(rentalDetail.pickupDate).toISOString().split("T")[0],
+  //     returnDate: new Date(rentalDetail.returnDate).toISOString().split("T")[0],
+  //     pickupTime: rentalDetail.pickupTime,
+  //     returnTime: rentalDetail.returnTime,
+  //     protectionPackage: selectedPackageDetails.packageName,
+  //     addons: selectedAddons,
+  //     totalPrice: totalPrice,
+  //   };
+  //   const bookingData = {
+  //     ...bookingDetails,
+  //     paymentMethodId: paymentMethod.id,
+  //   };
+  //   console.log(bookingDetails, "booking details");
+  //   console.log(bookingData, "bookingData");
+
+  
+  //   const paymentResponse = await api.post("/carbooking.php", bookingDetails);
+
+  //   console.log(paymentResponse.data, "paymentIntent response");
+  //   if (paymentResponse.data.status === "error") {
+  //     console.log("error");
+  //   } else {
+  //     const bookingData = new URLSearchParams(paymentResponse.data).toString();
+  //     router.replace(`/booking/success?${bookingData}`);
+  //   }
+  // };
+
+
   const makePayment = async () => {
-    if (!stripe || !elements) {
-      console.error("Stripe has not loaded yet.");
-      return;
-    }
-    const { error: submitError } = await elements.submit();
-    if (submitError) {
-      setErrorMessage(submitError.message);
-      return;
-    }
-    const res = await api.post("/payment_intent.php", { amount: totalPrice });
-    console.log(res.data.intent.client_secret, "res from intent", totalPrice);
-    const clientSecret = res.data.intent.client_secret;
-    const { error } = await stripe.confirmPayment({
-      elements,
-      clientSecret,
-      confirmParams: {
-        return_url: "/booking/success",
-      },
-    });
-    if (error) {
-      setErrorMessage(error.message);
-    } else {
-      console.log("success");
-    }
+    try {
+      // if (!stripe || !elements) {
+      //   console.error("❌ Stripe has not loaded yet.");
+      //   return;
+      // }
+  
+      // // Get the card element
+      // const cardElement = elements.getElement(CardNumberElement);
+      // if (!cardElement) {
+      //   console.error("❌ CardNumberElement is not available.");
+      //   return;
+      // }
+  
+      // console.log("✅ Stripe and Elements are loaded correctly.");
+  
+      // // Call your API to create a PaymentIntent
+      // console.log("🔄 Creating PaymentIntent...");
+      // const res = await api.post("/payment_intent.php", { amount: totalPrice });
+  
+      // console.log("📩 PaymentIntent API Response:", res.data);
+  
+      // const clientSecret = res?.data?.intent?.client_secret;
+      // const paymentIntentId = res?.data?.intent?.id;
+  
+      // if (!clientSecret || !paymentIntentId) {
+      //   console.error("❌ Invalid PaymentIntent response:", res.data);
+      //   return;
+      // }
+  
+      // console.log(`✅ PaymentIntent Created: ID=${paymentIntentId}, ClientSecret=${clientSecret}`);
+  
+      // console.log("🔄 Confirming payment with Stripe...");
+      // const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
+      //   payment_method: { card: cardElement },
+      // });
+  
+      // if (error) {
+      //   console.error("❌ Error from confirmCardPayment:", error.message);
+      //   setErrorMessage("Error from confirmCardPayment", error.message);
+      //   return;
+      // }
+  
+      // console.log("✅ Payment successful!", paymentIntent);
+  
+      // Proceed with the booking API call
+      console.log("🔄 Sending booking details...");
+      const bookingDetails = {
+        userId: localUserId,
+        carId: JSON.stringify(selectedCarDetail.id),
+        name: fullname,
+        email: email,
+        phoneNumber: {
+          countryCode: countryCode,
+          number: phoneNumber,
+        },
+        pickupLocation: rentalDetail.pickupLocation,
+        returnLocation: rentalDetail.returnLocation,
+        pickupDate: new Date(rentalDetail.pickupDate).toISOString().split("T")[0],
+        returnDate: new Date(rentalDetail.returnDate).toISOString().split("T")[0],
+        pickupTime: rentalDetail.pickupTime,
+        returnTime: rentalDetail.returnTime,
+        protectionPackage: selectedPackageDetails.packageName,
+        addons: selectedAddons,
+        totalPrice: totalPrice,
+        // paymentIntentId: paymentIntent.id, // Store the successful payment ID
+      };
+  
+      console.log("📩 Booking Details:", bookingDetails);
+  
+      const paymentResponse = await api.post("/carbooking.php", bookingDetails);
+      console.log("📩 Booking API Response:", paymentResponse.data);
 
-    const bookingDetails = {
-      userId: localUserId,
-      carId: JSON.stringify(selectedCarDetail.id),
-      name: fullname,
-      email: email,
-      phoneNumber: {
-        countryCode: countryCode,
-        number: phoneNumber,
-      },
-      pickupLocation: rentalDetail.pickupLocation,
-      returnLocation: rentalDetail.returnLocation,
-      pickupDate: new Date(rentalDetail.pickupDate).toISOString().split("T")[0],
-      returnDate: new Date(rentalDetail.returnDate).toISOString().split("T")[0],
-      pickupTime: rentalDetail.pickupTime,
-      returnTime: rentalDetail.returnTime,
-      protectionPackage: selectedPackageDetails.packageName,
-      addons: selectedAddons,
-      totalPrice: totalPrice,
-    };
-    const bookingData = {
-      ...bookingDetails,
-      paymentMethodId: paymentMethod.id,
-    };
-    console.log(bookingDetails, "booking details");
-    console.log(bookingData, "bookingData");
-
-    const paymentResponse = await api.post("/carbooking.php", bookingDetails);
-
-    console.log(paymentResponse.data, "paymentIntent response");
-    if (paymentResponse.data.status === "error") {
-      console.log("error");
-    } else {
-      const bookingData = new URLSearchParams(paymentResponse.data).toString();
-      router.replace(`/booking/success?${bookingData}`);
+      
+      router.replace(`/booking/success?${bookingData}`);  
+      if (paymentResponse.data.status === "error") {
+        console.error("❌ Error in booking:", paymentResponse.data);
+      } else {
+        console.log("✅ Booking successful! Redirecting to success page...");
+        const bookingData = new URLSearchParams(paymentResponse.data).toString();
+        console.log(bookingData,"bookingDatabookingDatabookingData");
+        
+        router.replace(`/booking/success?${bookingData}`);
+      }
+    } catch (err) {
+      console.error("❌ Unexpected Error in makePayment:", err);
     }
   };
-
+  
+  
   const handleCheckboxChange = (value, checked) => {
     setIsChecked(checked);
   };
@@ -291,7 +387,7 @@ const PaymentPage = () => {
               <PriceDetailsModal />
             </div>
             <Link
-              href={isChecked ? "" : "#"}
+              href={isChecked ? `/booking/success` : "#"}
               onClick={(e) => {
                 if (!isChecked) {
                   e.preventDefault();
@@ -404,14 +500,19 @@ const PaymentPage = () => {
 };
 
 const page = () => {
-  const stripePromise = loadStripe(
-    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-  );
+
+  const options = {
+    mode: 'payment',
+    amount: 100,
+    currency: 'aed',
+  }
+
+  const stripePromise = loadStripe("pk_test_51GwnbLJaycRobwRdo77rIPhAn97fUNXckz3k9b4XaScxlPUUnRjjOlmmJLpdC2SMHWnHc6W2Sj7hyz2NryTOsIDv00WK5renkH");
 
   return (
-    <Elements stripe={stripePromise}>
+    <Elements stripe={stripePromise} options={options}>
       <PaymentPage />
-    </Elements>
+   </Elements>
   );
 };
 

@@ -16,7 +16,6 @@ import { useSearchParams } from "next/navigation";
 
 const BookingConfirmation = () => {
   const searchParams = useSearchParams();
-// console.log(searchParams,"search params");
 const bookingId = searchParams.get("booking_id");
   const transactionId = searchParams.get("transaction_id");
 

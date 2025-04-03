@@ -389,7 +389,7 @@ export default function HomePage() {
                     </p>
                   </div>
                   <div className="sec-6-box-container">
-                   <div
+                    <div
                       style={{
                         color: "#fff",
                         display: "flex",
@@ -399,7 +399,7 @@ export default function HomePage() {
                       className="mb-4 mb-md-4"
                     >
                       <Link
-                        href="https://buy.stripe.com/7sIcNrc3q9w41Da6oo"
+                        href="https://buy.stripe.com/14k9BfffC5fOgy49AH"
                         target="_blank"
                         className="entakly-business-services text-decoration-none text-white"
                       >
@@ -407,7 +407,7 @@ export default function HomePage() {
                         <p className="my-0">AED 250</p>
                       </Link>
                       <Link
-                        href="https://buy.stripe.com/dR6dRv9Vi6jSdlSaEF"
+                        href="https://buy.stripe.com/8wMaFj6J67nW2He8wE"
                         target="_blank"
                         className="entakly-business-services text-decoration-none text-white"
                       >
@@ -415,7 +415,7 @@ export default function HomePage() {
                         <p className="my-0">AED 1000</p>
                       </Link>
                       <Link
-                        href="https://buy.stripe.com/dR64gV9Vi23CchObIK"
+                        href="https://buy.stripe.com/aEU8xb0kIdMkfu0aEN"
                         target="_blank"
                         className="entakly-business-services text-decoration-none text-white"
                       >
@@ -457,13 +457,20 @@ export default function HomePage() {
                         <p className="my-0">AED 100</p>
                       </Link>
                     </div>  */}
+
                     <Link
                       href="https://wa.me/+971044536000"
-                      target="_blank"
-                      style={styles.imageButton}
                       className="chatNowButton mt-4"
+                      style={styles.imageButton}
+                      target="_blank"
                     >
-                      <FaWhatsapp style={{ marginBottom: 2, marginRight: 3 }} />{" "}
+                      <Image
+                        src="/icons/whatsappLogo.png" 
+                        alt="logo"
+                        width={20}
+                        height={20}
+                        style={{ marginRight: 10 }}
+                      />
                       {t("chat_now")}
                     </Link>
                   </div>

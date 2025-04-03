@@ -100,7 +100,10 @@ const Footer = () => {
               <li style={styles.LinkItems}>
               <Link 
                   href="https://wa.me/+971044536000"
-                  target="_blank" className="footerLinks">{t("pick_up_and_drop_off")}</Link>
+                  target="_blank" className="footerLinks">
+                    {/* {t("pick_up_and_drop_off")} */}
+                    Dubai Luxury Taxi
+                    </Link>
               </li>
               <li style={styles.LinkItems}>
                 <Link href="/leaseCar" className="footerLinks">{t("lease_for_24_months")}</Link>

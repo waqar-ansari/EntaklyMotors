@@ -266,7 +266,7 @@ console.log(registerCountryCode,"register country code");
                       }}
                       enableSearch
                       searchPlaceholder="Search..."
-                      searchStyle={{ width: 280, marginLeft: 0 }}
+                      searchStyle={{ width: 280, marginLeft: 0, }}
                     />
                     <div className="input-box my-0">
                       <input

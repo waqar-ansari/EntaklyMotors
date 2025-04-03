@@ -349,6 +349,11 @@ span.input-group-text {
 .sec-6-box-container{
   width: 90%;
 }
+
+
+ul.country-list .country{
+text-align: left !important;
+}
 @media (min-width: 1200px) {}
 
 @media(max-width:1200px) {
