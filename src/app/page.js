@@ -381,9 +381,10 @@ export default function HomePage() {
                 >
                   <div>
                     <p style={styles.imageHeading2} className="heading">
-                      {t("entakly_motors_business")}
+                      {/* {t("entakly_motors_business")} */}
+                      ENTAKLY LUXURY TAXI
                     </p>
-                    <p style={styles.imageText} className="text p-5">
+                    <p style={styles.imageText} className="text">
                       {t("pick_up_and_drop_off_across_uae")}
                     </p>
                   </div>
@@ -395,14 +396,14 @@ export default function HomePage() {
                         gap: 10,
                         width: "100%",
                       }}
-                      className="mb-2 mb-md-4"
+                      className="mb-4 mb-md-4"
                     >
                       <Link
                         href="https://buy.stripe.com/7sIcNrc3q9w41Da6oo"
                         target="_blank"
                         className="entakly-business-services text-decoration-none text-white"
                       >
-                        <p className="my-0">DXB Airport</p>
+                        <p className="my-0">DXB AIRPORT</p>
                         <p className="my-0">AED 250</p>
                       </Link>
                       <Link
@@ -410,7 +411,7 @@ export default function HomePage() {
                         target="_blank"
                         className="entakly-business-services text-decoration-none text-white"
                       >
-                        <p className="my-0">Full day 10 hours</p>
+                        <p className="my-0">FULL DAY 10 HOURS</p>
                         <p className="my-0">AED 1000</p>
                       </Link>
                       <Link
@@ -418,7 +419,7 @@ export default function HomePage() {
                         target="_blank"
                         className="entakly-business-services text-decoration-none text-white"
                       >
-                        <p className="my-0">Dubai taxi</p>
+                        <p className="my-0">DUBAI TAXI</p>
                         <p className="my-0">AED 100</p>
                       </Link>
                     </div>

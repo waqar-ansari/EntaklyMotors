@@ -35,6 +35,7 @@ export const LanguageProvider = ({ children }) => {
   const t = (key) => translations[language]?.[key] || key;
 
   const changeLanguage = (lang) => {
+    window.location.reload();
     setLanguage(lang);
   };
 
