@@ -12,6 +12,8 @@ import { useTranslation } from "@/context/LanguageProvider";
 import axios from "axios";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/bootstrap.css";
+import ar from 'react-phone-input-2/lang/ar.json'
+import ru from 'react-phone-input-2/lang/ru.json'
 
 export default function LoginPage() {
   const [isActive, setIsActive] = useState(false);
@@ -266,6 +268,7 @@ console.log(registerCountryCode,"register country code");
                       }}
                       enableSearch
                       searchPlaceholder="Search..."
+                      localization={language === "ar" ? ar : language === "ru" ? ru : undefined}
                       searchStyle={{ width: 280, marginLeft: 0, }}
                     />
                     <div className="input-box my-0">
@@ -399,6 +402,7 @@ console.log(registerCountryCode,"register country code");
                       }}
                       enableSearch
                       searchPlaceholder="Search..."
+                      localization={language === "ar" ? ar : language === "ru" ? ru : undefined}
                       searchStyle={{ width: 280, marginLeft: 0 }}
                     />
                     <div className="input-box my-0">

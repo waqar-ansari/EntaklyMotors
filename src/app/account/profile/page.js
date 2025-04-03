@@ -15,6 +15,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile, updateProfile } from "@/redux/slices/profileSlice";
 import api from "@/app/api/axiosInstance";
 import { useTranslation } from "@/context/LanguageProvider";
+import ar from 'react-phone-input-2/lang/ar.json'
+import ru from 'react-phone-input-2/lang/ru.json'
 
 const Page = () => {
   const router = useRouter();
@@ -194,7 +196,7 @@ const Page = () => {
               <Tab eventKey="bookings" title={t("bookings")}>
                 <Bookings />
               </Tab>
-              <Tab eventKey="profile" title="Profile">
+              <Tab eventKey="profile" title={t("profile")}>
                 <h3 className="mt-5">{t("profile")}</h3>
                 <h5>{t("one_place_to_manage_your_account")}</h5>
 
@@ -206,7 +208,7 @@ const Page = () => {
                 >
                   <Tab
                     eventKey="profileInformation"
-                    title="Profile Information"
+                    title={t("profile_information")}
                   >
                     <form
                       onSubmit={(e) => handleSubmit(e, "profileInformation")}
@@ -227,6 +229,7 @@ const Page = () => {
                       </div>
 
                       <div className="d-flex align-items-center">
+
                         <PhoneInput
                           country={"ae"}
                           value={profileData?.phonenumber?.countryCode}
@@ -235,6 +238,7 @@ const Page = () => {
                           name="countryCode"
                           enableSearch
                           searchPlaceholder="Search..."
+                          localization={language === "ar" ? ar : language === "ru" ? ru : undefined}
                           searchStyle={{ width: 280, marginLeft: 0 }}
                         />
                         <div style={{ margin: "0px 10px" }}>
