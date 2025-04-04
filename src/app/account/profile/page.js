@@ -15,8 +15,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile, updateProfile } from "@/redux/slices/profileSlice";
 import api from "@/app/api/axiosInstance";
 import { useTranslation } from "@/context/LanguageProvider";
-import ar from 'react-phone-input-2/lang/ar.json'
-import ru from 'react-phone-input-2/lang/ru.json'
+import ar from "react-phone-input-2/lang/ar.json";
+import ru from "react-phone-input-2/lang/ru.json";
 
 const Page = () => {
   const router = useRouter();
@@ -61,13 +61,14 @@ const Page = () => {
   };
 
   useEffect(() => {
-
-
+    console.log("fetched profile with localUserId", localUserId);
+    
     dispatch(fetchProfile({ user_id: Number(localUserId) }));
   }, [dispatch, localUserId]);
 
   const profile = useSelector((state) => state.profile);
 
+  console.log(profile, "profile from redux");
 
   const { fullname, email, phonenumber, address, loading, error } = profile;
 
@@ -84,15 +85,14 @@ const Page = () => {
     } else if (subTab === "email") {
       updatedData = {
         email: profileData.email,
-        user_id: Number(localUserId)
+        user_id: Number(localUserId),
       };
     } else if (subTab === "address") {
       updatedData = {
         address: profileData.address,
-        user_id: Number(localUserId)
+        user_id: Number(localUserId),
       };
     }
-
 
     dispatch(updateProfile(updatedData));
   };
@@ -126,7 +126,11 @@ const Page = () => {
   };
 
   useEffect(() => {
-    if (!loading && !error && fullname) {
+    console.log(error,loading, "error and loading in profile page");
+    
+    if (!loading) {
+      console.log("profileData email", email);
+      
       setProfileData({
         fullname: fullname || "",
         email: email || "",
@@ -181,6 +185,8 @@ const Page = () => {
     }
   };
   const { t, language } = useTranslation();
+console.log(profileData, "profileData in profile page");
+
   return (
     <>
       <Header />
@@ -229,7 +235,6 @@ const Page = () => {
                       </div>
 
                       <div className="d-flex align-items-center">
-
                         <PhoneInput
                           country={"ae"}
                           value={profileData?.phonenumber?.countryCode}
@@ -238,7 +243,13 @@ const Page = () => {
                           name="countryCode"
                           enableSearch
                           searchPlaceholder="Search..."
-                          localization={language === "ar" ? ar : language === "ru" ? ru : undefined}
+                          localization={
+                            language === "ar"
+                              ? ar
+                              : language === "ru"
+                              ? ru
+                              : undefined
+                          }
                           searchStyle={{ width: 280, marginLeft: 0 }}
                         />
                         <div style={{ margin: "0px 10px" }}>

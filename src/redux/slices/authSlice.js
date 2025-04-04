@@ -3,23 +3,18 @@ import api from "@/app/api/axiosInstance";
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
 export const loginUser = createAsyncThunk("login", async (credentials) => {
-
   const response = await api.post("/login.php", credentials);
-
+console.log(response.data, "response.data");
 
   return response.data;
 });
 export const signupUser = createAsyncThunk(
   "register",
   async (signupCredentials) => {
-console.log(signupCredentials,"signupCredentials");
-
     const response = await api.post("/register.php", signupCredentials);
-    console.log(response.data,"response from authslice register user");
-    
     return response.data;
   }
-);  
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -43,7 +38,7 @@ const authSlice = createSlice({
       state.loading = false;
       state.user = action.payload;
       // state.token = action.payload.token;
-      
+
       localStorage.setItem("userId", action.payload.User_id);
     });
     builder.addCase(loginUser.rejected, (state) => {

@@ -1,8 +1,7 @@
 import api from "./axiosInstance"
 
 export const getProfile =async(user_id)=>{
-
-    
+  
     const response = await api.post(`/get_profile.php`, user_id )
 
 

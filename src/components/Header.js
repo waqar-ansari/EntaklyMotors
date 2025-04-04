@@ -43,6 +43,7 @@ const Header = ({ headerPickupAndDrop }) => {
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
   const { user } = useSelector((state) => state.auth);
+  const profile = useSelector((state) => state.profile);
   const selectLanguage = (language) => {
     setSelectedLanguage(language);
     closeModal();
@@ -50,6 +51,9 @@ const Header = ({ headerPickupAndDrop }) => {
   const { t, language } = useTranslation();
   const token = "abcd";
   const rentalDetail = useSelector((state) => state.rentalDetail);
+
+  console.log(profile, "profile from header");
+  
   return (
     <div>
       <PickerModal/>
