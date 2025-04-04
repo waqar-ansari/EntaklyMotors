@@ -353,7 +353,7 @@ export default function HomePage() {
               style={{ position: "relative" }}
             >
               <Image
-                src="/images/homeImage3.webp"
+                src="/images/homeImage2.webp"
                 alt="limousine"
                 width={465}
                 height={697}
@@ -467,8 +467,8 @@ export default function HomePage() {
                       <Image
                         src="/icons/whatsappLogo.png" 
                         alt="logo"
-                        width={20}
-                        height={20}
+                        width={15}
+                        height={15}
                         style={language === "ar" ? { marginLeft: 10 } : { marginRight: 10 }}
                       />
                       {t("chat_now")}
@@ -482,7 +482,7 @@ export default function HomePage() {
         <div className="row">
           <div style={{ position: "relative" }} className="col-md-12 p-0 sec-7">
             <Image
-              src="/images/homeImage4.webp"
+              src="/images/homeImage3.webp"
               alt="limousine"
               width={931}
               height={400}
