@@ -76,6 +76,10 @@
    color: lightgreen;
    margin-bottom: 3px;
  }
+ :dir(rtl) .checkIcon{
+  margin-left: 5px;
+  margin-right: 0px;
+ }
 
  .carPricing {
    font-size: 18px;

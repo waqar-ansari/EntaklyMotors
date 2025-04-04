@@ -28,7 +28,7 @@ import {
   Elements,
   useElements,
   useStripe,
-  PaymentElement
+  PaymentElement,
 } from "@stripe/react-stripe-js";
 
 const PaymentPage = () => {
@@ -89,7 +89,7 @@ const PaymentPage = () => {
   //   const clientSecret = res.data.intent.client_secret;
   //   console.log("it is called after the intent");
   //   console.log(elements,"elementselements");
-    
+
   //   const { error } = await stripe.confirmPayment({
   //     elements,
   //     clientSecret,
@@ -129,7 +129,6 @@ const PaymentPage = () => {
   //   console.log(bookingDetails, "booking details");
   //   console.log(bookingData, "bookingData");
 
-  
   //   const paymentResponse = await api.post("/carbooking.php", bookingDetails);
 
   //   console.log(paymentResponse.data, "paymentIntent response");
@@ -141,54 +140,40 @@ const PaymentPage = () => {
   //   }
   // };
 
-
   const makePayment = async () => {
     try {
-      // if (!stripe || !elements) {
-      //   console.error("❌ Stripe has not loaded yet.");
-      //   return;
-      // }
-  
-      // // Get the card element
-      // const cardElement = elements.getElement(CardNumberElement);
-      // if (!cardElement) {
-      //   console.error("❌ CardNumberElement is not available.");
-      //   return;
-      // }
-  
-      // console.log("✅ Stripe and Elements are loaded correctly.");
-  
-      // // Call your API to create a PaymentIntent
-      // console.log("🔄 Creating PaymentIntent...");
-      // const res = await api.post("/payment_intent.php", { amount: totalPrice });
-  
-      // console.log("📩 PaymentIntent API Response:", res.data);
-  
-      // const clientSecret = res?.data?.intent?.client_secret;
-      // const paymentIntentId = res?.data?.intent?.id;
-  
-      // if (!clientSecret || !paymentIntentId) {
-      //   console.error("❌ Invalid PaymentIntent response:", res.data);
-      //   return;
-      // }
-  
-      // console.log(`✅ PaymentIntent Created: ID=${paymentIntentId}, ClientSecret=${clientSecret}`);
-  
-      // console.log("🔄 Confirming payment with Stripe...");
-      // const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
-      //   payment_method: { card: cardElement },
-      // });
-  
-      // if (error) {
-      //   console.error("❌ Error from confirmCardPayment:", error.message);
-      //   setErrorMessage("Error from confirmCardPayment", error.message);
-      //   return;
-      // }
-  
-      // console.log("✅ Payment successful!", paymentIntent);
-  
-      // Proceed with the booking API call
-      console.log("🔄 Sending booking details...");
+      if (!stripe || !elements) {
+        console.error("Stripe has not loaded yet.");
+        return;
+      }
+
+      const cardElement = elements.getElement(CardNumberElement);
+      if (!cardElement) {
+        console.error("CardNumberElement is not available.");
+        return;
+      }
+      const res = await api.post("/payment_intent.php", { totalPrice });
+
+      const clientSecret = res?.data?.intent?.client_secret;
+      const paymentIntentId = res?.data?.intent?.id;
+
+      if (!clientSecret || !paymentIntentId) {
+        console.error("Invalid PaymentIntent response:", res.data);
+        return;
+      }
+      const { paymentIntent, error } = await stripe.confirmCardPayment(
+        clientSecret,
+        {
+          payment_method: { card: cardElement },
+        }
+      );
+
+      if (error) {
+        console.error("Error from confirmCardPayment:", error.message);
+        setErrorMessage("Error from confirmCardPayment", error.message);
+        return;
+      }
+
       const bookingDetails = {
         userId: localUserId,
         carId: JSON.stringify(selectedCarDetail.id),
@@ -200,38 +185,39 @@ const PaymentPage = () => {
         },
         pickupLocation: rentalDetail.pickupLocation,
         returnLocation: rentalDetail.returnLocation,
-        pickupDate: new Date(rentalDetail.pickupDate).toISOString().split("T")[0],
-        returnDate: new Date(rentalDetail.returnDate).toISOString().split("T")[0],
+        pickupDate: new Date(rentalDetail.pickupDate)
+          .toISOString()
+          .split("T")[0],
+        returnDate: new Date(rentalDetail.returnDate)
+          .toISOString()
+          .split("T")[0],
         pickupTime: rentalDetail.pickupTime,
         returnTime: rentalDetail.returnTime,
         protectionPackage: selectedPackageDetails.packageName,
         addons: selectedAddons,
         totalPrice: totalPrice,
-        // paymentIntentId: paymentIntent.id, // Store the successful payment ID
+        paymentIntentId: paymentIntent.id,
+        currency: "aed",
+        status: paymentIntent.status,
       };
-  
-      console.log("📩 Booking Details:", bookingDetails);
-  
-      const paymentResponse = await api.post("/carbooking.php", bookingDetails);
-      console.log("📩 Booking API Response:", paymentResponse.data);
 
-      
-      router.replace(`/booking/success?${bookingData}`);  
+      const paymentResponse = await api.post("/carbooking.php", bookingDetails);
+
       if (paymentResponse.data.status === "error") {
-        console.error("❌ Error in booking:", paymentResponse.data);
+        console.error("Error in booking:", paymentResponse.data);
       } else {
-        console.log("✅ Booking successful! Redirecting to success page...");
-        const bookingData = new URLSearchParams(paymentResponse.data).toString();
-        console.log(bookingData,"bookingDatabookingDatabookingData");
-        
+
+        const bookingData = new URLSearchParams(
+          paymentResponse.data
+        ).toString();
+
         router.replace(`/booking/success?${bookingData}`);
       }
     } catch (err) {
-      console.error("❌ Unexpected Error in makePayment:", err);
+      console.error("Unexpected Error in makePayment:", err);
     }
   };
-  
-  
+
   const handleCheckboxChange = (value, checked) => {
     setIsChecked(checked);
   };
@@ -386,8 +372,8 @@ const PaymentPage = () => {
             <div className="mb-5">
               <PriceDetailsModal />
             </div>
-            <Link
-              href={isChecked ? `/booking/success` : "#"}
+            <button
+              // href={isChecked ? "" : "#"}
               onClick={(e) => {
                 if (!isChecked) {
                   e.preventDefault();
@@ -403,7 +389,7 @@ const PaymentPage = () => {
               }}
             >
               {t("pay_and_book")}
-            </Link>
+            </button>
           </div>
           <div className="col-md-4">
             <div
@@ -500,19 +486,20 @@ const PaymentPage = () => {
 };
 
 const page = () => {
-
   const options = {
-    mode: 'payment',
+    mode: "payment",
     amount: 100,
-    currency: 'aed',
-  }
+    currency: "aed",
+  };
 
-  const stripePromise = loadStripe("pk_test_51GwnbLJaycRobwRdo77rIPhAn97fUNXckz3k9b4XaScxlPUUnRjjOlmmJLpdC2SMHWnHc6W2Sj7hyz2NryTOsIDv00WK5renkH");
+  const stripePromise = loadStripe(
+    "pk_test_51R3XPNCvoTSNB6AOjILWKU5d9NGh1QFAu9OlTS7MKIMon5N3L1ZraqzwfDl01lpRq9vdhzUhmNy96wfSONS0yBrQ00iEBIMQAL"
+  );
 
   return (
     <Elements stripe={stripePromise} options={options}>
       <PaymentPage />
-   </Elements>
+    </Elements>
   );
 };
 

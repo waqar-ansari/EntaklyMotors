@@ -48,7 +48,7 @@ const page = () => {
       extraInfo: "(Minimum age 25)",
       numberOfStars: "2",
       overview:"Smart Protection - No excess",
-      footer: "40 Aed/day",
+      footer: "40" + t("aed/day"),
       discount: "-19% " + t("online_discount"),
       packagePros: [t("loss_damage_waiver"),  t("tyre_and_windscreen_protection")],
       packageCons: [

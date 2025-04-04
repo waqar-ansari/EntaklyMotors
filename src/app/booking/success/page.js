@@ -12,11 +12,11 @@ import Image from "next/image";
 import PriceDetailsModal from "@/components/modals/PriceDetailsModal";
 import { useSearchParams } from "next/navigation";
 
-
-
 const BookingConfirmation = () => {
   const searchParams = useSearchParams();
-const bookingId = searchParams.get("booking_id");
+  console.log(searchParams, "searchParams");
+
+  const bookingId = searchParams.get("booking_id");
   const transactionId = searchParams.get("transaction_id");
 
   const rentalDetail = useSelector((state) => state.rentalDetail);
@@ -34,7 +34,7 @@ const bookingId = searchParams.get("booking_id");
     rentalDetail.pickupDate,
     rentalDetail.returnDate
   );
-console.log(bookingId, transactionId,"booking and transaction id");
+  console.log(bookingId, transactionId, "booking and transaction id");
 
   return (
     <>
@@ -50,7 +50,8 @@ console.log(bookingId, transactionId,"booking and transaction id");
             <PiCheckCircle color="#6fcf97" style={{ fontSize: 80 }} />
           </div>
           <div className="text-center mt-4 fs-5 mb-5">
-            Congratulations, your booking has been confirmed. Enjoy the ride and make memories.
+            Congratulations, your booking has been confirmed. Enjoy the ride and
+            make memories.
             {/* <span className="displayBlock">
               Thank you for choosing ENTAKLY Motors for your car rental needs.
             </span> */}
@@ -60,7 +61,10 @@ console.log(bookingId, transactionId,"booking and transaction id");
           <div className="row mb-5 align-items-stretch">
             <div className="col-md-3 d-flex mb-3">
               <div className="border p-4 rounded flex-fill d-flex flex-column">
-                <h4 className="font-bold mb-3" style={{ color: colors.themeMain }}>
+                <h4
+                  className="font-bold mb-3"
+                  style={{ color: colors.themeMain }}
+                >
                   Booking Details:
                 </h4>
                 <p className="mb-0">
@@ -69,7 +73,6 @@ console.log(bookingId, transactionId,"booking and transaction id");
                 <p>
                   <b>Booking Id: {bookingId}</b>
                 </p>
-              
               </div>
             </div>
 
