@@ -305,11 +305,11 @@ input[type="password"]::-webkit-textfield-decoration-container {
 }
 
 .pcInputFixedWidth {
-  width: 150px !important;
+  width: 154px !important;
 }
 
 .pcTimeInputFixedWidth {
-  width: 120px !important;
+  width: 128px !important;
 }
 
 span.input-group-text {

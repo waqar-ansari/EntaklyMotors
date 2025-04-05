@@ -11,6 +11,7 @@ import { IoCalendarSharp } from "react-icons/io5";
 import Image from "next/image";
 import PriceDetailsModal from "@/components/modals/PriceDetailsModal";
 import { useSearchParams } from "next/navigation";
+import { useTranslation } from "@/context/LanguageProvider";
 
 const BookingConfirmation = () => {
   const searchParams = useSearchParams();
@@ -35,23 +36,22 @@ const BookingConfirmation = () => {
     rentalDetail.returnDate
   );
   console.log(bookingId, transactionId, "booking and transaction id");
-
+const { t, language } = useTranslation();
   return (
     <>
       <Header />
       <div className="container p-4 bg-gray-100">
         <div className="shadow-md p-6 rounded-lg">
-          <h2 className="text-lg font-bold mb-2">Booking Confirmation</h2>
+          <h2 className="text-lg font-bold mb-2">{t("booking_confirmation")}</h2>
           <hr style={{ height: 2, backgroundColor: colors.themeMain }} />
           <h3 className="text-center mb-4" style={{ color: colors.themeMain }}>
-            Booking Reserved
+            {t("booking_reserved")}
           </h3>
           <div className="text-center">
             <PiCheckCircle color="#6fcf97" style={{ fontSize: 80 }} />
           </div>
           <div className="text-center mt-4 fs-5 mb-5">
-            Congratulations, your booking has been confirmed. Enjoy the ride and
-            make memories.
+           {t("congratulations_your_booking_has_been_confirmed")}
             {/* <span className="displayBlock">
               Thank you for choosing ENTAKLY Motors for your car rental needs.
             </span> */}
@@ -65,13 +65,13 @@ const BookingConfirmation = () => {
                   className="font-bold mb-3"
                   style={{ color: colors.themeMain }}
                 >
-                  Booking Details:
+                  {t("booking_details")} :
                 </h4>
                 <p className="mb-0">
-                  <b>No. of rental Days: {numberOfRentalDays}</b>
+                  <b>{t("rental_days")}: {numberOfRentalDays}</b>
                 </p>
                 <p>
-                  <b>Booking Id: {bookingId}</b>
+                  <b>{t("booking_id")}: {bookingId}</b>
                 </p>
               </div>
             </div>
@@ -82,7 +82,7 @@ const BookingConfirmation = () => {
                   className="font-bold mb-3"
                   style={{ color: colors.themeMain }}
                 >
-                  Pick Up:
+                  {t("pick_up")}:
                 </h4>
                 <div className="d-flex align-items-center">
                   <IoLocationSharp className="me-2" />
@@ -103,7 +103,7 @@ const BookingConfirmation = () => {
                   className="font-bold mb-3"
                   style={{ color: colors.themeMain }}
                 >
-                  Return:
+                  {t("return")}:
                 </h4>
                 <div className="d-flex align-items-center">
                   <IoLocationSharp className="me-2" />
@@ -139,7 +139,7 @@ const BookingConfirmation = () => {
           </div>
 
           <div>
-            <h2 className="text-lg font-bold mb-2">Payment Details</h2>
+            <h2 className="text-lg font-bold mb-2">{t("payment_details")}</h2>
             <hr
               style={{
                 height: 2,
@@ -148,15 +148,15 @@ const BookingConfirmation = () => {
               }}
             />
             <div className="d-flex justify-content-between align-items-center">
-              <p className="mb-0 fw-bold">Transaction Id </p>
+              <p className="mb-0 fw-bold">{t("transaction_id")} </p>
               <p className="mb-0 fw-bold">{transactionId}</p>
             </div>
             <div className="d-flex align-items-center justify-content-between">
               <div>
-                <p className="mb-0"> Total Price:</p>
+                <p className="mb-0"> {t("total_price")}:</p>
                 <PriceDetailsModal />
               </div>
-              <p className="mb-0 fw-bold">AED {totalPrice}</p>
+              <p className="mb-0 fw-bold">{t("aed")} {totalPrice}</p>
             </div>
             <hr
               style={{

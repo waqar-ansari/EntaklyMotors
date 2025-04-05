@@ -839,7 +839,7 @@ const PickupAndDropPicker = ({
 
       <div
         className="d-md-flex justify-content-center pickupAndDropPicker flex-wrap position-relative "
-        style={{ gap: "15px", paddingBottom: error ? "0px" : "24px" }}
+        style={{ gap: "8px", paddingBottom: error ? "0px" : "24px" }}
       >
         {showLocations && (
           <div

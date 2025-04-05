@@ -143,6 +143,15 @@
 "additional_driver":"Additional Driver",
 "baby_seat":"Baby seat (0-18 kg / Group 0+/1)",
 "aed/day":"Aed/day",
+"booking_confirmation":"Booking Confirmation",
+"booking_reserved":"Booking Reserved",
+"congratulations_your_booking_has_been_confirmed":"Congratulations, your booking has been confirmed. Enjoy the ride and make memories.",
+"booking_details":"Booking Details:",
+"rental_days":"Rental Days",
+"booking_id":"Booking Id",
+"payment_details":"Payment Details",
+"transaction_id":"Transaction Id",
+"total_price":"Total Price",
 "":"",
 
 

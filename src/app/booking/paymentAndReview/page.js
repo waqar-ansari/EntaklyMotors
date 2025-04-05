@@ -20,6 +20,8 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Button, Modal } from "react-bootstrap";
 import { useRouter } from "next/navigation";
 import api from "@/app/api/axiosInstance";
+import ar from 'react-phone-input-2/lang/ar.json'
+import ru from 'react-phone-input-2/lang/ru.json'
 import {
   CardCvcElement,
   CardElement,
@@ -233,7 +235,7 @@ console.log(bookingDetails,"bookingDetails");
             <div className="d-flex justify-content-end align-items-center">
               <div>
                 <p className="mb-0 fw-bold">
-                  {t("total")}: {totalPrice} AED
+                  {t("total")}: {totalPrice} {t("aed")}
                 </p>
                 <PriceDetailsModal />
               </div>
@@ -286,6 +288,7 @@ console.log(bookingDetails,"bookingDetails");
                 enableSearch
                 searchPlaceholder="Search..."
                 searchStyle={{ width: 280, marginLeft: 0 }}
+                localization={language === "ar" ? ar : language === "ru" ? ru : undefined}
               />
               <div style={{ margin: "0px 10px" }}>{countryCode}</div>
 

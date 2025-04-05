@@ -92,7 +92,7 @@ export default function HomePage() {
       fontSize: 12,
       color: colors.white,
       fontFamily: fonts.helvetica400,
-      border: "1px solid white",
+      // border: "1px solid white",
       padding: "15px 50px",
       borderRadius: 30,
       textDecoration: "none",
