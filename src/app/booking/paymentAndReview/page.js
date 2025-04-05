@@ -173,9 +173,10 @@ const PaymentPage = () => {
         setErrorMessage("Error from confirmCardPayment", error.message);
         return;
       }
+console.log(paymentIntent.id,"paymentIntent.id");
 
       const bookingDetails = {
-        userId: localUserId,
+        userId: 11,
         carId: JSON.stringify(selectedCarDetail.id),
         name: fullname,
         email: email,
@@ -200,6 +201,7 @@ const PaymentPage = () => {
         currency: "aed",
         status: paymentIntent.status,
       };
+console.log(bookingDetails,"bookingDetails");
 
       const paymentResponse = await api.post("/carbooking.php", bookingDetails);
 
