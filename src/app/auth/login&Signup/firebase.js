@@ -1,6 +1,7 @@
 // firebase.js
 import { initializeApp } from "firebase/app";
-import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+// import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import "firebase/auth"
 
 const firebaseConfig = {
     apiKey: "AIzaSyA3ccJtR44kCxVnLg7PywHuTLWXdRkgRrU",
@@ -13,8 +14,8 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
-    auth.settings.appVerificationDisabledForTesting = true;
-  }
-export { auth, RecaptchaVerifier, signInWithPhoneNumber };
+// const auth = getAuth(app);
+// if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
+//     auth.settings.appVerificationDisabledForTesting = true;
+//   }
+export { app };

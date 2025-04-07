@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./login.css";
 import { colors } from "../../../../public/colors/colors";
 import Header from "@/components/Header";
@@ -14,13 +14,19 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/bootstrap.css";
 import ar from "react-phone-input-2/lang/ar.json";
 import ru from "react-phone-input-2/lang/ru.json";
-import { setUpRecaptcha } from "./phoneAuth";
+// import { setUpRecaptcha } from "./phoneAuth";
+import { getAuth,RecaptchaVerifier,signInWithPhoneNumber } from "firebase/auth";
+import { app } from "./firebase";
 
 export default function LoginPage() {
   const [isActive, setIsActive] = useState(false);
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const[otp, setOtp] = useState("");
+  const [confirmationResult, setConfirmationResult] = useState(null);
+  const [otpSent, setOtpSent] = useState(false);
+
 
   const [email, setEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
@@ -35,6 +41,7 @@ export default function LoginPage() {
   const [phoneNumber, setPhoneNumber] = useState("");
   // const [isForgotPassword, setIsForgotPassword] = useState(false);
 
+  const auth = getAuth(app);
   const handleLoginWith = (usePhone) => {
     setIsPhoneLogin(usePhone);
   };
@@ -73,6 +80,17 @@ export default function LoginPage() {
       console.log("Login failed:", error);
     }
   };
+useEffect(()=>{
+window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
+  size: "invisible",
+  callback: (response) => {
+    // reCAPTCHA solved, allow signInWithPhoneNumber.
+  },
+  "expired-callback": () => {
+    // Response expired. Ask user to solve reCAPTCHA again.
+  },
+});
+},[auth])
 
   // const handleRegister = async (e) => {
   //   e.preventDefault();
@@ -151,33 +169,48 @@ export default function LoginPage() {
       console.log("Attempting to verify:", fullPhone);
       
       try {
-        const confirmationResult = await setUpRecaptcha(fullPhone);
-        const otp = prompt("Enter the OTP sent to your phone");
+        console.log("Setting up reCAPTCHA...");
+        console.log(auth, fullPhone, window.recaptchaVerifier,"auth, fullPhone, window.recaptchaVerifier");
+        await window.recaptchaVerifier.render();
+        console.log("reCAPTCHA rendered successfully");
+        console.log("Attempting to send OTP...");
+        const confirmation = await signInWithPhoneNumber(auth, fullPhone, window.recaptchaVerifier);
+        console.log(confirmation.verificationId)
+console.log("ran till here");
+
+        setConfirmationResult(confirmation);
+        setOtpSent(true);
+        alert("OTP sent to your phone. Please check your messages.");
+        // const confirmationResult = await setUpRecaptcha(fullPhone);
+        // const otp = prompt("Enter the OTP sent to your phone");
   
-        if (!otp) {
-          setError("OTP is required");
-          return;
-        }
+        // if (!otp) {
+        //   setError("OTP is required");
+        //   return;
+        // }
   
-        const result = await confirmationResult.confirm(otp);
-        const phoneNumber = result.user.phoneNumber;
+        // const result = await confirmationResult.confirm(otp);
+
+
+
+        // const phoneNumber = result.user.phoneNumber;
   
-        const registerPayload = {
-          phone_number: {
-            countryCode: registerCountryCode,
-            number: registerPhoneNumber,
-          },
-          password: registerPassword,
-        };
+        // const registerPayload = {
+        //   phone_number: {
+        //     countryCode: registerCountryCode,
+        //     number: registerPhoneNumber,
+        //   },
+        //   password: registerPassword,
+        // };
   
-        const response = await dispatch(signupUser(registerPayload)).unwrap();
+        // const response = await dispatch(signupUser(registerPayload)).unwrap();
   
-        if (response.status === "success") {
-          setSuccess(response.message);
-          router.push("/auth/login&Signup");
-        } else {
-          setError(response.message);
-        }
+        // if (response.status === "success") {
+        //   setSuccess(response.message);
+        //   router.push("/auth/login&Signup");
+        // } else {
+        //   setError(response.message);
+        // }
       } catch (err) {
         console.error("Authentication error:", err);
         setError(err.message || "OTP verification failed");

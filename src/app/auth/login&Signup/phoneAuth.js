@@ -1,7 +1,4 @@
-
-
 import { auth, RecaptchaVerifier, signInWithPhoneNumber } from "./firebase";
-
 
 export const setUpRecaptcha = (phoneNumber) => {
   return new Promise((resolve, reject) => {
