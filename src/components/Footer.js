@@ -84,7 +84,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="row">
-          <div className="col-md-4 mt-4">
+          <div className="col-md-3 mt-4">
             <p style={styles.footerHeading}>{t("our_Services")}</p>
             <ul
               style={{
@@ -113,7 +113,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div className="col-md-4 mt-4">
+          <div className="col-md-3 mt-4">
             <p style={styles.footerHeading}>{t("help_and_more")}</p>
             <ul
               style={{
@@ -137,8 +137,18 @@ const Footer = () => {
               </li>
             </ul>
           </div>
+          <div className="col-md-6 my-auto text-end">
+          <Image
+              src="/icons/allPaymentMethodsWithBg.webp"
+              alt="logo"
+              width={1200}
+              height={104}
+              layout="responsive"
+              style={{maxWidth:600}}
+            />
+          </div>
         </div>
-        <div className="row mt-sm-5 mt-3">
+        {/* <div className="row mt-sm-5 mt-3">
           <div className="col-12 col-md-6">
             <Image
               src="/icons/allPaymentMethodsWithBg.webp"
@@ -149,7 +159,7 @@ const Footer = () => {
               style={{maxWidth:600}}
             />
           </div>
-        </div>
+        </div> */}
         {/* <div className="row mt-5">
           <div className="col-12">
             <Link href="#" style={styles.bottomLinks}>

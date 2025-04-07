@@ -4,8 +4,6 @@ const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
 export const loginUser = createAsyncThunk("login", async (credentials) => {
   const response = await api.post("/login.php", credentials);
-console.log(response.data, "response.data");
-
   return response.data;
 });
 export const signupUser = createAsyncThunk(
@@ -27,7 +25,7 @@ const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.user = null;
-      // localStorage.removeItem("authToken");
+      localStorage.removeItem("userId");
     },
   },
   extraReducers: (builder) => {

@@ -42,11 +42,9 @@ export default function LoginPage() {
     setError("");
     setIsPhoneRegister(usePhone);
   };
-  console.log(registerCountryCode, "register country code");
 
   const dispatch = useDispatch();
   const router = useRouter();
-  console.log(countryCode, "country code");
   const handleLogin = async (e) => {
     e.preventDefault();
     const credentials = isPhoneLogin
@@ -80,21 +78,23 @@ export default function LoginPage() {
   //   e.preventDefault();
   //   setError("");
   //   setSuccess("");
-  
+
   //   if (isPhoneRegister) {
+  //     console.log(registerCountryCode + registerPhoneNumber,"completephone number");
+      
   //     const fullPhone = registerCountryCode + registerPhoneNumber;
   //     try {
   //       const confirmationResult = await setUpRecaptcha(fullPhone);
   //       const otp = prompt("Enter the OTP sent to your phone");
-  
+
   //       if (!otp) {
   //         setError("OTP is required");
   //         return;
   //       }
-  
+
   //       const result = await confirmationResult.confirm(otp);
   //       const phoneNumber = result.user.phoneNumber;
-  
+
   //       // Now call your API to register the user
   //       const registerPayload = {
   //         phone_number: {
@@ -103,9 +103,9 @@ export default function LoginPage() {
   //         },
   //         password: registerPassword,
   //       };
-  
+
   //       const response = await dispatch(signupUser(registerPayload)).unwrap();
-  
+
   //       if (response.status === "success") {
   //         setSuccess(response.message);
   //         router.push("/auth/login&Signup");
@@ -122,10 +122,9 @@ export default function LoginPage() {
   //       email: registerEmail,
   //       password: registerPassword,
   //     };
-  
   //     try {
   //       const result = await dispatch(signupUser(credentials)).unwrap();
-  
+
   //       if (result.status === "success") {
   //         setSuccess(result.message);
   //         router.push("/auth/login&Signup");
@@ -137,41 +136,98 @@ export default function LoginPage() {
   //     }
   //   }
   // };
-  
+
+
+
+
 
   const handleRegister = async (e) => {
+    e.preventDefault();
     setError("");
     setSuccess("");
-    e.preventDefault();
-    const credentials = isPhoneRegister
-      ? {
+  
+    if (isPhoneRegister) {
+      const fullPhone = registerCountryCode + registerPhoneNumber;
+      console.log("Attempting to verify:", fullPhone);
+      
+      try {
+        const confirmationResult = await setUpRecaptcha(fullPhone);
+        const otp = prompt("Enter the OTP sent to your phone");
+  
+        if (!otp) {
+          setError("OTP is required");
+          return;
+        }
+  
+        const result = await confirmationResult.confirm(otp);
+        const phoneNumber = result.user.phoneNumber;
+  
+        const registerPayload = {
           phone_number: {
             countryCode: registerCountryCode,
             number: registerPhoneNumber,
           },
           password: registerPassword,
-        }
-      : {
-          email: registerEmail,
-          password: registerPassword,
         };
-    console.log(credentials, "register credentials");
-
-    try {
-      const result = await dispatch(signupUser(credentials)).unwrap();
-
-      if (result.status === "error") {
-        setError(result.message);
-        return;
+  
+        const response = await dispatch(signupUser(registerPayload)).unwrap();
+  
+        if (response.status === "success") {
+          setSuccess(response.message);
+          router.push("/auth/login&Signup");
+        } else {
+          setError(response.message);
+        }
+      } catch (err) {
+        console.error("Authentication error:", err);
+        setError(err.message || "OTP verification failed");
+        
+        // Specific error handling
+        if (err.code === 'auth/invalid-app-credential') {
+          setError("Invalid app configuration. Please contact support.");
+        } else if (err.code === 'auth/too-many-requests') {
+          setError("Too many attempts. Please try again later.");
+        }
       }
-      if (result.status === "success") {
-        setSuccess(result.message);
-        router.push("/auth/login&Signup");
-      }
-    } catch (error) {
-      console.log("Signup failed:", error);
+    } else {
+      // Email register flow remains the same
     }
   };
+
+
+
+  // const handleRegister = async (e) => {
+  //   setError("");
+  //   setSuccess("");
+  //   e.preventDefault();
+  //   const credentials = isPhoneRegister
+  //     ? {
+  //         phone_number: {
+  //           countryCode: registerCountryCode,
+  //           number: registerPhoneNumber,
+  //         },
+  //         password: registerPassword,
+  //       }
+  //     : {
+  //         email: registerEmail,
+  //         password: registerPassword,
+  //       };
+
+  //   try {
+  //     const result = await dispatch(signupUser(credentials)).unwrap();
+
+  //     if (result.status === "error") {
+  //       setError(result.message);
+  //       return;
+  //     }
+  //     if (result.status === "success") {
+  //       setSuccess(result.message);
+  //       router.push("/auth/login&Signup");
+  //     }
+  //   } catch (error) {
+  //     console.log("Signup failed:", error);
+  //   }
+  // };
   const { t, language } = useTranslation();
   return (
     <div>
@@ -213,14 +269,29 @@ export default function LoginPage() {
                 </div>
 
                 {!isPhoneLogin ? (
-                  <div className="input-box">
+                  // <div className="input-box form-floating">
+                  //   <input
+                  //     type="email"
+                  //     placeholder="Email"
+                  //     value={email}
+                  //     onChange={(e) => setEmail(e.target.value)}
+                  //   />
+
+                  //   <i className="bx bxs-user"></i>
+                  // </div>
+                  <div className="input-box form-floating">
                     <input
+                      className="form-control"
                       type="email"
-                      placeholder="Email"
                       value={email}
+                      name="email"
                       onChange={(e) => setEmail(e.target.value)}
+                      placeholder={t("email_address")}
+                      id="email"
                     />
-                    <i className="bx bxs-user"></i>
+                    <label htmlFor="email" className="inputLabelBg">
+                      {t("email_address")}
+                    </label>
                   </div>
                 ) : (
                   <div className="d-flex align-items-center">
@@ -242,27 +313,38 @@ export default function LoginPage() {
                       }
                       searchStyle={{ width: 280, marginLeft: 0 }}
                     />
-                    <div className="input-box my-0">
+                    <div className="input-box form-floating my-0 w-100">
                       <input
-                        type="text"
-                        placeholder="Phone Number"
+                        placeholder={t("phone_number")}
                         value={phoneNumber}
                         onChange={(e) => setPhoneNumber(e.target.value)}
+                        className="form-control"
                       />
-                      <i className="bx bxs-lock-alt"></i>
+                      <label
+                        htmlFor="loginPhoneNumber"
+                        className="inputLabelBg"
+                      >
+                        {t("phone_number")}
+                      </label>
+                      {/* <i className="bx bxs-lock-alt"></i> */}
                     </div>
                   </div>
                 )}
 
                 {/* Password Input */}
-                <div className="input-box">
+                <div className="input-box form-floating" style={{ zIndex: 0 }}>
                   <input
                     type="password"
-                    placeholder="Password"
+                    placeholder={t("password")}
                     value={password}
+                    name="loginPassword"
                     onChange={(e) => setPassword(e.target.value)}
+                    className="form-control"
                   />
-                  <i className="bx bxs-lock-alt"></i>
+                  <label htmlFor="loginPassword" className="inputLabelBg">
+                    {t("password")}
+                  </label>
+                  {/* <i className="bx bxs-lock-alt"></i> */}
                 </div>
 
                 {/* <button type="submit" className="btn d-flex">
@@ -281,16 +363,21 @@ export default function LoginPage() {
             </div>
           ) : (
             /* Forgot Password Form */
-            <div className="form-box forgot-password">
+            <div className="form-box form-floating forgot-password">
               <form action="#">
                 <h1> {t("forgot_password")}</h1>
                 <div className="input-box">
                   <input
                     type="email"
+                    name="forgot_password"
+                    className="form-control"
                     placeholder={t("enter_your_email")}
                     required
                   />
-                  <i className="bx bxs-envelope"></i>
+                  <label htmlFor="forgot_password" className="inputLabelBg">
+                    {t("forgot_password")}
+                  </label>
+                  {/* <i className="bx bxs-envelope"></i> */}
                 </div>
                 <button type="submit" className="btn">
                   {t("submit")}
@@ -343,17 +430,21 @@ export default function LoginPage() {
               </div>
 
               {!isPhoneRegister ? (
-                <div className="input-box">
+                <div className="input-box form-floating">
                   <input
                     type="email"
                     placeholder={t("email")}
                     name="signupEmail"
+                    className="form-control"
                     required
                     onChange={(e) => {
                       setRegisterEmail(e.target.value);
                     }}
                   />
-                  <i className="bx bxs-envelope"></i>
+                  <label htmlFor="signupEmail" className="inputLabelBg">
+                    {t("email_address")}
+                  </label>
+                  {/* <i className="bx bxs-envelope"></i> */}
                 </div>
               ) : (
                 <div className="d-flex align-items-center">
@@ -375,28 +466,37 @@ export default function LoginPage() {
                     }
                     searchStyle={{ width: 280, marginLeft: 0 }}
                   />
-                  <div className="input-box my-0">
+                  <div className="input-box form-floating w-100 my-0">
                     <input
                       type="text"
                       placeholder="Phone Number"
+                      name="signupPhoneNumber"
+                      className="form-control"
                       value={registerPhoneNumber}
                       onChange={(e) => setRegisterPhoneNumber(e.target.value)}
                     />
-                    <i className="bx bxs-lock-alt"></i>
+                    <label htmlFor="signupPhoneNumber" className="inputLabelBg">
+                      {t("phone_number")}
+                    </label>
+                    {/* <i className="bx bxs-lock-alt"></i> */}
                   </div>
                 </div>
               )}
-              <div className="input-box">
+              <div className="input-box form-floating" style={{ zIndex: 0 }}>
                 <input
                   type="password"
                   placeholder={t("password")}
+                  className="form-control"
                   name="signupPassword"
                   required
                   onChange={(e) => {
                     setRegisterPassword(e.target.value);
                   }}
                 />
-                <i className="bx bxs-lock-alt"></i>
+                <label htmlFor="signupPassword" className="inputLabelBg">
+                  {t("password")}
+                </label>
+                {/* <i className="bx bxs-lock-alt"></i> */}
               </div>
               <p className="text-danger">{error}</p>
               <p className="text-success">{success}</p>

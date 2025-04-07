@@ -61,14 +61,11 @@ const Page = () => {
   };
 
   useEffect(() => {
-    console.log("fetched profile with localUserId", localUserId);
     
     dispatch(fetchProfile({ user_id: Number(localUserId) }));
   }, [dispatch, localUserId]);
 
   const profile = useSelector((state) => state.profile);
-
-  console.log(profile, "profile from redux");
 
   const { fullname, email, phonenumber, address, loading, error } = profile;
 
@@ -95,6 +92,7 @@ const Page = () => {
     }
 
     dispatch(updateProfile(updatedData));
+    dispatch(fetchProfile({ user_id: Number(localUserId) }));
   };
 
   const handleCountryChange = (value) => {
@@ -126,10 +124,8 @@ const Page = () => {
   };
 
   useEffect(() => {
-    console.log(error,loading, "error and loading in profile page");
     
     if (!loading) {
-      console.log("profileData email", email);
       
       setProfileData({
         fullname: fullname || "",
@@ -185,7 +181,6 @@ const Page = () => {
     }
   };
   const { t, language } = useTranslation();
-console.log(profileData, "profileData in profile page");
 
   return (
     <>

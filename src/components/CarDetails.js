@@ -68,9 +68,9 @@ export default function CarDetails({ car, onClose }) {
                 <span>
                   <FaUser style={styles.iconStyles} /> {car.number_of_seats} Seats
                 </span>
-                <span>
+                {/* <span>
                   <FaSuitcase style={styles.iconStyles} /> 2 Suitcase(s)
-                </span>
+                </span> */}
                 <span>
                   <FaShoppingBag style={styles.iconStyles} /> 1 Bag(s)
                 </span>

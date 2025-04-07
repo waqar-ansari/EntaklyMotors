@@ -2,10 +2,8 @@ import { editProfile, getProfile } from "@/app/api/profileApi";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 export const fetchProfile = createAsyncThunk("profile/getProfile", async (user_id) => {
-  console.log(user_id, "user_id in profileSlice");
   
   const data = await getProfile(user_id);
-  console.log(data, "data in profileSlice");
   return data;
 });
 

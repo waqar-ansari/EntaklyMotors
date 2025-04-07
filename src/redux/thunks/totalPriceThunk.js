@@ -37,7 +37,6 @@ export const calculateTotalPrice = () => (dispatch, getState) => {
 
   const totalPrice =
     numberOfRentalDays * carPricePerDay + currentPackagePrice + totalAddonPrice;
-console.log(totalPrice,"total price from thunk");
 
   dispatch(setTotalPrice(totalPrice));
 };

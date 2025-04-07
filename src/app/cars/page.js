@@ -129,7 +129,6 @@ export default function CarsPage() {
 
     fetchCars();
   }, []);
-  console.log(carsData, "cars data");
 
   useEffect(() => {
     dispatch(clearSelectedAddons());

@@ -12,7 +12,7 @@ const page = () => {
         <div className="row">
           <div className="col-md-12 mt-5">
             <p style={styles.paraStyles}>
-              Lease-to-Own Your Car in Just 2 Years with Only 20% Down Payment!
+              <h4 className="mb-3">Lease-to-Own Your Car in Just 2 Years with Only 20% Down Payment!</h4>
             </p>
             <p style={styles.paraStyles} className="mb-5">
               Are you looking for a simple and cost-effective solution to get
@@ -24,7 +24,7 @@ const page = () => {
               <h4 className="mb-3">How It Operates:</h4>
               <ul>
                 <li style={styles.liStyle}>
-                  <span style={styles.bold}>Make a 20% down payment</span> – to
+                  <span style={styles.bold}>Make a 20% down payment</span> – To
                   gain immediate access to your vehicle at a minimal initial
                   cost.
                 </li>
@@ -39,30 +39,30 @@ const page = () => {
               </ul>
             </div>
             <div className="mb-5">
-              <h4 className="mb-3">Why Pick Our Our Lease-to-Own Plan?</h4>
+              <h4 className="mb-3">Why Pick Our Lease-to-Own Plan?</h4>
               <ul>
                 <li style={styles.liStyle}>
-                  <span style={styles.bold}>Short-Term Ownership:</span>Rather
+                  <span style={styles.bold}>Short-Term Ownership: </span>Rather
                   than relying on long-term finance, you can own your car in as
                   little as two years.
                 </li>
                 <li style={styles.liStyle}>
-                  <span style={styles.bold}> No Bank Financing Needed:</span> A
+                  <span style={styles.bold}> No Bank Financing Needed: </span> A
                   streamlined approval procedure without intricate loan
                   conditions.
                 </li>
                 <li style={styles.liStyle}>
-                  <span style={styles.bold}> Flexible payment options:</span>
-                  include fixed monthly installments that can be adjusted to fit
+                  <span style={styles.bold}> Flexible payment options: </span>
+                  Include fixed monthly installments that can be adjusted to fit
                   your spending plan.
                 </li>
                 <li style={styles.liStyle}>
-                  <span style={styles.bold}> Drive Your Car Right Away:</span>
+                  <span style={styles.bold}> Drive Your Car Right Away: </span>
                   Avoid lengthy wait times and get your vehicle on the road as
                   soon as possible!
                 </li>
                 <li style={styles.liStyle}>
-                  <span style={styles.bold}>All car models are eligible:</span>
+                  <span style={styles.bold}>All car models are eligible: </span>
                   There are many different new and used cars to choose from.
                 </li>
               </ul>

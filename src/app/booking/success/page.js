@@ -15,7 +15,6 @@ import { useTranslation } from "@/context/LanguageProvider";
 
 const BookingConfirmation = () => {
   const searchParams = useSearchParams();
-  console.log(searchParams, "searchParams");
 
   const bookingId = searchParams.get("booking_id");
   const transactionId = searchParams.get("transaction_id");
@@ -35,7 +34,6 @@ const BookingConfirmation = () => {
     rentalDetail.pickupDate,
     rentalDetail.returnDate
   );
-  console.log(bookingId, transactionId, "booking and transaction id");
 const { t, language } = useTranslation();
   return (
     <>

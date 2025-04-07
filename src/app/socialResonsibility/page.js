@@ -23,20 +23,20 @@ const page = () => {
               <h5 className="mb-4">1. Environmental Sustainability</h5>
               <ul style={{ listStyleType: "none" }}>
                 <li className="liTick" style={styles.liStyle}>
-                  <span style={{ fontWeight: 600 }}>Eco-Friendly Fleet:</span>{" "}
+                  <span style={{ fontWeight: 600 }}>Eco-Friendly Fleet: </span>{" "}
                   Investing in hybrid & electric vehicles to reduce carbon
                   emissions.
                 </li>
                 <li className="liTick" style={styles.liStyle}>
                   <span style={{ fontWeight: 600 }}>
                     {" "}
-                    Sustainable Practices:
+                    Sustainable Practices: 
                   </span>
                   Implementing paperless contracts, digital invoicing, and
                   energy-efficient facilities.
                 </li>
                 <li className="liTick" style={styles.liStyle}>
-                  <span style={{ fontWeight: 600 }}>Responsible Disposal:</span>
+                  <span style={{ fontWeight: 600 }}>Responsible Disposal: </span>
                   Responsible Disposal: Ensuring eco-friendly recycling of
                   vehicle parts and materials.
                 </li>
@@ -47,21 +47,21 @@ const page = () => {
               <ul style={{ listStyleType: "none" }}>
                 <li className="liTick" style={styles.liStyle}>
                   <span style={{ fontWeight: 600 }}>
-                    Regular Vehicle Maintenance:
+                    Regular Vehicle Maintenance: 
                   </span>{" "}
                   Ensuring all cars meet safety and quality standards.
                 </li>
                 <li className="liTick" style={styles.liStyle}>
                   <span style={{ fontWeight: 600 }}>
                     {" "}
-                    24/7 Roadside Assistance:
+                    24/7 Roadside Assistance: 
                   </span>
                   Providing immediate support in case of emergencies.
                 </li>
                 <li className="liTick" style={styles.liStyle}>
                   <span style={{ fontWeight: 600 }}>
                     {" "}
-                    Transparent Pricing & Policies:
+                    Transparent Pricing & Policies: 
                   </span>
                   No hidden charges, ensuring fair business practices.
                 </li>
@@ -74,20 +74,20 @@ const page = () => {
               <ul style={{ listStyleType: "none" }}>
                 <li className="liTick" style={styles.liStyle}>
                   <span style={{ fontWeight: 600 }}>
-                    Employment Opportunities:
+                    Employment Opportunities: 
                   </span>{" "}
                   Supporting local talent and fair employment policies.
                 </li>
                 <li className="liTick" style={styles.liStyle}>
                   <span style={{ fontWeight: 600 }}>
-                    Charity & Sponsorships:
+                    Charity & Sponsorships: 
                   </span>
                   Partnering with organizations for community development & road
                   safety awareness.
                 </li>
                 <li className="liTick" style={styles.liStyle}>
                   <span style={{ fontWeight: 600 }}>
-                    Accessible Mobility Solutions:
+                    Accessible Mobility Solutions: 
                   </span>
                   Offering affordable rental options for people with special
                   needs.
@@ -99,19 +99,19 @@ const page = () => {
               <ul style={{ listStyleType: "none" }}>
                 <li className="liTick" style={styles.liStyle}>
                   <span style={{ fontWeight: 600 }}>
-                    Fair & Inclusive Workplace:
+                    Fair & Inclusive Workplace: 
                   </span>{" "}
                   Promoting diversity, equal opportunities, and fair wages.
                 </li>
                 <li className="liTick" style={styles.liStyle}>
                   <span style={{ fontWeight: 600 }}>
-                    Compliance & Integrity:
+                    Compliance & Integrity: 
                   </span>
                   Adhering to local laws and international business standards.
                 </li>
                 <li className="liTick" style={styles.liStyle}>
                   <span style={{ fontWeight: 600 }}>
-                    Data Privacy & Security:
+                    Data Privacy & Security: 
                   </span>
                   Ensuring customer data protection and secure transactions.
                 </li>

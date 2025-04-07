@@ -4,7 +4,7 @@ import { colors } from "../../public/colors/colors";
 // import "../styles/globals.css";
 import { fonts } from "../../public/fonts/fonts";
 import LanguageModal from "./modals/LanguageModal";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { FaPen } from "react-icons/fa";
 import PickupAndDropPicker from "./PickupAndDropPicker";
@@ -16,7 +16,11 @@ import ModalPickerMobile from "./modals/ModalPickerMobile";
 import { useTranslation } from "@/context/LanguageProvider";
 import { clearSelectedAddons } from "@/redux/slices/selectedAddonSlice";
 import { clearSelectedPackage } from "@/redux/slices/selectedPackageSlice";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import { FaUserAlt } from "react-icons/fa";
+import { IoLogOut } from "react-icons/io5";
+import { logout } from "@/redux/slices/authSlice";
+import { Dropdown } from "bootstrap/dist/js/bootstrap.bundle.min";
 
 const Header = ({ headerPickupAndDrop }) => {
   const [showPicker, setShowPicker] = useState(false);
@@ -39,7 +43,21 @@ const Header = ({ headerPickupAndDrop }) => {
   // };
   const [showModal, setShowModal] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(null);
+  const dropdownRef = useRef(null);
 
+  // Close the dropdown when clicking outside of it
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setShowDropdown(false); // Close the dropdown
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
   const { user } = useSelector((state) => state.auth);
@@ -50,15 +68,21 @@ const Header = ({ headerPickupAndDrop }) => {
   };
   const { t, language } = useTranslation();
   const rentalDetail = useSelector((state) => state.rentalDetail);
-    const [localUserId, setLocalUserId] = useState(null);
+  const [localUserId, setLocalUserId] = useState(null);
 
-  console.log(profile, "profile from header");
-    useEffect(() => {
-      setLocalUserId(localStorage.getItem("userId"));
-    }, []);
+  useEffect(() => {
+    setLocalUserId(localStorage.getItem("userId"));
+  }, []);
+  const router = useRouter();
+  const [showDropdown, setShowDropdown] = useState(false);
+  const handleLogout = () => {
+    // Clear local user data
+    dispatch(logout());
+    router.push("/auth/login&Signup");
+  };
   return (
     <div>
-      <PickerModal/>
+      <PickerModal />
       <div
         style={{ background: colors.themeMain, fontFamily: fonts.helvetica400 }}
       >
@@ -187,7 +211,14 @@ const Header = ({ headerPickupAndDrop }) => {
                     <a
                       className="nav-link active text-white text-decoration-none"
                       aria-current="page"
-                      href={`/auth/login&Signup`}
+                      // href={`/auth/login&Signup`}
+                      onClick={() =>
+                        router.push(
+                          localUserId
+                            ? "/account/profile"
+                            : "/auth/login&Signup"
+                        )
+                      }
                     >
                       {t("manage_booking")}
                     </a>
@@ -210,7 +241,7 @@ const Header = ({ headerPickupAndDrop }) => {
                       EN | د.إ
                     </a>
                   </li>
-                  {localUserId ? (
+                  {/* {localUserId ? (
                     <li
                       className={`nav-item d-flex align-items-center mb-0 ${
                         language === "ar" ? "me-sm-4 me-2" : ""
@@ -221,16 +252,12 @@ const Header = ({ headerPickupAndDrop }) => {
                       />
 
                       <Link
-                        href="/auth/login&Signup"
+                        href="/account/profile"
                         className="nav-link text-white text-decoration-none"
                       >
-                        {/* {user.fullName} */}
-                        
-                        {/* {user ? user?.user?.fullname : "Guest"} */}
-                        {
-                          localUserId? profile.fullname : "Guest"
-                        }
-                        
+                        {localUserId && profile.fullname?.trim()
+                          ? profile.fullname
+                          : "Guest"}
                       </Link>
                     </li>
                   ) : (
@@ -243,6 +270,81 @@ const Header = ({ headerPickupAndDrop }) => {
                         priority
                       />
 
+                      <Link
+                        href="/auth/login&Signup"
+                        className="nav-link text-white text-decoration-none"
+                      >
+                        {t("login_register")}
+                      </Link>
+                    </li>
+                  )} */}
+
+                  {localUserId ? (
+                    <li
+                      className={`nav-item position-relative d-flex align-items-center mb-0 ${
+                        language === "ar" ? "me-sm-4 me-2" : ""
+                      }`}
+                    >
+                      <FaUserCircle
+                        style={{ color: colors.white, fontSize: 22 }}
+                      />
+
+                      <span
+                        className="nav-link text-white text-decoration-none"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => setShowDropdown(!showDropdown)}
+                      >
+                        {profile.fullname?.trim() ? profile.fullname : t("guest")}
+                      </span>
+
+                      {showDropdown && (
+                        <ul
+                        ref={dropdownRef}
+                          listStyleType="none"
+                          className="show"
+                          style={{
+                            position: "absolute",
+                            top: "100%",
+                            left: 0,
+                            backgroundColor: "#fff",
+                            borderRadius: 4,
+                            padding: 10,
+                            border: "0px solid #ccc",
+                            minWidth: 150,
+                            zIndex: 1000,
+                            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                          }}
+                        >
+                          <li className="d-flex align-items-center mb-2">
+                            <Link
+                              href="/account/profile"
+                              className=" text-decoration-none"
+                            >
+                              <FaUserAlt style={{ marginRight: 20 }} />
+                              Profile
+                            </Link>
+                          </li>
+                          <li className="d-flex align-items-center">
+                            <button
+                              className=" text-decoration-none"
+                              onClick={handleLogout}
+                            >
+                              <IoLogOut style={{ marginRight: 20 }} />
+                              Logout
+                            </button>
+                          </li>
+                        </ul>
+                      )}
+                    </li>
+                  ) : (
+                    <li className="nav-item d-flex align-items-center mb-0">
+                      <Image
+                        src="/icons/user.png"
+                        alt="Logo"
+                        width={24}
+                        height={24}
+                        priority
+                      />
                       <Link
                         href="/auth/login&Signup"
                         className="nav-link text-white text-decoration-none"
@@ -272,24 +374,23 @@ const Header = ({ headerPickupAndDrop }) => {
                   <div style={{ marginRight: 30 }}>
                     <p className="mb-0" style={styles.location}>
                       {/* {rentalDetail.pickupLocation} - {rentalDetail.returnLocation} */}
-
                       {rentalDetail.pickupLocation
-                          ? rentalDetail.pickupLocation
-                          : "Select Pickup Location"}{" "}
-                        -{" "}
-                        {rentalDetail.returnLocation
-                          ? rentalDetail.returnLocation
-                          : "Select Return Location"}
+                        ? rentalDetail.pickupLocation
+                        : "Select Pickup Location"}{" "}
+                      -{" "}
+                      {rentalDetail.returnLocation
+                        ? rentalDetail.returnLocation
+                        : "Select Return Location"}
                     </p>
                     <p className="mb-0" style={styles.dateAndTime}>
-                    {rentalDetail.pickupDate}{" "}
-                        {rentalDetail.pickupTime
-                          ? `| ${rentalDetail.pickupTime}`
-                          : ""}{" "}
-                        - {rentalDetail.returnDate}{" "}
-                        {rentalDetail.returnTime
-                          ? `| ${rentalDetail.returnTime}`
-                          : ""}
+                      {rentalDetail.pickupDate}{" "}
+                      {rentalDetail.pickupTime
+                        ? `| ${rentalDetail.pickupTime}`
+                        : ""}{" "}
+                      - {rentalDetail.returnDate}{" "}
+                      {rentalDetail.returnTime
+                        ? `| ${rentalDetail.returnTime}`
+                        : ""}
                     </p>
                   </div>
                   <FaPen />
