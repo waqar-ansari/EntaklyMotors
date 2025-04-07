@@ -34,7 +34,7 @@ export default function CarCard({ car, onClick, isSelected }) {
                   size={12}
                   style={{ marginRight: 5, marginBottom: 2 }}
                 />{" "}
-                2
+                1
               </span>
               <span className="cardCardIconBox">
                 <TbAutomaticGearbox size={14} style={{ marginRight: 5 }} />{" "}

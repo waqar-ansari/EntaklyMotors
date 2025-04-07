@@ -5,7 +5,7 @@ export const fetchProfile = createAsyncThunk("profile/getProfile", async (user_i
   console.log(user_id, "user_id in profileSlice");
   
   const data = await getProfile(user_id);
-  log(data, "data in profileSlice");
+  console.log(data, "data in profileSlice");
   return data;
 });
 

@@ -12,8 +12,9 @@ import { useTranslation } from "@/context/LanguageProvider";
 import axios from "axios";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/bootstrap.css";
-import ar from 'react-phone-input-2/lang/ar.json'
-import ru from 'react-phone-input-2/lang/ru.json'
+import ar from "react-phone-input-2/lang/ar.json";
+import ru from "react-phone-input-2/lang/ru.json";
+import { setUpRecaptcha } from "./phoneAuth";
 
 export default function LoginPage() {
   const [isActive, setIsActive] = useState(false);
@@ -38,33 +39,30 @@ export default function LoginPage() {
     setIsPhoneLogin(usePhone);
   };
   const handleRegisterWith = (usePhone) => {
-    setError("")
+    setError("");
     setIsPhoneRegister(usePhone);
   };
-console.log(registerCountryCode,"register country code");
+  console.log(registerCountryCode, "register country code");
 
   const dispatch = useDispatch();
   const router = useRouter();
-  console.log(countryCode,"country code");
-  
+  console.log(countryCode, "country code");
   const handleLogin = async (e) => {
     e.preventDefault();
     const credentials = isPhoneLogin
-    ? {
-        phone_number: {
-          countryCode: countryCode,
-          number: phoneNumber,
-        },
-        password: password,
-      }
-    : {
-        email: email,
-        password: password,
-      };
+      ? {
+          phone_number: {
+            countryCode: countryCode,
+            number: phoneNumber,
+          },
+          password: password,
+        }
+      : {
+          email: email,
+          password: password,
+        };
 
     try {
-
-
       const result = await dispatch(loginUser(credentials)).unwrap();
 
       if (result.status === "error") {
@@ -78,24 +76,87 @@ console.log(registerCountryCode,"register country code");
     }
   };
 
+  // const handleRegister = async (e) => {
+  //   e.preventDefault();
+  //   setError("");
+  //   setSuccess("");
+  
+  //   if (isPhoneRegister) {
+  //     const fullPhone = registerCountryCode + registerPhoneNumber;
+  //     try {
+  //       const confirmationResult = await setUpRecaptcha(fullPhone);
+  //       const otp = prompt("Enter the OTP sent to your phone");
+  
+  //       if (!otp) {
+  //         setError("OTP is required");
+  //         return;
+  //       }
+  
+  //       const result = await confirmationResult.confirm(otp);
+  //       const phoneNumber = result.user.phoneNumber;
+  
+  //       // Now call your API to register the user
+  //       const registerPayload = {
+  //         phone_number: {
+  //           countryCode: registerCountryCode,
+  //           number: registerPhoneNumber,
+  //         },
+  //         password: registerPassword,
+  //       };
+  
+  //       const response = await dispatch(signupUser(registerPayload)).unwrap();
+  
+  //       if (response.status === "success") {
+  //         setSuccess(response.message);
+  //         router.push("/auth/login&Signup");
+  //       } else {
+  //         setError(response.message);
+  //       }
+  //     } catch (err) {
+  //       console.error("OTP verification failed", err);
+  //       setError("OTP verification failed");
+  //     }
+  //   } else {
+  //     // Regular email register flow
+  //     const credentials = {
+  //       email: registerEmail,
+  //       password: registerPassword,
+  //     };
+  
+  //     try {
+  //       const result = await dispatch(signupUser(credentials)).unwrap();
+  
+  //       if (result.status === "success") {
+  //         setSuccess(result.message);
+  //         router.push("/auth/login&Signup");
+  //       } else {
+  //         setError(result.message);
+  //       }
+  //     } catch (err) {
+  //       setError("Signup failed");
+  //     }
+  //   }
+  // };
+  
+
   const handleRegister = async (e) => {
     setError("");
     setSuccess("");
     e.preventDefault();
     const credentials = isPhoneRegister
-    ? {
-        phone_number: {
-          countryCode: registerCountryCode,
-          number: registerPhoneNumber,
-        },
-        password: registerPassword,
-      }
-    : {
-        email: registerEmail,
-        password: registerPassword,
-      };
-  console.log(credentials,"register credentials");
-  
+      ? {
+          phone_number: {
+            countryCode: registerCountryCode,
+            number: registerPhoneNumber,
+          },
+          password: registerPassword,
+        }
+      : {
+          email: registerEmail,
+          password: registerPassword,
+        };
+    console.log(credentials, "register credentials");
+
     try {
       const result = await dispatch(signupUser(credentials)).unwrap();
 
@@ -120,102 +181,6 @@ console.log(registerCountryCode,"register country code");
         <div className={`loginContainer ${isActive ? "active" : ""}`}>
           {/* Login Form */}
           {!isForgotPassword ? (
-            // <div className="form-box login">
-            //   <form action="#">
-            //     <h1 className="mb-4">{t("login")}</h1>
-            //    <div className="d-flex">
-            //       <Link
-            //         type="button"
-            //         href="/account/profile"
-            //         className="btn text-decoration-none me-2 d-flex"
-            //         onClick={handleLoginWith}
-            //       >
-            //         Login with Number
-            //       </Link>
-            //       <Link
-            //         type="button"
-            //         href="/account/profile"
-            //         className="btn text-decoration-none d-flex"
-            //         onClick={handleLoginWith}
-            //       >
-            //         Login with Email
-            //       </Link>
-            //    </div>
-
-            //     <div className="input-box">
-            //       <input
-            //         type="text"
-            //         placeholder={t("email/mobile")}
-            //         onChange={(e) => {
-            //           setEmail(e.target.value);
-            //         }}
-            //       />
-            //       <i className="bx bxs-user"></i>
-            //     </div>
-
-            //     <div className="d-flex align-items-center">
-            //             <PhoneInput
-            //               country={"ae"}
-            //               value={"hjgh"}
-            //               inputStyle={{ display: "none" }}
-            //               onChange={handleCountryChange}
-            //               name="countryCode"
-            //               enableSearch
-            //               searchPlaceholder="Search..."
-            //               searchStyle={{ width: 280, marginLeft: 0 }}
-            //             />
-            //             <div style={{ margin: "0px 10px" }}>
-            //               {"+888"}
-            //             </div>
-
-            //             <div className="input-box form-floating w-100 my-0">
-            //               <input
-            //                 className="form-control"
-            //                 type="text"
-            //                 placeholder={t("phone_number")}
-            //                 name="number"
-            //                 id="phonenumber"
-            //                 value={"hgfhgjk"}
-            //                 onChange={()=>{}}
-            //               />
-            //               <label htmlFor="phonenumber" className="inputLabelBg">
-            //                 {t("phone_number")}
-            //               </label>
-            //             </div>
-            //           </div>
-
-            //     <div className="input-box">
-            //       <input
-            //         type="password"
-            //         placeholder={t("password")}
-            //         onChange={(e) => {
-            //           setPassword(e.target.value);
-            //         }}
-            //       />
-            //       <i className="bx bxs-lock-alt"></i>
-            //     </div>
-            //     <p className="text-danger">{error}</p>
-            //     <div className="forgot-link">
-            //       <button
-            //         type="button"
-            //         className="forgot-btn text-decoration-none"
-            //         onClick={() => setIsForgotPassword(true)}
-            //         style={{ color: colors.themeMain }}
-            //       >
-            //         {t("forgot_password")}
-            //       </button>
-            //     </div>
-
-            //     <Link
-            //       type="button"
-            //       href="/account/profile"
-            //       className="btn text-decoration-none d-flex"
-            //       onClick={handleLogin}
-            //     >
-            //       {t("login")}
-            //     </Link>
-            //   </form>
-            // </div>
             <div className="form-box login">
               <form action="#">
                 <h1 className="mb-4">Login with</h1>
@@ -268,8 +233,14 @@ console.log(registerCountryCode,"register country code");
                       }}
                       enableSearch
                       searchPlaceholder="Search..."
-                      localization={language === "ar" ? ar : language === "ru" ? ru : undefined}
-                      searchStyle={{ width: 280, marginLeft: 0, }}
+                      localization={
+                        language === "ar"
+                          ? ar
+                          : language === "ru"
+                          ? ru
+                          : undefined
+                      }
+                      searchStyle={{ width: 280, marginLeft: 0 }}
                     />
                     <div className="input-box my-0">
                       <input
@@ -343,79 +314,78 @@ console.log(registerCountryCode,"register country code");
           <div className="form-box register">
             <form action="#">
               <h1 className="mb-4">Register with</h1>
-              
-
-
 
               <div className="d-flex mb-4">
-                  <button
-                    type="button"
-                    className="customLoginFormBtn me-2"
-                    style={{
-                      backgroundColor: !isPhoneRegister ? "#292268" : "#fff",
-                      color: !isPhoneRegister ? "#fff" : "#000",
-                      border: "2px solid #292268",
-                    }}
-                    onClick={() => handleRegisterWith(false)}
-                  >
-                    Email
-                  </button>
-                  <button
-                    type="button"
-                    className="customLoginFormBtn"
-                    style={{
-                      backgroundColor: isPhoneRegister ? "#292268" : "#fff",
-                      color: isPhoneRegister ? "#fff" : "#000",
-                      border: "2px solid #292268",
-                    }}
-                    onClick={() => handleRegisterWith(true)}
-                  >
-                    Phone
-                  </button>
-                </div>
-
-
-
-                {!isPhoneRegister ? (
-
-
-              <div className="input-box">
-                <input
-                  type="email"
-                  placeholder={t("email")}
-                  name="signupEmail"
-                  required
-                  onChange={(e) => {
-                    setRegisterEmail(e.target.value);
+                <button
+                  type="button"
+                  className="customLoginFormBtn me-2"
+                  style={{
+                    backgroundColor: !isPhoneRegister ? "#292268" : "#fff",
+                    color: !isPhoneRegister ? "#fff" : "#000",
+                    border: "2px solid #292268",
                   }}
-                />
-                <i className="bx bxs-envelope"></i>
+                  onClick={() => handleRegisterWith(false)}
+                >
+                  Email
+                </button>
+                <button
+                  type="button"
+                  className="customLoginFormBtn"
+                  style={{
+                    backgroundColor: isPhoneRegister ? "#292268" : "#fff",
+                    color: isPhoneRegister ? "#fff" : "#000",
+                    border: "2px solid #292268",
+                  }}
+                  onClick={() => handleRegisterWith(true)}
+                >
+                  Phone
+                </button>
               </div>
-                ):
+
+              {!isPhoneRegister ? (
+                <div className="input-box">
+                  <input
+                    type="email"
+                    placeholder={t("email")}
+                    name="signupEmail"
+                    required
+                    onChange={(e) => {
+                      setRegisterEmail(e.target.value);
+                    }}
+                  />
+                  <i className="bx bxs-envelope"></i>
+                </div>
+              ) : (
                 <div className="d-flex align-items-center">
-                    <PhoneInput
-                      country={registerCountryCode}
-                      // value={phone}
-                      onChange={(value, country) => {
-                        // setPhone(value);
-                        setRegisterCountryCode("+" + country.dialCode);
-                      }}
-                      enableSearch
-                      searchPlaceholder="Search..."
-                      localization={language === "ar" ? ar : language === "ru" ? ru : undefined}
-                      searchStyle={{ width: 280, marginLeft: 0 }}
+                  <PhoneInput
+                    country={registerCountryCode}
+                    // value={phone}
+                    onChange={(value, country) => {
+                      // setPhone(value);
+                      setRegisterCountryCode("+" + country.dialCode);
+                    }}
+                    enableSearch
+                    searchPlaceholder="Search..."
+                    localization={
+                      language === "ar"
+                        ? ar
+                        : language === "ru"
+                        ? ru
+                        : undefined
+                    }
+                    searchStyle={{ width: 280, marginLeft: 0 }}
+                  />
+                  <div className="input-box my-0">
+                    <input
+                      type="text"
+                      placeholder="Phone Number"
+                      value={registerPhoneNumber}
+                      onChange={(e) => setRegisterPhoneNumber(e.target.value)}
                     />
-                    <div className="input-box my-0">
-                      <input
-                        type="text"
-                        placeholder="Phone Number"
-                        value={registerPhoneNumber}
-                        onChange={(e) => setRegisterPhoneNumber(e.target.value)}
-                      />
-                      <i className="bx bxs-lock-alt"></i>
-                    </div>
+                    <i className="bx bxs-lock-alt"></i>
                   </div>
-                }
+                </div>
+              )}
               <div className="input-box">
                 <input
                   type="password"
@@ -439,6 +409,7 @@ console.log(registerCountryCode,"register country code");
                 {t("register")}
               </Link>
             </form>
+            <div id="recaptcha-container"></div>
           </div>
 
           {/* Toggle Box */}

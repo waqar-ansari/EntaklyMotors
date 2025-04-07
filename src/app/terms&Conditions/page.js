@@ -10,7 +10,7 @@ const page = () => {
       <Header />
       <div className="container">
         <div className="row">
-          <div className="col-md-12 my-5 py-5">
+          <div className="col-md-12 my-5">
             <p style={styles.paraStyles}>
               At ENTAKLY MOTORS CAR RENTAL LLC, we strive to provide a seamless
               and transparent car rental experience. Below are our rental terms

@@ -10,7 +10,7 @@ const page = () => {
       <Header />
       <div className="container">
         <div className="row">
-          <div className="col-md-12 my-5 py-5">
+          <div className="col-md-12 my-5">
             <p style={styles.paraStyles}>
               Your Trusted Partner in Car Rental, Export, and Sales
             </p>
