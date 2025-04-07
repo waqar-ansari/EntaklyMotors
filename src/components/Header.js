@@ -4,7 +4,7 @@ import { colors } from "../../public/colors/colors";
 // import "../styles/globals.css";
 import { fonts } from "../../public/fonts/fonts";
 import LanguageModal from "./modals/LanguageModal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { FaPen } from "react-icons/fa";
 import PickupAndDropPicker from "./PickupAndDropPicker";
@@ -49,11 +49,13 @@ const Header = ({ headerPickupAndDrop }) => {
     closeModal();
   };
   const { t, language } = useTranslation();
-  const token = "abcd";
   const rentalDetail = useSelector((state) => state.rentalDetail);
+    const [localUserId, setLocalUserId] = useState(null);
 
   console.log(profile, "profile from header");
-  
+    useEffect(() => {
+      setLocalUserId(localStorage.getItem("userId"));
+    }, []);
   return (
     <div>
       <PickerModal/>
@@ -139,7 +141,7 @@ const Header = ({ headerPickupAndDrop }) => {
                       />
                     </a>
                   </li>
-                  {token ? (
+                  {localUserId ? (
                     <li className="nav-item d-flex align-items-center ms-2 mb-0">
                       <Link
                         href="/auth/login&Signup"
@@ -208,7 +210,7 @@ const Header = ({ headerPickupAndDrop }) => {
                       EN | د.إ
                     </a>
                   </li>
-                  {token ? (
+                  {localUserId ? (
                     <li
                       className={`nav-item d-flex align-items-center mb-0 ${
                         language === "ar" ? "me-sm-4 me-2" : ""
@@ -225,7 +227,10 @@ const Header = ({ headerPickupAndDrop }) => {
                         {/* {user.fullName} */}
                         
                         {/* {user ? user?.user?.fullname : "Guest"} */}
-                        Guest
+                        {
+                          localUserId? profile.fullname : "Guest"
+                        }
+                        
                       </Link>
                     </li>
                   ) : (

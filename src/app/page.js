@@ -98,6 +98,16 @@ export default function HomePage() {
       textDecoration: "none",
       width: "fit-content",
     },
+    imageButtonBook: {
+      fontSize: 12,
+      color: colors.white,
+      fontFamily: fonts.helvetica400,
+      border: "1px solid white",
+      padding: "15px 50px",
+      borderRadius: 30,
+      textDecoration: "none",
+      width: "fit-content",
+    },
     marginB: {
       marginBottom: 40,
     },
@@ -275,7 +285,7 @@ export default function HomePage() {
                   {t("enjoy_professional_journey")}
                 </p>
               </div>
-              <Link href="#" style={styles.imageButton} className="imageButton">
+              <Link href="#" style={styles.imageButtonBook} className="imageButton">
                 {t("book_now")}
               </Link>
             </div>
