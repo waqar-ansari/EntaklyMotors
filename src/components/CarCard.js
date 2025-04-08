@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image";
 import "../app/cars/cars.css";
 import { FaUser, FaSuitcase, FaCheck } from "react-icons/fa";

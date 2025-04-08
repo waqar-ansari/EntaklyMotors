@@ -1,40 +1,40 @@
-import { auth, RecaptchaVerifier, signInWithPhoneNumber } from "./firebase";
+// import { auth, RecaptchaVerifier, signInWithPhoneNumber } from "./firebase";
 
-export const setUpRecaptcha = (phoneNumber) => {
-  return new Promise((resolve, reject) => {
-    if (!window.recaptchaVerifier) {
-      window.recaptchaVerifier = new RecaptchaVerifier(
-        auth,
-        "recaptcha-container",
-        {
-          size: "invisible",
-          callback: (response) => {
-            // reCAPTCHA solved automatically
-          },
-          "expired-callback": () => {
-            console.log("Recaptcha expired");
-          },
-        }
-      );
-    }
+// export const setUpRecaptcha = (phoneNumber) => {
+//   return new Promise((resolve, reject) => {
+//     if (!window.recaptchaVerifier) {
+//       window.recaptchaVerifier = new RecaptchaVerifier(
+//         auth,
+//         "recaptcha-container",
+//         {
+//           size: "invisible",
+//           callback: (response) => {
+//             // reCAPTCHA solved automatically
+//           },
+//           "expired-callback": () => {
+//             console.log("Recaptcha expired");
+//           },
+//         }
+//       );
+//     }
 
-    window.recaptchaVerifier.verify() // ← This is important
-      .then(() => {
-        return signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier);
-      })
-      .then((confirmationResult) => {
-        // Clear reCAPTCHA instance after it's used
-        window.recaptchaVerifier.clear();
-        resolve(confirmationResult);
-      })
-      .catch((error) => {
-        reject(error);
-        if (window.recaptchaVerifier) {
-          window.recaptchaVerifier.clear();
-        }
-      });
-  });
-};
+//     window.recaptchaVerifier.verify() // ← This is important
+//       .then(() => {
+//         return signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier);
+//       })
+//       .then((confirmationResult) => {
+//         // Clear reCAPTCHA instance after it's used
+//         window.recaptchaVerifier.clear();
+//         resolve(confirmationResult);
+//       })
+//       .catch((error) => {
+//         reject(error);
+//         if (window.recaptchaVerifier) {
+//           window.recaptchaVerifier.clear();
+//         }
+//       });
+//   });
+// };
 
 // import { auth, RecaptchaVerifier, signInWithPhoneNumber } from "./firebase";
 // export const setUpRecaptcha = (phoneNumber) => {
