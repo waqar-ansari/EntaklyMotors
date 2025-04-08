@@ -15,18 +15,21 @@ import "react-phone-input-2/lib/bootstrap.css";
 import ar from "react-phone-input-2/lang/ar.json";
 import ru from "react-phone-input-2/lang/ru.json";
 // import { setUpRecaptcha } from "./phoneAuth";
-import { getAuth,RecaptchaVerifier,signInWithPhoneNumber } from "firebase/auth";
-import { app } from "./firebase";
+// import {
+//   getAuth,
+//   RecaptchaVerifier,
+//   signInWithPhoneNumber,
+// } from "firebase/auth";
+// import { app } from "./firebase";
 
 export default function LoginPage() {
   const [isActive, setIsActive] = useState(false);
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const[otp, setOtp] = useState("");
+  const [otp, setOtp] = useState("");
   const [confirmationResult, setConfirmationResult] = useState(null);
   const [otpSent, setOtpSent] = useState(false);
-
 
   const [email, setEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
@@ -41,7 +44,7 @@ export default function LoginPage() {
   const [phoneNumber, setPhoneNumber] = useState("");
   // const [isForgotPassword, setIsForgotPassword] = useState(false);
 
-  const auth = getAuth(app);
+  // const auth = getAuth(app);
   const handleLoginWith = (usePhone) => {
     setIsPhoneLogin(usePhone);
   };
@@ -80,17 +83,21 @@ export default function LoginPage() {
       console.log("Login failed:", error);
     }
   };
-useEffect(()=>{
-window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
-  size: "invisible",
-  callback: (response) => {
-    // reCAPTCHA solved, allow signInWithPhoneNumber.
-  },
-  "expired-callback": () => {
-    // Response expired. Ask user to solve reCAPTCHA again.
-  },
-});
-},[auth])
+  // useEffect(() => {
+  //   window.recaptchaVerifier = new RecaptchaVerifier(
+  //     auth,
+  //     "recaptcha-container",
+  //     {
+  //       size: "invisible",
+  //       callback: (response) => {
+  //         // reCAPTCHA solved, allow signInWithPhoneNumber.
+  //       },
+  //       "expired-callback": () => {
+  //         // Response expired. Ask user to solve reCAPTCHA again.
+  //       },
+  //     }
+  //   );
+  // }, [auth]);
 
   // const handleRegister = async (e) => {
   //   e.preventDefault();
@@ -99,7 +106,7 @@ window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
 
   //   if (isPhoneRegister) {
   //     console.log(registerCountryCode + registerPhoneNumber,"completephone number");
-      
+
   //     const fullPhone = registerCountryCode + registerPhoneNumber;
   //     try {
   //       const confirmationResult = await setUpRecaptcha(fullPhone);
@@ -155,112 +162,113 @@ window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
   //   }
   // };
 
-
-
-
-
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    setError("");
-    setSuccess("");
-  
-    if (isPhoneRegister) {
-      const fullPhone = registerCountryCode + registerPhoneNumber;
-      console.log("Attempting to verify:", fullPhone);
-      
-      try {
-        console.log("Setting up reCAPTCHA...");
-        console.log(auth, fullPhone, window.recaptchaVerifier,"auth, fullPhone, window.recaptchaVerifier");
-        await window.recaptchaVerifier.render();
-        console.log("reCAPTCHA rendered successfully");
-        console.log("Attempting to send OTP...");
-        const confirmation = await signInWithPhoneNumber(auth, fullPhone, window.recaptchaVerifier);
-        console.log(confirmation.verificationId)
-console.log("ran till here");
-
-        setConfirmationResult(confirmation);
-        setOtpSent(true);
-        alert("OTP sent to your phone. Please check your messages.");
-        // const confirmationResult = await setUpRecaptcha(fullPhone);
-        // const otp = prompt("Enter the OTP sent to your phone");
-  
-        // if (!otp) {
-        //   setError("OTP is required");
-        //   return;
-        // }
-  
-        // const result = await confirmationResult.confirm(otp);
-
-
-
-        // const phoneNumber = result.user.phoneNumber;
-  
-        // const registerPayload = {
-        //   phone_number: {
-        //     countryCode: registerCountryCode,
-        //     number: registerPhoneNumber,
-        //   },
-        //   password: registerPassword,
-        // };
-  
-        // const response = await dispatch(signupUser(registerPayload)).unwrap();
-  
-        // if (response.status === "success") {
-        //   setSuccess(response.message);
-        //   router.push("/auth/login&Signup");
-        // } else {
-        //   setError(response.message);
-        // }
-      } catch (err) {
-        console.error("Authentication error:", err);
-        setError(err.message || "OTP verification failed");
-        
-        // Specific error handling
-        if (err.code === 'auth/invalid-app-credential') {
-          setError("Invalid app configuration. Please contact support.");
-        } else if (err.code === 'auth/too-many-requests') {
-          setError("Too many attempts. Please try again later.");
-        }
-      }
-    } else {
-      // Email register flow remains the same
-    }
-  };
-
-
-
   // const handleRegister = async (e) => {
+  //   e.preventDefault();
   //   setError("");
   //   setSuccess("");
-  //   e.preventDefault();
-  //   const credentials = isPhoneRegister
-  //     ? {
-  //         phone_number: {
-  //           countryCode: registerCountryCode,
-  //           number: registerPhoneNumber,
-  //         },
-  //         password: registerPassword,
+
+  //   if (isPhoneRegister) {
+  //     const fullPhone = registerCountryCode + registerPhoneNumber;
+  //     console.log("Attempting to verify:", fullPhone);
+
+  //     try {
+  //       console.log("Setting up reCAPTCHA...");
+  //       console.log(
+  //         auth,
+  //         fullPhone,
+  //         window.recaptchaVerifier,
+  //         "auth, fullPhone, window.recaptchaVerifier"
+  //       );
+  //       await window.recaptchaVerifier.render();
+  //       console.log("reCAPTCHA rendered successfully");
+  //       console.log("Attempting to send OTP...");
+  //       const confirmation = await signInWithPhoneNumber(
+  //         auth,
+  //         fullPhone,
+  //         window.recaptchaVerifier
+  //       );
+  //       console.log(confirmation.verificationId);
+  //       console.log("ran till here");
+
+  //       setConfirmationResult(confirmation);
+  //       setOtpSent(true);
+  //       alert("OTP sent to your phone. Please check your messages.");
+  //       // const confirmationResult = await setUpRecaptcha(fullPhone);
+  //       // const otp = prompt("Enter the OTP sent to your phone");
+
+  //       // if (!otp) {
+  //       //   setError("OTP is required");
+  //       //   return;
+  //       // }
+
+  //       // const result = await confirmationResult.confirm(otp);
+
+  //       // const phoneNumber = result.user.phoneNumber;
+
+  //       // const registerPayload = {
+  //       //   phone_number: {
+  //       //     countryCode: registerCountryCode,
+  //       //     number: registerPhoneNumber,
+  //       //   },
+  //       //   password: registerPassword,
+  //       // };
+
+  //       // const response = await dispatch(signupUser(registerPayload)).unwrap();
+
+  //       // if (response.status === "success") {
+  //       //   setSuccess(response.message);
+  //       //   router.push("/auth/login&Signup");
+  //       // } else {
+  //       //   setError(response.message);
+  //       // }
+  //     } catch (err) {
+  //       console.error("Authentication error:", err);
+  //       setError(err.message || "OTP verification failed");
+
+  //       // Specific error handling
+  //       if (err.code === "auth/invalid-app-credential") {
+  //         setError("Invalid app configuration. Please contact support.");
+  //       } else if (err.code === "auth/too-many-requests") {
+  //         setError("Too many attempts. Please try again later.");
   //       }
-  //     : {
-  //         email: registerEmail,
-  //         password: registerPassword,
-  //       };
-
-  //   try {
-  //     const result = await dispatch(signupUser(credentials)).unwrap();
-
-  //     if (result.status === "error") {
-  //       setError(result.message);
-  //       return;
   //     }
-  //     if (result.status === "success") {
-  //       setSuccess(result.message);
-  //       router.push("/auth/login&Signup");
-  //     }
-  //   } catch (error) {
-  //     console.log("Signup failed:", error);
+  //   } else {
+  //     // Email register flow remains the same
   //   }
   // };
+
+  const handleRegister = async (e) => {
+    setError("");
+    setSuccess("");
+    e.preventDefault();
+    const credentials = isPhoneRegister
+      ? {
+          phone_number: {
+            countryCode: registerCountryCode,
+            number: registerPhoneNumber,
+          },
+          password: registerPassword,
+        }
+      : {
+          email: registerEmail,
+          password: registerPassword,
+        };
+
+    try {
+      const result = await dispatch(signupUser(credentials)).unwrap();
+
+      if (result.status === "error") {
+        setError(result.message);
+        return;
+      }
+      if (result.status === "success") {
+        setSuccess(result.message);
+        router.push("/auth/login&Signup");
+      }
+    } catch (error) {
+      console.log("Signup failed:", error);
+    }
+  };
   const { t, language } = useTranslation();
   return (
     <div>
