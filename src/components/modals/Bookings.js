@@ -1,33 +1,4 @@
-// import api from "@/app/api/axiosInstance";
-// import React, { useEffect, useState } from "react";
-
-// const Bookings = () => {
-//   const [customerBookings, setCustomerBookings] = useState([]);
-
-// useEffect(()=>{
-//   const localUserId = localStorage.getItem("userId")
-// const fetchBookings =async()=>{
-//   console.log("localUserId",localUserId);
-
-//   const responce = await api.post("/getallcarbooking.php",{userId:localUserId})
-//   console.log("responce",responce.data);
-
-// setCustomerBookings(responce.data)
-// }
-// fetchBookings()
-// },[])
-
-//   return (
-//     <>
-//       <h3 style={{marginBottom:20}}>Bookings content goes here</h3>
-//       <div>
-
-//       </div>
-//     </>
-//   );
-// };
-
-// export default Bookings;
+"use client"
 
 import api from "@/app/api/axiosInstance";
 import React, { useEffect, useState } from "react";
@@ -62,7 +33,7 @@ console.log(customerBookings,"customerBookings");
     <div>
       <h3 className="mb-4">Your Bookings</h3>
       <div className="row">
-        {/* {customerBookings?.length > 0 ? (
+        {customerBookings?.length > 0 ? (
           customerBookings.map((booking, index) => (
             <div
               key={index}
@@ -104,8 +75,8 @@ console.log(customerBookings,"customerBookings");
           ))
         ) : (
           <p>No bookings found</p>
-        )} */}
-        booking page
+        )}
+       
       </div>
     </div>
   );

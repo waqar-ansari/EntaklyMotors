@@ -1,7 +1,6 @@
-// firebase.js
 "use client";
 import { initializeApp } from "firebase/app";
-// import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyA3ccJtR44kCxVnLg7PywHuTLWXdRkgRrU",
