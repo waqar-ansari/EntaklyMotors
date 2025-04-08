@@ -62,7 +62,7 @@ console.log(customerBookings,"customerBookings");
     <div>
       <h3 className="mb-4">Your Bookings</h3>
       <div className="row">
-        {customerBookings?.length > 0 ? (
+        {/* {customerBookings?.length > 0 ? (
           customerBookings.map((booking, index) => (
             <div
               key={index}
@@ -104,7 +104,8 @@ console.log(customerBookings,"customerBookings");
           ))
         ) : (
           <p>No bookings found</p>
-        )}
+        )} */}
+        booking page
       </div>
     </div>
   );

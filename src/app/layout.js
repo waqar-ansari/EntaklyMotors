@@ -38,14 +38,14 @@ export default function Layout({ children }) {
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css"
           /> */}
-          <meta 
+          {/* <meta 
           httpEquiv="Content-Security-Policy" 
           content={`
             frame-src 'self' https://www.google.com https://www.gstatic.com;
             script-src 'self' https://www.google.com https://www.gstatic.com 'unsafe-inline' 'unsafe-eval';
             connect-src 'self' https://www.google.com https://identitytoolkit.googleapis.com;
           `}
-        />
+        /> */}
       </head>
       <body>
         <ReduxProvider>
