@@ -15,7 +15,11 @@ import "react-phone-input-2/lib/bootstrap.css";
 import ar from "react-phone-input-2/lang/ar.json";
 import ru from "react-phone-input-2/lang/ru.json";
 // import { setUpRecaptcha } from "./phoneAuth";
-import { getAuth,RecaptchaVerifier,signInWithPhoneNumber } from "firebase/auth";
+import {
+  getAuth,
+  RecaptchaVerifier,
+  signInWithPhoneNumber,
+} from "firebase/auth";
 import { app } from "./firebase";
 
 export default function LoginPage() {
@@ -23,10 +27,9 @@ export default function LoginPage() {
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const[otp, setOtp] = useState("");
+  const [otp, setOtp] = useState("");
   const [confirmationResult, setConfirmationResult] = useState(null);
   const [otpSent, setOtpSent] = useState(false);
-
 
   const [email, setEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
@@ -35,7 +38,7 @@ export default function LoginPage() {
   const [registerCountryCode, setRegisterCountryCode] = useState("ae");
   const [password, setPassword] = useState("");
   // const [phone, setPhone] = useState("");
-  const [countryCode, setCountryCode] = useState("ae");
+  const [countryCode, setCountryCode] = useState("+971");
   const [isPhoneLogin, setIsPhoneLogin] = useState(false);
   const [isPhoneRegister, setIsPhoneRegister] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -52,149 +55,233 @@ export default function LoginPage() {
 
   const dispatch = useDispatch();
   const router = useRouter();
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    const credentials = isPhoneLogin
-      ? {
-          phone_number: {
-            countryCode: countryCode,
-            number: phoneNumber,
-          },
-          password: password,
-        }
-      : {
-          email: email,
-          password: password,
-        };
 
-    try {
-      const result = await dispatch(loginUser(credentials)).unwrap();
-
-      if (result.status === "error") {
-        console.log(result.status, "Invalid email or password");
-        setError("Invalid email or password");
-        return;
-      }
-      router.push("/account/profile");
-    } catch (error) {
-      console.log("Login failed:", error);
-    }
-  };
-useEffect(()=>{
-window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
-  size: "invisible",
-  callback: (response) => {
-    // reCAPTCHA solved, allow signInWithPhoneNumber.
-  },
-  "expired-callback": () => {
-    // Response expired. Ask user to solve reCAPTCHA again.
-  },
-});
-},[auth])
-
-  // const handleRegister = async (e) => {
+  // const handleLogin = async (e) => {
   //   e.preventDefault();
-  //   setError("");
-  //   setSuccess("");
 
-  //   if (isPhoneRegister) {
-  //     console.log(registerCountryCode + registerPhoneNumber,"completephone number");
-      
-  //     const fullPhone = registerCountryCode + registerPhoneNumber;
+  //   if (isPhoneLogin) {
+  //     const fullPhone = countryCode + phoneNumber;
+
+  //     // OTP already sent and waiting for user to enter OTP
+  //     if (otpSent && otp) {
+  //       try {
+  //         const result = await confirmationResult.confirm(otp); // Confirm OTP
+  //         const phoneNumberConfirmed = result.user.phoneNumber;
+
+  //         const credentials = {
+  //           phone_number: {
+  //             countryCode,
+  //             number: phoneNumber,
+  //           },
+  //         };
+
+  //         const response = await dispatch(loginUser(credentials)).unwrap();
+
+  //         if (response.status === "error") {
+  //           setError("OTP verification failed or user not found");
+  //         } else {
+  //           router.push("/account/profile");
+  //         }
+  //       } catch (err) {
+  //         console.error("OTP confirmation error:", err);
+  //         setError("Invalid OTP");
+  //       }
+  //       return;
+  //     }
+
+  //     // Initial OTP request
   //     try {
-  //       const confirmationResult = await setUpRecaptcha(fullPhone);
-  //       const otp = prompt("Enter the OTP sent to your phone");
+  //       await window.recaptchaVerifier.render();
+  //       const confirmation = await signInWithPhoneNumber(
+  //         auth,
+  //         fullPhone,
+  //         window.recaptchaVerifier
+  //       );
 
-  //       if (!otp) {
-  //         setError("OTP is required");
+  //       setConfirmationResult(confirmation);
+  //       setOtpSent(true);
+  //       alert("OTP sent to your phone. Please check your messages.");
+  //     } catch (err) {
+  //       console.error("OTP send error:", err);
+  //       setError(err.message || "Failed to send OTP");
+
+  //       if (err.code === "auth/invalid-app-credential") {
+  //         setError("Invalid app configuration. Please contact support.");
+  //       } else if (err.code === "auth/too-many-requests") {
+  //         setError("Too many attempts. Please try again later.");
+  //       }
+  //     }
+  //   } else {
+  //     // Email login with password
+  //     const credentials = {
+  //       email,
+  //       password,
+  //     };
+
+  //     try {
+  //       const result = await dispatch(loginUser(credentials)).unwrap();
+
+  //       if (result.status === "error") {
+  //         setError("Invalid email or password");
   //         return;
   //       }
 
-  //       const result = await confirmationResult.confirm(otp);
-  //       const phoneNumber = result.user.phoneNumber;
-
-  //       // Now call your API to register the user
-  //       const registerPayload = {
-  //         phone_number: {
-  //           countryCode: registerCountryCode,
-  //           number: registerPhoneNumber,
-  //         },
-  //         password: registerPassword,
-  //       };
-
-  //       const response = await dispatch(signupUser(registerPayload)).unwrap();
-
-  //       if (response.status === "success") {
-  //         setSuccess(response.message);
-  //         router.push("/auth/login&Signup");
-  //       } else {
-  //         setError(response.message);
-  //       }
-  //     } catch (err) {
-  //       console.error("OTP verification failed", err);
-  //       setError("OTP verification failed");
-  //     }
-  //   } else {
-  //     // Regular email register flow
-  //     const credentials = {
-  //       email: registerEmail,
-  //       password: registerPassword,
-  //     };
-  //     try {
-  //       const result = await dispatch(signupUser(credentials)).unwrap();
-
-  //       if (result.status === "success") {
-  //         setSuccess(result.message);
-  //         router.push("/auth/login&Signup");
-  //       } else {
-  //         setError(result.message);
-  //       }
-  //     } catch (err) {
-  //       setError("Signup failed");
+  //       router.push("/account/profile");
+  //     } catch (error) {
+  //       console.log("Login failed:", error);
+  //       setError("Login failed. Please try again.");
   //     }
   //   }
   // };
 
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
+  
+    if (isPhoneLogin) {
+      const fullPhone = countryCode + phoneNumber;
+  
+      // OTP already sent and waiting for user to enter OTP
+      if (otpSent && otp) {
+        console.log("OTP already sent, attempting to confirm:", otp);
+        console.log("Confirmation Result:", confirmationResult);
+        console.log("Phone Number:", phoneNumber);
+        console.log("Country Code:", countryCode);
+        console.log("Full Phone:", fullPhone);
+        console.log(otpSent, "otpSent");
+        
+        try {
+          // Confirm OTP using confirmationResult
+          const result = await confirmationResult.confirm(otp); // Confirm OTP
+          console.log(result, "result");
+          
+          const phoneNumberConfirmed = result.user.phoneNumber;
+          console.log(phoneNumberConfirmed, "phoneNumberConfirmed");
+          
+  
+          // Now the user is authenticated, continue with your login flow
+          const credentials = {
+            phone_number: {
+              countryCode,
+              number: phoneNumber,
+            },
+          };
+  
+          const response = await dispatch(loginUser(credentials)).unwrap();
+  
+          if (response.status === "error") {
+            setError("OTP verification failed or user not found");
+          } else {
+            router.push("/account/profile");
+          }
+        } catch (err) {
+          console.error("OTP confirmation error:", err);
+          setError("Invalid OTP");
+        }
+        return;
+      }
+  
+      // Initial OTP request
+      try {
+        await window.recaptchaVerifier.render();
+        const confirmation = await signInWithPhoneNumber(
+          auth,
+          fullPhone,
+          window.recaptchaVerifier
+        );
+  
+        setConfirmationResult(confirmation);
+        setOtpSent(true);
+        alert("OTP sent to your phone. Please check your messages.");
+      } catch (err) {
+        console.error("OTP send error:", err);
+        setError(err.message || "Failed to send OTP");
+  
+        if (err.code === "auth/invalid-app-credential") {
+          setError("Invalid app configuration. Please contact support.");
+        } else if (err.code === "auth/too-many-requests") {
+          setError("Too many attempts. Please try again later.");
+        }
+      }
+    } else {
+      // Email login flow here
+      const credentials = { email, password };
+      try {
+        const result = await dispatch(loginUser(credentials)).unwrap();
+  
+        if (result.status === "error") {
+          setError("Invalid email or password");
+          return;
+        }
+  
+        router.push("/account/profile");
+      } catch (error) {
+        console.log("Login failed:", error);
+        setError("Login failed. Please try again.");
+      }
+    }
+  };
+  
 
+  useEffect(() => {
+    window.recaptchaVerifier = new RecaptchaVerifier(
+      auth,
+      "recaptcha-container",
+      {
+        size: "invisible",
+        callback: (response) => {
+          // reCAPTCHA solved, allow signInWithPhoneNumber.
+        },
+        "expired-callback": () => {
+          // Response expired. Ask user to solve reCAPTCHA again.
+        },
+      }
+    );
+  }, [auth]);
 
-
-  const handleRegister = async (e) => {
+  const handleRegisterr = async (e) => {
     e.preventDefault();
     setError("");
     setSuccess("");
-  
+
     if (isPhoneRegister) {
       const fullPhone = registerCountryCode + registerPhoneNumber;
       console.log("Attempting to verify:", fullPhone);
-      
+
       try {
         console.log("Setting up reCAPTCHA...");
-        console.log(auth, fullPhone, window.recaptchaVerifier,"auth, fullPhone, window.recaptchaVerifier");
+        console.log(
+          auth,
+          fullPhone,
+          window.recaptchaVerifier,
+          "auth, fullPhone, window.recaptchaVerifier"
+        );
         await window.recaptchaVerifier.render();
         console.log("reCAPTCHA rendered successfully");
         console.log("Attempting to send OTP...");
-        const confirmation = await signInWithPhoneNumber(auth, fullPhone, window.recaptchaVerifier);
-        console.log(confirmation.verificationId)
-console.log("ran till here");
+        const confirmation = await signInWithPhoneNumber(
+          auth,
+          fullPhone,
+          window.recaptchaVerifier
+        );
+        console.log(confirmation.verificationId);
+        console.log("ran till here");
 
         setConfirmationResult(confirmation);
         setOtpSent(true);
         alert("OTP sent to your phone. Please check your messages.");
         // const confirmationResult = await setUpRecaptcha(fullPhone);
         // const otp = prompt("Enter the OTP sent to your phone");
-  
+
         // if (!otp) {
         //   setError("OTP is required");
         //   return;
         // }
-  
+
         // const result = await confirmationResult.confirm(otp);
 
-
-
         // const phoneNumber = result.user.phoneNumber;
-  
+
         // const registerPayload = {
         //   phone_number: {
         //     countryCode: registerCountryCode,
@@ -202,9 +289,9 @@ console.log("ran till here");
         //   },
         //   password: registerPassword,
         // };
-  
+
         // const response = await dispatch(signupUser(registerPayload)).unwrap();
-  
+
         // if (response.status === "success") {
         //   setSuccess(response.message);
         //   router.push("/auth/login&Signup");
@@ -214,54 +301,54 @@ console.log("ran till here");
       } catch (err) {
         console.error("Authentication error:", err);
         setError(err.message || "OTP verification failed");
-        
+
         // Specific error handling
-        if (err.code === 'auth/invalid-app-credential') {
+        if (err.code === "auth/invalid-app-credential") {
           setError("Invalid app configuration. Please contact support.");
-        } else if (err.code === 'auth/too-many-requests') {
+        } else if (err.code === "auth/too-many-requests") {
           setError("Too many attempts. Please try again later.");
         }
       }
     } else {
-      // Email register flow remains the same
     }
   };
 
+  const handleRegister = async (e) => {
+    setError("");
+    setSuccess("");
+    e.preventDefault();
+    const credentials = isPhoneRegister
+      ? {
+          phone_number: {
+            countryCode: registerCountryCode,
+            number: registerPhoneNumber,
+          },
+          password: registerPassword,
+        }
+      : {
+          email: registerEmail,
+          password: registerPassword,
+        };
 
+    try {
+      const result = await dispatch(signupUser(credentials)).unwrap();
 
-  // const handleRegister = async (e) => {
-  //   setError("");
-  //   setSuccess("");
-  //   e.preventDefault();
-  //   const credentials = isPhoneRegister
-  //     ? {
-  //         phone_number: {
-  //           countryCode: registerCountryCode,
-  //           number: registerPhoneNumber,
-  //         },
-  //         password: registerPassword,
-  //       }
-  //     : {
-  //         email: registerEmail,
-  //         password: registerPassword,
-  //       };
-
-  //   try {
-  //     const result = await dispatch(signupUser(credentials)).unwrap();
-
-  //     if (result.status === "error") {
-  //       setError(result.message);
-  //       return;
-  //     }
-  //     if (result.status === "success") {
-  //       setSuccess(result.message);
-  //       router.push("/auth/login&Signup");
-  //     }
-  //   } catch (error) {
-  //     console.log("Signup failed:", error);
-  //   }
-  // };
+      if (result.status === "error") {
+        setError(result.message);
+        return;
+      }
+      if (result.status === "success") {
+        setSuccess(result.message);
+        router.push("/auth/login&Signup");
+      }
+    } catch (error) {
+      console.log("Signup failed:", error);
+    }
+  };
   const { t, language } = useTranslation();
+  console.log(otpSent, "otpSent");
+  // console.log(country.dialCode, "countryCode");
+  
   return (
     <div>
       <Header />
@@ -302,16 +389,6 @@ console.log("ran till here");
                 </div>
 
                 {!isPhoneLogin ? (
-                  // <div className="input-box form-floating">
-                  //   <input
-                  //     type="email"
-                  //     placeholder="Email"
-                  //     value={email}
-                  //     onChange={(e) => setEmail(e.target.value)}
-                  //   />
-
-                  //   <i className="bx bxs-user"></i>
-                  // </div>
                   <div className="input-box form-floating">
                     <input
                       className="form-control"
@@ -328,69 +405,107 @@ console.log("ran till here");
                   </div>
                 ) : (
                   <div className="d-flex align-items-center">
-                    <PhoneInput
-                      country={countryCode}
-                      // value={phone}
-                      onChange={(value, country) => {
-                        // setPhone(value);
-                        setCountryCode("+" + country.dialCode);
-                      }}
-                      enableSearch
-                      searchPlaceholder="Search..."
-                      localization={
-                        language === "ar"
-                          ? ar
-                          : language === "ru"
-                          ? ru
-                          : undefined
-                      }
-                      searchStyle={{ width: 280, marginLeft: 0 }}
-                    />
-                    <div className="input-box form-floating my-0 w-100">
-                      <input
-                        placeholder={t("phone_number")}
-                        value={phoneNumber}
-                        onChange={(e) => setPhoneNumber(e.target.value)}
-                        className="form-control"
+                 {!otpSent ? (   
+                   <>
+                     <PhoneInput
+                        country={"ae"}
+                        // value={country.dialCode}
+                        onChange={(value, country) => {
+                          // setPhone(value);
+                          setCountryCode("+" + country.dialCode);
+                        }}
+                        enableSearch
+                        searchPlaceholder="Search..."
+                        localization={
+                          language === "ar"
+                            ? ar
+                            : language === "ru"
+                            ? ru
+                            : undefined
+                        }
+                        searchStyle={{ width: 280, marginLeft: 0 }}
                       />
-                      <label
-                        htmlFor="loginPhoneNumber"
-                        className="inputLabelBg"
+                     
+                        <div className="input-box form-floating my-0 w-100">
+                          <input
+                            placeholder={t("phone_number")}
+                            value={phoneNumber}
+                            onChange={(e) => setPhoneNumber(e.target.value)}
+                            className="form-control mb-3"
+                          />
+                          <label
+                            htmlFor="loginPhoneNumber"
+                            className="inputLabelBg"
+                          >
+                            {t("phone_number")}
+                          </label>
+                          {/* <i className="bx bxs-lock-alt"></i> */}
+                        </div>
+                   </>
+                    ) : (
+                      <div
+                        className="input-box form-floating w-100 mt-0"
+                        style={{ zIndex: 0 }}
                       >
-                        {t("phone_number")}
-                      </label>
-                      {/* <i className="bx bxs-lock-alt"></i> */}
-                    </div>
+                        <input
+                          type="text"
+                          placeholder={t("otp")}
+                          value={otp}
+                          name="otp"
+                          onChange={(e) => setOtp(e.target.value)}
+                          className="form-control"
+                        />
+                        <label htmlFor="otp" className="inputLabelBg">
+                          {t("otp")}
+                        </label>
+                        <i className="bx bxs-lock-alt"></i>
+                      </div>
+                    )}
                   </div>
                 )}
 
                 {/* Password Input */}
-                <div className="input-box form-floating" style={{ zIndex: 0 }}>
-                  <input
-                    type="password"
-                    placeholder={t("password")}
-                    value={password}
-                    name="loginPassword"
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="form-control"
-                  />
-                  <label htmlFor="loginPassword" className="inputLabelBg">
-                    {t("password")}
-                  </label>
-                  {/* <i className="bx bxs-lock-alt"></i> */}
-                </div>
+                {!isPhoneLogin ? (
+                  <div
+                    className="input-box form-floating"
+                    style={{ zIndex: 0 }}
+                  >
+                    <input
+                      type="password"
+                      placeholder={t("password")}
+                      value={password}
+                      name="loginPassword"
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="form-control"
+                    />
+                    <label htmlFor="loginPassword" className="inputLabelBg">
+                      {t("password")}
+                    </label>
+                    <i className="bx bxs-lock-alt"></i>
+                  </div>
+                ) : (
+                  ""
+                )}
 
-                {/* <button type="submit" className="btn d-flex">
-                  Login
-                </button> */}
-
+                {/* <Link
+                  type="button"
+                  href="/account/profile"
+                  className="btn text-decoration-none d-flex"
+                  onClick={handleLogin}
+                >
+                  {isPhoneLogin ?"Send OTP" : t("login")}
+                </Link> */}
                 <Link
                   type="button"
                   href="/account/profile"
                   className="btn text-decoration-none d-flex"
                   onClick={handleLogin}
                 >
-                  {t("login")}
+                  {isPhoneLogin
+                    ? otpSent
+                      ? "Verify OTP"
+                      : "Send OTP"
+                    : t("login")}
                 </Link>
               </form>
             </div>
@@ -433,35 +548,7 @@ console.log("ran till here");
           {/* Register Form */}
           <div className="form-box register">
             <form action="#">
-              <h1 className="mb-4">Register with</h1>
-
-              <div className="d-flex mb-4">
-                <button
-                  type="button"
-                  className="customLoginFormBtn me-2"
-                  style={{
-                    backgroundColor: !isPhoneRegister ? "#292268" : "#fff",
-                    color: !isPhoneRegister ? "#fff" : "#000",
-                    border: "2px solid #292268",
-                  }}
-                  onClick={() => handleRegisterWith(false)}
-                >
-                  Email
-                </button>
-                <button
-                  type="button"
-                  className="customLoginFormBtn"
-                  style={{
-                    backgroundColor: isPhoneRegister ? "#292268" : "#fff",
-                    color: isPhoneRegister ? "#fff" : "#000",
-                    border: "2px solid #292268",
-                  }}
-                  onClick={() => handleRegisterWith(true)}
-                >
-                  Phone
-                </button>
-              </div>
-
+              <h1 className="mb-4">Register with Email</h1>
               {!isPhoneRegister ? (
                 <div className="input-box form-floating">
                   <input
@@ -477,43 +564,9 @@ console.log("ran till here");
                   <label htmlFor="signupEmail" className="inputLabelBg">
                     {t("email_address")}
                   </label>
-                  {/* <i className="bx bxs-envelope"></i> */}
                 </div>
               ) : (
-                <div className="d-flex align-items-center">
-                  <PhoneInput
-                    country={registerCountryCode}
-                    // value={phone}
-                    onChange={(value, country) => {
-                      // setPhone(value);
-                      setRegisterCountryCode("+" + country.dialCode);
-                    }}
-                    enableSearch
-                    searchPlaceholder="Search..."
-                    localization={
-                      language === "ar"
-                        ? ar
-                        : language === "ru"
-                        ? ru
-                        : undefined
-                    }
-                    searchStyle={{ width: 280, marginLeft: 0 }}
-                  />
-                  <div className="input-box form-floating w-100 my-0">
-                    <input
-                      type="text"
-                      placeholder="Phone Number"
-                      name="signupPhoneNumber"
-                      className="form-control"
-                      value={registerPhoneNumber}
-                      onChange={(e) => setRegisterPhoneNumber(e.target.value)}
-                    />
-                    <label htmlFor="signupPhoneNumber" className="inputLabelBg">
-                      {t("phone_number")}
-                    </label>
-                    {/* <i className="bx bxs-lock-alt"></i> */}
-                  </div>
-                </div>
+                ""
               )}
               <div className="input-box form-floating" style={{ zIndex: 0 }}>
                 <input

@@ -61,11 +61,11 @@ const Page = () => {
   };
 
   useEffect(() => {
-    
     dispatch(fetchProfile({ user_id: Number(localUserId) }));
   }, [dispatch, localUserId]);
 
   const profile = useSelector((state) => state.profile);
+  console.log(profile, "profile");
 
   const { fullname, email, phonenumber, address, loading, error } = profile;
 
@@ -124,9 +124,7 @@ const Page = () => {
   };
 
   useEffect(() => {
-    
     if (!loading) {
-      
       setProfileData({
         fullname: fullname || "",
         email: email || "",

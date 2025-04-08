@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useSelector } from "react-redux";
@@ -18,7 +18,7 @@ const BookingConfirmation = () => {
 
   const bookingId = searchParams.get("booking_id");
   const transactionId = searchParams.get("transaction_id");
-
+  const selectedPackageDetails = useSelector((state) => state.selectedPackage);
   const rentalDetail = useSelector((state) => state.rentalDetail);
   const selectedCarDetail = useSelector((state) => state.selectedCar);
   const bookingOverview = useSelector(selectBookingOverview);
@@ -34,13 +34,58 @@ const BookingConfirmation = () => {
     rentalDetail.pickupDate,
     rentalDetail.returnDate
   );
-const { t, language } = useTranslation();
+  const { t, language } = useTranslation();
+
+  useEffect(() => {
+    const localUserId = localStorage.getItem("userId");
+    const completeBooking = async (paymentIntent) => {
+      const bookingDetails = {
+        userId: localUserId,
+        carId: JSON.stringify(selectedCarDetail.id),
+        name: fullname,
+        email: email,
+        phoneNumber: {
+          countryCode: countryCode,
+          number: phoneNumber,
+        },
+        pickupLocation: rentalDetail.pickupLocation,
+        returnLocation: rentalDetail.returnLocation,
+        pickupDate: new Date(rentalDetail.pickupDate)
+          .toISOString()
+          .split("T")[0],
+        returnDate: new Date(rentalDetail.returnDate)
+          .toISOString()
+          .split("T")[0],
+        pickupTime: rentalDetail.pickupTime,
+        returnTime: rentalDetail.returnTime,
+        protectionPackage: selectedPackageDetails.packageName,
+        addons: selectedAddons,
+        totalPrice: totalPrice,
+        paymentIntentId: paymentIntent.id,
+        currency: "aed",
+        status: paymentIntent.status,
+      };
+      completeBooking()
+      const paymentResponse = await api.post("/carbooking.php", bookingDetails);
+
+      if (paymentResponse.data.status === "error") {
+        console.error("Error in booking:", paymentResponse.data);
+      } else {
+        const bookingData = new URLSearchParams(
+          paymentResponse.data
+        ).toString();
+        router.replace(`/booking/success?${bookingData}`);
+      }
+    };
+  }, []);
   return (
     <>
       <Header />
       <div className="container p-4 bg-gray-100">
         <div className="shadow-md p-6 rounded-lg">
-          <h2 className="text-lg font-bold mb-2">{t("booking_confirmation")}</h2>
+          <h2 className="text-lg font-bold mb-2">
+            {t("booking_confirmation")}
+          </h2>
           <hr style={{ height: 2, backgroundColor: colors.themeMain }} />
           <h3 className="text-center mb-4" style={{ color: colors.themeMain }}>
             {t("booking_reserved")}
@@ -49,7 +94,7 @@ const { t, language } = useTranslation();
             <PiCheckCircle color="#6fcf97" style={{ fontSize: 80 }} />
           </div>
           <div className="text-center mt-4 fs-5 mb-5">
-           {t("congratulations_your_booking_has_been_confirmed")}
+            {t("congratulations_your_booking_has_been_confirmed")}
             {/* <span className="displayBlock">
               Thank you for choosing ENTAKLY Motors for your car rental needs.
             </span> */}
@@ -66,10 +111,14 @@ const { t, language } = useTranslation();
                   {t("booking_details")} :
                 </h4>
                 <p className="mb-0">
-                  <b>{t("rental_days")}: {numberOfRentalDays}</b>
+                  <b>
+                    {t("rental_days")}: {numberOfRentalDays}
+                  </b>
                 </p>
                 <p>
-                  <b>{t("booking_id")}: {bookingId}</b>
+                  <b>
+                    {t("booking_id")}: {bookingId}
+                  </b>
                 </p>
               </div>
             </div>
@@ -154,7 +203,9 @@ const { t, language } = useTranslation();
                 <p className="mb-0"> {t("total_price")}:</p>
                 <PriceDetailsModal />
               </div>
-              <p className="mb-0 fw-bold">{t("aed")} {totalPrice}</p>
+              <p className="mb-0 fw-bold">
+                {t("aed")} {totalPrice}
+              </p>
             </div>
             <hr
               style={{
