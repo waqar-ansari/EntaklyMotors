@@ -426,19 +426,20 @@ export default function LoginPage() {
                         searchStyle={{ width: 280, marginLeft: 0 }}
                       />
                      
-                        <div className="input-box form-floating my-0 w-100">
+                        <div className="input-box my-0 w-100">
                           <input
+                          type="number"
                             placeholder={t("phone_number")}
                             value={phoneNumber}
                             onChange={(e) => setPhoneNumber(e.target.value)}
                             className="form-control mb-3"
                           />
-                          <label
+                          {/* <label
                             htmlFor="loginPhoneNumber"
                             className="inputLabelBg"
                           >
                             {t("phone_number")}
-                          </label>
+                          </label> */}
                           {/* <i className="bx bxs-lock-alt"></i> */}
                         </div>
                    </>

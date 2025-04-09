@@ -125,7 +125,7 @@
 "aed":"AED",
 "plan_a_journey":"Plan a Journey...",
 "5%_vat":"5 % VAT",
-"full_name":"Fullname",
+"full_name":"Full name",
 
 
 "basic_protection":"Basic Protection",
@@ -179,168 +179,9 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     "dubai_international_airport_terminal_1": "Dubai International Airport Terminal 1",
     "dubai_international_airport_terminal_2": "Dubai International Airport Terminal 2",
     "dubai_international_airport_terminal_3": "Dubai International Airport Terminal 3",
     "al_maktoum_international_airport_dwc": "Al Maktoum international airport DWC",
-    "five_luxe_jbr": "Five luxe JBR",
-    "five_palm_jumeirah_hotel": "Five palm Jumeirah hotel",
-    "five_jumeirah_village_hotel": "Five Jumeirah village hotel",
-    "address_beach_resort": "Address beach resort",
-    "address_sky_view": "Address sky view",
-    "address_downtown": "Address downtown",
-    "address_greek_harbour": "Address Greek harbour",
-    "address_boulevard": "Address boulevard",
-    "address_montgmerie": "Address montgmerie",
-    "address_grand_creek_harbour": "Address grand creek harbour",
-    "rixos_the_palm_hotel_&_suites": "Rixos the palm hotel & suites",
-    "rixos_premium_dubai": "Rixos premium Dubai",
-    "the_ritz-carlton_dubai_international_financial": "The Ritz-Carlton Dubai international financial",
-    "the_ritz-_carlton_jbr": "The Ritz- Carlton JBR",
-    "mövenpick_hotel_apartments_downtown": "Mövenpick Hotel Apartments Downtown",
-    "mövenpick_hotel_jumeirah_beach": "Mövenpick Hotel Jumeirah Beach",
-    "mövenpick_hotel_&_apartments_bur_dubai": "Mövenpick Hotel & Apartments Bur Dubai",
-    "mövenpick_grand_al_bustan_dubai": "Mövenpick Grand Al Bustan Dubai",
-    "mövenpick_hotel_ibn_battuta_gate_dubai": "Mövenpick Hotel Ibn Battuta Gate Dubai",
-    "al_bandar_rotana": "Al Bandar Rotana",
-    "al_jaddaf_rotana_suite_hotel": "Al Jaddaf Rotana Suite Hotel",
-    "amwaj_rotana": "Amwaj Rotana",
-    "arabian_park_dubai_-_edge_by_rotana": "Arabian Park Dubai - Edge by Rotana",
-    "centro_barsha_by_rotana": "Centro Barsha by Rotana",
-    "centro_business_bay_by_rotana": "Centro Business Bay by Rotana",
-    "media_rotana": "Media Rotana",
-    "rose_rayhaan_by_rotana": "Rose Rayhaan by Rotana",
-    "towers_rotana": "Towers Rotana",
-    "hilton_dubai_al_habtoor_city": "Hilton Dubai Al Habtoor City",
-    "hilton_dubai_jumeirah": "Hilton Dubai Jumeirah",
-    "hilton_dubai_the_walk": "Hilton Dubai The Walk",
-    "hilton_dubai_creek": "Hilton Dubai Creek",
-    "hilton_garden_inn_dubai_al_muraqabat": "Hilton Garden Inn Dubai Al Muraqabat",
-    "hilton_garden_inn_dubai_al_mina": "Hilton Garden Inn Dubai Al Mina",
-    "hilton_garden_inn_mall_of_the_emirates": "Hilton Garden Inn Mall Of The Emirates",
-    "hilton_garden_inn_al_jadaf_culture_village": "Hilton Garden Inn Al Jadaf Culture Village",
-    "hilton_garden_inn_dubai_business_bay": "Hilton Garden Inn Dubai Business Bay",
-    "hilton_garden_inn_dubai_al_barsha": "Hilton Garden Inn Dubai Al Barsha",
-    "hilton_garden_inn_dubai_airport": "Hilton Garden Inn Dubai Airport",
-    "hilton_garden_inn_dubai_media_city": "Hilton Garden Inn Dubai Media City",
-    "hilton_garden_inn_dubai_downtown": "Hilton Garden Inn Dubai Downtown",
-    "hilton_garden_inn_dubai_marina": "Hilton Garden Inn Dubai Marina",
-    "hilton_garden_inn_dubai_silicon_oasis": "Hilton Garden Inn Dubai Silicon Oasis",
-    "hilton_garden_inn_world_trade_centre": "Hilton Garden Inn World Trade Centre",
-    "doubletree_by_hilton_dubai_-_business_bay": "DoubleTree by Hilton Dubai - Business Bay",
-    "doubletree_by_hilton_-_jumeirah_beach": "DoubleTree by Hilton - Jumeirah Beach",
-    "doubletree_by_hilton_dubai_-_al_barsha": "DoubleTree by Hilton Dubai - Al Barsha",
-    "doubletree_by_hilton_-_m_square_hotel_&_residences": "DoubleTree by Hilton - M Square Hotel & Residences",
-    "doubletree_by_hilton_dubai_-_bay_square": "DoubleTree by Hilton Dubai - Bay Square",
-    "doubletree_by_hilton_-_jumeirah_lakes_towers": "DoubleTree by Hilton - Jumeirah Lakes Towers",
-    "doubletree_by_hilton_dubai_-_al_jadaf": "DoubleTree by Hilton Dubai - Al Jadaf",
-    "doubletree_by_hilton_dubai_-_al_mankhool": "DoubleTree by Hilton Dubai - Al Mankhool",
-    "doubletree_by_hilton_dubai_-_al_rigga": "DoubleTree by Hilton Dubai - Al Rigga",
-    "doubletree_by_hilton_dubai_-_al_qusais": "DoubleTree by Hilton Dubai - Al Qusais",
-    "conrad_dubai": "Conrad Dubai",
-    "waldorf_astoria_dubai_palm_jumeirah": "Waldorf Astoria Dubai Palm Jumeirah",
-    "waldorf_astoria_dubai_international_financial_centre": "Waldorf Astoria Dubai International Financial Centre",
-    "lxr_hotels_&_resorts_habtoor_palace_dubai": "LXR Hotels & Resorts Habtoor Palace Dubai",
-    "canopy_by_hilton_dubai_al_seef": "Canopy by Hilton Dubai Al Seef",
-    "canopy_by_hilton_dubai_al_habtoor_city": "Canopy by Hilton Dubai Al Habtoor City",
-    "hampton_by_hilton_dubai_airport": "Hampton by Hilton Dubai Airport",
-    "hampton_by_hilton_dubai_al_barsha": "Hampton by Hilton Dubai Al Barsha",
-    "hampton_by_hilton_dubai_al_seef": "Hampton by Hilton Dubai Al Seef",
-    "jw_marriott_marquis_hotel_dubai": "JW Marriott Marquis Hotel Dubai",
-    "jw_marriott_hotel_marina": "JW Marriott Hotel Marina",
-    "the_westin_dubai_mina_seyahi_beach_resort_&_marina": "The Westin Dubai Mina Seyahi Beach Resort & Marina",
-    "atlantis": "Atlantis",
-    "le_méridien_mina_seyahi_resort_&_marina": "Le Méridien Mina Seyahi Resort & Marina",
-    "le_méridien_dubai_hotel_&_conference_centre": "Le Méridien Dubai Hotel & Conference Centre",
-    "le_méridien_fairway": "Le Méridien Fairway",
-    "ibis_al_rigga": "Ibis Al Rigga",
-    "ibis_one_central": "Ibis One Central",
-    "ibis_world_trade_centre_dubai": "Ibis World Trade Centre Dubai",
-    "ibis_styles_dubai_jumeira": "Ibis Styles Dubai Jumeira",
-    "ibis_styles_dubai_deira": "Ibis Styles Dubai Deira",
-    "ibis_mall_avenue_dubai": "Ibis Mall Avenue Dubai",
-    "ramada_hotel_&_suites_by_wyndham_dubai_jbr": "Ramada Hotel & Suites by Wyndham Dubai JBR",
-    "ramada_by_wyndham_dubai_deira": "Ramada by Wyndham Dubai Deira",
-    "ramada_by_wyndham_dubai_barsha_heights": "Ramada by Wyndham Dubai Barsha Heights",
-    "ramada_downtown_dubai": "Ramada Downtown Dubai",
-    "ramada_jumeirah_hotel": "Ramada Jumeirah Hotel",
-    "crowne_plaza_dubai_festival_city": "Crowne Plaza Dubai Festival City",
-    "crowne_plaza_dubai_jumeirah": "Crowne Plaza Dubai Jumeirah",
-    "crowne_plaza_dubai_deira": "Crowne Plaza Dubai Deira",
-    "crowne_plaza_dubai_marina": "Crowne Plaza Dubai Marina",
-    "sheraton_grand_hotel,_dubai": "Sheraton Grand Hotel, Dubai",
-    "sheraton_dubai_creek_hotel_&_towers": "Sheraton Dubai Creek Hotel & Towers",
-    "sheraton_jumeirah_beach_resort": "Sheraton Jumeirah Beach Resort",
-    "sheraton_mall_of_the_emirates_hotel,_dubai": "Sheraton Mall of the Emirates Hotel, Dubai",
-    "fairmont_the_palm": "Fairmont The Palm",
-    "fairmont_dubai": "Fairmont Dubai",
-    "fairmont_dubai_skyline": "Fairmont Dubai Skyline",
-    "sofitel_dubai_the_obelisk": "Sofitel Dubai The Obelisk",
-    "sofitel_dubai_jumeirah_beach": "Sofitel Dubai Jumeirah Beach",
-    "sofitel_dubai_the_palm": "Sofitel Dubai The Palm",
-    "sofitel_dubai_downtown": "Sofitel Dubai Downtown",
-    "radisson_blu_hotel,_dubai_deira_creek": "Radisson Blu Hotel, Dubai Deira Creek",
-    "radisson_blu_hotel,_dubai_media_city": "Radisson Blu Hotel, Dubai Media City",
-    "radisson_blu_hotel,_dubai_waterfront": "Radisson Blu Hotel, Dubai Waterfront",
-    "radisson_beach_resort_palm_jumeirah": "Radisson Beach Resort Palm Jumeirah",
-    "hyatt_regency_dubai": "Hyatt Regency Dubai",
-    "hyatt_regency_dubai_creek_heights": "Hyatt Regency Dubai Creek Heights",
-    "millennium_plaza_downtown_hotel,_dubai": "Millennium Plaza Downtown Hotel, Dubai",
-    "the_biltmore_hotel_villas_dubai": "The Biltmore Hotel Villas Dubai",
-    "millennium_place_marina": "Millennium Place Marina",
-    "copthorne_hotel_dubai": "Copthorne Hotel Dubai",
-    "millennium_al_barsha": "Millennium Al Barsha",
-    "studio_m_al_barsha": "Studio M Al Barsha",
-    "millennium_airport_hotel_dubai": "Millennium Airport Hotel Dubai",
-    "grand_millennium_dubai": "Grand Millennium Dubai",
-    "one&only_royal_mirage": "One&Only Royal Mirage",
-    "one&only_the_palm": "One&Only The Palm",
-    "one&only_one_za’abeel": "One&Only One Za’abeel",
-    "armani_hotel_dubai": "Armani Hotel Dubai"
-
-
-
-
-
-
-
-
+    "jbr": "JBR"
 }

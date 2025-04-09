@@ -41,6 +41,7 @@ const PaymentPage = () => {
   const [fullname, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
+  const [bookingId, setBookingId] = useState(null);
 
   const router = useRouter();
   const handleCountryChange = (value, country) => {
@@ -173,11 +174,145 @@ const PaymentPage = () => {
   //   }
   // };
 
+  // const continueToPayment = async () => {
+  //   const completeBooking = async () => {
+  //     const bookingDetails = {
+  //       userId: localUserId,
+  //       carId: JSON.stringify(selectedCarDetail.id),
+  //       name: fullname,
+  //       email: email,
+  //       phoneNumber: {
+  //         countryCode: countryCode,
+  //         number: phoneNumber,
+  //       },
+  //       pickupLocation: rentalDetail.pickupLocation,
+  //       returnLocation: rentalDetail.returnLocation,
+  //       pickupDate: new Date(rentalDetail.pickupDate)
+  //         .toISOString()
+  //         .split("T")[0],
+  //       returnDate: new Date(rentalDetail.returnDate)
+  //         .toISOString()
+  //         .split("T")[0],
+  //       pickupTime: rentalDetail.pickupTime,
+  //       returnTime: rentalDetail.returnTime,
+  //       protectionPackage: selectedPackageDetails.packageName,
+  //       addons: selectedAddons,
+  //       totalPrice: totalPrice,
+  //     };
+
+  //     const bookingResponse = await api.post("/carbooking.php", bookingDetails);
+  //     setBookingId(bookingResponse.data.booking_id);
+  //     console.log("Booking response:", bookingResponse.data.booking_id);
+
+  //     if (bookingResponse.data.status === "error") {
+  //       console.error("Error in booking:", bookingResponse.data);
+  //     }
+  //   };
+  //   completeBooking();
+
+  //   try {
+  //     const stripe = await loadStripe(
+  //       "pk_test_51R3XPNCvoTSNB6AOjILWKU5d9NGh1QFAu9OlTS7MKIMon5N3L1ZraqzwfDl01lpRq9vdhzUhmNy96wfSONS0yBrQ00iEBIMQAL"
+  //     );
+
+  //     const amount = totalPrice;
+  //     console.log(bookingId, "bookingId before sending to stripe");
+
+  //     const sessionData = new URLSearchParams();
+  //     sessionData.append("payment_method_types[]", "card");
+  //     sessionData.append("line_items[0][price_data][currency]", "aed");
+  //     sessionData.append(
+  //       "line_items[0][price_data][unit_amount]",
+  //       (amount * 100).toString()
+  //     );
+  //     sessionData.append(
+  //       "line_items[0][price_data][product_data][name]",
+  //       "Custom Payment"
+  //     );
+  //     sessionData.append("line_items[0][quantity]", "1");
+  //     sessionData.append("mode", "payment");
+  //     console.log(bookingId, "bookingId before sending to stripe 2");
+
+  //     sessionData.append(
+  //       "success_url",
+  //       `${window.location.origin}/booking/success?session_id={CHECKOUT_SESSION_ID}&booking_id=${bookingId}`
+  //     );
+  //     sessionData.append(
+  //       "cancel_url",
+  //       `${window.location.origin}/booking/paymentAndReview`
+  //     );
+
+  //     const response = await fetch(
+  //       "https://api.stripe.com/v1/checkout/sessions",
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           Authorization: `Bearer sk_test_51R3XPNCvoTSNB6AOCZYZjMVY7HLur9TGtdqrWzBNO57Psfzbpnqya6YtWwW0r6nUDvaW8fBR1XsFXKN2vcihmYMf005Ukp7883`,
+  //           "Content-Type": "application/x-www-form-urlencoded",
+  //         },
+  //         body: sessionData,
+  //       }
+  //     );
+
+  //     const data = await response.json();
+
+  //     if (!data.id) {
+  //       console.error("Session creation failed:", data);
+  //       return;
+  //     }
+
+  //     // Redirect to Stripe checkout
+  //     const { error } = await stripe.redirectToCheckout({ sessionId: data.id });
+
+  //     if (error) {
+  //       console.error("Stripe redirect error:", error);
+  //     }
+  //   } catch (err) {
+  //     console.error("Unexpected error:", err);
+  //   }
+  // };
+
   const continueToPayment = async () => {
     try {
+
+      const bookingDetails = {
+        userId: localUserId,
+        carId: JSON.stringify(selectedCarDetail.id),
+        name: fullname,
+        email: email,
+        phoneNumber: {
+          countryCode: countryCode,
+          number: phoneNumber,
+        },
+        pickupLocation: rentalDetail.pickupLocation,
+        returnLocation: rentalDetail.returnLocation,
+        pickupDate: new Date(rentalDetail.pickupDate)
+          .toISOString()
+          .split("T")[0],
+        returnDate: new Date(rentalDetail.returnDate)
+          .toISOString()
+          .split("T")[0],
+        pickupTime: rentalDetail.pickupTime,
+        returnTime: rentalDetail.returnTime,
+        protectionPackage: selectedPackageDetails.packageName,
+        addons: selectedAddons,
+        totalPrice: totalPrice,
+      };
+
+      const bookingResponse = await api.post("/carbooking.php", bookingDetails);
+
+      if (bookingResponse.data.status === "error") {
+        console.error("Error in booking:", bookingResponse.data);
+        return;
+      }
+
+      const bookingId = bookingResponse.data.booking_id;
+      console.log("✅ Booking ID:", bookingId);
+
+   
       const stripe = await loadStripe(
         "pk_test_51R3XPNCvoTSNB6AOjILWKU5d9NGh1QFAu9OlTS7MKIMon5N3L1ZraqzwfDl01lpRq9vdhzUhmNy96wfSONS0yBrQ00iEBIMQAL"
-      ); // PUBLIC key
+      );
 
       const amount = totalPrice;
 
@@ -194,10 +329,16 @@ const PaymentPage = () => {
       );
       sessionData.append("line_items[0][quantity]", "1");
       sessionData.append("mode", "payment");
-      sessionData.append("success_url", `${window.location.origin}/booking/success`);
-      sessionData.append("cancel_url", `${window.location.origin}/cancel`);
 
-      // Create session via Stripe API (using secret key - NOT SAFE FOR PRODUCTION)
+      sessionData.append(
+        "success_url",
+        `${window.location.origin}/booking/success?session_id={CHECKOUT_SESSION_ID}&booking_id=${bookingId}`
+      );
+      sessionData.append(
+        "cancel_url",
+        `${window.location.origin}/booking/paymentAndReview`
+      );
+
       const response = await fetch(
         "https://api.stripe.com/v1/checkout/sessions",
         {
@@ -217,7 +358,6 @@ const PaymentPage = () => {
         return;
       }
 
-      // Redirect to Stripe checkout
       const { error } = await stripe.redirectToCheckout({ sessionId: data.id });
 
       if (error) {
@@ -225,39 +365,6 @@ const PaymentPage = () => {
       }
     } catch (err) {
       console.error("Unexpected error:", err);
-    }
-  };
-  const completeBooking = async (paymentIntent) => {
-    const bookingDetails = {
-      userId: localUserId,
-      carId: JSON.stringify(selectedCarDetail.id),
-      name: fullname,
-      email: email,
-      phoneNumber: {
-        countryCode: countryCode,
-        number: phoneNumber,
-      },
-      pickupLocation: rentalDetail.pickupLocation,
-      returnLocation: rentalDetail.returnLocation,
-      pickupDate: new Date(rentalDetail.pickupDate).toISOString().split("T")[0],
-      returnDate: new Date(rentalDetail.returnDate).toISOString().split("T")[0],
-      pickupTime: rentalDetail.pickupTime,
-      returnTime: rentalDetail.returnTime,
-      protectionPackage: selectedPackageDetails.packageName,
-      addons: selectedAddons,
-      totalPrice: totalPrice,
-      paymentIntentId: paymentIntent.id,
-      currency: "aed",
-      status: paymentIntent.status,
-    };
-
-    const paymentResponse = await api.post("/carbooking.php", bookingDetails);
-
-    if (paymentResponse.data.status === "error") {
-      console.error("Error in booking:", paymentResponse.data);
-    } else {
-      const bookingData = new URLSearchParams(paymentResponse.data).toString();
-      router.replace(`/booking/success?${bookingData}`);
     }
   };
 
@@ -333,19 +440,19 @@ const PaymentPage = () => {
               />
               <div style={{ margin: "0px 10px" }}>{countryCode}</div>
 
-              <div className="input-box form-floating w-100 my-0">
+              <div className="input-box w-100 my-0">
                 <input
                   className="form-control"
-                  type="text"
+                  type="number"
                   placeholder={t("phone_number")}
                   id="phoneNumber"
                   // value={`${countryCode} ${phoneNumber}`}
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
                 />
-                <label for="phoneNumber" className="inputLabelBg">
+                {/* <label for="phoneNumber" className="inputLabelBg">
                   {t("phone_number")}
-                </label>
+                </label> */}
               </div>
             </div>
             <div>

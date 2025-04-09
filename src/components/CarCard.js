@@ -60,7 +60,7 @@ export default function CarCard({ car, onClick, isSelected }) {
               <span className="text-lowercase"> {t("km_included")}</span>
             </p>
             <div className="carPricing">
-              <span className="dailyRate">{car.rental_rate}{t("aed/day")}</span>
+              <span className="dailyRate">{car.rental_rate} {t("aed/day")}</span>
             </div>
             <div>
               <p className="tagStyle">Best Deal</p>

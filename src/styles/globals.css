@@ -354,6 +354,14 @@ span.input-group-text {
 ul.country-list .country{
 text-align: left !important;
 }
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
 @media (min-width: 1200px) {}
 
 @media(max-width:1200px) {

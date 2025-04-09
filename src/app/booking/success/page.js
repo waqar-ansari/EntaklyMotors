@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useSelector } from "react-redux";
@@ -12,17 +12,22 @@ import Image from "next/image";
 import PriceDetailsModal from "@/components/modals/PriceDetailsModal";
 import { useSearchParams } from "next/navigation";
 import { useTranslation } from "@/context/LanguageProvider";
+import api from "@/app/api/axiosInstance";
 
 const BookingConfirmation = () => {
   const searchParams = useSearchParams();
+  const bookingId = new URLSearchParams(window.location.search).get("booking_id");
 
-  const bookingId = searchParams.get("booking_id");
-  const transactionId = searchParams.get("transaction_id");
+  const [transactionId, setTransactionId] = useState(null);
+
   const selectedPackageDetails = useSelector((state) => state.selectedPackage);
   const rentalDetail = useSelector((state) => state.rentalDetail);
   const selectedCarDetail = useSelector((state) => state.selectedCar);
   const bookingOverview = useSelector(selectBookingOverview);
   const totalPrice = useSelector((state) => state.totalPrice);
+  const selectedAddonDetails = useSelector((state) => state.selectedAddon);
+
+  const selectedAddons = selectedAddonDetails.map((item) => item.name);
   const calculateDaysBetween = (startDate, endDate) => {
     const start = new Date(startDate);
     const end = new Date(endDate);
@@ -36,48 +41,59 @@ const BookingConfirmation = () => {
   );
   const { t, language } = useTranslation();
 
-  useEffect(() => {
-    const localUserId = localStorage.getItem("userId");
-    const completeBooking = async (paymentIntent) => {
-      const bookingDetails = {
-        userId: localUserId,
-        carId: JSON.stringify(selectedCarDetail.id),
-        name: fullname,
-        email: email,
-        phoneNumber: {
-          countryCode: countryCode,
-          number: phoneNumber,
-        },
-        pickupLocation: rentalDetail.pickupLocation,
-        returnLocation: rentalDetail.returnLocation,
-        pickupDate: new Date(rentalDetail.pickupDate)
-          .toISOString()
-          .split("T")[0],
-        returnDate: new Date(rentalDetail.returnDate)
-          .toISOString()
-          .split("T")[0],
-        pickupTime: rentalDetail.pickupTime,
-        returnTime: rentalDetail.returnTime,
-        protectionPackage: selectedPackageDetails.packageName,
-        addons: selectedAddons,
-        totalPrice: totalPrice,
-        paymentIntentId: paymentIntent.id,
-        currency: "aed",
-        status: paymentIntent.status,
-      };
-      completeBooking()
-      const paymentResponse = await api.post("/carbooking.php", bookingDetails);
 
-      if (paymentResponse.data.status === "error") {
-        console.error("Error in booking:", paymentResponse.data);
-      } else {
-        const bookingData = new URLSearchParams(
-          paymentResponse.data
-        ).toString();
-        router.replace(`/booking/success?${bookingData}`);
+  useEffect(() => {
+    const fetchPaymentDetails = async () => {
+      const sessionId = new URLSearchParams(window.location.search).get("session_id");
+      if (!sessionId) return;
+  
+      try {
+     
+        const sessionRes = await fetch(`https://api.stripe.com/v1/checkout/sessions/${sessionId}`, {
+          headers: {
+            Authorization: "Bearer sk_test_51R3XPNCvoTSNB6AOCZYZjMVY7HLur9TGtdqrWzBNO57Psfzbpnqya6YtWwW0r6nUDvaW8fBR1XsFXKN2vcihmYMf005Ukp7883",
+          },
+        });
+        const session = await sessionRes.json();
+  
+       
+        const intentRes = await fetch(`https://api.stripe.com/v1/payment_intents/${session.payment_intent}`, {
+          headers: {
+            Authorization: "Bearer sk_test_51R3XPNCvoTSNB6AOCZYZjMVY7HLur9TGtdqrWzBNO57Psfzbpnqya6YtWwW0r6nUDvaW8fBR1XsFXKN2vcihmYMf005Ukp7883",
+          },
+        });
+        const intent = await intentRes.json();
+  
+      
+        const chargeRes = await fetch(`https://api.stripe.com/v1/charges/${intent.latest_charge}`, {
+          headers: {
+            Authorization: "Bearer sk_test_51R3XPNCvoTSNB6AOCZYZjMVY7HLur9TGtdqrWzBNO57Psfzbpnqya6YtWwW0r6nUDvaW8fBR1XsFXKN2vcihmYMf005Ukp7883",
+          },
+        });
+        const charge = await chargeRes.json();
+  
+        const paymentDetails = charge.payment_method_details;
+  
+        let methodUsed = "Unknown";
+        if (paymentDetails?.type === "card") {
+          const walletType = paymentDetails.card.wallet?.type;
+          if (walletType === "apple_pay") methodUsed = "Apple Pay";
+          else if (walletType === "google_pay") methodUsed = "Google Pay";
+          else methodUsed = `Card (${paymentDetails.card.brand} •••• ${paymentDetails.card.last4})`;
+        } else if (paymentDetails?.type === "link") {
+          methodUsed = "Link";
+        }
+  
+        console.log("Paid using:", methodUsed);
+      } catch (err) {
+        console.error("Error fetching payment method details:", err);
       }
     };
+  
+    fetchPaymentDetails();
   }, []);
+  
+  
   return (
     <>
       <Header />

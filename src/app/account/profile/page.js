@@ -249,7 +249,7 @@ const Page = () => {
                           {profileData?.phonenumber?.countryCode}
                         </div>
 
-                        <div className="input-box form-floating w-100 my-0">
+                        <div className="input-box w-100 my-0">
                           <input
                             className="form-control"
                             type="text"
@@ -262,9 +262,9 @@ const Page = () => {
                             }
                             onChange={handleInputChange}
                           />
-                          <label htmlFor="phonenumber" className="inputLabelBg">
+                          {/* <label htmlFor="phonenumber" className="inputLabelBg">
                             {t("phone_number")}
-                          </label>
+                          </label> */}
                         </div>
                       </div>
                       <button type="submit" className="submitButton mt-5">
