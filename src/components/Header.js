@@ -46,18 +46,18 @@ const Header = ({ headerPickupAndDrop }) => {
   const dropdownRef = useRef(null);
 
   // Close the dropdown when clicking outside of it
-  // useEffect(() => {
-  //   const handleClickOutside = (e) => {
-  //     if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-  //       setShowDropdown(false); // Close the dropdown
-  //     }
-  //   };
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setShowDropdown(false); // Close the dropdown
+      }
+    };
 
-  //   document.addEventListener('mousedown', handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener('mousedown', handleClickOutside);
-  //   };
-  // }, []);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
   const { user } = useSelector((state) => state.auth);

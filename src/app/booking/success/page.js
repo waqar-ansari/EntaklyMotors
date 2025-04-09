@@ -17,9 +17,10 @@ import api from "@/app/api/axiosInstance";
 const BookingConfirmation = () => {
   const searchParams = useSearchParams();
   const bookingId = new URLSearchParams(window.location.search).get("booking_id");
-
+  // const [bookingId, setBookingId] = useState(null);
   const [transactionId, setTransactionId] = useState(null);
-
+  // const bookingId = searchParams.get("booking_id");
+  // const transactionId = searchParams.get("transaction_id");
   const selectedPackageDetails = useSelector((state) => state.selectedPackage);
   const rentalDetail = useSelector((state) => state.rentalDetail);
   const selectedCarDetail = useSelector((state) => state.selectedCar);
@@ -42,13 +43,79 @@ const BookingConfirmation = () => {
   const { t, language } = useTranslation();
 
 
+
+  // useEffect(() => {
+  //   const fetchStripeDetails = async () => {
+  //     const sessionId = new URLSearchParams(window.location.search).get("session_id");
+  
+  //     if (!sessionId) {
+  //       console.warn("No session_id found in URL");
+  //       return;
+  //     }
+  
+  //     try {
+  //       // 1. Get session
+  //       const sessionRes = await fetch(`https://api.stripe.com/v1/checkout/sessions/${sessionId}`, {
+  //         headers: {
+  //           Authorization: "Bearer sk_test_51R3XPNCvoTSNB6AOCZYZjMVY7HLur9TGtdqrWzBNO57Psfzbpnqya6YtWwW0r6nUDvaW8fBR1XsFXKN2vcihmYMf005Ukp7883",
+  //         },
+  //       });
+  //       const session = await sessionRes.json();
+  
+  //       // 2. Get payment intent
+  //       const intentRes = await fetch(`https://api.stripe.com/v1/payment_intents/${session.payment_intent}`, {
+  //         headers: {
+  //           Authorization: "Bearer sk_test_51R3XPNCvoTSNB6AOCZYZjMVY7HLur9TGtdqrWzBNO57Psfzbpnqya6YtWwW0r6nUDvaW8fBR1XsFXKN2vcihmYMf005Ukp7883",
+  //         },
+  //       });
+  //       const intent = await intentRes.json();
+
+  
+  //       const paymentStatus = session.payment_status;
+  //       const transactionId = intent.id;
+  //       const paymentDetails = intent.charges?.data?.[0]?.payment_method_details;
+  //       const cardDetails = paymentDetails?.card;
+  //       console.log("intent", intent);
+  //       // console.log(intent.charges.data[0].payment_method_details.card.wallet," cardDetails);");
+  //       console.log("ran till here");
+        
+  //       console.log("paymentDetails", paymentDetails);
+  //       console.log("ran till here2");
+  
+  //       let paymentMethodUsed = "Unknown";
+  
+  //       if (paymentDetails?.type === "card") {
+  //         if (cardDetails?.wallet?.type === "apple_pay") {
+  //           paymentMethodUsed = "Apple Pay";
+  //         } else if (cardDetails?.wallet?.type === "google_pay") {
+  //           paymentMethodUsed = "Google Pay";
+  //         } else {
+  //           paymentMethodUsed = `Card (${cardDetails?.brand?.toUpperCase()} •••• ${cardDetails?.last4})`;
+  //         }
+  //       } else if (paymentDetails?.type === "link") {
+  //         paymentMethodUsed = "Link";
+  //       }
+  
+  //       console.log(" Payment Status:", paymentStatus);
+  //       console.log(" Transaction ID:", transactionId);
+  //       console.log(" Payment Method:", paymentMethodUsed);
+  //     } catch (err) {
+  //       console.error(" Error:", err);
+  //     }
+  //   };
+  
+  //   fetchStripeDetails();
+  // }, []);
+
+
+
   useEffect(() => {
     const fetchPaymentDetails = async () => {
       const sessionId = new URLSearchParams(window.location.search).get("session_id");
       if (!sessionId) return;
   
       try {
-     
+        // Get session
         const sessionRes = await fetch(`https://api.stripe.com/v1/checkout/sessions/${sessionId}`, {
           headers: {
             Authorization: "Bearer sk_test_51R3XPNCvoTSNB6AOCZYZjMVY7HLur9TGtdqrWzBNO57Psfzbpnqya6YtWwW0r6nUDvaW8fBR1XsFXKN2vcihmYMf005Ukp7883",
@@ -56,7 +123,7 @@ const BookingConfirmation = () => {
         });
         const session = await sessionRes.json();
   
-       
+        // Get PaymentIntent
         const intentRes = await fetch(`https://api.stripe.com/v1/payment_intents/${session.payment_intent}`, {
           headers: {
             Authorization: "Bearer sk_test_51R3XPNCvoTSNB6AOCZYZjMVY7HLur9TGtdqrWzBNO57Psfzbpnqya6YtWwW0r6nUDvaW8fBR1XsFXKN2vcihmYMf005Ukp7883",
@@ -64,7 +131,7 @@ const BookingConfirmation = () => {
         });
         const intent = await intentRes.json();
   
-      
+        // Get Charge using intent.latest_charge
         const chargeRes = await fetch(`https://api.stripe.com/v1/charges/${intent.latest_charge}`, {
           headers: {
             Authorization: "Bearer sk_test_51R3XPNCvoTSNB6AOCZYZjMVY7HLur9TGtdqrWzBNO57Psfzbpnqya6YtWwW0r6nUDvaW8fBR1XsFXKN2vcihmYMf005Ukp7883",

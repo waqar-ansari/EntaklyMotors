@@ -189,27 +189,27 @@ const PickupAndDropPicker = ({
       setActiveInput(inputType);
     }
   };
-  // useEffect(() => {
-  //   const handleClickOutside = (event) => {
-  //     if (
-  //       showLocationsRef.current &&
-  //       !showLocationsRef.current.contains(event.target) &&
-  //       event.target.id !== "pickupLocation" &&
-  //       event.target.id !== "returnLocation"
-  //     ) {
-  //       setShowLocations(false);
-  //       setActiveInput(null);
-  //     }
-  //   };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        showLocationsRef.current &&
+        !showLocationsRef.current.contains(event.target) &&
+        event.target.id !== "pickupLocation" &&
+        event.target.id !== "returnLocation"
+      ) {
+        setShowLocations(false);
+        setActiveInput(null);
+      }
+    };
 
-  //   if (showLocations) {
-  //     document.addEventListener("click", handleClickOutside);
-  //   } else {
-  //     document.removeEventListener("click", handleClickOutside);
-  //   }
+    if (showLocations) {
+      document.addEventListener("click", handleClickOutside);
+    } else {
+      document.removeEventListener("click", handleClickOutside);
+    }
 
-  //   return () => document.removeEventListener("click", handleClickOutside);
-  // }, [showLocations]);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, [showLocations]);
   const handlePickUpTimeClick = () => {
     setShowPickupTimeModal(true);
   };
