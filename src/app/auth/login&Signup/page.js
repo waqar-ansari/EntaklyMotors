@@ -404,7 +404,7 @@ export default function LoginPage() {
                     </label>
                   </div>
                 ) : (
-                  <div className="d-flex align-items-center">
+                  <div className="d-flex align-items-center mb-3">
                  {!otpSent ? (   
                    <>
                      <PhoneInput
@@ -432,7 +432,7 @@ export default function LoginPage() {
                             placeholder={t("phone_number")}
                             value={phoneNumber}
                             onChange={(e) => setPhoneNumber(e.target.value)}
-                            className="form-control mb-3"
+                            className="form-control"
                           />
                           {/* <label
                             htmlFor="loginPhoneNumber"

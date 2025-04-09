@@ -37,8 +37,6 @@ import { useTranslation } from "../context/LanguageProvider";
 import { useRouter } from "next/navigation";
 // import { getLocationData } from "../../public/locations/allLocations";
 
-
-
 const PickupAndDropPicker = ({
   heading = true,
   showCarsButton = true,
@@ -119,8 +117,7 @@ const PickupAndDropPicker = ({
       address: t("jbr"),
       locationIcon: <HiMiniHome />,
     },
-
-  ]
+  ];
   // const formatDate = (date) => {
   //   if (!date) return "";
   //   return date.toLocaleString("en-GB", {
@@ -733,22 +730,22 @@ const PickupAndDropPicker = ({
           <Modal.Title>Choose Date</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <CustomProvider locale={calendarLocales[language]}>
-          <DateRangePicker
-            showOneCalendar
-            style={{ width: 0, background: "transparent" }}
-            onOk={() => setShowDateModal(false)}
-            onClose={() => setShowDateModal(false)}
-            ref={pickerRef}
-            shouldDisableDate={(date) => date < new Date()}
-            value={range}
-            onChange={setRange}
-            format="d MMMM yyyy"
-            defaultOpen
-            showMeridiem
-            character="to"
-            locale={arEG}
-          />
+          <CustomProvider locale={calendarLocales[language]}>
+            <DateRangePicker
+              showOneCalendar
+              style={{ width: 0, background: "transparent" }}
+              onOk={() => setShowDateModal(false)}
+              onClose={() => setShowDateModal(false)}
+              ref={pickerRef}
+              shouldDisableDate={(date) => date < new Date()}
+              value={range}
+              onChange={setRange}
+              format="d MMMM yyyy"
+              defaultOpen
+              showMeridiem
+              character="to"
+              locale={arEG}
+            />
           </CustomProvider>
         </Modal.Body>
       </Modal>

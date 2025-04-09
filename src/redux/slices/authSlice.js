@@ -4,6 +4,8 @@ const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
 export const loginUser = createAsyncThunk("login", async (credentials) => {
   const response = await api.post("/login.php", credentials);
+  console.log(response.data, "response dataaaa from loginUser");
+  
   return response.data;
 });
 export const signupUser = createAsyncThunk(

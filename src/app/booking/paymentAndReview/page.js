@@ -22,16 +22,7 @@ import { useRouter } from "next/navigation";
 import api from "@/app/api/axiosInstance";
 import ar from "react-phone-input-2/lang/ar.json";
 import ru from "react-phone-input-2/lang/ru.json";
-import {
-  CardCvcElement,
-  CardElement,
-  CardExpiryElement,
-  CardNumberElement,
-  Elements,
-  useElements,
-  useStripe,
-  PaymentElement,
-} from "@stripe/react-stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 
 const PaymentPage = () => {
   const [countryCode, setCountryCode] = useState("+971");
@@ -40,8 +31,6 @@ const PaymentPage = () => {
   const [localUserId, setLocalUserId] = useState("");
   const [fullname, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [bookingId, setBookingId] = useState(null);
 
   const router = useRouter();
   const handleCountryChange = (value, country) => {
@@ -74,207 +63,9 @@ const PaymentPage = () => {
   const bookingOverview = useSelector(selectBookingOverview);
   const totalPrice = useSelector((state) => state.totalPrice);
   const { t, language } = useTranslation();
-  const elements = useElements();
-  const stripe = useStripe();
-
-  // const continueToPayment = async () => {
-  //   try {
-  //     // if (!stripe || !elements) {
-  //     //   console.error("Stripe has not loaded yet.");
-  //     //   return;
-  //     // }
-
-  //     // const cardElement = elements.getElement(CardNumberElement);
-  //     // if (!cardElement) {
-  //     //   console.error("CardNumberElement is not available.");
-  //     //   return;
-  //     // }
-
-  //     // const res = await api.post("/payment_intent.php", { totalPrice });
-  //     // const clientSecret = res?.data?.intent?.client_secret;
-  //     // const paymentIntentId = res?.data?.intent?.id;
-
-  //     // if (!clientSecret || !paymentIntentId) {
-  //     //   console.error("Invalid PaymentIntent response:", res.data);
-  //     //   return;
-  //     // }
-
-  //     // const { paymentIntent, error } = await stripe.confirmCardPayment(
-  //     //   clientSecret,
-  //     //   {
-  //     //     payment_method: { card: cardElement },
-  //     //   }
-  //     // );
-  //     const stripePromise = loadStripe(
-  //       "pk_test_51R3XPNCvoTSNB6AOjILWKU5d9NGh1QFAu9OlTS7MKIMon5N3L1ZraqzwfDl01lpRq9vdhzUhmNy96wfSONS0yBrQ00iEBIMQAL"
-  //     );
-  //     const stripe = await stripePromise;
-  //     // await stripe.redirectToCheckout({
-  //     //   lineItems: [
-  //     //     {
-  //     //       price: "100",
-  //     //       quantity: 1,
-  //     //     },
-  //     //   ],
-  //     //   mode: "payment",
-  //     //   successUrl: "http://localhost:3000/success",
-  //     //   cancelUrl: "http://localhost:3000/cancel",
-  //     // });
-
-  //     const amount = 200;
-  //     const sessionData = {
-  //       payment_method_types: ["card"],
-  //       line_items: [
-  //         {
-  //           price_data: {
-  //             currency: "aed",
-  //             unit_amount: amount * 100, // Amount in cents
-  //             product_data: {
-  //               name: "Custom Payment",
-  //             },
-  //           },
-  //           quantity: 1,
-  //         },
-  //       ],
-  //       mode: "payment",
-  //       success_url: `${window.location.origin}/success`,
-  //       cancel_url: `${window.location.origin}/cancel`,
-  //     };
-
-  //     // Create session on the client-side using the Stripe API
-  //     const response = await fetch(
-  //       "https://api.stripe.com/v1/checkout/sessions",
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           Authorization: `Bearer sk_test_51R3XPNCvoTSNB6AOjILWKU5d9NGh1QFAu9OlTS7MKIMon5N3L1ZraqzwfDl01lpRq9vdhzUhmNy96wfSONS0yBrQ00iEBIMQAL`, // Secret key, which should never be exposed on the frontend!
-  //           "Content-Type": "application/x-www-form-urlencoded",
-  //         },
-  //         body: new URLSearchParams(sessionData),
-  //       }
-  //     ).then((res) => res.json());
-
-  //     // Redirect to Stripe Checkout
-  //     const { id } = response;
-  //     const { error } = await stripe.redirectToCheckout({ sessionId: id });
-
-  //     if (error) {
-  //       console.error("Error redirecting to checkout:", error);
-  //     }
-
-  //     // if (error) {
-  //     //   console.error("Error from confirmCardPayment:", error.message);
-  //     //   setErrorMessage("Error from confirmCardPayment", error.message);
-  //     //   return;
-  //     // }
-
-  //     // await completeBooking(paymentIntent);
-  //   } catch (err) {
-  //     console.error("Unexpected Error in makeCardPayment:", err);
-  //   }
-  // };
-
-  // const continueToPayment = async () => {
-  //   const completeBooking = async () => {
-  //     const bookingDetails = {
-  //       userId: localUserId,
-  //       carId: JSON.stringify(selectedCarDetail.id),
-  //       name: fullname,
-  //       email: email,
-  //       phoneNumber: {
-  //         countryCode: countryCode,
-  //         number: phoneNumber,
-  //       },
-  //       pickupLocation: rentalDetail.pickupLocation,
-  //       returnLocation: rentalDetail.returnLocation,
-  //       pickupDate: new Date(rentalDetail.pickupDate)
-  //         .toISOString()
-  //         .split("T")[0],
-  //       returnDate: new Date(rentalDetail.returnDate)
-  //         .toISOString()
-  //         .split("T")[0],
-  //       pickupTime: rentalDetail.pickupTime,
-  //       returnTime: rentalDetail.returnTime,
-  //       protectionPackage: selectedPackageDetails.packageName,
-  //       addons: selectedAddons,
-  //       totalPrice: totalPrice,
-  //     };
-
-  //     const bookingResponse = await api.post("/carbooking.php", bookingDetails);
-  //     setBookingId(bookingResponse.data.booking_id);
-  //     console.log("Booking response:", bookingResponse.data.booking_id);
-
-  //     if (bookingResponse.data.status === "error") {
-  //       console.error("Error in booking:", bookingResponse.data);
-  //     }
-  //   };
-  //   completeBooking();
-
-  //   try {
-  //     const stripe = await loadStripe(
-  //       "pk_test_51R3XPNCvoTSNB6AOjILWKU5d9NGh1QFAu9OlTS7MKIMon5N3L1ZraqzwfDl01lpRq9vdhzUhmNy96wfSONS0yBrQ00iEBIMQAL"
-  //     );
-
-  //     const amount = totalPrice;
-  //     console.log(bookingId, "bookingId before sending to stripe");
-
-  //     const sessionData = new URLSearchParams();
-  //     sessionData.append("payment_method_types[]", "card");
-  //     sessionData.append("line_items[0][price_data][currency]", "aed");
-  //     sessionData.append(
-  //       "line_items[0][price_data][unit_amount]",
-  //       (amount * 100).toString()
-  //     );
-  //     sessionData.append(
-  //       "line_items[0][price_data][product_data][name]",
-  //       "Custom Payment"
-  //     );
-  //     sessionData.append("line_items[0][quantity]", "1");
-  //     sessionData.append("mode", "payment");
-  //     console.log(bookingId, "bookingId before sending to stripe 2");
-
-  //     sessionData.append(
-  //       "success_url",
-  //       `${window.location.origin}/booking/success?session_id={CHECKOUT_SESSION_ID}&booking_id=${bookingId}`
-  //     );
-  //     sessionData.append(
-  //       "cancel_url",
-  //       `${window.location.origin}/booking/paymentAndReview`
-  //     );
-
-  //     const response = await fetch(
-  //       "https://api.stripe.com/v1/checkout/sessions",
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           Authorization: `Bearer sk_test_51R3XPNCvoTSNB6AOCZYZjMVY7HLur9TGtdqrWzBNO57Psfzbpnqya6YtWwW0r6nUDvaW8fBR1XsFXKN2vcihmYMf005Ukp7883`,
-  //           "Content-Type": "application/x-www-form-urlencoded",
-  //         },
-  //         body: sessionData,
-  //       }
-  //     );
-
-  //     const data = await response.json();
-
-  //     if (!data.id) {
-  //       console.error("Session creation failed:", data);
-  //       return;
-  //     }
-
-  //     // Redirect to Stripe checkout
-  //     const { error } = await stripe.redirectToCheckout({ sessionId: data.id });
-
-  //     if (error) {
-  //       console.error("Stripe redirect error:", error);
-  //     }
-  //   } catch (err) {
-  //     console.error("Unexpected error:", err);
-  //   }
-  // };
 
   const continueToPayment = async () => {
     try {
-
       const bookingDetails = {
         userId: localUserId,
         carId: JSON.stringify(selectedCarDetail.id),
@@ -307,9 +98,8 @@ const PaymentPage = () => {
       }
 
       const bookingId = bookingResponse.data.booking_id;
-      console.log("✅ Booking ID:", bookingId);
+      console.log("Booking ID:", bookingId);
 
-   
       const stripe = await loadStripe(
         "pk_test_51R3XPNCvoTSNB6AOjILWKU5d9NGh1QFAu9OlTS7MKIMon5N3L1ZraqzwfDl01lpRq9vdhzUhmNy96wfSONS0yBrQ00iEBIMQAL"
       );
@@ -471,50 +261,6 @@ const PaymentPage = () => {
                 <p className="mb-0">{t("drivers_must_have_held")}</p>
               </div>
             </div>
-            {/* <div>
-              <h3>{t("how_would_you_like_to_pay")}</h3>
-            </div>
-
-            <div className="payment-form">
-              <div className="input-box form-floating mb-3">
-                <div
-                  className="form-control stripe-input"
-                  style={{ backgroundColor: "#eee" }}
-                >
-                  <CardNumberElement
-                    name="cardNumber"
-                    options={{
-                      showIcon: true,
-                    }}
-                  />
-                </div>
-                <label className="inputLabelBg">Card Number</label>
-              </div>
-
-              <div className="input-box form-floating mb-3">
-                <div
-                  className="form-control stripe-input"
-                  style={{ backgroundColor: "#eee" }}
-                >
-                  <CardExpiryElement />
-                </div>
-                <label className="inputLabelBg">Expiry Date</label>
-              </div>
-
-              <div className="input-box form-floating mb-3">
-                <div
-                  className="form-control stripe-input"
-                  style={{ backgroundColor: "#eee" }}
-                >
-                  <CardCvcElement
-                    options={{
-                      placeholder: "123",
-                    }}
-                  />
-                </div>
-                <label className="inputLabelBg">CVV</label>
-              </div>
-            </div> */}
 
             <div className="d-flex justify-content-between align-items-center">
               <h6 className="fw-bold">{t("total")}</h6>
