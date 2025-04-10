@@ -727,7 +727,7 @@ const PickupAndDropPicker = ({
         scrollable
       >
         <Modal.Header closeButton>
-          <Modal.Title>Choose Date</Modal.Title>
+          <Modal.Title>{("choose_date")}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <CustomProvider locale={calendarLocales[language]}>
@@ -837,7 +837,7 @@ const PickupAndDropPicker = ({
             className="btn btn-secondary"
             onClick={() => setShowPickupTimeModalMobile(false)}
           >
-            Close
+            {t("close")}
           </Button>
           <Button
             style={{
@@ -941,7 +941,7 @@ const PickupAndDropPicker = ({
             className="btn btn-secondary"
             onClick={() => setShowReturnTimeModalMobile(false)}
           >
-            Close
+            {t("close")}
           </Button>
           <Button
             style={{
@@ -1033,7 +1033,7 @@ const PickupAndDropPicker = ({
               setActiveInput(null);
             }}
           >
-            Close
+            {t("close")}
           </Button>
           <Button
             style={{ backgroundColor: colors.themeMain, color: colors.white }}
@@ -1139,7 +1139,7 @@ const PickupAndDropPicker = ({
               setActiveInput(null);
             }}
           >
-            Close
+            {t("close")}
           </Button>
           <Button
             style={{ backgroundColor: colors.themeMain, color: colors.white }}
