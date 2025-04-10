@@ -346,6 +346,13 @@
 
   
   "full_name":"Полное имя",
+  "booking_confirmation":"Подтверждение бронирования",
+  "booking_reserved":"Бронирование зарезервировано",
+  "congratulations_your_booking_has_been_confirmed":"Поздравляем, ваше бронирование подтверждено. Наслаждайтесь поездкой и создавайте воспоминания.",
+  "booking_details":"Детали бронирования",
+  "booking_id":"Booking Id",
+  "payment_details":"Детали оплаты",
+  "":"",
   "":"",
   "":"",
   "dubai_international_airport_terminal_1": "Международный аэропорт Дубая, Терминал 1",
