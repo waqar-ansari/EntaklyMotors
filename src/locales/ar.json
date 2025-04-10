@@ -27,13 +27,13 @@
   "car_rental": "تأجير السيارات",
   "pick_up_and_drop_off": "استلام وتسليم ",
   "lease_for_24_months": "تأجير مع خيار التملك خلال 24 شهرًا مع 20% دفعة أولى",
-  "v_class_maybach_services": "خدمات V-Class Maybach",
+  "v_class_maybach_services": "خدمات مايباخ الفئة V",
   "help_and_more": "المساعدة والمزيد",
   "contact_us": "اتصل بنا",
   "about_us": "من نحن",
   "corporate_responsibility": "المسؤولية المؤسسية",
   "terms_and_conditions": "الشروط والأحكام",
-  "copyright_text": " جميع الحقوق محفوظة لشركة أنطكلي موتورز ٢٠٢٥",
+  "copyright_text": " جميع الحقوق محفوظة لشركة انطاكلي موتورز ٢٠٢٥",
   "language": "اللغة",
   "login": "تسجيل الدخول ",
   "forgot_password": "هل نسيت كلمة المرور",
@@ -268,6 +268,7 @@
 "dubai_taxi":"تاكسي دبي",
 "full_day":"يوم كامل (10 ساعات)",
 "dxb_airport":"مطار دبي",
+"+971 4 4536000":"+97144536000",
 
 
 
@@ -305,7 +306,7 @@
 "ensuring_customer_data_protection":" ضمان حماية بيانات العملاء والمعاملات الآمنة.",
 "we_are_dedicated_to_making_a_difference":"في إنتقلي موتورز لتأجير السيارات ذ.م.م.، نحن ملتزمون بإحداث فرق من خلال تقديم خدمات تأجير سيارات استثنائية. التزامنا بالاستدامة والسلامة والممارسات التجارية الأخلاقية هو ما يميزنا.",
 "contact_us_today_to_learn_more":"تواصل معنا اليوم لمعرفة المزيد",
-
+"CONTACT_US":"اتصل بنا",
 
 
 

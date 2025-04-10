@@ -48,7 +48,7 @@ const page = () => {
                   color: colors.black,
                 }}
               >
-                 <span className="ms-1"> +971 4 4536000</span>
+                 <span className="ms-1"> {t("+971 4 4536000")}</span>
               </Link>
             </div>
             <div style={styles.contactInfoBox}>

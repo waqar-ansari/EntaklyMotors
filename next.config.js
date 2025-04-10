@@ -16,7 +16,7 @@ module.exports = {
         },
         {
           protocol: "https",
-          hostname: "entaklymotors.com", // Add this if your images also come from this domain
+          hostname: "entaklymotors.com",
         },
       ],
     },

@@ -110,7 +110,7 @@ const PaymentPage = () => {
       console.log("Booking ID:", bookingId);
 
       const stripe = await loadStripe(
-        "pk_test_51R3XPNCvoTSNB6AOjILWKU5d9NGh1QFAu9OlTS7MKIMon5N3L1ZraqzwfDl01lpRq9vdhzUhmNy96wfSONS0yBrQ00iEBIMQAL"
+        "pk_live_51R3XPNCvoTSNB6AOP5RMquZLbnYYfSrT8ZwSMTWVMxdJxy5eFPUyKa1WNn9mX1ecz80mnolIoK2HgpWQ5bzitBzo00CudNWUSt"
       );
 
       const amount = totalPrice;
@@ -143,7 +143,7 @@ const PaymentPage = () => {
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer sk_test_51R3XPNCvoTSNB6AOCZYZjMVY7HLur9TGtdqrWzBNO57Psfzbpnqya6YtWwW0r6nUDvaW8fBR1XsFXKN2vcihmYMf005Ukp7883`,
+            Authorization: `Bearer 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`,
             "Content-Type": "application/x-www-form-urlencoded",
           },
           body: sessionData,
@@ -401,7 +401,7 @@ const page = () => {
   };
 
   const stripePromise = loadStripe(
-    "pk_test_51R3XPNCvoTSNB6AOjILWKU5d9NGh1QFAu9OlTS7MKIMon5N3L1ZraqzwfDl01lpRq9vdhzUhmNy96wfSONS0yBrQ00iEBIMQAL"
+    "pk_live_51R3XPNCvoTSNB6AOP5RMquZLbnYYfSrT8ZwSMTWVMxdJxy5eFPUyKa1WNn9mX1ecz80mnolIoK2HgpWQ5bzitBzo00CudNWUSt"
   );
 
   return (

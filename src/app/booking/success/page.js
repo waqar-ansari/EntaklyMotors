@@ -61,7 +61,7 @@ const BookingConfirmation = () => {
           {
             headers: {
               Authorization:
-                "Bearer sk_test_51R3XPNCvoTSNB6AOCZYZjMVY7HLur9TGtdqrWzBNO57Psfzbpnqya6YtWwW0r6nUDvaW8fBR1XsFXKN2vcihmYMf005Ukp7883",
+                "Bearer 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",
             },
           }
         );
@@ -73,7 +73,7 @@ const BookingConfirmation = () => {
           {
             headers: {
               Authorization:
-                "Bearer sk_test_51R3XPNCvoTSNB6AOCZYZjMVY7HLur9TGtdqrWzBNO57Psfzbpnqya6YtWwW0r6nUDvaW8fBR1XsFXKN2vcihmYMf005Ukp7883",
+                "Bearer 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",
             },
           }
         );
@@ -85,7 +85,7 @@ const BookingConfirmation = () => {
           {
             headers: {
               Authorization:
-                "Bearer sk_test_51R3XPNCvoTSNB6AOCZYZjMVY7HLur9TGtdqrWzBNO57Psfzbpnqya6YtWwW0r6nUDvaW8fBR1XsFXKN2vcihmYMf005Ukp7883",
+                "Bearer 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",
             },
           }
         );

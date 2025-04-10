@@ -496,7 +496,7 @@ const page = () => {
   };
 
   const stripePromise = loadStripe(
-    "pk_test_51R3XPNCvoTSNB6AOjILWKU5d9NGh1QFAu9OlTS7MKIMon5N3L1ZraqzwfDl01lpRq9vdhzUhmNy96wfSONS0yBrQ00iEBIMQAL"
+    "pk_live_51R3XPNCvoTSNB6AOP5RMquZLbnYYfSrT8ZwSMTWVMxdJxy5eFPUyKa1WNn9mX1ecz80mnolIoK2HgpWQ5bzitBzo00CudNWUSt"
   );
 
   return (

@@ -43,7 +43,9 @@ export default function HomePage() {
       position: "absolute",
       bottom: "40px",
       left: "40px",
+      right: "40px",
       height: "85%",
+      // width: "85%",
     },
     textContainer2: {
       position: "absolute",
