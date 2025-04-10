@@ -109,10 +109,10 @@
   "pay_online_free_cancellation": "Оплатите онлайн, бесплатная отмена и перепланировка в любое время до времени забора",
   "24_hour_pickup":"Круглосуточное получение",
   "24_hour_return":"Круглосуточный возврат",
-  "select_return_location":"select_return_location",
-  "arabic":"Arabic",
-  "save_changes":"save_changes",
-  "select_return_date":"select_return_date",
+  "select_return_location":"выберите место возврата",
+  "arabic":"арабский",
+  "save_changes":"сохранить изменения",
+  "select_return_date":"выберите возвращаемые данные",
   "close":"close",
   "km_included":"Включенные километры",
   "day":"День",
@@ -185,7 +185,11 @@
 "uae_residency":"Вид на жительство в ОАЭ (для иностранцев).",
 "this_is_the_perfect_option":"Это идеальный вариант для частных лиц и компаний, которые ищут быстрый, надежный и экономичный способ стать владельцем автомобиля.",
 "interested":"Интересуетесь?",
-"today_to_get_started":"today to get started",
+"today_to_get_started":"сегодня, чтобы начать",
+"P30_Sadaf_2":"P30, Садаф 2, JBR, Дубай, ОАЭ",
+"telephone":"Телефон",
+"whatsapp":"WhatsApp",
+"location":"расположение",
 
 
 

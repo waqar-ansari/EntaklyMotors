@@ -1,11 +1,14 @@
+"use client"
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import React from "react";
 import { fonts } from "../../../public/fonts/fonts";
 import Link from "next/link";
 import { colors } from "../../../public/colors/colors";
+import { useTranslation } from "@/context/LanguageProvider";
 
 const page = () => {
+  const {t} = useTranslation();
   return (
     <>
       <Header />
@@ -21,10 +24,10 @@ const page = () => {
                 marginBottom: 50,
               }}
             >
-              Contact Us
+              {t("CONTACT_US")}
             </h2>
             <div style={styles.contactInfoBox}>
-              <span>Telephone:  </span>
+              <span>{t("telephone")}:  </span>
               <Link
                 href="tel:+998333333331"
                 style={{
@@ -36,7 +39,7 @@ const page = () => {
               </Link>
             </div>
             <div style={styles.contactInfoBox}>
-              <span>Whatsapp: </span>
+              <span>{t("whatsapp")}: </span>
               <Link
                 href="https://wa.me/+971044536000"
                 target="_blank"
@@ -49,7 +52,7 @@ const page = () => {
               </Link>
             </div>
             <div style={styles.contactInfoBox}>
-              <span>Email: </span>
+              <span>{t("email")}: </span>
               <Link
                 href="mailto:info@entaklymotors.com"
                 style={{
@@ -61,7 +64,7 @@ const page = () => {
               </Link>
             </div>
             <div style={styles.contactInfoBox}>
-              <span >Location : </span>
+              <span >{t("location")} : </span>
               <Link
                 href=""
                 style={{

@@ -47,7 +47,7 @@
   "hello_welcome":"Hello, Welcome!",
   "dont_have_account":"Don't have an account?",
   "email/mobile":"Email / Mobile",
-  "email":"Email",
+  "email":"E-mail",
   "password":"Password",
   "enter_your_email":"Enter your email",
   "bookings":"Bookings",
@@ -241,7 +241,10 @@
 "a_fee_will_be_charged":"A fee will be charged if the booking is cancelled.",
 "cancellation_fees_are_based_on":"Cancellation fees are based on your final selection and will be displayed on the page where you finalize your booking.",
 "if_you_cancel_after":"If you cancel after the scheduled pick-up time, no refund will be given.",
-"":"",
+"telephone":"Telephone",
+"whatsapp":"Whatsapp",
+"location ":"Location",
+"P30_Sadaf_2":"P30, Sadaf 2, JBR, Dubai, UAE",
 "":"",
 "":"",
 
@@ -280,7 +283,7 @@
 "ensuring_customer_data_protection":" Ensuring customer data protection and secure transactions.",
 "we_are_dedicated_to_making_a_difference":"At ENTAKLY MOTORS CAR RENTAL LLC, we are dedicated to making a difference while delivering exceptional car rental services. Our commitment to sustainability, safety, and ethical business defines who we are.",
 "contact_us_today_to_learn_more":"Contact Us today to Learn More",
-
+"CONTACT_US":"CONTACT US",
 
 
 
