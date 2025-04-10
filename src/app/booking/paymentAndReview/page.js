@@ -296,7 +296,7 @@ const PaymentPage = () => {
                 opacity: isChecked ? 1 : 0.5,
               }}
             >
-              {("Continue to Pay")}
+              {t("continue_to_pay")}
             </button>
           </div>
           <div className="col-md-4">

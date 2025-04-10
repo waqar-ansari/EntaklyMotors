@@ -87,7 +87,7 @@
   "premium_location_fee": "Premium Location Fee",
   "vehicle_license_fee": "Плата за лицензирование транспортного средства",
   "drivers_must_have_held": "Водители должны иметь водительское удостоверение как минимум 1 год для вождения этого транспортного средства",
-  "continue": "Continue",
+  "continue": "продолжать",
   "booking_overview": "Обзор вашего бронирования:",
   "who_will_drive": "Кто будет водить?",
   "company": "Company",
@@ -137,7 +137,7 @@
 "if_you_cancel_after":"Если вы отмените заказ после запланированного времени получения, возврат средств не производится.",
 
 "basic_protection":"Основная защита",
-"excess_upto":"Excess : up to",
+"excess_upto":"Превышение: до",
 "smart_protection":"Умная защита",
 "all_inclusive_protection":"Защита Все включено",
 "loss_damage_waiver":"Отказ от ответственности за ущерб",
@@ -154,7 +154,7 @@
   "additional_driver":"Дополнительный водитель",
   "baby_seat":"Детское сиденье (0-18 кг / Группа 0+/1)",
   "amazing_experience_with_entakly":"Удивительный опыт с ENTAKLY MOTORS. Они предоставляют потрясающие автомобили.",
-  "we_provide_amazing_car":"we_provide_amazing_car",
+  "we_provide_amazing_car":"мы предоставляем потрясающие автомобили",
   "aed/day":"дирхам/день",
   "rental_days":"Дни аренды",
   "guest":"guest",
@@ -244,7 +244,7 @@
 "dubai_taxi":"такси в Дубае",
 "full_day":"полный день 10 часов",
 "dxb_airport":"аэропорт DXB",
-"entakly_luxury_taxi":"ru ENTAKLY LUXURY TAXI",
+"entakly_luxury_taxi":"ЭНТАКЛИ РОСКОШНОЕ ТАКСИ",
 
 
 
@@ -345,7 +345,7 @@
 
 
   
-  "":"",
+  "full_name":"Полное имя",
   "":"",
   "":"",
   "dubai_international_airport_terminal_1": "Международный аэропорт Дубая, Терминал 1",

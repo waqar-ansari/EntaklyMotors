@@ -102,7 +102,7 @@ const Footer = () => {
                   href="https://wa.me/+971044536000"
                   target="_blank" className="footerLinks">
                     {/* {t("pick_up_and_drop_off")} */}
-                    {("Dubai Luxury Taxi")}
+                    {t("dubai_luxury_taxi")}
                     </Link>
               </li>
               <li style={styles.LinkItems}>
