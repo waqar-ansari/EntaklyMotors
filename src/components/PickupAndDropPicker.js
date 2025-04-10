@@ -367,7 +367,7 @@ const PickupAndDropPicker = ({
                         <div className="d-flex justify-content-between align-items-center mb-3">
                           <div className="fs-2">{hoveredItem.locationIcon}</div>
                           <div>
-                            <span className="pickupRetunSpanStyle me-2">
+                            <span className="pickupRetunSpanStyle me-2 mb-3">
                               <MdKey className="me-2" />
                               {t("24_hour_pickup")}
                             </span>
@@ -693,7 +693,7 @@ const PickupAndDropPicker = ({
                   onClick={handleReturnTimeClick}
                   readOnly
                 />
-                <label htmlFor="floatingInputGroup1">Return Time</label>
+                <label htmlFor="floatingInputGroup1">{t("return_time")}</label>
               </div>
             </div>
           </div>

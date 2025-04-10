@@ -107,6 +107,11 @@ const BookingConfirmation = () => {
           payment_status: paymentStatus,
           booking_number: bookingId,
           totalPrice: totalPrice,
+          carId: 1,
+          pickupDate: rentalDetail.pickupDate,
+          returnDate: rentalDetail.returnDate,
+          pickupTime: rentalDetail.pickupTime,
+          returnTime: rentalDetail.returnTime,
         };
         console.log("sendPaymentDetails", sendPaymentDetails);
 

@@ -85,7 +85,7 @@ const Footer = () => {
         </div>
         <div className="row">
           <div className="col-md-3 mt-4">
-            <p style={styles.footerHeading}>{t("our_Services")}</p>
+            <p style={styles.footerHeading}>{t("our_services")}</p>
             <ul
               style={{
                 listStyle: "none",
@@ -102,7 +102,7 @@ const Footer = () => {
                   href="https://wa.me/+971044536000"
                   target="_blank" className="footerLinks">
                     {/* {t("pick_up_and_drop_off")} */}
-                    Dubai Luxury Taxi
+                    {("Dubai Luxury Taxi")}
                     </Link>
               </li>
               <li style={styles.LinkItems}>

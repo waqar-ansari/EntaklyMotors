@@ -392,7 +392,7 @@ export default function HomePage() {
                   <div>
                     <p style={styles.imageHeading2} className="heading">
                       {/* {t("entakly_motors_business")} */}
-                      ENTAKLY LUXURY TAXI
+                      {t("entakly_luxury_taxi")}
                     </p>
                     <p style={styles.imageText} className="text">
                       {t("pick_up_and_drop_off_across_uae")}
@@ -413,24 +413,24 @@ export default function HomePage() {
                         target="_blank"
                         className="entakly-business-services text-decoration-none text-white"
                       >
-                        <p className="my-0">DXB AIRPORT</p>
-                        <p className="my-0">AED 250</p>
+                        <p className="my-0">{t("dxb_airport")}</p>
+                        <p className="my-0">{t("AED")} 250</p>
                       </Link>
                       <Link
                         href="https://buy.stripe.com/8wMaFj6J67nW2He8wE"
                         target="_blank"
                         className="entakly-business-services text-decoration-none text-white"
                       >
-                        <p className="my-0">FULL DAY 10 HOURS</p>
-                        <p className="my-0">AED 1000</p>
+                        <p className="my-0">{t("full_day")}</p>
+                        <p className="my-0">{t("AED")} 1000</p>
                       </Link>
                       <Link
                         href="https://buy.stripe.com/aEU8xb0kIdMkfu0aEN"
                         target="_blank"
                         className="entakly-business-services text-decoration-none text-white"
                       >
-                        <p className="my-0">DUBAI TAXI</p>
-                        <p className="my-0">AED 100</p>
+                        <p className="my-0">{t("dubai_taxi")}</p>
+                        <p className="my-0">{t("AED")} 100</p>
                       </Link>
                     </div>
                     {/* <div

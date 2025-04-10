@@ -31,6 +31,7 @@ const PaymentPage = () => {
   const [localUserId, setLocalUserId] = useState("");
   const [fullname, setFullName] = useState("");
   const [email, setEmail] = useState("");
+  const { t, language } = useTranslation();
 
   const router = useRouter();
   const handleCountryChange = (value, country) => {
@@ -61,8 +62,16 @@ const PaymentPage = () => {
   const selectedCarDetail = useSelector((state) => state.selectedCar);
 
   const bookingOverview = useSelector(selectBookingOverview);
+
+  const translatedBookingOverview = bookingOverview.map(item => {
+    if (item === "Free Cancellation") return t("free_cancellation");
+    if (item === "Zero Deposit") return t("zero_deposit");
+    if (item === "200 km are included, each additional kilometer costs AED 0.65") return t("200_km_included");
+    return item;
+  });
+
+
   const totalPrice = useSelector((state) => state.totalPrice);
-  const { t, language } = useTranslation();
 
   const continueToPayment = async () => {
     try {
@@ -287,7 +296,7 @@ const PaymentPage = () => {
                 opacity: isChecked ? 1 : 0.5,
               }}
             >
-              Continue to Pay
+              {("Continue to Pay")}
             </button>
           </div>
           <div className="col-md-4">
@@ -321,7 +330,7 @@ const PaymentPage = () => {
                       or similar
                     </p>
                     <p style={{ fontWeight: 600, marginBottom: 0 }}>
-                      {numberOfRentalDays} Rental Days
+                      {numberOfRentalDays} {t("rental_days")}
                     </p>
                   </div>
                 </div>
@@ -367,7 +376,7 @@ const PaymentPage = () => {
               <hr className="hrStyle" />
               <h6 className="mb-3">{t("booking_overview")}:</h6>
               <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
-                {bookingOverview.map((item, index) => {
+                {translatedBookingOverview.map((item, index) => {
                   return (
                     <li className="liTick" key={index}>
                       {item}

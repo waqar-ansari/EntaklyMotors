@@ -23,7 +23,7 @@
   "pick_up_and_drop_off_across_uae": "Самовывоз и доставка в ОАЕ",
   "chat_now": "Написать",
   "dubai": "Дубай",
-  "our_Services": "Наши услуги",
+  "our_services": "Наши услуги",
   "car_rental": "Аренда автомобилей",
   "pick_up_and_drop_off": "Доставка и Подбор",
   "lease_for_24_months": "Аренда с правом выкупа на 24 месяца с первоначальным взносом 20%",
@@ -107,19 +107,34 @@
   "return_time": "Время возврата",
   "stay_flexible": "Гибкая опция",
   "pay_online_free_cancellation": "Оплатите онлайн, бесплатная отмена и перепланировка в любое время до времени забора",
-  "24_hour_pickup":"24_hour_pickup",
-  "24_hour_return":"24_hour_return",
+  "24_hour_pickup":"Круглосуточное получение",
+  "24_hour_return":"Круглосуточный возврат",
   "select_return_location":"select_return_location",
   "arabic":"Arabic",
   "save_changes":"save_changes",
   "select_return_date":"select_return_date",
   "close":"close",
   "km_included":"Включенные километры",
-  "day":"day",
-  "aed":"aed",
+  "day":"День",
+  "aed":"дирхам",
   "plan_a_journey":"plan_a_journey",
   "search_location":"Поиск местоположения",
   "5%_vat":"5%_vat",
+  "free_cancellation":"Бесплатная отмена",
+  "200_km_included":"Включено 200 км, каждый дополнительный километр стоит AED 0.65",
+  "basic_protection_excess_upto":"Базовая защита - франшиза: до AED 3,000.00",
+"smart_protection_no_excess":"Умная защита - без франшизы",
+"all_inclusive_protection_no_excess":"Защита Все включено - Без защиты",
+"details":"Детали",
+"total_price":"Общая сумма",
+"close_details":"близкие детали",
+"continue_to_pay":"продолжать платить",
+"dubai_luxury_taxi":"такси класса люкс в дубае",
+
+"you_will_be_asked_to_provide":"Для завершения бронирования вам будет предложено предоставить действительное платежное средство.",
+"a_fee_will_be_charged":"В случае отмены бронирования взимается плата.",
+"cancellation_fees_are_based_on":"Плата за отмену бронирования зависит от вашего окончательного выбора и будет отображена на странице, где вы завершаете бронирование.",
+"if_you_cancel_after":"Если вы отмените заказ после запланированного времени получения, возврат средств не производится.",
 
 "basic_protection":"Основная защита",
 "excess_upto":"Excess : up to",
@@ -138,7 +153,7 @@
   "your_booking_overview":"Обзор вашего бронирования:",
   "additional_driver":"Дополнительный водитель",
   "baby_seat":"Детское сиденье (0-18 кг / Группа 0+/1)",
-  "amazing_experience_with_entakly":"Удивительный опыт с ENTAKLY. Они предоставляют потрясающие автомобили.",
+  "amazing_experience_with_entakly":"Удивительный опыт с ENTAKLY MOTORS. Они предоставляют потрясающие автомобили.",
   "we_provide_amazing_car":"we_provide_amazing_car",
   "aed/day":"дирхам/день",
   "rental_days":"Дни аренды",
@@ -174,7 +189,6 @@
 
 
 
-
 "luxury_mercedes_benz":"Аренда роскошного Mercedes-Benz V-Class с водителем",
 "experience_premium_comfort":"Испытайте премиальный комфорт и элегантность с нашей услугой аренды Mercedes-Benz V-Class с профессиональным водителем. Будь то деловые поездки, трансферы в аэропорт, VIP-мероприятия или семейные путешествия, наш роскошный фургон обеспечит плавную и стильную поездку.",
 "why_choose_our_vclass":"Почему выбрать нашу услугу с водителем на V-Class?",
@@ -203,12 +217,145 @@
 "contact_us_now":"Свяжитесь с нами сейчас!",
 
 
+
+
+
+
+
+"your_trusted_partner":"Ваш надежный партнер в аренде автомобилей, экспорте и продаже",
+"we_specialize_in_providing":"В ENTAKLY MOTORS мы специализируемся на предоставлении премиальных услуг по аренде автомобилей, беспроблемном экспорте автомобилей и продаже без лишних хлопот. Наша компания расположена в Дубае, JBR, и обслуживает как местных, так и международных клиентов, гарантируя плавный и надежный опыт в автомобильной отрасли.",
+"short_term_and_long_term_rentals":"Краткосрочная и долгосрочная аренда",
+"luxury_sports_and_economy_cars":"Роскошные, спортивные и экономичные автомобили",
+"chauffeur_and_self_drive_options":"Услуги водителя и аренда с водителем",
+"corporate_and_individual_leasing":"Корпоративный и индивидуальный лизинг",
+"car_export":"Экспорт автомобилей",
+"global_vehicle_shipping":"Глобальная транспортировка автомобилей",
+"wide_selection_of_new_and_pre_owned_cars":"Широкий выбор новых и подержанных автомобилей",
+"hassle_free_paperwork_and_logistics":"Без лишних хлопот с документацией и логистикой",
+"competitive_pricing_and_secure_transactions":"Конкурентоспособные цены и безопасные транзакции",
+"car_sales":"Продажа автомобилей",
+"new_and_used_car_sales":"Продажа новых и подержанных автомобилей",
+"flexible_financing_and_lease_to_own_options":"Гибкие варианты финансирования и лизинга с правом выкупа",
+"trade_in_services_available":"Услуги обмена автомобилей",
+"quality_checked_vehicles_with_warranty":"Проверенные автомобили с гарантией",
+"with_a_commitment_to_quality":"С приверженностью к качеству, доступности и удовлетворению потребностей клиентов, мы делаем процесс владения автомобилем и аренды проще, чем когда-либо. Независимо от того, хотите ли вы арендовать автомобиль на день, купить автомобиль своей мечты или экспортировать автомобили за границу, наши специалисты с более чем 10-летним опытом готовы помочь вам.",
+"today_to_learn_more":"чтобы узнать больше!",
+"transaction_id":"Идентификатор транзакции",
+"dubai_taxi":"такси в Дубае",
+"full_day":"полный день 10 часов",
+"dxb_airport":"аэропорт DXB",
+"entakly_luxury_taxi":"ru ENTAKLY LUXURY TAXI",
+
+
+
+
+
+
+
+
+"we_believe_that_corporate_responsibility":"В ENTA KLY MOTORS CAR RENTAL LLC мы считаем, что корпоративная ответственность заключается не только в предоставлении высококачественных услуг аренды автомобилей. Мы привержены этичным бизнес-практикам, экологической устойчивости и взаимодействию с обществом, гарантируя, что наша деятельность оказывает положительное влияние на общество.",
+"our_corporate_responsibility_commitments":"Наши обязательства в области корпоративной ответственности",
+"1_environmental_sustainability":"1. Экологическая устойчивость",
+"eco_friendly_fleet":"Экологически чистый автопарк",
+"investing_in_hybrid_and_electric_vehicles":"Инвестиции в гибридные и электрические автомобили для снижения выбросов углерода.",
+"sustainable_practices":"Устойчивые практики",
+"implementing_paperless_contracts":" Внедрение безбумажных контрактов, цифровых счетов и энергоэффективных объектов.",
+"responsible_disposal":"Ответственная утилизация",
+"ensuring_eco_friendly_recycling":"Обеспечение экологически чистой переработки частей автомобилей и материалов.",
+"2_customer_safety_and_satisfaction":"2. Безопасность и удовлетворенность клиентов",
+"regular_vehicle_maintenance":"Регулярное техническое обслуживание автомобилей",
+"ensuring_all_cars_meet":"Обеспечение соответствия всех автомобилей стандартам безопасности и качества.",
+"247_roadside_assistance":"Круглосуточная roadside помощь",
+"providing_immediate_support_in_case_of_emergencies":" Предоставление немедленной поддержки в случае чрезвычайных ситуаций.",
+"transparent_pricing_and_policies":"Прозрачное ценообразование и политика",
+"no_hidden_charges":" Без скрытых сборов, гарантирующие честные бизнес-практики.",
+"3_community_engagement_and_social_initiatives":"3. Взаимодействие с обществом и социальные инициативы",
+"employment_opportunities":"Вакансии",
+"supporting_local_talent":"Поддержка местных талантов и справедливые принципы найма.",
+"charity_and_sponsorships":"Благотворительность и спонсорство",
+"partnering_with_organizations":" Сотрудничество с организациями для развития общества и повышения осведомленности о безопасности на дорогах.",
+"accessible_mobility_solutions":"Доступные решения для мобильности",
+"offering_affordable_rental_options":" Предложение доступных вариантов аренды для людей с особыми потребностями.",
+"4_ethical_business_practices":"4. Этичные бизнес-практики",
+"fair_and_inclusive_workplace":"Справедливое и инклюзивное рабочее место",
+"promoting_diversity":"Продвижение разнообразия, равных возможностей и справедливых заработных плат.",
+"compliance_and_integrity":"Соблюдение нормативных требований и целостность",
+"adhering_to_local_laws":" Соблюдение местных законов и международных бизнес-стандартов.",
+"data_privacy_and_security":"Конфиденциальность данных и безопасность",
+"ensuring_customer_data_protection":" Обеспечение защиты данных клиентов и безопасных транзакций.",
+"we_are_dedicated_to_making_a_difference":"В ENTAKLY MOTORS CAR RENTAL LLC мы стремимся внести позитивные изменения, предоставляя исключительные услуги аренды автомобилей. Наша приверженность устойчивости, безопасности и этичным бизнес-практикам определяет, кто мы есть.",
+"contact_us_today_to_learn_more":"Свяжитесь с нами сегодня, чтобы узнать больше!",
+
+
+
+
+
+"we_strive_to_provide":"В ENTAKLY MOTORS CAR RENTAL LLC мы стремимся предоставить безупречный и прозрачный опыт аренды автомобилей. Ниже представлены наши условия аренды, чтобы обеспечить ясность и плавный процесс аренды.",
+"1_eligibility_requirements":"1. Требования к арендаторам",
+"to_rent_a_vehicle":"Для аренды автомобиля клиент должен",
+"be_at_least_21_years":"Быть не младше 21 года (возраст может варьироваться в зависимости от категории автомобиля)",
+"hold_a_valid_driving_license":"Иметь действующее водительское удостоверение (ОАЭ или международное)",
+"provide_a_valid_passport":"Предоставить действующий паспорт и Emirates ID (для жителей ОАЭ) или паспорт и визу (для туристов)",
+"2_rental_duration_and_extensions":"2. Продолжительность аренды и продление",
+"minimum_rental_period":"Минимальный срок аренды: 24 часа",
+"rental_is_calculated":"Аренда рассчитывается на основе 24 часов",
+"late_returns_beyond":"Опоздание более чем на 2 часа будет обременяться дополнительной платой за полный день аренды",
+"extensions_must_be_requested":"Продление аренды должно быть запрашиваемо до истечения срока аренды",
+"3_insurance_and_liability":"3. Страхование и ответственность",
+"all_vehicles_come":"Все автомобили предоставляются с базовым страхованием (в соответствии с законодательством ОАЭ)",
+"additional_full_insurance":"Дополнительное полное страхование доступно за дополнительную плату",
+"the_renter_is_liable_for":"Арендатор несет ответственность за",
+"any_damage_not_covered_by_insurance":"Повреждения, не покрытые страховкой",
+"traffic_violations":"Нарушения правил дорожного движения, сборы за проезд (Salik) и штрафы за парковку",
+"loss_of_car_accessories":"Потерю автомобильных аксессуаров (ключи, документы и т. д.)",
+"4_fuel_policy":"4. Политика по топливу",
+"vehicles_are_provided":"Автомобили предоставляются с определенным уровнем топлива и должны быть возвращены с таким же уровнем",
+"if_returned_with_less_fuel":"Если автомобиль возвращен с меньшим уровнем топлива, будет взиматься плата за заправку",
+"5_usage_restrictions":"5. Ограничения на использование",
+"the_car_must_not_be_used_for":"Автомобиль не должен использоваться для",
+"off_roading_racing_illegal_activities":"Поездок по бездорожью, гонок или незаконной деятельности",
+"transporting_hazardous_materials":"Перевозки опасных материалов",
+"subletting_or_commercial_use":"Сдачи в субаренду или коммерческого использования (если не оговорено в контракте)",
+"driving_outside_the_uae":"Вождение за пределами ОАЭ требует письменного разрешения",
+"6_traffic_fines_and_salik":"6. Штрафы за нарушение правил дорожного движения и сборы за проезд (Salik)",
+"the_renter_is_fully_responsible":"Арендатор полностью несет ответственность за любые штрафы за нарушение правил дорожного движения, сборы за проезд (Salik) или нарушения парковки",
+"charges_will_be_deducted":"Платы будут вычтены из залога или выставлены отдельным счетом",
+"7_breakdown_and_accidents":"7. Неисправности и аварии",
+"in_case_of_a_breakdown":"В случае неисправности необходимо обратиться в нашу круглосуточную службу помощи на дороге",
+"in_the_event_of_an_accident":"В случае аварии",
+"call_the_police":"Позвоните в полицию и получите официальное заявление",
+"inform_our_support":"Немедленно сообщите нашей службе поддержки",
+"repairs_will_only_be_done":"Ремонт возможен только в авторизованных сервисных центрах",
+"8_vehicle_return_policy":"8. Политика возврата автомобиля",
+"the_car_must_be_returned":"Автомобиль должен быть возвращен в согласованное место и время",
+"any_damages_or_additional":"Любые повреждения или дополнительные сборы будут оценены при возврате",
+"failure_to_return_the_car":"Несвоевременный возврат автомобиля без уведомления может привести к штрафам",
+"9_Cancellation_and_refund_policy":"9. Политика отмены и возврата средств",
+"cancellations_must_be_made":"Отмена бронирования должна быть произведена не менее чем за 24 часа",
+"last_minute_cancellations":"Отмены в последний момент могут повлечь за собой плату за отмену",
+"no_refunds_for_early_returns":"Возврат средств за досрочный возврат автомобиля не производится",
+"by_renting_a_car":"Арендуя автомобиль у ENTAKLY MOTORS CAR RENTAL LLC, вы соглашаетесь с этими условиями. Для любых разъяснений",
+"contact_our_customer_support":"пожалуйста, свяжитесь с нашей службой поддержки клиентов",
+
+
+
+
+
+
+
+
   
   "":"",
   "":"",
   "":"",
+  "dubai_international_airport_terminal_1": "ru Dubai International Airport Terminal 1",
+  "dubai_international_airport_terminal_2": "ru Dubai International Airport Terminal 2",
+  "dubai_international_airport_terminal_3": "ru Dubai International Airport Terminal 3",
+  "al_maktoum_international_airport_dwc": "ru Al Maktoum international airport DWC",
+  "jbr": "ru JBR",
 
-  "rent_a_car": "Rent a Car",
+
+  "rent_a_car": "Аренда автомобиля",
   "rent_first_class": "Арендуйте машину Премиум-класса",
   "pay_economy": "По цене эконом"
 }

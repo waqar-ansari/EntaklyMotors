@@ -8,6 +8,7 @@ import { useTranslation } from "@/context/LanguageProvider";
 const PriceDetailsModal = () => {
   const [showPriceDetailsModal, setShowPriceDetailsModal] = useState(false);
   const [priceDetailsModalContent, setPriceDetailsModalContent] = useState("");
+  const [translatedPackageName, setTranslatedPackageName] = useState("")
   const totalPrice = useSelector((state) => state.totalPrice);
   const openModal = (content) => {
     setPriceDetailsModalContent(content);
@@ -37,6 +38,14 @@ const PriceDetailsModal = () => {
   const selectedPackage = useSelector((state) => state.selectedPackage);
   const selectedAddons = useSelector((state) => state.selectedAddon);
   const {t, language} = useTranslation()
+
+
+useEffect(()=>{
+  if (selectedPackage.packageName ==="Basic Protection"){
+    setTranslatedPackageName(t("basic_protection"))
+  }
+},[])
+ 
   return (
     <>
       <div>
@@ -72,7 +81,7 @@ const PriceDetailsModal = () => {
               {selectedPackage.packageName!==null &&  <div className="section">
                   <p className="heading3">{t("protection_package")}</p>
                   <div className="flex">
-                    <p className="mb-0">{selectedPackage.packageName}</p>
+                    <p className="mb-0">{translatedPackageName}</p>
                     <p className="m-0">{selectedPackage.packagePrice}</p>
                   </div>
                 </div>}

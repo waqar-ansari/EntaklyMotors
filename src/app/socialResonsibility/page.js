@@ -1,10 +1,14 @@
+"use client"
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import React from "react";
 import { fonts } from "../../../public/fonts/fonts";
 import Link from "next/link";
+import { useTranslation } from "@/context/LanguageProvider";
 
 const page = () => {
+
+  const {t} = useTranslation()
   return (
     <>
       <Header />
@@ -12,120 +16,108 @@ const page = () => {
         <div className="row">
           <div className="col-12 mt-5">
             <p className="mb-5" style={styles.paraStyles}>
-              At ENTAKLY MOTORS CAR RENTAL LLC, we believe that corporate
-              responsibility goes beyond just providing high-quality car rental
-              services. We are committed to ethical business practices,
-              environmental sustainability, and community engagement, ensuring
-              that our operations contribute positively to society
+             {t("we_believe_that_corporate_responsibility")}
             </p>
-            <h3 className="mb-5">Our Corporate Responsibility Commitments</h3>
+            <h3 className="mb-5">{t("our_corporate_responsibility_commitments")}</h3>
             <div className="mb-5">
-              <h5 className="mb-4">1. Environmental Sustainability</h5>
+              <h5 className="mb-4">{t("1_environmental_sustainability")}</h5>
               <ul style={{ listStyleType: "none" }}>
                 <li className="liTick" style={styles.liStyle}>
-                  <span style={{ fontWeight: 600 }}>Eco-Friendly Fleet: </span>{" "}
-                  Investing in hybrid & electric vehicles to reduce carbon
-                  emissions.
+                  <span style={{ fontWeight: 600 }}>{t("eco_friendly_fleet")}: </span>{" "}
+                  {t("investing_in_hybrid_and_electric_vehicles")}
                 </li>
                 <li className="liTick" style={styles.liStyle}>
                   <span style={{ fontWeight: 600 }}>
                     {" "}
-                    Sustainable Practices: 
+                    {t("sustainable_practices")}: 
                   </span>
-                  Implementing paperless contracts, digital invoicing, and
-                  energy-efficient facilities.
+                  {t("implementing_paperless_contracts")}
                 </li>
                 <li className="liTick" style={styles.liStyle}>
-                  <span style={{ fontWeight: 600 }}>Responsible Disposal: </span>
-                  Responsible Disposal: Ensuring eco-friendly recycling of
-                  vehicle parts and materials.
+                  <span style={{ fontWeight: 600 }}>{t("responsible_disposal")}: </span>
+                  {t("ensuring_eco_friendly_recycling")}
                 </li>
               </ul>
             </div>
             <div className="mb-5">
-              <h5 className="mb-4">2. Customer Safety & Satisfaction</h5>
+              <h5 className="mb-4">{t("2_customer_safety_and_satisfaction")}</h5>
               <ul style={{ listStyleType: "none" }}>
                 <li className="liTick" style={styles.liStyle}>
                   <span style={{ fontWeight: 600 }}>
-                    Regular Vehicle Maintenance: 
+                    {t("regular_vehicle_maintenance")}: 
                   </span>{" "}
-                  Ensuring all cars meet safety and quality standards.
+                  {t("ensuring_all_cars_meet")}
                 </li>
                 <li className="liTick" style={styles.liStyle}>
                   <span style={{ fontWeight: 600 }}>
                     {" "}
-                    24/7 Roadside Assistance: 
+                    {t("247_roadside_assistance")}: 
                   </span>
-                  Providing immediate support in case of emergencies.
+                  {t("providing_immediate_support_in_case_of_emergencies")}
                 </li>
                 <li className="liTick" style={styles.liStyle}>
                   <span style={{ fontWeight: 600 }}>
                     {" "}
-                    Transparent Pricing & Policies: 
+                    {t("transparent_pricing_and_policies")}: 
                   </span>
-                  No hidden charges, ensuring fair business practices.
+                  {t("no_hidden_charges")}
                 </li>
               </ul>
             </div>
             <div className="mb-5">
               <h5 className="mb-4">
-                3. Community Engagement & Social Initiatives
+                {t("3_community_engagement_and_social_initiatives")}
               </h5>
               <ul style={{ listStyleType: "none" }}>
                 <li className="liTick" style={styles.liStyle}>
                   <span style={{ fontWeight: 600 }}>
-                    Employment Opportunities: 
+                    {t("employment_opportunities")}: 
                   </span>{" "}
-                  Supporting local talent and fair employment policies.
+                  {t("supporting_local_talent")}
                 </li>
                 <li className="liTick" style={styles.liStyle}>
                   <span style={{ fontWeight: 600 }}>
-                    Charity & Sponsorships: 
+                    {t("charity_and_sponsorships")}: 
                   </span>
-                  Partnering with organizations for community development & road
-                  safety awareness.
+                  {t("partnering_with_organizations")}
                 </li>
                 <li className="liTick" style={styles.liStyle}>
                   <span style={{ fontWeight: 600 }}>
-                    Accessible Mobility Solutions: 
+                    {t("accessible_mobility_solutions")}: 
                   </span>
-                  Offering affordable rental options for people with special
-                  needs.
+                  {t("offering_affordable_rental_options")}
                 </li>
               </ul>
             </div>
             <div className="mb-5">
-              <h5 className="mb-4">4. Ethical Business Practices</h5>
+              <h5 className="mb-4">{t("4_ethical_business_practices")}</h5>
               <ul style={{ listStyleType: "none" }}>
                 <li className="liTick" style={styles.liStyle}>
                   <span style={{ fontWeight: 600 }}>
-                    Fair & Inclusive Workplace: 
+                    {t("fair_and_inclusive_workplace")}: 
                   </span>{" "}
-                  Promoting diversity, equal opportunities, and fair wages.
+                  {t("promoting_diversity")}
                 </li>
                 <li className="liTick" style={styles.liStyle}>
                   <span style={{ fontWeight: 600 }}>
-                    Compliance & Integrity: 
+                    {t("compliance_and_integrity")}: 
                   </span>
-                  Adhering to local laws and international business standards.
+                  {t("adhering_to_local_laws")}
                 </li>
                 <li className="liTick" style={styles.liStyle}>
                   <span style={{ fontWeight: 600 }}>
-                    Data Privacy & Security: 
+                    {t("data_privacy_and_security")}: 
                   </span>
-                  Ensuring customer data protection and secure transactions.
+                  {t("ensuring_customer_data_protection")}
                 </li>
               </ul>
             </div>
             <p className="mb-4" style={styles.paraStyles}>
-              At ENTAKLY MOTORS CAR RENTAL LLC, we are dedicated to making a
-              difference while delivering exceptional car rental services. Our
-              commitment to sustainability, safety, and ethical business defines
-              who we are.
+              {t("we_are_dedicated_to_making_a_difference")}
             </p>
             <div className="mb-5">
                 <Link href="/contactUs" className=" text-decoration-none" style={styles.paraStyles}>
-                Contact Us to Learn More!
+                {t("contact_us_today_to_learn_more")}!
                 </Link>
             </div>
           </div>

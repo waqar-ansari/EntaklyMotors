@@ -90,8 +90,11 @@ const Page = () => {
         user_id: Number(localUserId),
       };
     }
+    console.log(updatedData, "updatedData sent to profile api");
 
     dispatch(updateProfile(updatedData));
+    console.log(Number(localUserId), "Number(localUserId)");
+
     dispatch(fetchProfile({ user_id: Number(localUserId) }));
   };
 

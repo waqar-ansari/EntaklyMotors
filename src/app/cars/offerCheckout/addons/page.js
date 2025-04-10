@@ -25,21 +25,18 @@ import {
 } from "@/redux/slices/bookingOverviewSlice";
 import api from "@/app/api/axiosInstance";
 
-
-
 const page = () => {
   const [activeAddons, setActiveAddons] = useState({});
 
   const dispatch = useDispatch();
   const { t, language } = useTranslation();
 
-
   const addons = [
     {
       id: "1",
       addonName: t("additional_driver"),
       icon: <AiOutlineUsergroupAdd />,
-      overview: "Addional Driver",
+      overview: t("additional_driver"),
       info: "info for additional driver",
       addonPrice: 250,
     },
@@ -60,7 +57,6 @@ const page = () => {
       addonPrice: 40,
     },
   ];
-
 
   const toggleAddon = (addon) => {
     setActiveAddons((prev) => {
@@ -92,10 +88,16 @@ const page = () => {
     dispatch(setSelectedAddon(activeAddons.addonDetails));
   }, [activeAddons]);
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(setAddonBookingOverview([]));
-  },[])
+  }, []);
   const bookingOverview = useSelector(selectBookingOverview);
+  const translatedBookingOverview = bookingOverview.map(item => {
+    if (item === "Free Cancellation") return t("free_cancellation");
+    if (item === "Zero Deposit") return t("zero_deposit");
+    if (item === "200 km are included, each additional kilometer costs AED 0.65") return t("200_km_included");
+    return item;
+  });
 
   const totalPrice = useSelector((state) => state.totalPrice);
   useEffect(() => {
@@ -181,7 +183,7 @@ const page = () => {
               {t("booking_overview")}
             </p>
             <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
-              {bookingOverview.map((item, index) => {
+              {translatedBookingOverview.map((item, index) => {
                 return (
                   <div className="liContainer" key={index}>
                     <li className="liTick">{item}</li>

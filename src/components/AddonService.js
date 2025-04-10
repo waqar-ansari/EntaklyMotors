@@ -74,7 +74,7 @@ const AddonService = ({ icon, isActive, toggleActive, addonName, addonPrice }) =
             <p style={styles.addonName}>{addonName}</p>
             <div className="d-flex align-items-center justify-content-end">
               <p onClick={handleDetailsClick} style={styles.addonDetails}>
-                {showDetails ? "Close Details" : t("Details")}
+                {showDetails ? t("close_details") : t("details")}
               </p>
               <Toggle
                 size="lg"
@@ -84,7 +84,7 @@ const AddonService = ({ icon, isActive, toggleActive, addonName, addonPrice }) =
             </div>
           </div>
           <p style={styles.addonPrice}>
-          {addonPrice} {t("AED")}<span style={styles.addonPriceUnit}>/{t("day")}</span>
+          {addonPrice} {t("aed")}<span style={styles.addonPriceUnit}>/{t("day")}</span>
           </p>
 
           {showDetails && (

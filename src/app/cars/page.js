@@ -95,10 +95,7 @@ export default function CarsPage() {
         image: car.car_image,
         price: car.rental_rate,
       };
-      const bookingOverviewForSelectedCar = [
-        // `${car.mileage} km are included, each additional kilometer costs AED ${car.km_price}`,
-        `200 km are included, each additional kilometer costs AED 0.65`,
-      ];
+      const bookingOverviewForSelectedCar = [t("200_km_included")];
 
       // bookingOverviewForSelectedCar.map((item) => dispatch(setBookingOverview(item)));
       dispatch(setCarBookingOverview(bookingOverviewForSelectedCar));

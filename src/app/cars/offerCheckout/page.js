@@ -31,7 +31,7 @@ const page = () => {
       packagePrice: 0,
       numberOfStars: "1",
       excessAmount: "3,000.00",
-      overview:"Basic Protection - Excess: up to AED3,000.00",
+      overview: t("basic_protection_excess_upto"),
       footer: t("included"),
       packagePros: [t("loss_damage_waiver")],
       packageCons: [
@@ -47,7 +47,7 @@ const page = () => {
       packagePrice: 40,
       extraInfo: "(Minimum age 25)",
       numberOfStars: "2",
-      overview:"Smart Protection - No excess",
+      overview:t("smart_protection_no_excess"),
       footer: "40" + t("aed/day"),
       discount: "-19% " + t("online_discount"),
       packagePros: [t("loss_damage_waiver"),  t("tyre_and_windscreen_protection")],
@@ -62,9 +62,9 @@ const page = () => {
       heading: t("all_inclusive_protection"),
       extraInfo: "(Minimum age 25)",
       packagePrice: 80,
-      overview:"All Inclusive Protection - No excess",
+      overview:t("all_inclusive_protection_no_excess"),
       numberOfStars: "3",
-      footer: "80 Aed/day",
+      footer: "80" + t("aed/day"),
       discount: "-35% online discount",
       packagePros: [
         t("loss_damage_waiver"),
@@ -121,7 +121,13 @@ const page = () => {
   );
   const selectedPackagedetail = useSelector((state) => state.selectedPackage);
   const bookingOverview = useSelector(selectBookingOverview);
-
+  const translatedBookingOverview = bookingOverview.map(item => {
+    if (item === "Free Cancellation") return t("free_cancellation");
+    if (item === "Zero Deposit") return t("zero_deposit");
+    if (item === "200 km are included, each additional kilometer costs AED 0.65") return t("200_km_included");
+    if (item === "Basic Protection - Excess: up to AED3,000.00") return t("basic_protection_excess_upto");
+    return item;
+  });
   const styles = {
     nextButton: {
       backgroundColor: colors.themeMain,
@@ -243,7 +249,7 @@ const page = () => {
               style={{ listStyleType: "none", paddingLeft: 0 }}
               className="bookingOverview"
             >
-              {bookingOverview.map((item, index) => {
+              {translatedBookingOverview.map((item, index) => {
                 return (
                   <div className="liContainer" key={index}>
                     <li className="liTick">{item}</li>

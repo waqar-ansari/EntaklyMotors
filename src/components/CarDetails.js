@@ -125,21 +125,17 @@ export default function CarDetails({ car, onClose }) {
                       openModal(
                         <>
                           <p className="heading3">
-                            You will be asked to provide a valid payment
-                            instrument, in order to complete the booking.
+                            {t("you_will_be_asked_to_provide")}
                           </p>
                           <ul>
                             <li>
-                              A fee will be charged if the booking is cancelled.
+                              {t("a_fee_will_be_charged")}
                             </li>
                             <li>
-                              Cancellation fees are based on your final
-                              selection and will be displayed on the page where
-                              you finalize your booking.
+                              {t("cancellation_fees_are_based_on")}
                             </li>
                             <li>
-                              If you cancel after the scheduled pick-up time, no
-                              refund will be given.
+                              {t("if_you_cancel_after")}
                             </li>
                           </ul>
                         </>
@@ -158,7 +154,7 @@ export default function CarDetails({ car, onClose }) {
                   <strong>200km</strong>
                   <p className="mb-0">
                     {/* +AED {car.additional_km_price} / {t("for_every_additional_km")} */}
-                    +AED 0.65 / {t("for_every_additional_km")}
+                    +{("aed")} 0.65 / {t("for_every_additional_km")}
                   </p>
                 </div>
                 <span style={styles.included}>{t("included")}</span>
