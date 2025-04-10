@@ -33,7 +33,7 @@ const Bookings = () => {
   return (
     <div>
       <h3 className="mb-4">{t("your_bookings")}</h3>
-      {/* <div className="row">
+      <div className="row">
         {customerBookings?.length > 0 ? (
           customerBookings.map((booking, index) => (
             <div
@@ -76,7 +76,7 @@ const Bookings = () => {
         ) : (
           <p>{t("no_bookings_found")}</p>
         )}
-      </div> */}
+      </div>
     </div>
   );
 };

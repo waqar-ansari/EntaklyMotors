@@ -229,7 +229,7 @@ const PickupAndDropPicker = ({
     : "";
   const handleShowCarsClick = (e) => {
     if (!pickupLocation && !rentalDetails.pickupLocation) {
-      setError("Please select a pickup location.");
+      setError(t("please_select_a_pickup_location"));
       e.preventDefault();
       return;
     }

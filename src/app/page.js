@@ -21,6 +21,7 @@ import { useTranslation } from "@/context/LanguageProvider";
 import { clearSelectedAddons } from "@/redux/slices/selectedAddonSlice";
 import { clearSelectedPackage } from "@/redux/slices/selectedPackageSlice";
 import { clearBookingOverview } from "@/redux/slices/bookingOverviewSlice";
+import { clearRentalDetail } from "@/redux/slices/rentalDetailSlice";
 export default function HomePage() {
   const { t, language } = useTranslation();
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ export default function HomePage() {
     dispatch(clearSelectedAddons());
     dispatch(clearSelectedPackage());
     dispatch(clearBookingOverview());
+    dispatch(clearRentalDetail());
   }, []);
   const styles = {
     subHeading: {
