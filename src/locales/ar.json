@@ -148,6 +148,9 @@
 "verify_otp":"يؤكد",
 "otp":"مكتب المدعي العام",
 "otp_sent_to_your_phone":"تم إرسال رمز OTP إلى هاتفك. يُرجى مراجعة رسائلك.",
+"your_bookings":"حجوزاتك",
+"no_bookings_found":"لم يتم العثور على أي حجوزات",
+"logout":"تسجيل الخروج",
 
   "basic_protection_excess_upto":"الحماية الأساسية - تحمل ذاتي: حتى ٣,٠٠٠ درهم",
 "smart_protection_no_excess":"حماية ذكية بدون مبالغة",

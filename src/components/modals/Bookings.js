@@ -1,14 +1,15 @@
-"use client"
+"use client";
 
 import api from "@/app/api/axiosInstance";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { useTranslation } from "@/context/LanguageProvider";
 
 const Bookings = () => {
   const [customerBookings, setCustomerBookings] = useState([]);
   const router = useRouter();
-
+  const { t } = useTranslation();
   useEffect(() => {
     const localUserId = localStorage.getItem("userId");
     const fetchBookings = async () => {
@@ -19,7 +20,7 @@ const Bookings = () => {
       setCustomerBookings(response.data.data);
     };
     fetchBookings();
-  }, [customerBookings]);
+  }, []);
 
   const handleCardClick = (booking) => {
     router.push({
@@ -27,12 +28,12 @@ const Bookings = () => {
       query: { booking: JSON.stringify(booking) }, // or send only booking_number
     });
   };
-console.log(customerBookings,"customerBookings");
+  console.log(customerBookings, "customerBookings");
 
   return (
     <div>
-      <h3 className="mb-4">Your Bookings</h3>
-      <div className="row">
+      <h3 className="mb-4">{t("your_bookings")}</h3>
+      {/* <div className="row">
         {customerBookings?.length > 0 ? (
           customerBookings.map((booking, index) => (
             <div
@@ -48,7 +49,6 @@ console.log(customerBookings,"customerBookings");
                   padding: 20,
                 }}
               >
-                 
                 <h5>Booking #: {booking.booking_number}</h5>
                 <p>
                   <strong>Pickup:</strong>{" "}
@@ -74,10 +74,9 @@ console.log(customerBookings,"customerBookings");
             </div>
           ))
         ) : (
-          <p>No bookings found</p>
+          <p>{t("no_bookings_found")}</p>
         )}
-       
-      </div>
+      </div> */}
     </div>
   );
 };

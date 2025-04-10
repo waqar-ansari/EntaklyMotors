@@ -321,7 +321,7 @@ const Header = ({ headerPickupAndDrop }) => {
                               className=" text-decoration-none"
                             >
                               <FaUserAlt style={{ marginRight: 20 }} />
-                              Profile
+                              {t("profile")}
                             </Link>
                           </li>
                           <li className="d-flex align-items-center">
@@ -330,7 +330,7 @@ const Header = ({ headerPickupAndDrop }) => {
                               onClick={handleLogout}
                             >
                               <IoLogOut style={{ marginRight: 20 }} />
-                              Logout
+                              {t("logout")}
                             </button>
                           </li>
                         </ul>
