@@ -158,7 +158,6 @@
 "transaction_id":"Transaction Id",
 "total_price":"Total Price",
 "guest":"Guest",
-"otp":"OTP",
 "lease_to_own":"Lease-to-Own Your Car in Just 2 Years with Only 20% Down Payment!",
 "are_you_looking_for_a_simple":"Are you looking for a simple and cost-effective solution to get your ideal vehicle? With our hassle-free lease-to-own option, you may drive your automobile right away and make reasonable payments over a 24-month period.",
 "how_it_operates":"How It Operates",
@@ -246,6 +245,29 @@
 "location ":"Location",
 "P30_Sadaf_2":"P30, Sadaf 2, JBR, Dubai, UAE",
 "choose_date":"Choose Date",
+"or_similar":"or similar",
+"automatic":"Automatic",
+"doors":"Doors",
+"seats":"Seats",
+"bag(s)":"Bags",
+"best_deal":"Best Deal",
+
+
+
+
+
+"login_with":"Login with",
+"phone":"Phone",
+"register_with_email":"Register with Email",
+
+
+
+"send_otp":"Send OTP",
+"verify_otp":"Verify OTP",
+"otp":"OTP",
+"otp_sent_to_your_phone":"OTP sent to your phone. Please check your messages.",
+"":"",
+"":"",
 "":"",
 
 

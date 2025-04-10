@@ -422,10 +422,10 @@ const PaymentPage = () => {
                       {selectedCarDetail.name}
                     </h6>
                     <p style={{ marginBottom: 5, color: "#828287" }}>
-                      or similar
+                      {t("or_similar")}
                     </p>
                     <p style={{ fontWeight: 600, marginBottom: 0 }}>
-                      {numberOfRentalDays} Rental Days
+                      {numberOfRentalDays} {t("rental_days")}
                     </p>
                   </div>
                 </div>

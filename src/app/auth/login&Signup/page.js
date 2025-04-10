@@ -192,7 +192,7 @@ export default function LoginPage() {
   
         setConfirmationResult(confirmation);
         setOtpSent(true);
-        alert("OTP sent to your phone. Please check your messages.");
+        alert(t("otp_sent_to_your_phone"));
       } catch (err) {
         console.error("OTP send error:", err);
         setError(err.message || "Failed to send OTP");
@@ -359,7 +359,7 @@ export default function LoginPage() {
           {!isForgotPassword ? (
             <div className="form-box login">
               <form action="#">
-                <h1 className="mb-4">Login with</h1>
+                <h1 className="mb-4">{t("login_with")}</h1>
 
                 <div className="d-flex mb-4">
                   <button
@@ -372,7 +372,7 @@ export default function LoginPage() {
                     }}
                     onClick={() => handleLoginWith(false)}
                   >
-                    Email
+                    {t("email")}
                   </button>
                   <button
                     type="button"
@@ -384,7 +384,7 @@ export default function LoginPage() {
                     }}
                     onClick={() => handleLoginWith(true)}
                   >
-                    Phone
+                    {t("phone")}
                   </button>
                 </div>
 
@@ -504,8 +504,8 @@ export default function LoginPage() {
                 >
                   {isPhoneLogin
                     ? otpSent
-                      ? "Verify OTP"
-                      : "Send OTP"
+                      ? t("verify_otp")
+                      : t("send_otp")
                     : t("login")}
                 </Link>
               </form>
@@ -549,7 +549,7 @@ export default function LoginPage() {
           {/* Register Form */}
           <div className="form-box register">
             <form action="#">
-              <h1 className="mb-4">Register with Email</h1>
+              <h1 className="mb-4">{t("register_with_email")}</h1>
               {!isPhoneRegister ? (
                 <div className="input-box form-floating">
                   <input
@@ -602,7 +602,7 @@ export default function LoginPage() {
           {/* Toggle Box */}
           <div className="toggle-box">
             <div className="toggle-panel toggle-left">
-              <h1>{t("hello_welcome")}</h1>
+              <h1 className="text-center">{t("hello_welcome")}</h1>
               <p>{t("dont_have_account")}</p>
               <button
                 className="btn register-btn"

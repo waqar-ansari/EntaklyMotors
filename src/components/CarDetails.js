@@ -49,7 +49,7 @@ export default function CarDetails({ car, onClose }) {
           <div className="carDetailsOverlay">
             <div className="ms-4 mt-3">
               <h2 className="carTitle">{car.name}</h2>
-              <p className="carSubtitle">or similar</p>
+              <p className="carSubtitle">{t("or_similar")}</p>
             </div>
             <div>
               <Image
@@ -66,19 +66,19 @@ export default function CarDetails({ car, onClose }) {
             <div style={{ marginBottom: 20 }}>
               <div className="carIcons" style={styles.carDetailsFacilities}>
                 <span>
-                  <FaUser style={styles.iconStyles} /> {car.number_of_seats} Seats
+                  <FaUser style={styles.iconStyles} /> {car.number_of_seats} {t("seats")}
                 </span>
                 {/* <span>
                   <FaSuitcase style={styles.iconStyles} /> 2 Suitcase(s)
                 </span> */}
                 <span>
-                  <FaShoppingBag style={styles.iconStyles} /> 1 Bag(s)
+                  <FaShoppingBag style={styles.iconStyles} /> 1 {t("bag(s)")}
                 </span>
                 <span>
-                  <TbAutomaticGearbox style={styles.iconStyles} /> {car.transmission_id==="0"?"Manual":"Automatic"}
+                  <TbAutomaticGearbox style={styles.iconStyles} /> {car.transmission_id==="0"?"Manual":t("automatic")}
                 </span>
                 <span>
-                  <FaDoorOpen style={styles.iconStyles} /> {car.number_of_doors} Doors
+                  <FaDoorOpen style={styles.iconStyles} /> {car.number_of_doors} {t("doors")}
                 </span>
               </div>
               <div className="text-center">
@@ -191,7 +191,7 @@ export default function CarDetails({ car, onClose }) {
                 {numberOfRentalDays * selectedCarDetails.price} {t("aed")}
               </p>
               <div>
-                <p className="tagStyleCarDetails">Best Deal</p>
+                <p className="tagStyleCarDetails">{t("best_deal")}</p>
               </div>
 
               <PriceDetailsModal />

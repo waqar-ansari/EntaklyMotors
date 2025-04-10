@@ -24,7 +24,7 @@ export default function CarCard({ car, onClick, isSelected }) {
         <div className="carOverlay">
           <div>
             <h4 className="carTitle">{car.name}</h4>
-            <p className="carSubtitle">or similar</p>
+            <p className="carSubtitle">{t("or_similar")}</p>
             <div className="carIcons">
               <span className="cardCardIconBox">
                 <FaUser size={12} style={{ marginRight: 5, marginBottom: 2 }} />{" "}
@@ -39,7 +39,7 @@ export default function CarCard({ car, onClick, isSelected }) {
               </span>
               <span className="cardCardIconBox">
                 <TbAutomaticGearbox size={14} style={{ marginRight: 5 }} />{" "}
-                {car.transmission_id==="0"?"Manual":"Automatic"}
+                {car.transmission_id==="0"?"Manual":t("automatic")}
               </span>
             </div>
           </div>
@@ -63,7 +63,7 @@ export default function CarCard({ car, onClick, isSelected }) {
               <span className="dailyRate">{car.rental_rate} {t("aed/day")}</span>
             </div>
             <div>
-              <p className="tagStyle">Best Deal</p>
+              <p className="tagStyle">{t("best_deal")}</p>
             </div>
           </div>
         </div>

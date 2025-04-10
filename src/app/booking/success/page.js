@@ -45,6 +45,8 @@ const BookingConfirmation = () => {
     rentalDetail.returnDate
   );
   const { t, language } = useTranslation();
+  console.log(selectedCarDetail,"selectedCarDetailselectedCarDetailselectedCarDetail");
+  
   useEffect(() => {
     const fetchPaymentDetails = async () => {
       const sessionId = new URLSearchParams(window.location.search).get(
@@ -107,7 +109,7 @@ const BookingConfirmation = () => {
           payment_status: paymentStatus,
           booking_number: bookingId,
           totalPrice: totalPrice,
-          carId: 1,
+          carId: selectedCarDetail.id,
           pickupDate: rentalDetail.pickupDate,
           returnDate: rentalDetail.returnDate,
           pickupTime: rentalDetail.pickupTime,

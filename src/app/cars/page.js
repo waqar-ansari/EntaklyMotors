@@ -99,6 +99,7 @@ export default function CarsPage() {
 
       // bookingOverviewForSelectedCar.map((item) => dispatch(setBookingOverview(item)));
       dispatch(setCarBookingOverview(bookingOverviewForSelectedCar));
+      
       dispatch(setSelectedCar(selectedCarDetails));
       if (isMobile) {
         setShowModal(true);
