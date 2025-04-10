@@ -8,7 +8,7 @@ import { colors } from "../../../public/colors/colors";
 import { useTranslation } from "@/context/LanguageProvider";
 
 const page = () => {
-  const {t} = useTranslation();
+  const {t, language} = useTranslation();
   return (
     <>
       <Header />
@@ -35,7 +35,7 @@ const page = () => {
                   color: colors.black,
                 }}
               >
-               <span className="ms-1"> +998 33333333 1</span>
+               <span className="ms-1"  dir={language === 'ar' ? 'ltr' : 'auto'}> +998 33333333 1</span>
               </Link>
             </div>
             <div style={styles.contactInfoBox}>
@@ -48,7 +48,12 @@ const page = () => {
                   color: colors.black,
                 }}
               >
-                 <span className="ms-1"> {t("+971 4 4536000")}</span>
+                <span
+      className="ms-1"
+      dir={language === 'ar' ? 'ltr' : 'auto'}
+    >
+      {t("+971 4 4536000")}
+    </span>
               </Link>
             </div>
             <div style={styles.contactInfoBox}>
