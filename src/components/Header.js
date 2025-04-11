@@ -104,7 +104,7 @@ const Header = ({ headerPickupAndDrop }) => {
                   data-bs-toggle="modal"
                   data-bs-target="#pickerModal"
                   style={styles.pickupAndDropPickerInHeader}
-                  className="pickupAndDropPickerInHeader mobDisplayNone"
+                  className="pickupAndDropPickerInHeader mobDisplayNone ms-5"
                 >
                   <div className="d-flex justify-content-between align-items-center">
                     <div style={{ marginRight: 30 }}>
@@ -411,7 +411,7 @@ const styles = {
     background: "#3e3a85",
     padding: "6px 20px",
     borderRadius: 50,
-    marginLeft: 50,
+    // marginLeft: 50,
     maxWidth:410
   },
   dateAndTime: {
