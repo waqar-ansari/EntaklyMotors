@@ -4,7 +4,7 @@ module.exports = {
       return [
         {
           source: '/api/:path*',
-          destination: 'https://entaklymotors.com/backend_api/:path*',
+          destination: 'https://backend.entaklymotors.com/:path*',
         },
       ];
     },
