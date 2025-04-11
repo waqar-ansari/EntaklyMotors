@@ -69,7 +69,7 @@ const page = () => {
               </Link>
             </div>
             <div style={styles.contactInfoBox}>
-              <span>{t("location")} : </span>
+              <span>{t("location")} </span>
               <Link
                 href=""
                 style={{

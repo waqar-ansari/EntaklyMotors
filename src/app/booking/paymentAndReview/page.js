@@ -283,7 +283,7 @@ const PaymentPage = () => {
   }}
 /> */}
 
-              <div style={{ margin: "0px 10px" }}>{countryCode}</div>
+              <div style={{ margin: "0px 10px" }} dir={language === "ar" ? "rtl" : "ltr"}>{countryCode}</div>
 
               <div className="input-box w-100 my-0">
                 <input
