@@ -290,7 +290,7 @@ const PaymentPage = () => {
 
               <div
                 style={{ margin: "0px 10px" }}
-                dir={language === "ar" ? "rtl" : "ltr"}
+                dir={language === "ar" ? "ltr" : "ltr"}
               >
                 {countryCode}
               </div>

@@ -26,10 +26,12 @@ export default function LoginPage() {
   const [isActive, setIsActive] = useState(false);
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [error, setError] = useState("");
+  const [otpError, setOtpError] = useState("");
   const [success, setSuccess] = useState("");
   const [otp, setOtp] = useState("");
   const [confirmationResult, setConfirmationResult] = useState(null);
   const [otpSent, setOtpSent] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [email, setEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
@@ -55,109 +57,24 @@ export default function LoginPage() {
 
   const dispatch = useDispatch();
   const router = useRouter();
-
-  // const handleLogin = async (e) => {
-  //   e.preventDefault();
-
-  //   if (isPhoneLogin) {
-  //     const fullPhone = countryCode + phoneNumber;
-
-  //     // OTP already sent and waiting for user to enter OTP
-  //     if (otpSent && otp) {
-  //       try {
-  //         const result = await confirmationResult.confirm(otp); // Confirm OTP
-  //         const phoneNumberConfirmed = result.user.phoneNumber;
-
-  //         const credentials = {
-  //           phone_number: {
-  //             countryCode,
-  //             number: phoneNumber,
-  //           },
-  //         };
-
-  //         const response = await dispatch(loginUser(credentials)).unwrap();
-
-  //         if (response.status === "error") {
-  //           setError("OTP verification failed or user not found");
-  //         } else {
-  //           router.push("/account/profile");
-  //         }
-  //       } catch (err) {
-  //         console.error("OTP confirmation error:", err);
-  //         setError("Invalid OTP");
-  //       }
-  //       return;
-  //     }
-
-  //     // Initial OTP request
-  //     try {
-  //       await window.recaptchaVerifier.render();
-  //       const confirmation = await signInWithPhoneNumber(
-  //         auth,
-  //         fullPhone,
-  //         window.recaptchaVerifier
-  //       );
-
-  //       setConfirmationResult(confirmation);
-  //       setOtpSent(true);
-  //       alert("OTP sent to your phone. Please check your messages.");
-  //     } catch (err) {
-  //       console.error("OTP send error:", err);
-  //       setError(err.message || "Failed to send OTP");
-
-  //       if (err.code === "auth/invalid-app-credential") {
-  //         setError("Invalid app configuration. Please contact support.");
-  //       } else if (err.code === "auth/too-many-requests") {
-  //         setError("Too many attempts. Please try again later.");
-  //       }
-  //     }
-  //   } else {
-  //     // Email login with password
-  //     const credentials = {
-  //       email,
-  //       password,
-  //     };
-
-  //     try {
-  //       const result = await dispatch(loginUser(credentials)).unwrap();
-
-  //       if (result.status === "error") {
-  //         setError("Invalid email or password");
-  //         return;
-  //       }
-
-  //       router.push("/account/profile");
-  //     } catch (error) {
-  //       console.log("Login failed:", error);
-  //       setError("Login failed. Please try again.");
-  //     }
-  //   }
-  // };
-
   const handleLogin = async (e) => {
     e.preventDefault();
+    setError("");
+    setOtpError("");
+    setSuccess("");
+    setIsLoading(true);
 
     if (isPhoneLogin) {
       const fullPhone = countryCode + phoneNumber;
 
-      // OTP already sent and waiting for user to enter OTP
       if (otpSent && otp) {
-        console.log("OTP already sent, attempting to confirm:", otp);
-        console.log("Confirmation Result:", confirmationResult);
-        console.log("Phone Number:", phoneNumber);
-        console.log("Country Code:", countryCode);
-        console.log("Full Phone:", fullPhone);
-        console.log(otpSent, "otpSent");
-
         try {
-          // Confirm OTP using confirmationResult
-          const result = await confirmationResult.confirm(otp); // Confirm OTP
+          const result = await confirmationResult.confirm(otp);
           console.log(result, "result");
 
           const phoneNumberConfirmed = result.user.phoneNumber;
           console.log(phoneNumberConfirmed, "phoneNumberConfirmed");
 
-          // Now the user is authenticated, continue with your login flow
           const credentials = {
             phone_number: {
               countryCode,
@@ -168,18 +85,19 @@ export default function LoginPage() {
           const response = await dispatch(loginUser(credentials)).unwrap();
 
           if (response.status === "error") {
-            setError("OTP verification failed or user not found");
+            setOtpError("OTP verification failed or user not found");
           } else {
+            setIsLoading(false);
             router.push("/account/profile");
           }
         } catch (err) {
           console.error("OTP confirmation error:", err);
-          setError("Invalid OTP");
+          setIsLoading(false);
+          setOtpError("Invalid OTP");
         }
         return;
       }
 
-      // Initial OTP request
       try {
         await window.recaptchaVerifier.render();
         const confirmation = await signInWithPhoneNumber(
@@ -190,19 +108,19 @@ export default function LoginPage() {
 
         setConfirmationResult(confirmation);
         setOtpSent(true);
+        setIsLoading(false);
         alert(t("otp_sent_to_your_phone"));
       } catch (err) {
         console.error("OTP send error:", err);
-        setError(err.message || "Failed to send OTP");
+        setOtpError(err.message || "Failed to send OTP");
 
         if (err.code === "auth/invalid-app-credential") {
-          setError("Invalid app configuration. Please contact support.");
+          setOtpError("Invalid app configuration. Please contact support.");
         } else if (err.code === "auth/too-many-requests") {
-          setError("Too many attempts. Please try again later.");
+          setOtpError("Too many attempts. Please try again later.");
         }
       }
     } else {
-      // Email login flow here
       const credentials = { email, password };
       try {
         const result = await dispatch(loginUser(credentials)).unwrap();
@@ -226,91 +144,60 @@ export default function LoginPage() {
       "recaptcha-container",
       {
         size: "invisible",
-        callback: (response) => {
-          // reCAPTCHA solved, allow signInWithPhoneNumber.
-        },
-        "expired-callback": () => {
-          // Response expired. Ask user to solve reCAPTCHA again.
-        },
+        callback: (response) => {},
+        "expired-callback": () => {},
       }
     );
   }, [auth]);
 
-  const handleRegisterr = async (e) => {
-    e.preventDefault();
-    setError("");
-    setSuccess("");
+  // const handleRegister = async (e) => {
+  //   e.preventDefault();
+  //   setError("");
+  //   setSuccess("");
 
-    if (isPhoneRegister) {
-      const fullPhone = registerCountryCode + registerPhoneNumber;
-      console.log("Attempting to verify:", fullPhone);
+  //   if (isPhoneRegister) {
+  //     const fullPhone = registerCountryCode + registerPhoneNumber;
+  //     console.log("Attempting to verify:", fullPhone);
 
-      try {
-        console.log("Setting up reCAPTCHA...");
-        console.log(
-          auth,
-          fullPhone,
-          window.recaptchaVerifier,
-          "auth, fullPhone, window.recaptchaVerifier"
-        );
-        await window.recaptchaVerifier.render();
-        console.log("reCAPTCHA rendered successfully");
-        console.log("Attempting to send OTP...");
-        const confirmation = await signInWithPhoneNumber(
-          auth,
-          fullPhone,
-          window.recaptchaVerifier
-        );
-        console.log(confirmation.verificationId);
+  //     try {
+  //       console.log("Setting up reCAPTCHA...");
+  //       console.log(
+  //         auth,
+  //         fullPhone,
+  //         window.recaptchaVerifier,
+  //         "auth, fullPhone, window.recaptchaVerifier"
+  //       );
+  //       await window.recaptchaVerifier.render();
+  //       console.log("reCAPTCHA rendered successfully");
+  //       console.log("Attempting to send OTP...");
+  //       const confirmation = await signInWithPhoneNumber(
+  //         auth,
+  //         fullPhone,
+  //         window.recaptchaVerifier
+  //       );
+  //       console.log(confirmation.verificationId);
 
-        setConfirmationResult(confirmation);
-        setOtpSent(true);
-        alert(t("otp_sent_to_your_phone"));
-        // const confirmationResult = await setUpRecaptcha(fullPhone);
-        // const otp = prompt("Enter the OTP sent to your phone");
+  //       setConfirmationResult(confirmation);
+  //       setOtpSent(true);
+  //       alert(t("otp_sent_to_your_phone"));
+  //     } catch (err) {
+  //       console.error("Authentication error:", err);
+  //       setError(err.message || "OTP verification failed");
 
-        // if (!otp) {
-        //   setError("OTP is required");
-        //   return;
-        // }
-
-        // const result = await confirmationResult.confirm(otp);
-
-        // const phoneNumber = result.user.phoneNumber;
-
-        // const registerPayload = {
-        //   phone_number: {
-        //     countryCode: registerCountryCode,
-        //     number: registerPhoneNumber,
-        //   },
-        //   password: registerPassword,
-        // };
-
-        // const response = await dispatch(signupUser(registerPayload)).unwrap();
-
-        // if (response.status === "success") {
-        //   setSuccess(response.message);
-        //   router.push("/auth/login&Signup");
-        // } else {
-        //   setError(response.message);
-        // }
-      } catch (err) {
-        console.error("Authentication error:", err);
-        setError(err.message || "OTP verification failed");
-
-        // Specific error handling
-        if (err.code === "auth/invalid-app-credential") {
-          setError("Invalid app configuration. Please contact support.");
-        } else if (err.code === "auth/too-many-requests") {
-          setError("Too many attempts. Please try again later.");
-        }
-      }
-    } else {
-    }
-  };
+  //       if (err.code === "auth/invalid-app-credential") {
+  //         setError("Invalid app configuration. Please contact support.");
+  //       } else if (err.code === "auth/too-many-requests") {
+  //         setError("Too many attempts. Please try again later.");
+  //       }
+  //     }
+  //   } else {
+  //   }
+  // };
 
   const handleRegister = async (e) => {
+    setIsLoading(true);
     setError("");
+    setOtpError("");
     setSuccess("");
     e.preventDefault();
     const credentials = isPhoneRegister
@@ -330,20 +217,24 @@ export default function LoginPage() {
       const result = await dispatch(signupUser(credentials)).unwrap();
 
       if (result.status === "error") {
+        setIsLoading(false);
         setError(result.message);
         return;
       }
       if (result.status === "success") {
         setSuccess(result.message);
+        setIsLoading(false);
+        setRegisterEmail("")
+        setRegisterPassword("")
         router.push("/auth/login&Signup");
       }
     } catch (error) {
       console.log("Signup failed:", error);
+      setIsLoading(false);
     }
   };
   const { t, language } = useTranslation();
   console.log(otpSent, "otpSent");
-  // console.log(country.dialCode, "countryCode");
 
   return (
     <div>
@@ -400,65 +291,61 @@ export default function LoginPage() {
                     </label>
                   </div>
                 ) : (
-                  <div className="d-flex align-items-center mb-3">
-                    {!otpSent ? (
-                      <>
-                        <PhoneInput
-                          country={"ae"}
-                          // value={country.dialCode}
-                          onChange={(value, country) => {
-                            // setPhone(value);
-                            setCountryCode("+" + country.dialCode);
-                          }}
-                          enableSearch
-                          searchPlaceholder={t("search...")}
-                          localization={
-                            language === "ar"
-                              ? ar
-                              : language === "ru"
-                              ? ru
-                              : undefined
-                          }
-                          searchStyle={{ width: 280, marginLeft: 0 }}
-                        />
-
-                        <div className="input-box my-0 w-100">
-                          <input
-                            type="number"
-                            placeholder={t("phone_number")}
-                            value={phoneNumber}
-                            onChange={(e) => setPhoneNumber(e.target.value)}
-                            className="form-control"
+                  <>
+                    <div className="d-flex align-items-center mb-3">
+                      {!otpSent ? (
+                        <>
+                          <PhoneInput
+                            country={"ae"}
+                            onChange={(value, country) => {
+                              setCountryCode("+" + country.dialCode);
+                            }}
+                            enableSearch
+                            searchPlaceholder={t("search...")}
+                            localization={
+                              language === "ar"
+                                ? ar
+                                : language === "ru"
+                                ? ru
+                                : undefined
+                            }
+                            searchStyle={{ width: 280, marginLeft: 0 }}
                           />
-                          {/* <label
-                            htmlFor="loginPhoneNumber"
-                            className="inputLabelBg"
+
+                          <div className="input-box my-0 w-100">
+                            <input
+                              type="number"
+                              placeholder={t("phone_number")}
+                              value={phoneNumber}
+                              onChange={(e) => setPhoneNumber(e.target.value)}
+                              className="form-control"
+                            />
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div
+                            className="input-box form-floating w-100 my-0"
+                            style={{ zIndex: 0 }}
                           >
-                            {t("phone_number")}
-                          </label> */}
-                          {/* <i className="bx bxs-lock-alt"></i> */}
-                        </div>
-                      </>
-                    ) : (
-                      <div
-                        className="input-box form-floating w-100 mt-0"
-                        style={{ zIndex: 0 }}
-                      >
-                        <input
-                          type="text"
-                          placeholder={t("otp")}
-                          value={otp}
-                          name="otp"
-                          onChange={(e) => setOtp(e.target.value)}
-                          className="form-control"
-                        />
-                        <label htmlFor="otp" className="inputLabelBg">
-                          {t("otp")}
-                        </label>
-                        <i className="bx bxs-lock-alt"></i>
-                      </div>
-                    )}
-                  </div>
+                            <input
+                              type="text"
+                              placeholder={t("otp")}
+                              value={otp}
+                              name="otp"
+                              onChange={(e) => setOtp(e.target.value)}
+                              className="form-control w-100"
+                            />
+                            <label htmlFor="otp" className="inputLabelBg">
+                              {t("otp")}
+                            </label>
+                            <i className="bx bxs-lock-alt"></i>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                    <p className="text-danger mt-0">{otpError}</p>
+                  </>
                 )}
 
                 {/* Password Input */}
@@ -483,27 +370,31 @@ export default function LoginPage() {
                 ) : (
                   ""
                 )}
-
-                {/* <Link
+                <button
                   type="button"
                   href="/account/profile"
                   className="btn text-decoration-none d-flex"
                   onClick={handleLogin}
+                  disabled={isLoading}
                 >
-                  {isPhoneLogin ?"Send OTP" : t("login")}
-                </Link> */}
-                <Link
-                  type="button"
-                  href="/account/profile"
-                  className="btn text-decoration-none d-flex"
-                  onClick={handleLogin}
-                >
-                  {isPhoneLogin
-                    ? otpSent
-                      ? t("verify_otp")
-                      : t("send_otp")
-                    : t("login")}
-                </Link>
+                  {isLoading ? (
+                    <>
+                      <span
+                        className="spinner-border spinner-border-sm me-2"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                    </>
+                  ) : isPhoneLogin ? (
+                    otpSent ? (
+                      t("verify_otp")
+                    ) : (
+                      t("send_otp")
+                    )
+                  ) : (
+                    t("login")
+                  )}
+                </button>
               </form>
             </div>
           ) : (
@@ -588,8 +479,20 @@ export default function LoginPage() {
                 href="/auth/login&Signup"
                 className="btn text-decoration-none d-flex"
                 onClick={handleRegister}
+                disabled={isLoading}
               >
-                {t("register")}
+                {isLoading?
+              <>
+              <span
+                className="spinner-border spinner-border-sm me-2"
+                role="status"
+                aria-hidden="true"
+              ></span>
+            </>
+            : t("register")
+
+              }
+               
               </Link>
             </form>
             <div id="recaptcha-container"></div>

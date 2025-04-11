@@ -727,7 +727,7 @@ const PickupAndDropPicker = ({
         scrollable
       >
         <Modal.Header closeButton>
-          <Modal.Title>{("choose_date")}</Modal.Title>
+          <Modal.Title>{t("choose_date")}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <CustomProvider locale={calendarLocales[language]}>
