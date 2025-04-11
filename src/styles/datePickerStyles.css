@@ -36,7 +36,8 @@
     width: 100% !important;
 }
 .rs-anim-fade.rs-anim-in.rs-picker-popup-daterange.rs-picker-popup.placement-bottom-start{
-    width: -webkit-fill-available !important;
+    /* width: -webkit-fill-available !important; */
+    width: 100% !important;
     height: -webkit-fill-available !important;
 }
 .rs-stack-item{
@@ -48,5 +49,8 @@
 .rs-btn.rs-btn-primary.rs-btn-sm{
     width: 100% !important;
     height: 45px;
+}
+.rs-anim-fade.rs-anim-in.rs-picker-popup-daterange.rs-picker-popup.placement-bottom-start{
+    left: 0px !important;
 }
 }
