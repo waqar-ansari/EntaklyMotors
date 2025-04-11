@@ -238,7 +238,7 @@ const Page = () => {
                           onChange={handleCountryChange}
                           name="countryCode"
                           enableSearch
-                          searchPlaceholder="Search..."
+                          searchPlaceholder={t("search...")}
                           localization={
                             language === "ar"
                               ? ar

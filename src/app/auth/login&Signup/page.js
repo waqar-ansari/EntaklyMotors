@@ -134,13 +134,12 @@ export default function LoginPage() {
   //   }
   // };
 
-
   const handleLogin = async (e) => {
     e.preventDefault();
-  
+
     if (isPhoneLogin) {
       const fullPhone = countryCode + phoneNumber;
-  
+
       // OTP already sent and waiting for user to enter OTP
       if (otpSent && otp) {
         console.log("OTP already sent, attempting to confirm:", otp);
@@ -149,16 +148,15 @@ export default function LoginPage() {
         console.log("Country Code:", countryCode);
         console.log("Full Phone:", fullPhone);
         console.log(otpSent, "otpSent");
-        
+
         try {
           // Confirm OTP using confirmationResult
           const result = await confirmationResult.confirm(otp); // Confirm OTP
           console.log(result, "result");
-          
+
           const phoneNumberConfirmed = result.user.phoneNumber;
           console.log(phoneNumberConfirmed, "phoneNumberConfirmed");
-          
-  
+
           // Now the user is authenticated, continue with your login flow
           const credentials = {
             phone_number: {
@@ -166,9 +164,9 @@ export default function LoginPage() {
               number: phoneNumber,
             },
           };
-  
+
           const response = await dispatch(loginUser(credentials)).unwrap();
-  
+
           if (response.status === "error") {
             setError("OTP verification failed or user not found");
           } else {
@@ -180,7 +178,7 @@ export default function LoginPage() {
         }
         return;
       }
-  
+
       // Initial OTP request
       try {
         await window.recaptchaVerifier.render();
@@ -189,14 +187,14 @@ export default function LoginPage() {
           fullPhone,
           window.recaptchaVerifier
         );
-  
+
         setConfirmationResult(confirmation);
         setOtpSent(true);
         alert(t("otp_sent_to_your_phone"));
       } catch (err) {
         console.error("OTP send error:", err);
         setError(err.message || "Failed to send OTP");
-  
+
         if (err.code === "auth/invalid-app-credential") {
           setError("Invalid app configuration. Please contact support.");
         } else if (err.code === "auth/too-many-requests") {
@@ -208,12 +206,12 @@ export default function LoginPage() {
       const credentials = { email, password };
       try {
         const result = await dispatch(loginUser(credentials)).unwrap();
-  
+
         if (result.status === "error") {
           setError("Invalid email or password");
           return;
         }
-  
+
         router.push("/account/profile");
       } catch (error) {
         console.log("Login failed:", error);
@@ -221,7 +219,6 @@ export default function LoginPage() {
       }
     }
   };
-  
 
   useEffect(() => {
     window.recaptchaVerifier = new RecaptchaVerifier(
@@ -265,11 +262,10 @@ export default function LoginPage() {
           window.recaptchaVerifier
         );
         console.log(confirmation.verificationId);
-        console.log("ran till here");
 
         setConfirmationResult(confirmation);
         setOtpSent(true);
-        alert("OTP sent to your phone. Please check your messages.");
+        alert(t("otp_sent_to_your_phone"));
         // const confirmationResult = await setUpRecaptcha(fullPhone);
         // const otp = prompt("Enter the OTP sent to your phone");
 
@@ -348,7 +344,7 @@ export default function LoginPage() {
   const { t, language } = useTranslation();
   console.log(otpSent, "otpSent");
   // console.log(country.dialCode, "countryCode");
-  
+
   return (
     <div>
       <Header />
@@ -405,30 +401,30 @@ export default function LoginPage() {
                   </div>
                 ) : (
                   <div className="d-flex align-items-center mb-3">
-                 {!otpSent ? (   
-                   <>
-                     <PhoneInput
-                        country={"ae"}
-                        // value={country.dialCode}
-                        onChange={(value, country) => {
-                          // setPhone(value);
-                          setCountryCode("+" + country.dialCode);
-                        }}
-                        enableSearch
-                        searchPlaceholder="Search..."
-                        localization={
-                          language === "ar"
-                            ? ar
-                            : language === "ru"
-                            ? ru
-                            : undefined
-                        }
-                        searchStyle={{ width: 280, marginLeft: 0 }}
-                      />
-                     
+                    {!otpSent ? (
+                      <>
+                        <PhoneInput
+                          country={"ae"}
+                          // value={country.dialCode}
+                          onChange={(value, country) => {
+                            // setPhone(value);
+                            setCountryCode("+" + country.dialCode);
+                          }}
+                          enableSearch
+                          searchPlaceholder={t("search...")}
+                          localization={
+                            language === "ar"
+                              ? ar
+                              : language === "ru"
+                              ? ru
+                              : undefined
+                          }
+                          searchStyle={{ width: 280, marginLeft: 0 }}
+                        />
+
                         <div className="input-box my-0 w-100">
                           <input
-                          type="number"
+                            type="number"
                             placeholder={t("phone_number")}
                             value={phoneNumber}
                             onChange={(e) => setPhoneNumber(e.target.value)}
@@ -442,7 +438,7 @@ export default function LoginPage() {
                           </label> */}
                           {/* <i className="bx bxs-lock-alt"></i> */}
                         </div>
-                   </>
+                      </>
                     ) : (
                       <div
                         className="input-box form-floating w-100 mt-0"

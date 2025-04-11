@@ -67,6 +67,8 @@ const PaymentPage = () => {
     if (item === "Free Cancellation") return t("free_cancellation");
     if (item === "Zero Deposit") return t("zero_deposit");
     if (item === "200 km are included, each additional kilometer costs AED 0.65") return t("200_km_included");
+    if (item === "All Inclusive Protection - No excess") return t("all_inclusive_protection_no_excess");
+    if (item === "Additional Driver") return t("additional_driver");
     return item;
   });
 
@@ -188,7 +190,7 @@ const PaymentPage = () => {
           </div>
         </div>
         <div className="row mt-4">
-          <div className="col-md-8">
+          <div className="col-md-8" >
             <div>
               <h3>{t("who_will_drive")}</h3>
             </div>
@@ -206,8 +208,22 @@ const PaymentPage = () => {
                 {t("full_name")}
               </label>
             </div>
-
             <div className="input-box form-floating mt-0">
+              <input
+                className="form-control"
+                type="text"
+                placeholder={t("email")}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+               id="email"
+              />
+              <label for="email" className="inputLabelBg">
+                {t("email")}
+              </label>
+            </div>
+
+            {/* <div className="input-box form-floating mt-0">
               <input
                 className="form-control"
                 type="email"
@@ -220,7 +236,7 @@ const PaymentPage = () => {
               <label for="email" className="inputLabelBg">
                 {t("email")}
               </label>
-            </div>
+            </div> */}
             <div
               className="d-flex align-items-center"
               style={{ marginBottom: 30 }}
@@ -231,28 +247,63 @@ const PaymentPage = () => {
                 inputStyle={{ display: "none" }}
                 onChange={handleCountryChange}
                 enableSearch
-                searchPlaceholder="Search..."
+                searchPlaceholder={t("search...")}
                 searchStyle={{ width: 280, marginLeft: 0 }}
                 localization={
                   language === "ar" ? ar : language === "ru" ? ru : undefined
                 }
               />
-              <div style={{ margin: "0px 10px" }}>{countryCode}</div>
+              {/* <PhoneInput
+  country={"ae"}
+  value={""}
+  inputStyle={{ display: "none" }}
+  onChange={handleCountryChange}
+  enableSearch
+  searchPlaceholder={t("search...")}
+  searchStyle={{ width: 280, marginLeft: 0 }}
+  localization={language === "ar" ? ar : language === "ru" ? ru : undefined}
+  buttonStyle={{
+    direction: language === "ar" ? "rtl" : "ltr",
+    textAlign: language === "ar" ? "right" : "left",
+  }}
+  dropdownStyle={{
+    direction: language === "ar" ? "rtl" : "ltr",
+    textAlign: language === "ar" ? "right" : "left",
+  }}
+  containerStyle={{
+    direction: language === "ar" ? "rtl" : "ltr",
+  }}
+/> */}
+
+              <div style={{ margin: "0px 10px" }} dir={language === "ar" ? "ltr" : "auto"}>{countryCode}</div>
 
               <div className="input-box w-100 my-0">
                 <input
                   className="form-control"
-                  type="number"
+                  type="text"
                   placeholder={t("phone_number")}
                   id="phoneNumber"
                   // value={`${countryCode} ${phoneNumber}`}
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
                 />
-                {/* <label for="phoneNumber" className="inputLabelBg">
-                  {t("phone_number")}
-                </label> */}
+
               </div>
+
+              {/* <div className="input-box w-100 my-0">
+              <input
+                className="form-control"
+                type="text"
+                placeholder={t("phone_number")}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+               id="phoneNumber"
+              />
+              <label for="email" className="inputLabelBg">
+                {t("email")}
+              </label>
+            </div> */}
+
+
             </div>
             <div>
               <Checkbox onChange={handleCheckboxChange}>

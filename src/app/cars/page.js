@@ -110,13 +110,15 @@ export default function CarsPage() {
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const response = await api.get("/get_all_cars.php", {
-          user_id: localUserId,
+        const response = await api.post("/getallcarslanguage.php", {
+          // user_id: localUserId,
+          language:"ar"
         });
         if (response.data.error) {
           console.log(response.data.error);
         } else {
           // const carsData = response.data.cars;
+console.log(response.data.cars,"response cars");
 
           setCarsData(response.data.cars);
         }

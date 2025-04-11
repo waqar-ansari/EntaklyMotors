@@ -350,10 +350,23 @@ span.input-group-text {
   width: 90%;
 }
 
-
-ul.country-list .country{
+/* ul.country-list .country{
 text-align: left !important;
+} */
+html[dir="ltr"] ul.country-list .country {
+  text-align: left !important;
 }
+
+/* For RTL (e.g., Arabic) */
+html[dir="rtl"] ul.country-list .country {
+  text-align: right !important;
+}
+/* Fix the dial code order in RTL so + comes before the number */
+html[dir="rtl"] .country-list .dial-code {
+  direction: ltr !important; /* ensures + stays on the left */
+  unicode-bidi: plaintext !important; /* prevents bidirectional flipping */
+}
+
 
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 

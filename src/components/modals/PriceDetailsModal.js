@@ -79,9 +79,9 @@ useEffect(()=>{
                 </div>
                 
               {selectedPackage.packageName!==null &&  <div className="section">
-                  <p className="heading3">{t("protection_package")}</p>
                   <div className="flex">
-                    <p className="mb-0">{translatedPackageName}</p>
+                  <p className="mb-0">{t("protection_package")}</p>
+                    {/* <p className="mb-0">{translatedPackageName}</p> */}
                     <p className="m-0">{selectedPackage.packagePrice}</p>
                   </div>
                 </div>}

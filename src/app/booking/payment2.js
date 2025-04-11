@@ -284,7 +284,7 @@ const PaymentPage = () => {
                 inputStyle={{ display: "none" }}
                 onChange={handleCountryChange}
                 enableSearch
-                searchPlaceholder="Search..."
+                searchPlaceholder={t("search...")}
                 searchStyle={{ width: 280, marginLeft: 0 }}
                 localization={language === "ar" ? ar : language === "ru" ? ru : undefined}
               />

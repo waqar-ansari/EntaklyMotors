@@ -96,6 +96,8 @@ const page = () => {
     if (item === "Free Cancellation") return t("free_cancellation");
     if (item === "Zero Deposit") return t("zero_deposit");
     if (item === "200 km are included, each additional kilometer costs AED 0.65") return t("200_km_included");
+    if (item === "All Inclusive Protection - No excess") return t("all_inclusive_protection_no_excess");
+    if (item === "Additional Driver") return t("additional_driver");
     return item;
   });
 
