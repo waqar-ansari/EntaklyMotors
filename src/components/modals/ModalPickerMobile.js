@@ -3,10 +3,11 @@ import Link from "next/link";
 import PickupAndDropPicker from "../PickupAndDropPicker";
 import "./modalPickerMobile.css";
 import { colors } from "../../../public/colors/colors";
+import { useTranslation } from "@/context/LanguageProvider";
 
 
 const ModalPickerMobile = ({ show, onHide, showCarsButton = true }) => {
-
+const {t} = useTranslation();
   return (
     <Modal
       show={show}
@@ -19,7 +20,7 @@ const ModalPickerMobile = ({ show, onHide, showCarsButton = true }) => {
       </Modal.Body>
        <Modal.Footer className="d-flex justify-content-between">
         <Button variant="secondary" onClick={onHide}>
-          Close
+          {t("close")}
         </Button>
        {/* {showCarsButton && (
           <Link href="/cars" style={styles.showCarsBtn}

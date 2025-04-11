@@ -412,6 +412,7 @@ const styles = {
     padding: "6px 20px",
     borderRadius: 50,
     marginLeft: 50,
+    maxWidth:410
   },
   dateAndTime: {
     fontFamily: fonts.helvetica400,
