@@ -186,6 +186,7 @@ const PickupAndDropPicker = ({
       setActiveInput(inputType);
     }
   };
+  
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -729,7 +730,7 @@ const PickupAndDropPicker = ({
         <Modal.Header closeButton>
           <Modal.Title>{t("choose_date")}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body >
           <CustomProvider locale={calendarLocales[language]}>
             <DateRangePicker
               showOneCalendar
