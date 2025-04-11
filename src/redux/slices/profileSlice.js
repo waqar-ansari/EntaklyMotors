@@ -15,25 +15,25 @@ export const updateProfile = createAsyncThunk(
     return data;
   }
 );
-
+const initialState ={
+  fullname: "",
+  phonenumber: {
+    countryCode: "",
+    number: "",
+  },
+  email: "",
+  address: {
+    street: "",
+    city: "",
+    state: "",
+    zip: "",
+  },
+  loading: false,
+  error: null,
+}
 const profileSlice = createSlice({
   name: "profile",
-  initialState: {
-    fullname: "",
-    phonenumber: {
-      countryCode: "",
-      number: "",
-    },
-    email: "",
-    address: {
-      street: "",
-      city: "",
-      state: "",
-      zip: "",
-    },
-    loading: false,
-    error: null,
-  },
+  initialState: initialState,
   reducers: {
     setProfile(state, action) {
       return { ...state, ...action.payload };

@@ -73,9 +73,9 @@ const AddonService = ({ icon, isActive, toggleActive, addonName, addonPrice }) =
           <div className="d-flex justify-content-between align-items-center">
             <p style={styles.addonName}>{addonName}</p>
             <div className="d-flex align-items-center justify-content-end">
-              <p onClick={handleDetailsClick} style={styles.addonDetails}>
+              {/* <p onClick={handleDetailsClick} style={styles.addonDetails}>
                 {showDetails ? t("close_details") : t("details")}
-              </p>
+              </p> */}
               <Toggle
                 size="lg"
                 checked={isActive}

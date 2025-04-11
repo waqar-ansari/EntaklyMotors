@@ -21,6 +21,7 @@ import { FaUserAlt } from "react-icons/fa";
 import { IoLogOut } from "react-icons/io5";
 import { logout } from "@/redux/slices/authSlice";
 import { Dropdown } from "bootstrap/dist/js/bootstrap.bundle.min";
+import { clearProfile } from "@/redux/slices/profileSlice";
 
 const Header = ({ headerPickupAndDrop }) => {
   const [showPicker, setShowPicker] = useState(false);
@@ -77,6 +78,7 @@ const Header = ({ headerPickupAndDrop }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const handleLogout = () => {
     // Clear local user data
+    dispatch(clearProfile())
     dispatch(logout());
     router.push("/auth/login&Signup");
   };

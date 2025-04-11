@@ -64,20 +64,57 @@ const PaymentPage = () => {
   const bookingOverview = useSelector(selectBookingOverview);
   const profile = useSelector((state) => state.profile);
   console.log(profile, "profile data");
-
+  useEffect(() => {
+    if (profile) {
+      if (profile.fullname) setFullName(profile.fullname);
+      if (profile.email) setEmail(profile.email);
+      if (profile.phonenumber?.number)
+        setPhoneNumber(profile.phonenumber.number);
+      if (profile.phonenumber?.countryCode)
+        setCountryCode(profile.phonenumber.countryCode);
+    }
+  }, [profile]);
   const translatedBookingOverview = bookingOverview.map((item) => {
     if (item === "Free Cancellation") return t("free_cancellation");
     if (item === "Zero Deposit") return t("zero_deposit");
     if (
-      item === "200 km are included, each additional kilometer costs AED 0.65"
+      item ===
+        "200 km are included, each additional kilometer costs AED 0.65" ||
+      item ===
+        "Включено 200 км, каждый дополнительный километр стоит AED 0.65" ||
+      item === "يشمل السعر 200 كم، كل كيلومتر إضافي يكلف 0.65 درهم إماراتي"
     )
       return t("200_km_included");
-    if (item === "All Inclusive Protection - No excess")
+    if (
+      item === "All Inclusive Protection - No excess" ||
+      item === "حماية شاملة - لا تحمل ذاتي" ||
+      item === "Защита Все включено - Без защиты"
+    )
       return t("all_inclusive_protection_no_excess");
-    if (item === "Additional Driver") return t("additional_driver");
-    if (item === "Smart Protection - No excess")
+    if (
+      item === "Basic Protection - Excess: up to AED3,000.00" ||
+      item === "الحماية الأساسية - تحمل ذاتي: حتى ٣,٠٠٠ درهم" ||
+      item === "Базовая защита - франшиза: до AED 3,000.00"
+    )
+      return t("basic_protection_excess_upto");
+    if (
+      item === "Additional Driver" ||
+      item === "سائق إضافي" ||
+      item === "Дополнительный водитель"
+    )
+      return t("additional_driver");
+    if (
+      item === "Smart Protection - No excess" ||
+      item === "حماية ذكية بدون مبالغة" ||
+      item === "Умная защита - без франшизы"
+    )
       return t("smart_protection_no_excess");
-    if (item === "Roadside Protection") return t("roadside_protection");
+    if (
+      item === "Roadside Protection" ||
+      item === "Защита на дороге" ||
+      item === "مساعدة على الطريق"
+    )
+      return t("roadside_protection");
     return item;
   });
 
@@ -207,6 +244,7 @@ const PaymentPage = () => {
                 className="form-control"
                 type="text"
                 placeholder={t("full_name")}
+                value={fullname}
                 onChange={(e) => {
                   setFullName(e.target.value);
                 }}
@@ -220,6 +258,7 @@ const PaymentPage = () => {
               <input
                 className="form-control"
                 type="text"
+                value={email}
                 placeholder={t("email")}
                 onChange={(e) => {
                   setEmail(e.target.value);
@@ -231,27 +270,14 @@ const PaymentPage = () => {
               </label>
             </div>
 
-            {/* <div className="input-box form-floating mt-0">
-              <input
-                className="form-control"
-                type="email"
-                placeholder={t("email")}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-                id="email"
-              />
-              <label for="email" className="inputLabelBg">
-                {t("email")}
-              </label>
-            </div> */}
             <div
               className="d-flex align-items-center"
               style={{ marginBottom: 30 }}
             >
               <PhoneInput
                 country={"ae"}
-                value={""}
+                // value={""}
+                value={countryCode}
                 inputStyle={{ display: "none" }}
                 onChange={handleCountryChange}
                 enableSearch
@@ -261,29 +287,13 @@ const PaymentPage = () => {
                   language === "ar" ? ar : language === "ru" ? ru : undefined
                 }
               />
-              {/* <PhoneInput
-  country={"ae"}
-  value={""}
-  inputStyle={{ display: "none" }}
-  onChange={handleCountryChange}
-  enableSearch
-  searchPlaceholder={t("search...")}
-  searchStyle={{ width: 280, marginLeft: 0 }}
-  localization={language === "ar" ? ar : language === "ru" ? ru : undefined}
-  buttonStyle={{
-    direction: language === "ar" ? "rtl" : "ltr",
-    textAlign: language === "ar" ? "right" : "left",
-  }}
-  dropdownStyle={{
-    direction: language === "ar" ? "rtl" : "ltr",
-    textAlign: language === "ar" ? "right" : "left",
-  }}
-  containerStyle={{
-    direction: language === "ar" ? "rtl" : "ltr",
-  }}
-/> */}
 
-              <div style={{ margin: "0px 10px" }} dir={language === "ar" ? "rtl" : "ltr"}>{countryCode}</div>
+              <div
+                style={{ margin: "0px 10px" }}
+                dir={language === "ar" ? "rtl" : "ltr"}
+              >
+                {countryCode}
+              </div>
 
               <div className="input-box w-100 my-0">
                 <input
@@ -292,24 +302,10 @@ const PaymentPage = () => {
                   type="number"
                   placeholder={t("phone_number")}
                   id="phoneNumber"
-                  // value={`${countryCode} ${phoneNumber}`}
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
                 />
               </div>
-
-              {/* <div className="input-box w-100 my-0">
-              <input
-                className="form-control"
-                type="text"
-                placeholder={t("phone_number")}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-               id="phoneNumber"
-              />
-              <label for="email" className="inputLabelBg">
-                {t("email")}
-              </label>
-            </div> */}
             </div>
             <div>
               <Checkbox onChange={handleCheckboxChange}>

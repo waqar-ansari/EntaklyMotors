@@ -93,13 +93,55 @@ const page = () => {
   }, []);
   const bookingOverview = useSelector(selectBookingOverview);
   const translatedBookingOverview = bookingOverview.map(item => {
+    // if (item === "Free Cancellation") return t("free_cancellation");
+    // if (item === "Zero Deposit") return t("zero_deposit");
+    // if (item === "200 km are included, each additional kilometer costs AED 0.65") return t("200_km_included");
+    // if (item === "All Inclusive Protection - No excess") return t("all_inclusive_protection_no_excess");
+    // if (item === "Additional Driver") return t("additional_driver");
+    // if (item === "Smart Protection - No excess") return t("smart_protection_no_excess");
+    // if (item === "Roadside Protection") return t("roadside_protection");
+    // return item;
+
     if (item === "Free Cancellation") return t("free_cancellation");
     if (item === "Zero Deposit") return t("zero_deposit");
-    if (item === "200 km are included, each additional kilometer costs AED 0.65") return t("200_km_included");
-    if (item === "All Inclusive Protection - No excess") return t("all_inclusive_protection_no_excess");
-    if (item === "Additional Driver") return t("additional_driver");
-    if (item === "Smart Protection - No excess") return t("smart_protection_no_excess");
-    if (item === "Roadside Protection") return t("roadside_protection");
+    if (
+      item ===
+        "200 km are included, each additional kilometer costs AED 0.65" ||
+      item ===
+        "Включено 200 км, каждый дополнительный километр стоит AED 0.65" ||
+      item === "يشمل السعر 200 كم، كل كيلومتر إضافي يكلف 0.65 درهم إماراتي"
+    )
+      return t("200_km_included");
+    if (
+      item === "All Inclusive Protection - No excess" ||
+      item === "حماية شاملة - لا تحمل ذاتي" ||
+      item === "Защита Все включено - Без защиты"
+    )
+      return t("all_inclusive_protection_no_excess");
+    if (
+      item === "Basic Protection - Excess: up to AED3,000.00" ||
+      item === "الحماية الأساسية - تحمل ذاتي: حتى ٣,٠٠٠ درهم" ||
+      item === "Базовая защита - франшиза: до AED 3,000.00"
+    )
+      return t("basic_protection_excess_upto");
+    if (
+      item === "Additional Driver" ||
+      item === "سائق إضافي" ||
+      item === "Дополнительный водитель"
+    )
+      return t("additional_driver");
+    if (
+      item === "Smart Protection - No excess" ||
+      item === "حماية ذكية بدون مبالغة" ||
+      item === "Умная защита - без франшизы"
+    )
+      return t("smart_protection_no_excess");
+    if (
+      item === "Roadside Protection" ||
+      item === "Защита на дороге" ||
+      item === "مساعدة على الطريق"
+    )
+      return t("roadside_protection");
     return item;
   });
 

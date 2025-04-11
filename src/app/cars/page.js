@@ -99,7 +99,7 @@ export default function CarsPage() {
 
       // bookingOverviewForSelectedCar.map((item) => dispatch(setBookingOverview(item)));
       dispatch(setCarBookingOverview(bookingOverviewForSelectedCar));
-      
+
       dispatch(setSelectedCar(selectedCarDetails));
       if (isMobile) {
         setShowModal(true);
@@ -112,13 +112,13 @@ export default function CarsPage() {
       try {
         const response = await api.post("/getallcarslanguage.php", {
           // user_id: localUserId,
-          language:"ar"
+          language: language==="ar"?"ar":language ==="ru"?"ru_RU": "en_US",
         });
         if (response.data.error) {
           console.log(response.data.error);
         } else {
           // const carsData = response.data.cars;
-console.log(response.data.cars,"response cars");
+          console.log(response.data.cars, "response cars");
 
           setCarsData(response.data.cars);
         }
