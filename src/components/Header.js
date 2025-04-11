@@ -45,12 +45,25 @@ const Header = ({ headerPickupAndDrop }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(null);
   const dropdownRef = useRef(null);
+  const mobileDropdownRef = useRef(null);
 
   // Close the dropdown when clicking outside of it
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setShowDropdown(false); // Close the dropdown
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (mobileDropdownRef.current && !mobileDropdownRef.current.contains(e.target)) {
+        setShowMobileDropdown(false); // Close the dropdown
       }
     };
 
@@ -76,6 +89,7 @@ const Header = ({ headerPickupAndDrop }) => {
   }, []);
   const router = useRouter();
   const [showDropdown, setShowDropdown] = useState(false);
+  const [showMobileDropdown, setShowMobileDropdown] = useState(false);
   const handleLogout = () => {
     // Clear local user data
     dispatch(clearProfile())
@@ -167,34 +181,66 @@ const Header = ({ headerPickupAndDrop }) => {
                       />
                     </a>
                   </li>
-                  {localUserId ? (
+                  
                     <li className="nav-item d-flex align-items-center ms-2 mb-0">
-                      <Link
-                        href="/auth/login&Signup"
+                      <div
+                        // href="/auth/login&Signup"
                         className="nav-link text-white text-decoration-none"
+                        onClick={() => {
+                          const localUserId = localStorage.getItem("userId");
+                          if (localUserId) {
+                            setShowMobileDropdown(!showDropdown);
+                          } else {
+                            router.push("/auth/login&Signup"); // or "/auth/loginSignup"
+                          }
+                        }}
                       >
                         <FaUserCircle
                           style={{ color: colors.white, fontSize: 22 }}
                         />
-                      </Link>
+                      </div>
                     </li>
-                  ) : (
-                    <li className="nav-item d-flex align-items-center ms-2 mb-0">
-                      <Link
-                        href="/auth/login&Signup"
-                        className="nav-link text-white text-decoration-none"
-                      >
-                        <Image
-                          src="/icons/user.png"
-                          alt="Logo"
-                          width={24}
-                          height={24}
-                          priority
-                        />
-                      </Link>
-                    </li>
-                  )}
+                
                 </ul>
+                {showMobileDropdown && (
+                        <ul
+                        ref={mobileDropdownRef}
+                          listStyleType="none"
+                          className="show"
+                          style={{
+                            position: "absolute",
+                            top: "100%",
+                            right: 0,
+                            // left: -60,
+                            backgroundColor: "#fff",
+                            borderRadius: 4,
+                            padding: 10,
+                            border: "0px solid #ccc",
+                            minWidth: 150,
+                            zIndex: 1000,
+                            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                          }}
+                        >
+                          <li className="d-flex align-items-center mb-2">
+                            <Link
+                              href="/account/profile"
+                              className=" text-decoration-none"
+                            >
+                              <FaUserAlt style={{ marginRight: 20 }} />
+                              {t("profile")}
+                            </Link>
+                          </li>
+                          <li className="d-flex align-items-center">
+                            <button
+                              className="bg-white text-decoration-none"
+                              onClick={handleLogout}
+                            >
+                              <IoLogOut style={{ marginRight: 20 }} />
+                              {t("logout")}
+                            </button>
+                          </li>
+                        </ul>
+                      )}
               </div>
 
               <div
@@ -308,6 +354,7 @@ const Header = ({ headerPickupAndDrop }) => {
                             position: "absolute",
                             top: "100%",
                             left: 0,
+                            left: -60,
                             backgroundColor: "#fff",
                             borderRadius: 4,
                             padding: 10,
@@ -328,7 +375,7 @@ const Header = ({ headerPickupAndDrop }) => {
                           </li>
                           <li className="d-flex align-items-center">
                             <button
-                              className=" text-decoration-none"
+                              className="bg-white text-decoration-none"
                               onClick={handleLogout}
                             >
                               <IoLogOut style={{ marginRight: 20 }} />
