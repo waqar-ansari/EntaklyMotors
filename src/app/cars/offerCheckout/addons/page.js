@@ -98,6 +98,8 @@ const page = () => {
     if (item === "200 km are included, each additional kilometer costs AED 0.65") return t("200_km_included");
     if (item === "All Inclusive Protection - No excess") return t("all_inclusive_protection_no_excess");
     if (item === "Additional Driver") return t("additional_driver");
+    if (item === "Smart Protection - No excess") return t("smart_protection_no_excess");
+    if (item === "Roadside Protection") return t("roadside_protection");
     return item;
   });
 

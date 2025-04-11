@@ -62,16 +62,24 @@ const PaymentPage = () => {
   const selectedCarDetail = useSelector((state) => state.selectedCar);
 
   const bookingOverview = useSelector(selectBookingOverview);
+  const profile = useSelector((state) => state.profile);
+  console.log(profile, "profile data");
 
-  const translatedBookingOverview = bookingOverview.map(item => {
+  const translatedBookingOverview = bookingOverview.map((item) => {
     if (item === "Free Cancellation") return t("free_cancellation");
     if (item === "Zero Deposit") return t("zero_deposit");
-    if (item === "200 km are included, each additional kilometer costs AED 0.65") return t("200_km_included");
-    if (item === "All Inclusive Protection - No excess") return t("all_inclusive_protection_no_excess");
+    if (
+      item === "200 km are included, each additional kilometer costs AED 0.65"
+    )
+      return t("200_km_included");
+    if (item === "All Inclusive Protection - No excess")
+      return t("all_inclusive_protection_no_excess");
     if (item === "Additional Driver") return t("additional_driver");
+    if (item === "Smart Protection - No excess")
+      return t("smart_protection_no_excess");
+    if (item === "Roadside Protection") return t("roadside_protection");
     return item;
   });
-
 
   const totalPrice = useSelector((state) => state.totalPrice);
 
@@ -190,7 +198,7 @@ const PaymentPage = () => {
           </div>
         </div>
         <div className="row mt-4">
-          <div className="col-md-8" >
+          <div className="col-md-8">
             <div>
               <h3>{t("who_will_drive")}</h3>
             </div>
@@ -216,7 +224,7 @@ const PaymentPage = () => {
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
-               id="email"
+                id="email"
               />
               <label for="email" className="inputLabelBg">
                 {t("email")}
@@ -275,19 +283,19 @@ const PaymentPage = () => {
   }}
 /> */}
 
-              <div style={{ margin: "0px 10px" }} dir={language === "ar" ? "ltr" : "auto"}>{countryCode}</div>
+              <div style={{ margin: "0px 10px" }}>{countryCode}</div>
 
               <div className="input-box w-100 my-0">
                 <input
                   className="form-control"
-                  type="text"
+                  style={{ textAlign: language === "ar" ? "right" : "left" }}
+                  type="number"
                   placeholder={t("phone_number")}
                   id="phoneNumber"
                   // value={`${countryCode} ${phoneNumber}`}
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
                 />
-
               </div>
 
               {/* <div className="input-box w-100 my-0">
@@ -302,8 +310,6 @@ const PaymentPage = () => {
                 {t("email")}
               </label>
             </div> */}
-
-
             </div>
             <div>
               <Checkbox onChange={handleCheckboxChange}>
@@ -378,7 +384,7 @@ const PaymentPage = () => {
                       {selectedCarDetail.name}
                     </h6>
                     <p style={{ marginBottom: 5, color: "#828287" }}>
-                     {t("or_similar")}
+                      {t("or_similar")}
                     </p>
                     <p style={{ fontWeight: 600, marginBottom: 0 }}>
                       {numberOfRentalDays} {t("rental_days")}
