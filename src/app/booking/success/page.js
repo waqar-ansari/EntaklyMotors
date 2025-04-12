@@ -118,7 +118,7 @@ const BookingConfirmation = () => {
         console.log("sendPaymentDetails", sendPaymentDetails);
 
         const paymentApiResponse = await api.post(
-          "/confirm_booking.php",
+          "/confirm_booking_new.php",
           sendPaymentDetails
         );
         setTransactionId(paymentApiResponse.data.transaction_id);

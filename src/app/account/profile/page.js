@@ -255,7 +255,8 @@ const Page = () => {
                         <div className="input-box w-100 my-0">
                           <input
                             className="form-control"
-                            type="text"
+                            style={{ textAlign: language === "ar" ? "right" : "left" }}
+                            type="number"
                             placeholder={t("phone_number")}
                             name="number"
                             id="phonenumber"

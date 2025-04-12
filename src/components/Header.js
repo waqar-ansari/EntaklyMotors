@@ -210,7 +210,8 @@ const Header = ({ headerPickupAndDrop }) => {
                           style={{
                             position: "absolute",
                             top: "100%",
-                            right: 0,
+                            // right: 0,
+                            ...(language ==="ar"? {left:0}:{right:0}),
                             // left: -60,
                             backgroundColor: "#fff",
                             borderRadius: 4,
@@ -226,7 +227,7 @@ const Header = ({ headerPickupAndDrop }) => {
                               href="/account/profile"
                               className=" text-decoration-none"
                             >
-                              <FaUserAlt style={{ marginRight: 20 }} />
+                              <FaUserAlt className="me-3" />
                               {t("profile")}
                             </Link>
                           </li>
@@ -235,7 +236,7 @@ const Header = ({ headerPickupAndDrop }) => {
                               className="bg-white text-decoration-none"
                               onClick={handleLogout}
                             >
-                              <IoLogOut style={{ marginRight: 20 }} />
+                              <IoLogOut className="me-3" />
                               {t("logout")}
                             </button>
                           </li>

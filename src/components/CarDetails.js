@@ -34,7 +34,7 @@ export default function CarDetails({ car, onClose }) {
     const end = new Date(endDate);
     const timeDifference = end - start;
     const numberOfDays = timeDifference / (1000 * 3600 * 24);
-    return Math.abs(numberOfDays);
+    return numberOfDays === 0 ? 1 : Math.abs(numberOfDays);
   };
   const numberOfRentalDays = calculateNumberOfDays(
     rentalDetails.pickupDate,
@@ -154,7 +154,7 @@ export default function CarDetails({ car, onClose }) {
                   <strong>200km</strong>
                   <p className="mb-0">
                     {/* +AED {car.additional_km_price} / {t("for_every_additional_km")} */}
-                    +{("aed")} 0.65 / {t("for_every_additional_km")}
+                    +{t("aed")} 0.65 / {t("for_every_additional_km")}
                   </p>
                 </div>
                 <span style={styles.included}>{t("included")}</span>

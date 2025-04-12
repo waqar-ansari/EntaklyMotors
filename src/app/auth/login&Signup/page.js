@@ -224,8 +224,8 @@ export default function LoginPage() {
       if (result.status === "success") {
         setSuccess(result.message);
         setIsLoading(false);
-        setRegisterEmail("")
-        setRegisterPassword("")
+        setRegisterEmail("");
+        setRegisterPassword("");
         router.push("/auth/login&Signup");
       }
     } catch (error) {
@@ -279,6 +279,7 @@ export default function LoginPage() {
                   <div className="input-box form-floating">
                     <input
                       className="form-control"
+                      style={{ textAlign: language === "ar" ? "right" : "left" }}
                       type="email"
                       value={email}
                       name="email"
@@ -315,6 +316,7 @@ export default function LoginPage() {
                           <div className="input-box my-0 w-100">
                             <input
                               type="number"
+                              style={{ textAlign: language === "ar" ? "right" : "left" }}
                               placeholder={t("phone_number")}
                               value={phoneNumber}
                               onChange={(e) => setPhoneNumber(e.target.value)}
@@ -329,10 +331,14 @@ export default function LoginPage() {
                             style={{ zIndex: 0 }}
                           >
                             <input
-                              type="text"
+                              type="number"
+                              style={{ textAlign: language === "ar" ? "right" : "left" }}
                               placeholder={t("otp")}
                               value={otp}
                               name="otp"
+                              inputMode="numeric"
+                              pattern="[0-9]*"
+                              autoComplete="one-time-code"
                               onChange={(e) => setOtp(e.target.value)}
                               className="form-control w-100"
                             />
@@ -481,18 +487,17 @@ export default function LoginPage() {
                 onClick={handleRegister}
                 disabled={isLoading}
               >
-                {isLoading?
-              <>
-              <span
-                className="spinner-border spinner-border-sm me-2"
-                role="status"
-                aria-hidden="true"
-              ></span>
-            </>
-            : t("register")
-
-              }
-               
+                {isLoading ? (
+                  <>
+                    <span
+                      className="spinner-border spinner-border-sm me-2"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                  </>
+                ) : (
+                  t("register")
+                )}
               </Link>
             </form>
             <div id="recaptcha-container"></div>

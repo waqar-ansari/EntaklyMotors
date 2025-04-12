@@ -110,7 +110,7 @@ const page = () => {
     const end = new Date(endDate);
     const timeDifference = end - start;
     const numberOfDays = timeDifference / (1000 * 3600 * 24);
-    return Math.abs(numberOfDays);
+    return numberOfDays === 0 ? 1 : Math.abs(numberOfDays);
   };
 
   const rentalDetails = useSelector((state) => state.rentalDetail);

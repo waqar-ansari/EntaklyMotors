@@ -27,7 +27,8 @@ export const calculateTotalPrice = () => (dispatch, getState) => {
     const start = new Date(startDate);
     const end = new Date(endDate);
     const timeDifference = end - start;
-    return Math.max(1, timeDifference / (1000 * 3600 * 24));
+    const numberOfDays = timeDifference / (1000 * 3600 * 24);
+    return numberOfDays === 0 ? 1 : Math.abs(numberOfDays);
   };
 
   const numberOfRentalDays = calculateNumberOfDays(pickupDate, returnDate);

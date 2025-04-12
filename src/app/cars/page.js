@@ -74,6 +74,7 @@ export default function CarsPage() {
   const [selectedCarId, setSelectedCarId] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [carsData, setCarsData] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
   const bookingOverview = useSelector((state) => state.bookingOverview);
 
   const dispatch = useDispatch();
@@ -109,6 +110,7 @@ export default function CarsPage() {
   const localUserId = localStorage.getItem("userId");
   useEffect(() => {
     const fetchCars = async () => {
+      setIsLoading(true);
       try {
         const response = await api.post("/getallcarslanguage.php", {
           // user_id: localUserId,
@@ -116,14 +118,17 @@ export default function CarsPage() {
         });
         if (response.data.error) {
           console.log(response.data.error);
+          setIsLoading(false);
         } else {
           // const carsData = response.data.cars;
           console.log(response.data.cars, "response cars");
 
           setCarsData(response.data.cars);
+          setIsLoading(false);
         }
       } catch (error) {
         console.error("Error fetching cars:", error);
+        setIsLoading(false);
       }
     };
 
@@ -142,76 +147,88 @@ export default function CarsPage() {
     <div>
       <Header headerPickupAndDrop={true} />
 
-      <div className="container mt-5">
-        <h3 style={{ textTransform: "uppercase", marginBottom: 20 }}>
-          {t("which_car_you_want_to_drive")}
-        </h3>
-        {/* <CustomDropdown
-          title={"MultiSelect"}
-          multiSelect={true}
-          showSelectedItemCount={true}
-          containerstyles={{
-            ...(language === "ar" ? { marginLeft: 20 } : { marginRight: 20 }),
-          }}
-        />
+      {isLoading?
+      
+     <div className="d-flex justify-content-center align-items-center vh-100">
+        <span
+        className="spinner-border me-2"
+        role="status"
+        aria-hidden="true"
+        style={{ width: '2rem', height: '2rem' }}
+      ></span>
+     </div>
+    
+      
+     : <div className="container mt-5">
+     <h3 style={{ textTransform: "uppercase", marginBottom: 20 }}>
+       {t("which_car_you_want_to_drive")}
+     </h3>
+     {/* <CustomDropdown
+       title={"MultiSelect"}
+       multiSelect={true}
+       showSelectedItemCount={true}
+       containerstyles={{
+         ...(language === "ar" ? { marginLeft: 20 } : { marginRight: 20 }),
+       }}
+     />
 
-        <CustomDropdown title={t("sort_by")} /> */}
+     <CustomDropdown title={t("sort_by")} /> */}
 
-        {isMobile ? (
-          <div className="row">
-            {carsData.map((car) => (
-              <div key={car.id} className="col-sm-6 mb-2">
-                <CarCard
-                  car={car}
-                  onClick={() => handleCarClick(car)}
-                  isSelected={selectedCarId === car.id}
-                />
-              </div>
-            ))}
-          </div>
-        ) : (
-          carsData
-            .reduce((rows, car, index) => {
-              if (index % 3 === 0) {
-                rows.push([]);
-              }
-              rows[rows.length - 1].push(car);
-              return rows;
-            }, [])
-            .map((row, rowIndex) => (
-              <div key={rowIndex} className="row mb-3">
-                {row.map((car) => {
-                  return (
-                    <div
-                      key={car.id}
-                      className="col-lg-4 col-sm-6 col-12 mb-2 mb-lg-0"
-                    >
-                      <CarCard
-                        car={car}
-                        onClick={() => handleCarClick(car)}
-                        isSelected={selectedCarId === car.id}
-                      />
-                    </div>
-                  );
-                })}
+     {isMobile ? (
+       <div className="row">
+         {carsData.map((car) => (
+           <div key={car.id} className="col-sm-6 mb-2">
+             <CarCard
+               car={car}
+               onClick={() => handleCarClick(car)}
+               isSelected={selectedCarId === car.id}
+             />
+           </div>
+         ))}
+       </div>
+     ) : (
+       carsData
+         .reduce((rows, car, index) => {
+           if (index % 3 === 0) {
+             rows.push([]);
+           }
+           rows[rows.length - 1].push(car);
+           return rows;
+         }, [])
+         .map((row, rowIndex) => (
+           <div key={rowIndex} className="row mb-3">
+             {row.map((car) => {
+               return (
+                 <div
+                   key={car.id}
+                   className="col-lg-4 col-sm-6 col-12 mb-2 mb-lg-0"
+                 >
+                   <CarCard
+                     car={car}
+                     onClick={() => handleCarClick(car)}
+                     isSelected={selectedCarId === car.id}
+                   />
+                 </div>
+               );
+             })}
 
-                {!isMobile &&
-                  selectedCarId &&
-                  row.some((car) => car.id === selectedCarId) && (
-                    <div className="col-12 mt-4">
-                      <CarDetails
-                        car={carsData.find((car) => car.id === selectedCarId)}
-                        onClose={() => {
-                          dispatch(clearSelectedCar());
-                          setSelectedCarId(null);
-                        }}
-                      />
-                    </div>
-                  )}
-              </div>
-            ))
-        )}
-      </div>
+             {!isMobile &&
+               selectedCarId &&
+               row.some((car) => car.id === selectedCarId) && (
+                 <div className="col-12 mt-4">
+                   <CarDetails
+                     car={carsData.find((car) => car.id === selectedCarId)}
+                     onClose={() => {
+                       dispatch(clearSelectedCar());
+                       setSelectedCarId(null);
+                     }}
+                   />
+                 </div>
+               )}
+           </div>
+         ))
+     )}
+   </div>}
 
       <Modal
         show={showModal}

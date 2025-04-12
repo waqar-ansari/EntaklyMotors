@@ -375,6 +375,14 @@ input[type=number]::-webkit-outer-spin-button {
     appearance: none;
     margin: 0; 
 }
+.bookingCarImageBg{
+  position: relative;
+  width: 150px;
+  height: 115px;
+  background: url('/images/carBg.webp') no-repeat center center;
+  background-size: cover;
+  border-radius: 10px;
+}
 @media (min-width: 1200px) {}
 
 @media(max-width:1200px) {

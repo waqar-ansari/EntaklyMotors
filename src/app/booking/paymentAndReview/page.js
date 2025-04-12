@@ -29,6 +29,7 @@ const PaymentPage = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [localUserId, setLocalUserId] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [fullname, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const { t, language } = useTranslation();
@@ -121,6 +122,7 @@ const PaymentPage = () => {
   const totalPrice = useSelector((state) => state.totalPrice);
 
   const continueToPayment = async () => {
+    setIsLoading(true);
     try {
       const bookingDetails = {
         userId: localUserId,
@@ -146,15 +148,18 @@ const PaymentPage = () => {
         totalPrice: totalPrice,
       };
 
-      const bookingResponse = await api.post("/carbooking.php", bookingDetails);
+      const bookingResponse = await api.post(
+        "/carbookingnew.php",
+        bookingDetails
+      );
 
       if (bookingResponse.data.status === "error") {
         console.error("Error in booking:", bookingResponse.data);
+        setIsLoading(false)
         return;
       }
 
       const bookingId = bookingResponse.data.booking_id;
-      console.log("Booking ID:", bookingId);
 
       const stripe = await loadStripe(
         "pk_live_51R3XPNCvoTSNB6AOP5RMquZLbnYYfSrT8ZwSMTWVMxdJxy5eFPUyKa1WNn9mX1ecz80mnolIoK2HgpWQ5bzitBzo00CudNWUSt"
@@ -200,6 +205,7 @@ const PaymentPage = () => {
       const data = await response.json();
 
       if (!data.id) {
+        setIsLoading(false)
         console.error("Session creation failed:", data);
         return;
       }
@@ -208,9 +214,11 @@ const PaymentPage = () => {
 
       if (error) {
         console.error("Stripe redirect error:", error);
+        setIsLoading(false)
       }
     } catch (err) {
       console.error("Unexpected error:", err);
+      setIsLoading(false)
     }
   };
 
@@ -341,6 +349,7 @@ const PaymentPage = () => {
                 } else {
                   continueToPayment();
                 }
+                disabled = { isLoading };
               }}
               className="mt-0"
               style={{
@@ -349,7 +358,15 @@ const PaymentPage = () => {
                 opacity: isChecked ? 1 : 0.5,
               }}
             >
-              {t("continue_to_pay")}
+              {isLoading ? (
+                <span
+                  className="spinner-border spinner-border-sm me-2"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+              ) : (
+                t("continue_to_pay")
+              )}
             </button>
           </div>
           <div className="col-md-4">
