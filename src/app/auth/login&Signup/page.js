@@ -21,6 +21,7 @@ import {
   signInWithPhoneNumber,
 } from "firebase/auth";
 import { app } from "./firebase";
+import api from "@/app/api/axiosInstance";
 
 export default function LoginPage() {
   const [isActive, setIsActive] = useState(false);
@@ -44,6 +45,12 @@ export default function LoginPage() {
   const [isPhoneLogin, setIsPhoneLogin] = useState(false);
   const [isPhoneRegister, setIsPhoneRegister] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
+
+  const [step, setStep] = useState(1); // 1: email, 2: otp, 3: new password
+  const [forgotPasswordEmail, setForgotPasswordEmail] = useState("");
+  const [forgotPasswordOtp, setForgotPasswordOtp] = useState("");
+  const [forgotPasswordNewPassword, setForgotPasswordNewPassword] =
+    useState("");
   // const [isForgotPassword, setIsForgotPassword] = useState(false);
 
   const auth = getAuth(app);
@@ -222,11 +229,40 @@ export default function LoginPage() {
   };
   const { t, language } = useTranslation();
   console.log(otpSent, "otpSent");
-
+  const handleForgotPassword = async (e) => {
+    e.preventDefault();
+    try {
+      if (step === 1) {
+        const res = await api.post("/api/send-otp", { email });
+        if (res.data.success) {
+          setStep(2);
+        } else {
+          alert("Failed to send OTP.");
+        }
+      } else if (step === 2) {
+        const res = await api.post("/api/verify-otp", { email, otp });
+        if (res.data.valid) {
+          setStep(3);
+        } else {
+          alert("Invalid OTP.");
+        }
+      } else if (step === 3) {
+        const res = await api.post("/api/change-password", { email, password });
+        if (res.data.success) {
+          alert("Password changed successfully!");
+          // Optionally redirect to login or reset state
+        } else {
+          alert("Failed to change password.");
+        }
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong. Please try again.");
+    }
+  };
   return (
     <div>
       <Header />
-
       <div className="d-flex justify-content-center align-items-center">
         <div className={`loginContainer ${isActive ? "active" : ""}`}>
           {/* Login Form */}
@@ -349,23 +385,38 @@ export default function LoginPage() {
 
                 {/* Password Input */}
                 {!isPhoneLogin ? (
-                  <div
-                    className="input-box form-floating"
-                    style={{ zIndex: 0 }}
-                  >
-                    <input
-                      type="password"
-                      placeholder={t("password")}
-                      value={password}
-                      name="loginPassword"
-                      onChange={(e) => setPassword(e.target.value)}
-                      className="form-control"
-                    />
-                    <label htmlFor="loginPassword" className="inputLabelBg">
-                      {t("password")}
-                    </label>
-                    <i className="bx bxs-lock-alt"></i>
-                  </div>
+                  <>
+                    <div
+                      className="input-box form-floating"
+                      style={{ zIndex: 0 }}
+                    >
+                      <input
+                        type="password"
+                        placeholder={t("password")}
+                        value={password}
+                        name="loginPassword"
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="form-control"
+                      />
+                      <label htmlFor="loginPassword" className="inputLabelBg">
+                        {t("password")}
+                      </label>
+                      <i className="bx bxs-lock-alt"></i>
+                    </div>
+                    {/* {!isForgotPassword && (
+                      <div
+                        style={{ textAlign: "right" }}
+                        className="mb-3"
+                        onClick={() => {
+                          setIsForgotPassword(true);
+                        }}
+                      >
+                        <button className="bg-white">
+                          {t("forgot_password?")}
+                        </button>
+                      </div>
+                    )} */}
+                  </>
                 ) : (
                   ""
                 )}
@@ -398,38 +449,110 @@ export default function LoginPage() {
             </div>
           ) : (
             /* Forgot Password Form */
-            <div className="form-box form-floating forgot-password">
-              <form action="#">
-                <h1> {t("forgot_password")}</h1>
-                <div className="input-box">
-                  <input
-                    type="email"
-                    name="forgot_password"
-                    className="form-control"
-                    placeholder={t("enter_your_email")}
-                    required
-                  />
-                  <label htmlFor="forgot_password" className="inputLabelBg">
-                    {t("forgot_password")}
-                  </label>
-                  {/* <i className="bx bxs-envelope"></i> */}
-                </div>
+            <div className="form-box forgot-password">
+              <form onSubmit={handleForgotPassword}>
+                <h1>{t("forgot_password")}</h1>
+
+                {step === 1 && (
+                  <div className="input-box form-floating">
+                    <input
+                      type="email"
+                      name="forgot_password"
+                      className="form-control"
+                      placeholder={t("enter_your_email")}
+                      value={forgotPasswordEmail}
+                      onChange={(e) => setForgotPasswordEmail(e.target.value)}
+                      required
+                    />
+                    <label className="inputLabelBg">
+                      {t("enter_your_email")}
+                    </label>
+                  </div>
+                )}
+
+                {step === 2 && (
+                  <div className="input-box form-floating">
+                    <input
+                      type="text"
+                      name="otp"
+                      className="form-control"
+                      placeholder={t("enter_otp")}
+                      value={forgotPasswordOtp}
+                      onChange={(e) => setForgotPasswordOtp(e.target.value)}
+                      required
+                    />
+                    <label className="inputLabelBg">{t("enter_otp")}</label>
+                  </div>
+                )}
+
+                {step === 3 && (
+                  <div className="input-box form-floating">
+                    <input
+                      type="password"
+                      name="new_password"
+                      className="form-control"
+                      placeholder={t("enter_new_password")}
+                      value={forgotPasswordNewPassword}
+                      onChange={(e) =>
+                        setForgotPasswordNewPassword(e.target.value)
+                      }
+                      required
+                    />
+                    <label className="inputLabelBg">
+                      {t("enter_new_password")}
+                    </label>
+                  </div>
+                )}
+
                 <button type="submit" className="btn">
                   {t("submit")}
                 </button>
+
                 <p>
                   {t("remembered_your_password")}{" "}
                   <button
                     type="button"
                     className="forgot-btn text-decoration-none"
                     onClick={() => setIsForgotPassword(false)}
-                    style={{ color: colors.themeMain }}
+                    // style={{ color: "#ca2030" }}
                   >
                     {t("go_back_to_login")}
                   </button>
                 </p>
               </form>
             </div>
+            // <div className="form-box forgot-password">
+            //   <form action="#">
+            //     <h1> {t("forgot_password")}</h1>
+            //     <div className="input-box form-floating">
+            //       <input
+            //         type="email"
+            //         name="forgot_password"
+            //         className="form-control"
+            //         placeholder={t("enter_your_email")}
+            //         required
+            //       />
+            //       <label htmlFor="enter_your_email" className="inputLabelBg">
+            //         {t("enter_your_email")}
+            //       </label>
+            //       {/* <i className="bx bxs-envelope"></i> */}
+            //     </div>
+            //     <button type="submit" className="btn">
+            //       {t("submit")}
+            //     </button>
+            //     <p>
+            //       {t("remembered_your_password")}{" "}
+            //       <button
+            //         type="button"
+            //         className="forgot-btn text-decoration-none"
+            //         onClick={() => setIsForgotPassword(false)}
+            //         style={{ color: colors.themeMain }}
+            //       >
+            //         {t("go_back_to_login")}
+            //       </button>
+            //     </p>
+            //   </form>
+            // </div>
           )}
 
           {/* Register Form */}
@@ -473,6 +596,8 @@ export default function LoginPage() {
               </div>
               <p className="text-danger">{error}</p>
               <p className="text-success">{success}</p>
+              <div id="recaptcha-container"></div>
+
               <Link
                 type="button"
                 href="/auth/login&Signup"
@@ -493,7 +618,6 @@ export default function LoginPage() {
                 )}
               </Link>
             </form>
-            <div id="recaptcha-container"></div>
           </div>
 
           {/* Toggle Box */}

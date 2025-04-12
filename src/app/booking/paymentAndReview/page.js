@@ -111,6 +111,12 @@ const PaymentPage = () => {
     )
       return t("smart_protection_no_excess");
     if (
+      item === "Baby seat (0-18 kg / Group 0+/1)" ||
+      item === "مقعد طفل (٠-١٨ كجم / المجموعة ٠+/١" ||
+      item === "Детское сиденье (0-18 кг / Группа 0+/1)"
+    )
+      return t("baby_seat");
+    if (
       item === "Roadside Protection" ||
       item === "Защита на дороге" ||
       item === "مساعدة على الطريق"
@@ -257,6 +263,7 @@ const PaymentPage = () => {
                   setFullName(e.target.value);
                 }}
                 id="fullName"
+                required
               />
               <label for="fullName" className="inputLabelBg">
                 {t("full_name")}
@@ -312,6 +319,7 @@ const PaymentPage = () => {
                   id="phoneNumber"
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
+                  required
                 />
               </div>
             </div>

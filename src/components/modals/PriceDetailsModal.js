@@ -9,6 +9,7 @@ const PriceDetailsModal = () => {
   const [showPriceDetailsModal, setShowPriceDetailsModal] = useState(false);
   const [priceDetailsModalContent, setPriceDetailsModalContent] = useState("");
   const [translatedPackageName, setTranslatedPackageName] = useState("")
+  const {t, language} = useTranslation()
   const totalPrice = useSelector((state) => state.totalPrice);
   const openModal = (content) => {
     setPriceDetailsModalContent(content);
@@ -37,7 +38,63 @@ const PriceDetailsModal = () => {
   }, [selectedCarDetails]);
   const selectedPackage = useSelector((state) => state.selectedPackage);
   const selectedAddons = useSelector((state) => state.selectedAddon);
-  const {t, language} = useTranslation()
+  console.log(selectedAddons,"selected adons");
+  
+
+  const translatedSelectedAddons = selectedAddons.map((item) => {
+    if (item === "Free Cancellation") return t("free_cancellation");
+    if (item === "Zero Deposit") return t("zero_deposit");
+    if (
+      item ===
+        "200 km are included, each additional kilometer costs AED 0.65" ||
+      item ===
+        "Включено 200 км, каждый дополнительный километр стоит AED 0.65" ||
+      item === "يشمل السعر 200 كم، كل كيلومتر إضافي يكلف 0.65 درهم إماراتي"
+    )
+      return t("200_km_included");
+    if (
+      item === "All Inclusive Protection - No excess" ||
+      item === "حماية شاملة - لا تحمل ذاتي" ||
+      item === "Защита Все включено - Без защиты"
+    )
+      return t("all_inclusive_protection_no_excess");
+    if (
+      item === "Basic Protection - Excess: up to AED3,000.00" ||
+      item === "الحماية الأساسية - تحمل ذاتي: حتى ٣,٠٠٠ درهم" ||
+      item === "Базовая защита - франшиза: до AED 3,000.00"
+    )
+      return t("basic_protection_excess_upto");
+    if (
+      item === "Additional Driver" ||
+      item === "سائق إضافي" ||
+      item === "Дополнительный водитель"
+    )
+      return t("additional_driver");
+    if (
+      item === "Smart Protection - No excess" ||
+      item === "حماية ذكية بدون مبالغة" ||
+      item === "Умная защита - без франшизы"
+    )
+      return t("smart_protection_no_excess");
+    if (
+      item === "Baby seat (0-18 kg / Group 0+/1)" ||
+      item === "مقعد طفل (٠-١٨ كجم / المجموعة ٠+/١" ||
+      item === "Детское сиденье (0-18 кг / Группа 0+/1)"
+    )
+      return t("baby_seat");
+    if (
+      item === "Roadside Protection" ||
+      item === "Защита на дороге" ||
+      item === "مساعدة على الطريق"
+    )
+      return t("roadside_protection");
+    return item;
+  });
+
+console.log(translatedSelectedAddons,"translatedSelectedAddons");
+
+
+
 
 
 useEffect(()=>{
@@ -68,7 +125,7 @@ useEffect(()=>{
                     </p>
                   </div>
 
-                  {selectedAddons.map((addon, index) => {
+                  {translatedSelectedAddons.map((addon, index) => {
                     return (
                       <div className="flex mb-0" key={index}>
                         <p className="mb-0">{addon.name}</p>
