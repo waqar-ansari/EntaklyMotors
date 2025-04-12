@@ -49,10 +49,9 @@ export default function LoginPage() {
   const auth = getAuth(app);
   const handleLoginWith = (usePhone) => {
     setIsPhoneLogin(usePhone);
-  };
-  const handleRegisterWith = (usePhone) => {
-    setError("");
-    setIsPhoneRegister(usePhone);
+    setOtp("");
+    setOtpSent(false);
+    setOtpError("");
   };
 
   const dispatch = useDispatch();
@@ -112,13 +111,33 @@ export default function LoginPage() {
         alert(t("otp_sent_to_your_phone"));
       } catch (err) {
         console.error("OTP send error:", err);
-        setOtpError(err.message || "Failed to send OTP");
 
-        if (err.code === "auth/invalid-app-credential") {
-          setOtpError("Invalid app configuration. Please contact support.");
-        } else if (err.code === "auth/too-many-requests") {
-          setOtpError("Too many attempts. Please try again later.");
+        let message = "Failed to send OTP. Please try again.";
+
+        switch (err.code) {
+          case "auth/invalid-app-credential":
+            message = "Invalid app configuration. Please contact support.";
+            break;
+          case "auth/too-many-requests":
+            message = "Too many attempts. Please try again later.";
+            break;
+          case "auth/invalid-phone-number":
+            message = "The phone number entered is invalid.";
+            break;
+          case "auth/missing-phone-number":
+            message = "Please enter your phone number.";
+            break;
+          case "auth/quota-exceeded":
+            message = "SMS quota exceeded. Please try again later.";
+            break;
+          case "auth/user-disabled":
+            message = "This user account has been disabled.";
+            break;
+          default:
+            console.warn("Error sending OTP:");
         }
+        setOtpError(message);
+        setIsLoading(false);
       }
     } else {
       const credentials = { email, password };
@@ -137,6 +156,18 @@ export default function LoginPage() {
       }
     }
   };
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      e.preventDefault();
+      e.returnValue = "";
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
   useEffect(() => {
     window.recaptchaVerifier = new RecaptchaVerifier(
@@ -148,52 +179,8 @@ export default function LoginPage() {
         "expired-callback": () => {},
       }
     );
-  }, [auth]);
-
-  // const handleRegister = async (e) => {
-  //   e.preventDefault();
-  //   setError("");
-  //   setSuccess("");
-
-  //   if (isPhoneRegister) {
-  //     const fullPhone = registerCountryCode + registerPhoneNumber;
-  //     console.log("Attempting to verify:", fullPhone);
-
-  //     try {
-  //       console.log("Setting up reCAPTCHA...");
-  //       console.log(
-  //         auth,
-  //         fullPhone,
-  //         window.recaptchaVerifier,
-  //         "auth, fullPhone, window.recaptchaVerifier"
-  //       );
-  //       await window.recaptchaVerifier.render();
-  //       console.log("reCAPTCHA rendered successfully");
-  //       console.log("Attempting to send OTP...");
-  //       const confirmation = await signInWithPhoneNumber(
-  //         auth,
-  //         fullPhone,
-  //         window.recaptchaVerifier
-  //       );
-  //       console.log(confirmation.verificationId);
-
-  //       setConfirmationResult(confirmation);
-  //       setOtpSent(true);
-  //       alert(t("otp_sent_to_your_phone"));
-  //     } catch (err) {
-  //       console.error("Authentication error:", err);
-  //       setError(err.message || "OTP verification failed");
-
-  //       if (err.code === "auth/invalid-app-credential") {
-  //         setError("Invalid app configuration. Please contact support.");
-  //       } else if (err.code === "auth/too-many-requests") {
-  //         setError("Too many attempts. Please try again later.");
-  //       }
-  //     }
-  //   } else {
-  //   }
-  // };
-
+  }, []);
+  // }, [auth]);
   const handleRegister = async (e) => {
     setIsLoading(true);
     setError("");
@@ -245,7 +232,7 @@ export default function LoginPage() {
           {/* Login Form */}
           {!isForgotPassword ? (
             <div className="form-box login">
-              <form action="#">
+              <form onSubmit={handleLogin}>
                 <h1 className="mb-4">{t("login_with")}</h1>
 
                 <div className="d-flex mb-4">
@@ -279,7 +266,9 @@ export default function LoginPage() {
                   <div className="input-box form-floating">
                     <input
                       className="form-control"
-                      style={{ textAlign: language === "ar" ? "right" : "left" }}
+                      style={{
+                        textAlign: language === "ar" ? "right" : "left",
+                      }}
                       type="email"
                       value={email}
                       name="email"
@@ -316,7 +305,9 @@ export default function LoginPage() {
                           <div className="input-box my-0 w-100">
                             <input
                               type="number"
-                              style={{ textAlign: language === "ar" ? "right" : "left" }}
+                              style={{
+                                textAlign: language === "ar" ? "right" : "left",
+                              }}
                               placeholder={t("phone_number")}
                               value={phoneNumber}
                               onChange={(e) => setPhoneNumber(e.target.value)}
@@ -331,8 +322,10 @@ export default function LoginPage() {
                             style={{ zIndex: 0 }}
                           >
                             <input
-                              type="number"
-                              style={{ textAlign: language === "ar" ? "right" : "left" }}
+                              type="tel"
+                              style={{
+                                textAlign: language === "ar" ? "right" : "left",
+                              }}
                               placeholder={t("otp")}
                               value={otp}
                               name="otp"
@@ -377,10 +370,10 @@ export default function LoginPage() {
                   ""
                 )}
                 <button
-                  type="button"
-                  href="/account/profile"
+                  type="submit"
+                  // href="/account/profile"
                   className="btn text-decoration-none d-flex"
-                  onClick={handleLogin}
+                  // onClick={handleLogin}
                   disabled={isLoading}
                 >
                   {isLoading ? (
