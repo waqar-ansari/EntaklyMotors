@@ -284,7 +284,8 @@ const Header = ({ headerPickupAndDrop }) => {
                         alt="Logo"
                         width={24}
                         height={24}
-                        style={{ marginRight: 10 }}
+                        // style={{ marginRight: 10 }}
+                        className="me-2"
                         priority
                       />
                       EN | د.إ

@@ -22,7 +22,7 @@ import { selectBookingOverview, setPackageBookingOverview } from "@/redux/slices
 
 const page = () => {
   const { t, language } = useTranslation();
-  const [selectedPackage, setSelectedPackage] = useState(t("basic_protection"));
+  const [selectedPackage, setSelectedPackage] = useState();
 
   const packages = [
     {
@@ -231,8 +231,9 @@ const page = () => {
                 <PriceDetailsModal />
               </div>
               <Link
-                href="/cars/offerCheckout/addons"
-                className="mt-0"
+                // href="/cars/offerCheckout/addons"
+                href={selectedPackage ? "/cars/offerCheckout/addons" : "#"}
+                className={`mt-0 ${!selectedPackage ? "pointer-events-none opacity-50 cursor-not-allowed" : ""}`}
                 style={styles.nextButton}
               >
                 {t("continue")}
