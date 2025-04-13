@@ -8,8 +8,8 @@ import { useTranslation } from "@/context/LanguageProvider";
 const PriceDetailsModal = () => {
   const [showPriceDetailsModal, setShowPriceDetailsModal] = useState(false);
   const [priceDetailsModalContent, setPriceDetailsModalContent] = useState("");
-  const [translatedPackageName, setTranslatedPackageName] = useState("")
-  const {t, language} = useTranslation()
+  const [translatedPackageName, setTranslatedPackageName] = useState("");
+  const { t, language } = useTranslation();
   const totalPrice = useSelector((state) => state.totalPrice);
   const openModal = (content) => {
     setPriceDetailsModalContent(content);
@@ -38,68 +38,46 @@ const PriceDetailsModal = () => {
   }, [selectedCarDetails]);
   const selectedPackage = useSelector((state) => state.selectedPackage);
   const selectedAddons = useSelector((state) => state.selectedAddon);
-  
+  console.log(selectedAddons, "selectedaddons");
 
   const translatedSelectedAddons = selectedAddons.map((item) => {
-    if (item === "Free Cancellation") return t("free_cancellation");
-    if (item === "Zero Deposit") return t("zero_deposit");
+    let translatedName = item.name;
+  
     if (
-      item ===
-        "200 km are included, each additional kilometer costs AED 0.65" ||
-      item ===
-        "Включено 200 км, каждый дополнительный километр стоит AED 0.65" ||
-      item === "يشمل السعر 200 كم، كل كيلومتر إضافي يكلف 0.65 درهم إماراتي"
-    )
-      return t("200_km_included");
-    if (
-      item === "All Inclusive Protection - No excess" ||
-      item === "حماية شاملة - لا تحمل ذاتي" ||
-      item === "Защита Все включено - Без защиты"
-    )
-      return t("all_inclusive_protection_no_excess");
-    if (
-      item === "Basic Protection - Excess: up to AED3,000.00" ||
-      item === "الحماية الأساسية - تحمل ذاتي: حتى ٣,٠٠٠ درهم" ||
-      item === "Базовая защита - франшиза: до AED 3,000.00"
-    )
-      return t("basic_protection_excess_upto");
-    if (
-      item === "Additional Driver" ||
-      item === "سائق إضافي" ||
-      item === "Дополнительный водитель"
-    )
-      return t("additional_driver");
-    if (
-      item === "Smart Protection - No excess" ||
-      item === "حماية ذكية بدون مبالغة" ||
-      item === "Умная защита - без франшизы"
-    )
-      return t("smart_protection_no_excess");
-    if (
-      item === "Baby seat (0-18 kg / Group 0+/1)" ||
-      item === "مقعد طفل (٠-١٨ كجم / المجموعة ٠+/١" ||
-      item === "Детское сиденье (0-18 кг / Группа 0+/1)"
-    )
-      return t("baby_seat");
-    if (
-      item === "Roadside Protection" ||
-      item === "Защита на дороге" ||
-      item === "مساعدة على الطريق"
-    )
-      return t("roadside_protection");
-    return item;
+      item.name === "Additional Driver" ||
+      item.name === "سائق إضافي" ||
+      item.name === "Дополнительный водитель"
+    ) {
+      translatedName = t("additional_driver");
+    } else if (
+      item.name === "Baby seat (0-18 kg / Group 0+/1)" ||
+      item.name === "مقعد طفل (٠-١٨ كجم / المجموعة ٠+/١" ||
+      item.name === "Детское сиденье (0-18 кг / Группа 0+/1)"
+    ) {
+      translatedName = t("baby_seat");
+    } else if (
+      item.name === "Roadside Protection" ||
+      item.name === "Защита на дороге" ||
+      item.name === "مساعدة على الطريق"
+    ) {
+      translatedName = t("roadside_protection");
+    }
+  
+    return {
+      ...item,
+      name: translatedName,
+    };
   });
+  
 
+  console.log(translatedSelectedAddons, "translatedSelectedAddons");
 
+  useEffect(() => {
+    if (selectedPackage.packageName === "Basic Protection") {
+      setTranslatedPackageName(t("basic_protection"));
+    }
+  }, []);
 
-
-
-useEffect(()=>{
-  if (selectedPackage.packageName ==="Basic Protection"){
-    setTranslatedPackageName(t("basic_protection"))
-  }
-},[])
- 
   return (
     <>
       <div>
@@ -131,14 +109,16 @@ useEffect(()=>{
                     );
                   })}
                 </div>
-                
-              {selectedPackage.packageName!==null &&  <div className="section">
-                  <div className="flex">
-                  <p className="mb-0">{t("protection_package")}</p>
-                    {/* <p className="mb-0">{translatedPackageName}</p> */}
-                    <p className="m-0">{selectedPackage.packagePrice}</p>
+
+                {selectedPackage.packageName !== null && (
+                  <div className="section">
+                    <div className="flex">
+                      <p className="mb-0">{t("protection_package")}</p>
+                      {/* <p className="mb-0">{translatedPackageName}</p> */}
+                      <p className="m-0">{selectedPackage.packagePrice}</p>
+                    </div>
                   </div>
-                </div>}
+                )}
 
                 {/* <div className="section">
                   <p className="heading3">{t("taxes_and_fees")}</p>
@@ -148,9 +128,10 @@ useEffect(()=>{
                   </div>
                 </div> */}
 
-
                 <div className="flex">
-                  <p className="heading2 mb-0">{t("total")} ({t("incl_tax")})</p>
+                  <p className="heading2 mb-0">
+                    {t("total")} ({t("incl_tax")})
+                  </p>
                   <p className="heading2 mb-0">{totalPrice}</p>
                 </div>
               </>
