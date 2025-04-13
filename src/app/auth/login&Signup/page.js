@@ -76,10 +76,8 @@ export default function LoginPage() {
       if (otpSent && otp) {
         try {
           const result = await confirmationResult.confirm(otp);
-          console.log(result, "result");
 
           const phoneNumberConfirmed = result.user.phoneNumber;
-          console.log(phoneNumberConfirmed, "phoneNumberConfirmed");
 
           const credentials = {
             phone_number: {
@@ -91,6 +89,7 @@ export default function LoginPage() {
           const response = await dispatch(loginUser(credentials)).unwrap();
 
           if (response.status === "error") {
+            setIsLoading(false);
             setOtpError("OTP verification failed or user not found");
           } else {
             setIsLoading(false);
@@ -101,6 +100,7 @@ export default function LoginPage() {
           setIsLoading(false);
           setOtpError("Invalid OTP");
         }
+        setIsLoading(false);
         return;
       }
 
@@ -117,8 +117,6 @@ export default function LoginPage() {
         setIsLoading(false);
         alert(t("otp_sent_to_your_phone"));
       } catch (err) {
-        console.error("OTP send error:", err);
-
         let message = "Failed to send OTP. Please try again.";
 
         switch (err.code) {
@@ -152,29 +150,30 @@ export default function LoginPage() {
         const result = await dispatch(loginUser(credentials)).unwrap();
 
         if (result.status === "error") {
+          setIsLoading(false);
           setError("Invalid email or password");
           return;
         }
-
         router.push("/account/profile");
       } catch (error) {
         console.log("Login failed:", error);
+        setIsLoading(false);
         setError("Login failed. Please try again.");
       }
     }
   };
-  useEffect(() => {
-    const handleBeforeUnload = (e) => {
-      e.preventDefault();
-      e.returnValue = "";
-    };
+  // useEffect(() => {
+  //   const handleBeforeUnload = (e) => {
+  //     e.preventDefault();
+  //     e.returnValue = "";
+  //   };
 
-    window.addEventListener("beforeunload", handleBeforeUnload);
+  //   window.addEventListener("beforeunload", handleBeforeUnload);
 
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("beforeunload", handleBeforeUnload);
+  //   };
+  // }, []);
 
   useEffect(() => {
     window.recaptchaVerifier = new RecaptchaVerifier(
@@ -228,29 +227,37 @@ export default function LoginPage() {
     }
   };
   const { t, language } = useTranslation();
-  console.log(otpSent, "otpSent");
   const handleForgotPassword = async (e) => {
     e.preventDefault();
     try {
       if (step === 1) {
-        const res = await api.post("/api/send-otp", { email });
-        if (res.data.success) {
+        const res = await api.post("/forgot_password.php", {
+          email: forgotPasswordEmail,
+        });
+        if (res.data.status === "success") {
           setStep(2);
         } else {
           alert("Failed to send OTP.");
         }
       } else if (step === 2) {
-        const res = await api.post("/api/verify-otp", { email, otp });
-        if (res.data.valid) {
+        const res = await api.post("/verify_otp.php", {
+          email: forgotPasswordEmail,
+          otp: forgotPasswordOtp,
+        });
+        if (res.data.status === "success") {
           setStep(3);
         } else {
           alert("Invalid OTP.");
         }
       } else if (step === 3) {
-        const res = await api.post("/api/change-password", { email, password });
-        if (res.data.success) {
+        const res = await api.post("/reset_password.php", {
+          email: forgotPasswordEmail,
+          password: forgotPasswordNewPassword,
+        });
+        if (res.data.status === "success") {
           alert("Password changed successfully!");
-          // Optionally redirect to login or reset state
+          setIsForgotPassword(false);
+          setStep(1);
         } else {
           alert("Failed to change password.");
         }
@@ -403,7 +410,8 @@ export default function LoginPage() {
                       </label>
                       <i className="bx bxs-lock-alt"></i>
                     </div>
-                    {/* {!isForgotPassword && (
+                    <p className="text-danger">{error}</p>
+                    {!isForgotPassword && (
                       <div
                         style={{ textAlign: "right" }}
                         className="mb-3"
@@ -415,7 +423,7 @@ export default function LoginPage() {
                           {t("forgot_password?")}
                         </button>
                       </div>
-                    )} */}
+                    )}
                   </>
                 ) : (
                   ""

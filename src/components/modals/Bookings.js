@@ -17,13 +17,10 @@ const Bookings = () => {
   useEffect(() => {
     const localUserId = localStorage.getItem("userId");
     const fetchBookings = async () => {
-      console.log(localUserId, "user id before api");
 
       const response = await api.post("/getallcarbooking.php", {
         userId: localUserId,
       });
-      console.log(response.data.status, "all car booking data");
-
       setCustomerBookings(response.data.data);
     };
     fetchBookings();
@@ -38,20 +35,17 @@ const Bookings = () => {
   const confirmCancelBooking = async () => {
     if (!selectedBooking) return;
     const localUserId = localStorage.getItem("userId");
-    console.log(localUserId,"local user id in cancel booking");
     
     try {
       const response = await api.post("/cancel_booking.php", {
         booking_number: selectedBooking.booking_number,
       });
-      console.log(response.data,"response from cancel api");
       
       if (response.data.status === "success") {
         const fetchBookings = async () => {
           const response = await api.post("/getallcarbooking.php", {
             userId: localUserId,
           });
-          console.log(response.data.data, "all car booking data");
 
           setCustomerBookings(response.data.data);
         };

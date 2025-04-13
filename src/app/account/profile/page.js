@@ -65,7 +65,6 @@ const Page = () => {
   }, [dispatch, localUserId]);
 
   const profile = useSelector((state) => state.profile);
-  console.log(profile, "profile");
 
   const { fullname, email, phonenumber, address, loading, error } = profile;
 
@@ -90,10 +89,8 @@ const Page = () => {
         user_id: Number(localUserId),
       };
     }
-    console.log(updatedData, "updatedData sent to profile api");
 
     dispatch(updateProfile(updatedData));
-    console.log(Number(localUserId), "Number(localUserId)");
 
     dispatch(fetchProfile({ user_id: Number(localUserId) }));
   };
@@ -255,7 +252,9 @@ const Page = () => {
                         <div className="input-box w-100 my-0">
                           <input
                             className="form-control"
-                            style={{ textAlign: language === "ar" ? "right" : "left" }}
+                            style={{
+                              textAlign: language === "ar" ? "right" : "left",
+                            }}
                             type="number"
                             placeholder={t("phone_number")}
                             name="number"

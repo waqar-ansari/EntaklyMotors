@@ -38,7 +38,6 @@ const PriceDetailsModal = () => {
   }, [selectedCarDetails]);
   const selectedPackage = useSelector((state) => state.selectedPackage);
   const selectedAddons = useSelector((state) => state.selectedAddon);
-  console.log(selectedAddons,"selected adons");
   
 
   const translatedSelectedAddons = selectedAddons.map((item) => {
@@ -90,8 +89,6 @@ const PriceDetailsModal = () => {
       return t("roadside_protection");
     return item;
   });
-
-console.log(translatedSelectedAddons,"translatedSelectedAddons");
 
 
 

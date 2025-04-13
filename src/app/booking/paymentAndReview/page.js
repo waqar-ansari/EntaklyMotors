@@ -64,7 +64,6 @@ const PaymentPage = () => {
 
   const bookingOverview = useSelector(selectBookingOverview);
   const profile = useSelector((state) => state.profile);
-  console.log(profile, "profile data");
   useEffect(() => {
     if (profile) {
       if (profile.fullname) setFullName(profile.fullname);
@@ -160,7 +159,6 @@ const PaymentPage = () => {
       );
 
       if (bookingResponse.data.status === "error") {
-        console.error("Error in booking:", bookingResponse.data);
         setIsLoading(false)
         return;
       }

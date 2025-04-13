@@ -25,7 +25,6 @@ const BookingConfirmation = () => {
   // const transactionId = searchParams.get("transaction_id");
   const selectedPackageDetails = useSelector((state) => state.selectedPackage);
   const rentalDetail = useSelector((state) => state.rentalDetail);
-  console.log(rentalDetail, "rentalDetail");
 
   const selectedCarDetail = useSelector((state) => state.selectedCar);
   const bookingOverview = useSelector(selectBookingOverview);
@@ -45,7 +44,6 @@ const BookingConfirmation = () => {
     rentalDetail.returnDate
   );
   const { t, language } = useTranslation();
-  console.log(selectedCarDetail,"selectedCarDetailselectedCarDetailselectedCarDetail");
   
   useEffect(() => {
     const fetchPaymentDetails = async () => {
@@ -115,16 +113,12 @@ const BookingConfirmation = () => {
           pickupTime: rentalDetail.pickupTime,
           returnTime: rentalDetail.returnTime,
         };
-        console.log("sendPaymentDetails", sendPaymentDetails);
 
         const paymentApiResponse = await api.post(
           "/confirm_booking_new.php",
           sendPaymentDetails
         );
         setTransactionId(paymentApiResponse.data.transaction_id);
-        console.log(paymentApiResponse.data, "paymentApiResponse");
-
-        console.log("Paid using:", methodUsed);
       } catch (err) {
         console.error("Error fetching payment method details:", err);
       }
