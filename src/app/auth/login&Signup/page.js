@@ -121,7 +121,8 @@ export default function LoginPage() {
 
         switch (err.code) {
           case "auth/invalid-app-credential":
-            message = "Verification failed. Please complete the security check (reCAPTCHA) and try again";
+            message =
+              "Verification failed. Please complete the security check (reCAPTCHA) and try again";
             break;
           case "auth/too-many-requests":
             message = "Too many attempts. Please try again later.";
@@ -228,16 +229,22 @@ export default function LoginPage() {
   };
   const { t, language } = useTranslation();
   const handleForgotPassword = async (e) => {
+    setOtpError("")
+    isLoading(true)
     e.preventDefault();
     try {
       if (step === 1) {
         const res = await api.post("/forgot_password.php", {
           email: forgotPasswordEmail,
         });
+        console.log(res.data, "res from forgot password");
+
         if (res.data.status === "success") {
           setStep(2);
+          isLoading(false)
         } else {
-          alert("Failed to send OTP.");
+          setOtpError(res.data.message);
+          isLoading(false)
         }
       } else if (step === 2) {
         const res = await api.post("/verify_otp.php", {
@@ -246,8 +253,10 @@ export default function LoginPage() {
         });
         if (res.data.status === "success") {
           setStep(3);
+          isLoading(false)
         } else {
-          alert("Invalid OTP.");
+          setOtpError("Invalid OTP.");
+          isLoading(false)
         }
       } else if (step === 3) {
         const res = await api.post("/reset_password.php", {
@@ -256,14 +265,17 @@ export default function LoginPage() {
         });
         if (res.data.status === "success") {
           alert("Password changed successfully!");
+          isLoading(false)
           setIsForgotPassword(false);
           setStep(1);
         } else {
           alert("Failed to change password.");
+          isLoading(false)
         }
       }
     } catch (error) {
       console.error(error);
+      isLoading(false)
       alert("Something went wrong. Please try again.");
     }
   };
@@ -511,7 +523,7 @@ export default function LoginPage() {
                     </label>
                   </div>
                 )}
-
+                <p className="text-danger">{otpError}</p>
                 <button type="submit" className="btn">
                   {t("submit")}
                 </button>
