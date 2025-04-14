@@ -44,7 +44,7 @@ const BookingConfirmation = () => {
     rentalDetail.returnDate
   );
   const { t, language } = useTranslation();
-  
+
   useEffect(() => {
     const fetchPaymentDetails = async () => {
       const sessionId = new URLSearchParams(window.location.search).get(
@@ -59,7 +59,7 @@ const BookingConfirmation = () => {
           {
             headers: {
               Authorization:
-                "Bearer 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",
+                "Bearer sk_test_51R3XPNCvoTSNB6AOCZYZjMVY7HLur9TGtdqrWzBNO57Psfzbpnqya6YtWwW0r6nUDvaW8fBR1XsFXKN2vcihmYMf005Ukp7883",
             },
           }
         );
@@ -71,7 +71,7 @@ const BookingConfirmation = () => {
           {
             headers: {
               Authorization:
-                "Bearer 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",
+                "Bearer sk_test_51R3XPNCvoTSNB6AOCZYZjMVY7HLur9TGtdqrWzBNO57Psfzbpnqya6YtWwW0r6nUDvaW8fBR1XsFXKN2vcihmYMf005Ukp7883",
             },
           }
         );
@@ -83,7 +83,7 @@ const BookingConfirmation = () => {
           {
             headers: {
               Authorization:
-                "Bearer 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",
+                "Bearer sk_test_51R3XPNCvoTSNB6AOCZYZjMVY7HLur9TGtdqrWzBNO57Psfzbpnqya6YtWwW0r6nUDvaW8fBR1XsFXKN2vcihmYMf005Ukp7883",
             },
           }
         );
@@ -113,15 +113,15 @@ const BookingConfirmation = () => {
           pickupTime: rentalDetail.pickupTime,
           returnTime: rentalDetail.returnTime,
         };
-console.log(sendPaymentDetails,"send payment details");
+        console.log(sendPaymentDetails, "send payment details");
 
         const paymentApiResponse = await api.post(
           "/confirm_booking_new.php",
           sendPaymentDetails
         );
-        console.log(paymentApiResponse.data,"response from payment api");
-        console.log(paymentApiResponse.data.transaction_id,"transaction id ");
-        
+        console.log(paymentApiResponse.data, "response from payment api");
+        console.log(paymentApiResponse.data.transaction_id, "transaction id ");
+
         setTransactionId(paymentApiResponse.data.data.transaction_id);
       } catch (err) {
         console.error("Error fetching payment method details:", err);
