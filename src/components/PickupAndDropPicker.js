@@ -52,10 +52,10 @@ const PickupAndDropPicker = ({
 
   const [showDateModal, setShowDateModal] = useState(false);
   const [showLocations, setShowLocations] = useState(false);
-  const [pickupTime, setPickupTime] = useState("");
-  const [returnTime, setReturnTime] = useState("");
-  const [pickupLocation, setPickupLocation] = useState("");
-  const [returnLocation, setReturnLocation] = useState("");
+  const [pickupTime, setPickupTime] = useState(rentalDetails.pickupTime||"");
+  const [returnTime, setReturnTime] = useState(rentalDetails.returnTime||"");
+  const [pickupLocation, setPickupLocation] = useState(rentalDetails.pickupLocation||"");
+  const [returnLocation, setReturnLocation] = useState(rentalDetails.returnLocation|| "");
   const [showPickupTimeModal, setShowPickupTimeModal] = useState(false);
   const [showReturnTimeModal, setShowReturnTimeModal] = useState(false);
   const [showReturnTimeModalMobile, setShowReturnTimeModalMobile] =
@@ -156,7 +156,7 @@ const PickupAndDropPicker = ({
       setReturnLocation(item.locationName);
     }
 
-    setShowLocations(false); // Hide the location list after selection
+    setShowLocations(false);
   };
   const timeSlots = [];
   const periods = ["AM", "PM"];
@@ -404,7 +404,7 @@ const PickupAndDropPicker = ({
               type="text"
               className="form-control"
               id="pickupLocation"
-              value={pickupLocation || rentalDetails.pickupLocation}
+              value={pickupLocation}
               placeholder="Pickup Location"
               onClick={() => {
                 handleInputClick("pickup", t("pick_up_locations"));
@@ -421,7 +421,7 @@ const PickupAndDropPicker = ({
             <input
               type="text"
               className="form-control"
-              value={pickupLocation || rentalDetails.pickupLocation}
+              value={pickupLocation}
               id="pickupLocation"
               placeholder="Pickup Location"
               onClick={() => {
@@ -441,7 +441,7 @@ const PickupAndDropPicker = ({
               type="text"
               className="form-control"
               id="returnLocation"
-              value={returnLocation || rentalDetails.returnLocation}
+              value={returnLocation}
               placeholder="Drop Location"
               onClick={() => {
                 setReturnLocationModal(true);
@@ -460,7 +460,7 @@ const PickupAndDropPicker = ({
             <input
               type="text"
               className="form-control"
-              value={returnLocation || rentalDetails.returnLocation}
+              value={returnLocation}
               id="returnLocation"
               placeholder="Drop Location"
               onClick={() => handleInputClick("drop", t("return_locations"))}
@@ -520,7 +520,7 @@ const PickupAndDropPicker = ({
                 </span>
                 <div className="form-floating">
                   <input
-                    value={pickupTime || rentalDetails.pickupTime}
+                    value={pickupTime}
                     className="form-control"
                     placeholder="Pickup Date & Time"
                     onClick={handleShowPickupTimeModalMobile}
@@ -567,7 +567,7 @@ const PickupAndDropPicker = ({
                 </span>
                 <div className="form-floating">
                   <input
-                    value={returnTime || rentalDetails.returnTime}
+                    value={returnTime}
                     className="form-control"
                     placeholder="Return Date"
                     onClick={handleShowReturnTimeModal}
@@ -631,7 +631,7 @@ const PickupAndDropPicker = ({
               <div className="form-floating">
                 <input
                   // value={range[0] ? formatDate(range[0]) : ""}
-                  value={pickupTime || rentalDetails.pickupTime}
+                  value={pickupTime}
                   className="form-control"
                   placeholder="Pickup Date & Time"
                   onClick={handlePickUpTimeClick}
@@ -688,7 +688,7 @@ const PickupAndDropPicker = ({
               <div className="form-floating">
                 <input
                   // value={range[0] ? formatDate(range[1]) : ""}
-                  value={returnTime || rentalDetails.returnTime}
+                  value={returnTime}
                   className="form-control"
                   placeholder="Return Date"
                   onClick={handleReturnTimeClick}
