@@ -107,6 +107,11 @@ export default function CarsPage() {
       }
     }
   };
+  console.log(rentalDetail,"rentalDetail");
+  
+  console.log(rentalDetail.pickupdate,"rentalDetail.pickupdate");
+  console.log(rentalDetail.returndate,"rentalDetail.returndate");
+  
   const localUserId = localStorage.getItem("userId");
   useEffect(() => {
     const fetchCars = async () => {
@@ -115,8 +120,8 @@ export default function CarsPage() {
         const response = await api.post("/getallcarslanguage.php", {
           // user_id: localUserId,
           language: language==="ar"?"ar":language ==="ru"?"ru_RU": "en_US",
-          pickupdate: rentalDetail.pickupdate,
-          returndate: rentalDetail.returndate,
+          pickupdate: rentalDetail.pickupDate,
+          returndate: rentalDetail.returnDate,
         });
         if (response.data.error) {
           console.log(response.data.error);
