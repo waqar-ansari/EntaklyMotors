@@ -121,7 +121,7 @@ export default function LoginPage() {
 
         switch (err.code) {
           case "auth/invalid-app-credential":
-            message = "Invalid app configuration. Please contact support.";
+            message = "Verification failed. Please complete the security check (reCAPTCHA) and try again";
             break;
           case "auth/too-many-requests":
             message = "Too many attempts. Please try again later.";
