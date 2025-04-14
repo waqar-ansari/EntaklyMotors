@@ -186,7 +186,7 @@ const PickupAndDropPicker = ({
       setActiveInput(inputType);
     }
   };
-  
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -234,7 +234,6 @@ const PickupAndDropPicker = ({
       e.preventDefault();
       return;
     }
-
     setError("");
 
     const rentalData = {
@@ -248,7 +247,8 @@ const PickupAndDropPicker = ({
     };
 
     dispatch(setRentalDetailDataSlice(rentalData));
-
+    console.log("cars page displayed");
+    localStorage.setItem("refreshCars", "true");
     router.push("/cars");
   };
   const handleLocationSearch = (input) => {
@@ -730,7 +730,7 @@ const PickupAndDropPicker = ({
         <Modal.Header closeButton>
           <Modal.Title>{t("choose_date")}</Modal.Title>
         </Modal.Header>
-        <Modal.Body >
+        <Modal.Body>
           <CustomProvider locale={calendarLocales[language]}>
             <DateRangePicker
               showOneCalendar

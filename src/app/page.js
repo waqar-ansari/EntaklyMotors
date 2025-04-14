@@ -154,7 +154,9 @@ export default function HomePage() {
   };
   const rentaldataa = useSelector((state) => state.rentalDetails);
   const [show, setShow] = useState(false);
-
+useEffect(()=>{
+localStorage.setItem("refreshCars","false")
+},[])
   return (
     <div>
       <div>
