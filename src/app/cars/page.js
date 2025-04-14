@@ -81,7 +81,7 @@ export default function CarsPage() {
   const isMobile =
     typeof window !== "undefined" &&
     window.matchMedia("(max-width: 991px)").matches;
-
+ const rentalDetail = useSelector((state) => state.rentalDetail);
   const handleCarClick = (car) => {
     if (selectedCarId === car.id) {
       setSelectedCarId(null);
@@ -115,6 +115,8 @@ export default function CarsPage() {
         const response = await api.post("/getallcarslanguage.php", {
           // user_id: localUserId,
           language: language==="ar"?"ar":language ==="ru"?"ru_RU": "en_US",
+          pickupdate: rentalDetail.pickupdate,
+          returndate: rentalDetail.returndate,
         });
         if (response.data.error) {
           console.log(response.data.error);

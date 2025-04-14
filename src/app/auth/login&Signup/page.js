@@ -307,6 +307,8 @@ export default function LoginPage() {
       alert("Something went wrong. Please try again.");
     }
   };
+  console.log(step,"step");
+  
   return (
     <div>
       <Header />
@@ -569,7 +571,9 @@ export default function LoginPage() {
                   <button
                     type="button"
                     className="forgot-btn text-decoration-none"
-                    onClick={() => setIsForgotPassword(false)}
+                    onClick={() => {
+                      setStep(1)
+                      setIsForgotPassword(false)}}
                     // style={{ color: "#ca2030" }}
                   >
                     {t("go_back_to_login")}
@@ -577,38 +581,6 @@ export default function LoginPage() {
                 </p>
               </form>
             </div>
-            // <div className="form-box forgot-password">
-            //   <form action="#">
-            //     <h1> {t("forgot_password")}</h1>
-            //     <div className="input-box form-floating">
-            //       <input
-            //         type="email"
-            //         name="forgot_password"
-            //         className="form-control"
-            //         placeholder={t("enter_your_email")}
-            //         required
-            //       />
-            //       <label htmlFor="enter_your_email" className="inputLabelBg">
-            //         {t("enter_your_email")}
-            //       </label>
-            //       {/* <i className="bx bxs-envelope"></i> */}
-            //     </div>
-            //     <button type="submit" className="btn">
-            //       {t("submit")}
-            //     </button>
-            //     <p>
-            //       {t("remembered_your_password")}{" "}
-            //       <button
-            //         type="button"
-            //         className="forgot-btn text-decoration-none"
-            //         onClick={() => setIsForgotPassword(false)}
-            //         style={{ color: colors.themeMain }}
-            //       >
-            //         {t("go_back_to_login")}
-            //       </button>
-            //     </p>
-            //   </form>
-            // </div>
           )}
 
           {/* Register Form */}

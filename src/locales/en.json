@@ -265,7 +265,7 @@
 "send_otp":"Send OTP",
 "verify_otp":"Verify OTP",
 "otp":"OTP",
-"otp_sent_to_your_phone":"OTP sent to your phone. Please check your messages.",
+"otp_sent_to_your_phone":"Your verification code has been sent via SMS. Please enter it to proceed.",
 "your_bookings":"Your Bookings",
 "no_bookings_found":"No bookings found",
 "profile":"Profile",
