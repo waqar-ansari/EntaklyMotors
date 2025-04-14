@@ -157,13 +157,14 @@ const PaymentPage = () => {
         "/carbookingnew.php",
         bookingDetails
       );
+console.log(bookingResponse,"booking response");
 
       if (bookingResponse.data.status === "error") {
         setIsLoading(false)
         return;
       }
 
-      const bookingId = bookingResponse.data.booking_id;
+      const bookingId = bookingResponse.data.booking_number;
 
       const stripe = await loadStripe(
         "pk_live_51R3XPNCvoTSNB6AOP5RMquZLbnYYfSrT8ZwSMTWVMxdJxy5eFPUyKa1WNn9mX1ecz80mnolIoK2HgpWQ5bzitBzo00CudNWUSt"
