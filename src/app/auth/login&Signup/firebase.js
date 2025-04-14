@@ -1,5 +1,6 @@
 "use client";
-import { initializeApp } from "firebase/app";
+import { getApps, initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 
 const firebaseConfig = {
@@ -11,10 +12,10 @@ const firebaseConfig = {
     appId: "1:841163143068:web:4a19e4f9415c7bb0723a59",
     measurementId: "G-QMGYLB0GJT"
 };
-
-const app = initializeApp(firebaseConfig);
-// const auth = getAuth(app);
-// if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
-//     auth.settings.appVerificationDisabledForTesting = true;
-//   }
-export { app };
+const app = !getApps().length
+  ? initializeApp(firebaseConfig)
+  : getApps()[0];
+  const auth = getAuth(app);
+// const app = initializeApp(firebaseConfig);
+// export { app };
+export { app, auth };

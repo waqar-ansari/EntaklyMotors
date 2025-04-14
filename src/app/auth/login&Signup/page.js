@@ -20,7 +20,7 @@ import {
   RecaptchaVerifier,
   signInWithPhoneNumber,
 } from "firebase/auth";
-import { app } from "./firebase";
+import { auth  } from "./firebase";
 import api from "@/app/api/axiosInstance";
 
 export default function LoginPage() {
@@ -45,6 +45,7 @@ export default function LoginPage() {
   const [isPhoneLogin, setIsPhoneLogin] = useState(false);
   const [isPhoneRegister, setIsPhoneRegister] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [counter, setCounter] = useState(20);
 
   const [step, setStep] = useState(1); // 1: email, 2: otp, 3: new password
   const [forgotPasswordEmail, setForgotPasswordEmail] = useState("");
@@ -52,8 +53,18 @@ export default function LoginPage() {
   const [forgotPasswordNewPassword, setForgotPasswordNewPassword] =
     useState("");
   // const [isForgotPassword, setIsForgotPassword] = useState(false);
+  useEffect(() => {
+    if (counter === 0) return;
 
-  const auth = getAuth(app);
+    const timer = setInterval(() => {
+      setCounter((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(timer); // cleanup
+  }, [counter]);
+
+
+  // const auth = getAuth(app);
   const handleLoginWith = (usePhone) => {
     setIsPhoneLogin(usePhone);
     setOtp("");
@@ -130,6 +141,9 @@ export default function LoginPage() {
           case "auth/invalid-phone-number":
             message = "The phone number entered is invalid.";
             break;
+          case "auth/code-expired":
+            message = "The OTP has expired. Please request a new one.";
+            break;
           case "auth/missing-phone-number":
             message = "Please enter your phone number.";
             break;
@@ -182,11 +196,24 @@ export default function LoginPage() {
       "recaptcha-container",
       {
         size: "invisible",
-        callback: (response) => {},
-        "expired-callback": () => {},
+        callback: (response) => {
+
+        },
+        "expired-callback": () => {
+          // Token expired, maybe notify user or reinit
+        },
       }
     );
+  
+
+    return () => {
+      if (window.recaptchaVerifier) {
+        window.recaptchaVerifier.clear();
+        delete window.recaptchaVerifier;
+      }
+    };
   }, []);
+  
   // }, [auth]);
   const handleRegister = async (e) => {
     setIsLoading(true);
@@ -229,9 +256,9 @@ export default function LoginPage() {
   };
   const { t, language } = useTranslation();
   const handleForgotPassword = async (e) => {
-    setOtpError("")
-    isLoading(true)
     e.preventDefault();
+    setOtpError("")
+    setIsLoading(true)
     try {
       if (step === 1) {
         const res = await api.post("/forgot_password.php", {
@@ -241,10 +268,10 @@ export default function LoginPage() {
 
         if (res.data.status === "success") {
           setStep(2);
-          isLoading(false)
+          setIsLoading(false)
         } else {
           setOtpError(res.data.message);
-          isLoading(false)
+          setIsLoading(false)
         }
       } else if (step === 2) {
         const res = await api.post("/verify_otp.php", {
@@ -253,10 +280,11 @@ export default function LoginPage() {
         });
         if (res.data.status === "success") {
           setStep(3);
-          isLoading(false)
+          setIsLoading(false)
+          setOtpSent(false)
         } else {
           setOtpError("Invalid OTP.");
-          isLoading(false)
+          setIsLoading(false)
         }
       } else if (step === 3) {
         const res = await api.post("/reset_password.php", {
@@ -265,17 +293,17 @@ export default function LoginPage() {
         });
         if (res.data.status === "success") {
           alert("Password changed successfully!");
-          isLoading(false)
+          setIsLoading(false)
           setIsForgotPassword(false);
           setStep(1);
         } else {
           alert("Failed to change password.");
-          isLoading(false)
+          setIsLoading(false)
         }
       }
     } catch (error) {
       console.error(error);
-      isLoading(false)
+      setIsLoading(false)
       alert("Something went wrong. Please try again.");
     }
   };
@@ -429,6 +457,7 @@ export default function LoginPage() {
                         className="mb-3"
                         onClick={() => {
                           setIsForgotPassword(true);
+                          step(1)
                         }}
                       >
                         <button className="bg-white">
@@ -525,7 +554,14 @@ export default function LoginPage() {
                 )}
                 <p className="text-danger">{otpError}</p>
                 <button type="submit" className="btn">
-                  {t("submit")}
+                 {isLoading?
+                  <span
+                  className="spinner-border spinner-border-sm me-2"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+                :
+                 t("submit")}
                 </button>
 
                 <p>

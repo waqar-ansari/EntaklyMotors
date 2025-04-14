@@ -157,10 +157,10 @@ const PaymentPage = () => {
         "/carbookingnew.php",
         bookingDetails
       );
-console.log(bookingResponse,"booking response");
+      console.log(bookingResponse, "booking response");
 
       if (bookingResponse.data.status === "error") {
-        setIsLoading(false)
+        setIsLoading(false);
         return;
       }
 
@@ -210,7 +210,7 @@ console.log(bookingResponse,"booking response");
       const data = await response.json();
 
       if (!data.id) {
-        setIsLoading(false)
+        setIsLoading(false);
         console.error("Session creation failed:", data);
         return;
       }
@@ -219,11 +219,11 @@ console.log(bookingResponse,"booking response");
 
       if (error) {
         console.error("Stripe redirect error:", error);
-        setIsLoading(false)
+        setIsLoading(false);
       }
     } catch (err) {
       console.error("Unexpected error:", err);
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
 

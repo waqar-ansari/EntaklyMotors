@@ -77,7 +77,7 @@ const BookingConfirmation = () => {
         );
         const intent = await intentRes.json();
 
-        // Get Charge using intent.latest_charge
+        
         const chargeRes = await fetch(
           `https://api.stripe.com/v1/charges/${intent.latest_charge}`,
           {
@@ -103,7 +103,7 @@ const BookingConfirmation = () => {
           methodUsed = "Link";
         }
         const sendPaymentDetails = {
-          payment_method: methodUsed,
+          // payment_method: methodUsed,
           payment_status: paymentStatus,
           booking_number: bookingId,
           totalPrice: totalPrice,
