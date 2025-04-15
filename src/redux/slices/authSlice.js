@@ -35,10 +35,13 @@ const authSlice = createSlice({
     });
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.loading = false;
-      state.user = action.payload;
+      // state.user = action.payload;
       // state.token = action.payload.token;
-
-      localStorage.setItem("userId", action.payload.User_id);
+      if (action.payload?.User_id) {
+        state.user = action.payload;
+        localStorage.setItem("userId", action.payload.User_id);
+      }
+      // localStorage.setItem("userId", action.payload.User_id);
     });
     builder.addCase(loginUser.rejected, (state) => {
       state.loading = false;
