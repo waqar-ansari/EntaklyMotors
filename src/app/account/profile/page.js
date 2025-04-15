@@ -67,6 +67,7 @@ const Page = () => {
   const profile = useSelector((state) => state.profile);
 
   const { fullname, email, phonenumber, address, loading, error } = profile;
+console.log(email, fullname, phonenumber, address,"all profile details");
 
   const handleSubmit = (e, subTab) => {
     e.preventDefault();
@@ -79,16 +80,22 @@ const Page = () => {
         phone_number: profileData.phonenumber,
       };
     } else if (subTab === "email") {
+      console.log(profileData.email,"profileData.email");
+      console.log(localUserId,"localUserId");
+      
       updatedData = {
         email: profileData.email,
         user_id: Number(localUserId),
       };
+      console.log(updatedData,"updated data");
+      
     } else if (subTab === "address") {
       updatedData = {
         address: profileData.address,
         user_id: Number(localUserId),
       };
     }
+console.log(updatedData,"updated data before going to api");
 
     dispatch(updateProfile(updatedData));
 

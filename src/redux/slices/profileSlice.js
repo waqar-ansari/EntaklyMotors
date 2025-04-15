@@ -10,7 +10,11 @@ export const fetchProfile = createAsyncThunk("profile/getProfile", async (user_i
 export const updateProfile = createAsyncThunk(
   "profile/editProfile",
   async (profileData,{ dispatch }) => {
+    console.log(profileData,"profileData from profile slice");
+    
     const data = await editProfile(profileData);
+    console.log(data,"response after edit profile");
+    
     dispatch(fetchProfile({ user_id: profileData.user_id }));
     return data;
   }

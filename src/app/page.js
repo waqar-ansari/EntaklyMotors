@@ -22,6 +22,7 @@ import { clearSelectedAddons } from "@/redux/slices/selectedAddonSlice";
 import { clearSelectedPackage } from "@/redux/slices/selectedPackageSlice";
 import { clearBookingOverview } from "@/redux/slices/bookingOverviewSlice";
 import { clearRentalDetail } from "@/redux/slices/rentalDetailSlice";
+import { fetchProfile } from "@/redux/slices/profileSlice";
 export default function HomePage() {
   const { t, language } = useTranslation();
   const dispatch = useDispatch();
@@ -157,6 +158,9 @@ export default function HomePage() {
 useEffect(()=>{
 localStorage.setItem("refreshCars","false")
 },[])
+  useEffect(() => {
+    dispatch(fetchProfile({ user_id: Number(localUserId) }));
+  }, [dispatch, localUserId]);
   return (
     <div>
       <div>
