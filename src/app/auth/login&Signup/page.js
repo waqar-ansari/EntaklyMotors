@@ -442,6 +442,8 @@ export default function LoginPage() {
                         type={showLoginPassword ? "text" : "password"}
                         placeholder={t("password")}
                         value={password}
+                        id="loginPassword"
+                         autoComplete="new-password"
                         name="loginPassword"
                         onChange={(e) => setPassword(e.target.value)}
                         className="form-control"
