@@ -323,8 +323,8 @@ const Page = () => {
                     <form onSubmit={handleSubmitChangePassword}>
                       <div className="input-box form-floating position-relative">
                         <input
-                          className="form-control"
-                          type={showCurrentPassword ? "text" : "password"}
+                          className={`form-control ${showCurrentPassword ? "":"password-mask"}`}
+                          type="text"
                           name="current_password"
                           value={changePasswords.current_password}
                           onChange={handleChangePassword}
@@ -357,8 +357,8 @@ const Page = () => {
 
                       <div className="input-box form-floating">
                         <input
-                          className="form-control"
-                          type={showNewPassword ? "text" : "password"}
+                          className={`form-control ${showNewPassword ? "":"password-mask"}`}
+                          type="text"
                           name="new_password"
                           value={changePasswords.new_password}
                           onChange={handleChangePassword}

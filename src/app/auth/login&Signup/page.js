@@ -448,7 +448,7 @@ export default function LoginPage() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         autoComplete="off"
-                        className={`form-control ${showLoginPassword ? "password-mask":""}`}
+                        className={`form-control ${showLoginPassword ? "":"password-mask"}`}
                         placeholder={t("password")}
                         style={{ color: "#000" }}
                       />
@@ -589,9 +589,9 @@ export default function LoginPage() {
                 {step === 3 && (
                   <div className="input-box form-floating position-relative">
                     <input
-                      type={showForgotPassword ? "text" : "password"}
+                      type="text"
                       name="new_password"
-                      className="form-control"
+                      className={`form-control ${showLoginPassword ? "":"password-mask"}`}
                       placeholder={t("enter_new_password")}
                       value={forgotPasswordNewPassword}
                       style={{ color: "#000" }}
@@ -675,9 +675,9 @@ export default function LoginPage() {
               )}
               <div className="input-box form-floating" style={{ zIndex: 0 }}>
                 <input
-                  type={showRegisterPassword ? "text" : "password"}
+                  type="text"
                   placeholder={t("password")}
-                  className="form-control"
+                  className={`form-control ${showLoginPassword ? "":"password-mask"}`}
                   style={{ color: "#000" }}
                   name="signupPassword"
                   required
