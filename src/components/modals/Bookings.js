@@ -52,7 +52,7 @@ const Bookings = () => {
         fetchBookings();
       }
       else{
-        alert("Failed to cancel booking");
+        alert(t("failed_to_cancel_booking"));
       }
     } catch (error) {
       console.error("Error cancelling booking", error);
@@ -82,10 +82,10 @@ const Bookings = () => {
                 }}
               >
                 <h5 className="mb-3">
-                  Booking #: {booking.booking_number}{" "}
+                  {t("booking")} #: {booking.booking_number}{" "}
                   {booking.status === "cancelled" && (
                     // {booking.status === "cancelled" && (
-                    <span className="badge bg-danger">Cancelled</span>
+                    <span className="badge bg-danger">{t("cancelled")}</span>
                   )}
                 </h5>
 
@@ -104,21 +104,21 @@ const Bookings = () => {
                   </div>
                   <div>
                     <p>
-                      <strong>Car:</strong> {booking.car_details?.car_name}
+                      <strong>{t("car")}:</strong> {booking.car_details?.car_name}
                       {/* {booking.car_details?.pickup_time} */}
                     </p>
                     <p>
-                      <strong>Pickup:</strong>{" "}
+                      <strong>{t("pick_up")}:</strong>{" "}
                       {booking.car_details?.pickup_address}
                       {/* {booking.car_details?.pickup_time} */}
                     </p>
                     <p>
-                      <strong>Return:</strong>{" "}
+                      <strong>{t("return")}:</strong>{" "}
                       {booking.car_details?.return_address}
                       {/* {booking.car_details?.return_time} */}
                     </p>
                     <p className="mb-0">
-                      <strong>Amount Paid:</strong> {t("AED")} {booking.amount}
+                      <strong>{t("amount_paid")}:</strong> {t("AED")} {booking.amount}
                     </p>
                   </div>
                 </div>
@@ -129,7 +129,7 @@ const Bookings = () => {
                       style={styles.cancelBookingBtn}
                       onClick={() => handleCancelClick(booking)}
                     >
-                      Cancel Booking
+                      {t("cancel_booking")}
                     </button>
                   </div>
                 )}
@@ -142,20 +142,20 @@ const Bookings = () => {
       </div>
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Cancel Booking</Modal.Title>
+          <Modal.Title>{t("cancel_booking")}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>Are you sure you want to cancel this booking?</p>
+          <p>{t("cancel_this_booking")}</p>
           <p>
-            Booking Id: <b>{selectedBooking?.booking_number}</b>
+            {t("booking_id")}: <b>{selectedBooking?.booking_number}</b>
           </p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowModal(false)}>
-            No
+            {t("no")}
           </Button>
           <Button variant="danger" onClick={confirmCancelBooking}>
-            Yes, Cancel it
+            {t("yes_cancel_it")}
           </Button>
         </Modal.Footer>
       </Modal>

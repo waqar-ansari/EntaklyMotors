@@ -277,9 +277,22 @@
 "forgot_password?":"Forgot Password?",
 "enter_otp":"Enter OTP",
 "enter_new_password":"Enter New Password",
+
+
+
+
+
+"booking":"Booking",
+"cancelled":"Cancelled",
+"car":"Car",
+"amount_paid":"Amount Paid",
+"cancel_booking":"Cancel Booking",
+"cancel_this_booking":"Are you sure you want to cancel this booking?",
+"no":"No",
+"yes_cancel_it":"Yes, Cancel it",
+"failed_to_cancel_booking":"Failed to cancel booking",
 "":"",
-"":"",
-"":"",
+
 
 
 
