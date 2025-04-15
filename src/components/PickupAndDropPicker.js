@@ -113,8 +113,8 @@ const PickupAndDropPicker = ({
       locationIcon: <HiMiniHome />,
     },
     {
-      locationName: t("jbr"),
-      address: t("jbr"),
+      locationName: "JBR",
+      address: "JBR",
       locationIcon: <HiMiniHome />,
     },
   ];
