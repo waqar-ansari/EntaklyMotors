@@ -588,7 +588,7 @@ export default function LoginPage() {
 
           {/* Register Form */}
           <div className="form-box register">
-            <form action="#">
+            <form onSubmit={handleRegister}>
               <h1 className="mb-4">{t("register_with_email")}</h1>
               {!isPhoneRegister ? (
                 <div className="input-box form-floating">
@@ -631,11 +631,11 @@ export default function LoginPage() {
               <p className="text-success">{success}</p>
               <div id="recaptcha-container"></div>
 
-              <Link
-                type="button"
-                href="/auth/login&Signup"
+              <button
+                // type="button"
+                // href="/auth/login&Signup"
                 className="btn text-decoration-none d-flex"
-                onClick={handleRegister}
+                // onClick={handleRegister}
                 disabled={isLoading}
               >
                 {isLoading ? (
@@ -649,7 +649,7 @@ export default function LoginPage() {
                 ) : (
                   t("register")
                 )}
-              </Link>
+              </button>
             </form>
           </div>
 
