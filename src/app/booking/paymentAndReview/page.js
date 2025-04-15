@@ -157,7 +157,6 @@ const PaymentPage = () => {
         "/carbookingnew.php",
         bookingDetails
       );
-      console.log(bookingResponse, "booking response");
 
       if (bookingResponse.data.status === "error") {
         setIsLoading(false);

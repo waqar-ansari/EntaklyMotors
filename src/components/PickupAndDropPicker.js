@@ -52,10 +52,14 @@ const PickupAndDropPicker = ({
 
   const [showDateModal, setShowDateModal] = useState(false);
   const [showLocations, setShowLocations] = useState(false);
-  const [pickupTime, setPickupTime] = useState(rentalDetails.pickupTime||"");
-  const [returnTime, setReturnTime] = useState(rentalDetails.returnTime||"");
-  const [pickupLocation, setPickupLocation] = useState(rentalDetails.pickupLocation||"");
-  const [returnLocation, setReturnLocation] = useState(rentalDetails.returnLocation|| "");
+  const [pickupTime, setPickupTime] = useState(rentalDetails.pickupTime || "10:00 AM");
+  const [returnTime, setReturnTime] = useState(rentalDetails.returnTime || "10:00 AM");
+  const [pickupLocation, setPickupLocation] = useState(
+    rentalDetails.pickupLocation || ""
+  );
+  const [returnLocation, setReturnLocation] = useState(
+    rentalDetails.returnLocation || ""
+  );
   const [showPickupTimeModal, setShowPickupTimeModal] = useState(false);
   const [showReturnTimeModal, setShowReturnTimeModal] = useState(false);
   const [showReturnTimeModalMobile, setShowReturnTimeModalMobile] =
@@ -78,8 +82,8 @@ const PickupAndDropPicker = ({
     const returnDate = new Date(pickupDate);
     returnDate.setDate(pickupDate.getDate() + 2);
     setRange([pickupDate, returnDate]);
-    setPickupTime("10:00 AM");
-    setReturnTime("10:00 AM");
+    // setPickupTime("10:00 AM");
+    // setReturnTime("10:00 AM");
   }, []);
   const calendarLocales = {
     en: enUS,
@@ -247,7 +251,6 @@ const PickupAndDropPicker = ({
     };
 
     dispatch(setRentalDetailDataSlice(rentalData));
-    console.log("cars page displayed");
     localStorage.setItem("refreshCars", "true");
     router.push("/cars");
   };

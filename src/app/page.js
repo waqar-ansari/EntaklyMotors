@@ -25,6 +25,7 @@ import { clearRentalDetail } from "@/redux/slices/rentalDetailSlice";
 import { fetchProfile } from "@/redux/slices/profileSlice";
 export default function HomePage() {
   const { t, language } = useTranslation();
+  const [localUserId,setLocalUserId] = useState(null)
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(clearSelectedAddons());
@@ -157,10 +158,13 @@ export default function HomePage() {
   const [show, setShow] = useState(false);
 useEffect(()=>{
 localStorage.setItem("refreshCars","false")
+setLocalUserId(localStorage.getItem("userId"))
 },[])
-  // useEffect(() => {
-  //   dispatch(fetchProfile({ user_id: Number(localUserId) }));
-  // }, [dispatch, localUserId]);
+  useEffect(() => {
+    if(localUserId){
+      dispatch(fetchProfile({ user_id: Number(localUserId) }));
+    }
+  }, [dispatch, localUserId]);
   return (
     <div>
       <div>

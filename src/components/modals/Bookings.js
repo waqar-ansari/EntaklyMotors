@@ -138,7 +138,7 @@ const Bookings = () => {
             </div>
           ))
         ) : (
-          <div className="vh-100"><p>{t("no_bookings_found")}</p></div>
+          <div style={{height:"50vh"}}><p>{t("no_bookings_found")}</p></div>
         )}
       </div>
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>

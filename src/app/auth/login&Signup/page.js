@@ -20,8 +20,10 @@ import {
   RecaptchaVerifier,
   signInWithPhoneNumber,
 } from "firebase/auth";
-import { auth  } from "./firebase";
+import { auth } from "./firebase";
 import api from "@/app/api/axiosInstance";
+import { FaEyeSlash } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
 
 export default function LoginPage() {
   const [isActive, setIsActive] = useState(false);
@@ -33,6 +35,9 @@ export default function LoginPage() {
   const [confirmationResult, setConfirmationResult] = useState(null);
   const [otpSent, setOtpSent] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showRegisterPassword, setShowRegisterPassword] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [showLoginPassword, setShowLoginPassword] = useState(false);
 
   const [email, setEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
@@ -62,7 +67,6 @@ export default function LoginPage() {
 
     return () => clearInterval(timer); // cleanup
   }, [counter]);
-
 
   // const auth = getAuth(app);
   const handleLoginWith = (usePhone) => {
@@ -177,18 +181,18 @@ export default function LoginPage() {
       }
     }
   };
-  // useEffect(() => {
-  //   const handleBeforeUnload = (e) => {
-  //     e.preventDefault();
-  //     e.returnValue = "";
-  //   };
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      e.preventDefault();
+      e.returnValue = "";
+    };
 
-  //   window.addEventListener("beforeunload", handleBeforeUnload);
+    window.addEventListener("beforeunload", handleBeforeUnload);
 
-  //   return () => {
-  //     window.removeEventListener("beforeunload", handleBeforeUnload);
-  //   };
-  // }, []);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
   useEffect(() => {
     window.recaptchaVerifier = new RecaptchaVerifier(
@@ -196,15 +200,12 @@ export default function LoginPage() {
       "recaptcha-container",
       {
         size: "invisible",
-        callback: (response) => {
-
-        },
+        callback: (response) => {},
         "expired-callback": () => {
           // Token expired, maybe notify user or reinit
         },
       }
     );
-  
 
     return () => {
       if (window.recaptchaVerifier) {
@@ -213,11 +214,10 @@ export default function LoginPage() {
       }
     };
   }, []);
-  
+
   // }, [auth]);
   const handleRegister = async (e) => {
     e.preventDefault();
-
     setIsLoading(true);
     setError("");
     setOtpError("");
@@ -258,21 +258,20 @@ export default function LoginPage() {
   const { t, language } = useTranslation();
   const handleForgotPassword = async (e) => {
     e.preventDefault();
-    setOtpError("")
-    setIsLoading(true)
+    setOtpError("");
+    setIsLoading(true);
     try {
       if (step === 1) {
         const res = await api.post("/forgot_password.php", {
           email: forgotPasswordEmail,
         });
-        console.log(res.data, "res from forgot password");
 
         if (res.data.status === "success") {
           setStep(2);
-          setIsLoading(false)
+          setIsLoading(false);
         } else {
           setOtpError(res.data.message);
-          setIsLoading(false)
+          setIsLoading(false);
         }
       } else if (step === 2) {
         const res = await api.post("/verify_otp.php", {
@@ -281,11 +280,11 @@ export default function LoginPage() {
         });
         if (res.data.status === "success") {
           setStep(3);
-          setIsLoading(false)
-          setOtpSent(false)
+          setIsLoading(false);
+          setOtpSent(false);
         } else {
           setOtpError("Invalid OTP.");
-          setIsLoading(false)
+          setIsLoading(false);
         }
       } else if (step === 3) {
         const res = await api.post("/reset_password.php", {
@@ -294,22 +293,21 @@ export default function LoginPage() {
         });
         if (res.data.status === "success") {
           alert("Password changed successfully!");
-          setIsLoading(false)
+          setIsLoading(false);
           setIsForgotPassword(false);
           setStep(1);
         } else {
           alert("Failed to change password.");
-          setIsLoading(false)
+          setIsLoading(false);
         }
       }
     } catch (error) {
       console.error(error);
-      setIsLoading(false)
+      setIsLoading(false);
       alert("Something went wrong. Please try again.");
     }
   };
-  console.log(step,"step");
-  
+
   return (
     <div>
       <Header />
@@ -441,18 +439,31 @@ export default function LoginPage() {
                       style={{ zIndex: 0 }}
                     >
                       <input
-                        type="password"
+                        type={showLoginPassword ? "text" : "password"}
                         placeholder={t("password")}
                         value={password}
                         name="loginPassword"
                         onChange={(e) => setPassword(e.target.value)}
                         className="form-control"
-                        style={{color:"#000"}}
+                        style={{ color: "#000" }}
                       />
                       <label htmlFor="loginPassword" className="inputLabelBg">
                         {t("password")}
                       </label>
-                      <i className="bx bxs-lock-alt"></i>
+                      <span
+                        className="password-toggle-icon"
+                        onClick={() => setShowLoginPassword((prev) => !prev)}
+                        style={{
+                          position: "absolute",
+                          right: "10px",
+                          top: "50%",
+                          transform: "translateY(-50%)",
+                          cursor: "pointer",
+                        }}
+                      >
+                        {showLoginPassword ? <FaEyeSlash /> : <FaEye />}
+                      </span>
+                      {/* <i className="bx bxs-lock-alt"></i> */}
                     </div>
                     <p className="text-danger">{error}</p>
                     {!isForgotPassword && (
@@ -461,7 +472,7 @@ export default function LoginPage() {
                         className="mb-3"
                         onClick={() => {
                           setIsForgotPassword(true);
-                          step(1)
+                          step(1);
                         }}
                       >
                         <button className="bg-white">
@@ -532,7 +543,7 @@ export default function LoginPage() {
                       placeholder={t("enter_otp")}
                       value={forgotPasswordOtp}
                       onChange={(e) => setForgotPasswordOtp(e.target.value)}
-                      style={{color:"#000"}}
+                      style={{ color: "#000" }}
                       required
                     />
                     <label className="inputLabelBg">{t("enter_otp")}</label>
@@ -540,14 +551,14 @@ export default function LoginPage() {
                 )}
 
                 {step === 3 && (
-                  <div className="input-box form-floating">
+                  <div className="input-box form-floating position-relative">
                     <input
-                      type="password"
+                      type={showForgotPassword ? "text" : "password"}
                       name="new_password"
                       className="form-control"
                       placeholder={t("enter_new_password")}
                       value={forgotPasswordNewPassword}
-                      style={{color:"#000"}}
+                      style={{ color: "#000" }}
                       onChange={(e) =>
                         setForgotPasswordNewPassword(e.target.value)
                       }
@@ -556,18 +567,32 @@ export default function LoginPage() {
                     <label className="inputLabelBg">
                       {t("enter_new_password")}
                     </label>
+                    <span
+                      className="password-toggle-icon"
+                      onClick={() => setShowForgotPassword((prev) => !prev)}
+                      style={{
+                        position: "absolute",
+                        right: "10px",
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        cursor: "pointer",
+                      }}
+                    >
+                      {showForgotPassword ? <FaEyeSlash /> : <FaEye />}
+                    </span>
                   </div>
                 )}
                 <p className="text-danger">{otpError}</p>
                 <button type="submit" className="btn">
-                 {isLoading?
-                  <span
-                  className="spinner-border spinner-border-sm me-2"
-                  role="status"
-                  aria-hidden="true"
-                ></span>
-                :
-                 t("submit")}
+                  {isLoading ? (
+                    <span
+                      className="spinner-border spinner-border-sm me-2"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                  ) : (
+                    t("submit")
+                  )}
                 </button>
 
                 <p>
@@ -576,8 +601,9 @@ export default function LoginPage() {
                     type="button"
                     className="forgot-btn text-decoration-none"
                     onClick={() => {
-                      setStep(1)
-                      setIsForgotPassword(false)}}
+                      setStep(1);
+                      setIsForgotPassword(false);
+                    }}
                     // style={{ color: "#ca2030" }}
                   >
                     {t("go_back_to_login")}
@@ -598,7 +624,7 @@ export default function LoginPage() {
                     placeholder={t("email")}
                     name="signupEmail"
                     className="form-control"
-                    style={{color:"#000"}}
+                    style={{ color: "#000" }}
                     required
                     onChange={(e) => {
                       setRegisterEmail(e.target.value);
@@ -613,10 +639,10 @@ export default function LoginPage() {
               )}
               <div className="input-box form-floating" style={{ zIndex: 0 }}>
                 <input
-                  type="password"
+                  type={showRegisterPassword ? "text" : "password"}
                   placeholder={t("password")}
                   className="form-control"
-                  style={{color:"#000"}}
+                  style={{ color: "#000" }}
                   name="signupPassword"
                   required
                   onChange={(e) => {
@@ -626,6 +652,19 @@ export default function LoginPage() {
                 <label htmlFor="signupPassword" className="inputLabelBg">
                   {t("password")}
                 </label>
+                <span
+                  className="password-toggle-icon"
+                  onClick={() => setShowRegisterPassword((prev) => !prev)}
+                  style={{
+                    position: "absolute",
+                    right: "10px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                  }}
+                >
+                  {showRegisterPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
                 {/* <i className="bx bxs-lock-alt"></i> */}
               </div>
               <p className="text-danger">{error}</p>

@@ -38,7 +38,6 @@ const PriceDetailsModal = () => {
   }, [selectedCarDetails]);
   const selectedPackage = useSelector((state) => state.selectedPackage);
   const selectedAddons = useSelector((state) => state.selectedAddon);
-  console.log(selectedAddons, "selectedaddons");
 
   const translatedSelectedAddons = selectedAddons.map((item) => {
     let translatedName = item.name;
@@ -68,9 +67,7 @@ const PriceDetailsModal = () => {
       name: translatedName,
     };
   });
-  
 
-  console.log(translatedSelectedAddons, "translatedSelectedAddons");
 
   useEffect(() => {
     if (selectedPackage.packageName === "Basic Protection") {

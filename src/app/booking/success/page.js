@@ -113,14 +113,11 @@ const BookingConfirmation = () => {
           pickupTime: rentalDetail.pickupTime,
           returnTime: rentalDetail.returnTime,
         };
-        console.log(sendPaymentDetails, "send payment details");
 
         const paymentApiResponse = await api.post(
           "/confirm_booking_new.php",
           sendPaymentDetails
         );
-        console.log(paymentApiResponse.data, "response from payment api");
-        console.log(paymentApiResponse.data.transaction_id, "transaction id ");
 
         setTransactionId(paymentApiResponse.data.data.transaction_id);
       } catch (err) {

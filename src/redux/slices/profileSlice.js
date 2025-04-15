@@ -1,25 +1,24 @@
 import { editProfile, getProfile } from "@/app/api/profileApi";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
-export const fetchProfile = createAsyncThunk("profile/getProfile", async (user_id) => {
-  
-  const data = await getProfile(user_id);
-  return data;
-});
+export const fetchProfile = createAsyncThunk(
+  "profile/getProfile",
+  async (user_id) => {
+    const data = await getProfile(user_id);
+    return data;
+  }
+);
 
 export const updateProfile = createAsyncThunk(
   "profile/editProfile",
-  async (profileData,{ dispatch }) => {
-    console.log(profileData,"profileData from profile slice");
-    
+  async (profileData, { dispatch }) => {
     const data = await editProfile(profileData);
-    console.log(data,"response after edit profile");
-    
+
     dispatch(fetchProfile({ user_id: profileData.user_id }));
     return data;
   }
 );
-const initialState ={
+const initialState = {
   fullname: "",
   phonenumber: {
     countryCode: "",
@@ -34,7 +33,7 @@ const initialState ={
   },
   loading: false,
   error: null,
-}
+};
 const profileSlice = createSlice({
   name: "profile",
   initialState: initialState,
@@ -52,12 +51,11 @@ const profileSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchProfile.fulfilled, (state, action) => {
-        
         state.loading = false;
-        state.fullname = action.payload.data.full_name;
-        state.phonenumber = action.payload.data.phone_number;
-        state.email = action.payload.data.email;
-        state.address = action.payload.data.address;
+        state.fullname = action.payload.data?.full_name;
+        state.phonenumber = action.payload.data?.phone_number;
+        state.email = action.payload.data?.email;
+        state.address = action.payload.data?.address;
       })
       .addCase(fetchProfile.rejected, (state, action) => {
         state.loading = false;
@@ -67,8 +65,13 @@ const profileSlice = createSlice({
         state.loading = true;
       })
       .addCase(updateProfile.fulfilled, (state, action) => {
+        // state.loading = false;
+        // return { ...state, ...action.payload };
         state.loading = false;
-        return { ...state, ...action.payload };
+        state.fullname = action.payload.fullname;
+        state.email = action.payload.email;
+        state.phonenumber = action.payload.phonenumber;
+        state.address = action.payload.address;
       })
       .addCase(updateProfile.rejected, (state, action) => {
         state.loading = false;

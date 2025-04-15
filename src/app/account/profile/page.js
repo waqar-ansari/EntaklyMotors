@@ -27,6 +27,9 @@ const Page = () => {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [localUserId, setLocalUserId] = useState(null);
   const [changePasswordMessage, setChangePasswordMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [success, setSuccess] = useState(null);
   const [changePasswords, setChangePasswords] = useState({
     current_password: "",
     new_password: "",
@@ -54,10 +57,16 @@ const Page = () => {
 
   const handleTabSelect = (key) => {
     router.push(`?tab=${key}`, { scroll: false });
+    setMessage("");
+    setSuccess(null);
+    setChangePasswordMessage("");
   };
 
   const handleProfileSubTabSelect = (key) => {
     router.push(`?tab=profile&subTab=${key}`, { scroll: false });
+    setMessage("");
+    setSuccess(null);
+    setChangePasswordMessage("");
   };
 
   useEffect(() => {
@@ -67,9 +76,8 @@ const Page = () => {
   const profile = useSelector((state) => state.profile);
 
   const { fullname, email, phonenumber, address, loading, error } = profile;
-console.log(email, fullname, phonenumber, address,"all profile details");
 
-  const handleSubmit = (e, subTab) => {
+  const handleSubmit = async (e, subTab) => {
     e.preventDefault();
 
     let updatedData = {};
@@ -80,24 +88,30 @@ console.log(email, fullname, phonenumber, address,"all profile details");
         phone_number: profileData.phonenumber,
       };
     } else if (subTab === "email") {
-      console.log(profileData.email,"profileData.email");
-      console.log(localUserId,"localUserId");
-      
       updatedData = {
         email: profileData.email,
         user_id: Number(localUserId),
       };
-      console.log(updatedData,"updated data");
-      
     } else if (subTab === "address") {
       updatedData = {
         address: profileData.address,
         user_id: Number(localUserId),
       };
     }
-console.log(updatedData,"updated data before going to api");
+ 
+    console.log("ran till here 1");
 
-    dispatch(updateProfile(updatedData));
+    const result = await dispatch(updateProfile(updatedData)).unwrap();
+    if(result.status ==="success"){
+      setSuccess(true)
+      setMessage(result.message)
+    }
+    else{
+      setSuccess(false)
+      setMessage(result.message) 
+    } 
+    
+    console.log("ran till here 2");
 
     dispatch(fetchProfile({ user_id: Number(localUserId) }));
   };
@@ -234,7 +248,7 @@ console.log(updatedData,"updated data before going to api");
                         </label>
                       </div>
 
-                      <div className="d-flex align-items-center">
+                      <div className="d-flex align-items-center mb-3">
                         <PhoneInput
                           country={"ae"}
                           value={profileData?.phonenumber?.countryCode}
@@ -277,7 +291,8 @@ console.log(updatedData,"updated data before going to api");
                           </label> */}
                         </div>
                       </div>
-                      <button type="submit" className="submitButton mt-5">
+                      <p className={success? "text-success":"text-danger"}>{message}</p>
+                      <button type="submit" className="submitButton">
                         {t("save")}
                       </button>
                     </form>
@@ -298,6 +313,7 @@ console.log(updatedData,"updated data before going to api");
                           {t("email_address")}
                         </label>
                       </div>
+                      <p className={success? "text-success":"text-danger"}>{message}</p>
                       <button type="submit" className="submitButton">
                         {t("save")}
                       </button>
@@ -313,7 +329,7 @@ console.log(updatedData,"updated data before going to api");
                           value={changePasswords.current_password}
                           onChange={handleChangePassword}
                           placeholder={t("current_password")}
-                          style={{color:"#000"}}
+                          style={{ color: "#000" }}
                           id="current_password"
                         />
                         <label
@@ -347,7 +363,7 @@ console.log(updatedData,"updated data before going to api");
                           value={changePasswords.new_password}
                           onChange={handleChangePassword}
                           placeholder={t("new_password")}
-                          style={{color:"#000"}}
+                          style={{ color: "#000" }}
                           id="new_password"
                         />
                         <label htmlFor="new_password" className="inputLabelBg">
@@ -445,6 +461,7 @@ console.log(updatedData,"updated data before going to api");
                           {t("country")}
                         </label>
                       </div>
+                      <p className={success? "text-success":"text-danger"}>{message}</p>
                       <button type="submit" className="submitButton">
                         {t("save")}
                       </button>

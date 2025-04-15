@@ -107,10 +107,6 @@ export default function CarsPage() {
       }
     }
   };
-  console.log(rentalDetail, "rentalDetail");
-
-  console.log(rentalDetail.pickupdate, "rentalDetail.pickupdate");
-  console.log(rentalDetail.returndate, "rentalDetail.returndate");
 const refreshCars = localStorage.getItem("refreshCars")
   const localUserId = localStorage.getItem("userId");
   useEffect(() => {
@@ -129,7 +125,6 @@ const refreshCars = localStorage.getItem("refreshCars")
           setIsLoading(false);
         } else {
           // const carsData = response.data.cars;
-          console.log(response.data.cars, "response cars");
           setCarsData(response.data.cars);
           setIsLoading(false);
         }
