@@ -446,6 +446,7 @@ export default function LoginPage() {
                         name="loginPassword"
                         onChange={(e) => setPassword(e.target.value)}
                         className="form-control"
+                        style={{color:"#000"}}
                       />
                       <label htmlFor="loginPassword" className="inputLabelBg">
                         {t("password")}
@@ -530,6 +531,7 @@ export default function LoginPage() {
                       placeholder={t("enter_otp")}
                       value={forgotPasswordOtp}
                       onChange={(e) => setForgotPasswordOtp(e.target.value)}
+                      style={{color:"#000"}}
                       required
                     />
                     <label className="inputLabelBg">{t("enter_otp")}</label>
@@ -544,6 +546,7 @@ export default function LoginPage() {
                       className="form-control"
                       placeholder={t("enter_new_password")}
                       value={forgotPasswordNewPassword}
+                      style={{color:"#000"}}
                       onChange={(e) =>
                         setForgotPasswordNewPassword(e.target.value)
                       }
@@ -594,6 +597,7 @@ export default function LoginPage() {
                     placeholder={t("email")}
                     name="signupEmail"
                     className="form-control"
+                    style={{color:"#000"}}
                     required
                     onChange={(e) => {
                       setRegisterEmail(e.target.value);
@@ -611,6 +615,7 @@ export default function LoginPage() {
                   type="password"
                   placeholder={t("password")}
                   className="form-control"
+                  style={{color:"#000"}}
                   name="signupPassword"
                   required
                   onChange={(e) => {
