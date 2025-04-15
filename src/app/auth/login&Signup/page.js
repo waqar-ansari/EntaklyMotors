@@ -440,6 +440,7 @@ export default function LoginPage() {
                     >
                       <input
                         type={showLoginPassword ? "text" : "password"}
+                        key={showLoginPassword ? "text" : "password"}
                         placeholder={t("password")}
                         value={password}
                         id="loginPassword"
