@@ -439,12 +439,11 @@ export default function LoginPage() {
                       style={{ zIndex: 0 }}
                     >
                       <input
-                        type={showLoginPassword ? "text" : "password"}
-                        key={showLoginPassword ? "text" : "password"}
+                        type={showLoginPassword ? "password" : "text"}
                         placeholder={t("password")}
                         value={password}
                         id="loginPassword"
-                         autoComplete="new-password"
+                        autoComplete="off"
                         name="loginPassword"
                         onChange={(e) => setPassword(e.target.value)}
                         className="form-control"
@@ -455,7 +454,9 @@ export default function LoginPage() {
                       </label>
                       <span
                         className="password-toggle-icon"
-                        onClick={() => setShowLoginPassword((prev) => !prev)}
+                        onClick={() => {
+                          setShowLoginPassword((prev) => !prev);
+                        }}
                         style={{
                           position: "absolute",
                           right: "10px",
