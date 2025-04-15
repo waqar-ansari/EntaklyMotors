@@ -158,9 +158,9 @@ export default function HomePage() {
 useEffect(()=>{
 localStorage.setItem("refreshCars","false")
 },[])
-  useEffect(() => {
-    dispatch(fetchProfile({ user_id: Number(localUserId) }));
-  }, [dispatch, localUserId]);
+  // useEffect(() => {
+  //   dispatch(fetchProfile({ user_id: Number(localUserId) }));
+  // }, [dispatch, localUserId]);
   return (
     <div>
       <div>
