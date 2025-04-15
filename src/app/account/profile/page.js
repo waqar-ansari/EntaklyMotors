@@ -313,6 +313,7 @@ console.log(updatedData,"updated data before going to api");
                           value={changePasswords.current_password}
                           onChange={handleChangePassword}
                           placeholder={t("current_password")}
+                          style={{color:"#000"}}
                           id="current_password"
                         />
                         <label
@@ -346,6 +347,7 @@ console.log(updatedData,"updated data before going to api");
                           value={changePasswords.new_password}
                           onChange={handleChangePassword}
                           placeholder={t("new_password")}
+                          style={{color:"#000"}}
                           id="new_password"
                         />
                         <label htmlFor="new_password" className="inputLabelBg">

@@ -615,7 +615,7 @@ export default function LoginPage() {
                   type="password"
                   placeholder={t("password")}
                   className="form-control"
-                  style={{color:"#000"}}
+                  style={{color:"red"}}
                   name="signupPassword"
                   required
                   onChange={(e) => {
