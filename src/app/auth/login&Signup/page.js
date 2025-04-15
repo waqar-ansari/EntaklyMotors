@@ -441,7 +441,7 @@ export default function LoginPage() {
   <input
     key={showLoginPassword ? "password" : "text"}
     type={showLoginPassword ? "password" : "text"}
-    inputMode="text"
+ 
     id="loginPassword"
     name="loginPassword"
     value={password}
