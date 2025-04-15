@@ -434,27 +434,29 @@ export default function LoginPage() {
                 {/* Password Input */}
                 {!isPhoneLogin ? (
                   <>
-                    <div
-                      className="input-box"
-                      style={{ position: "relative", zIndex: 0 }}
+                   <div
+                      className="input-box form-floating"
+                      style={{ zIndex: 0 }}
                     >
-                      {/* <label htmlFor="loginPassword" className="custom-label">
-    {t("password")}
-  </label> */}
                       <input
                         type="text"
-                        id="loginPassword"
-                        name="loginPassword"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        autoComplete="off"
-                        className={`form-control ${showLoginPassword ? "":"password-mask"}`}
                         placeholder={t("password")}
+                        className={`form-control ${showLoginPassword ? "":"password-mask"}`}
+                        value={password}
+                        id="loginPassword"
+                        autoComplete="off"
+                        name="loginPassword"
+                        onChange={(e) => setPassword(e.target.value)}
                         style={{ color: "#000" }}
                       />
+                      <label htmlFor="loginPassword" className="inputLabelBg">
+                        {t("password")}
+                      </label>
                       <span
                         className="password-toggle-icon"
-                        onClick={() => setShowLoginPassword((prev) => !prev)}
+                        onClick={() => {
+                          setShowLoginPassword((prev) => !prev);
+                        }}
                         style={{
                           position: "absolute",
                           right: "10px",
@@ -591,7 +593,7 @@ export default function LoginPage() {
                     <input
                       type="text"
                       name="new_password"
-                      className={`form-control ${showLoginPassword ? "":"password-mask"}`}
+                      className={`form-control ${showForgotPassword ? "":"password-mask"}`}
                       placeholder={t("enter_new_password")}
                       value={forgotPasswordNewPassword}
                       style={{ color: "#000" }}
@@ -677,7 +679,7 @@ export default function LoginPage() {
                 <input
                   type="text"
                   placeholder={t("password")}
-                  className={`form-control ${showLoginPassword ? "":"password-mask"}`}
+                  className={`form-control ${showRegisterPassword ? "":"password-mask"}`}
                   style={{ color: "#000" }}
                   name="signupPassword"
                   required
