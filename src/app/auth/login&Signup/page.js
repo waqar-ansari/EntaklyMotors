@@ -434,37 +434,38 @@ export default function LoginPage() {
                 {/* Password Input */}
                 {!isPhoneLogin ? (
                   <>
-                  <div className="input-box" style={{ position: "relative", zIndex: 0 }}>
-  {/* <label htmlFor="loginPassword" className="custom-label">
+                    <div
+                      className="input-box"
+                      style={{ position: "relative", zIndex: 0 }}
+                    >
+                      {/* <label htmlFor="loginPassword" className="custom-label">
     {t("password")}
   </label> */}
-  <input
-    key={showLoginPassword ? "password" : "text"}
-    type={showLoginPassword ? "password" : "text"}
- 
-    id="loginPassword"
-    name="loginPassword"
-    value={password}
-    onChange={(e) => setPassword(e.target.value)}
-    autoComplete="off"
-    className="form-control"
-    placeholder={t("password")}
-    style={{ color: "#000" }}
-  />
-  <span
-    className="password-toggle-icon"
-    onClick={() => setShowLoginPassword((prev) => !prev)}
-    style={{
-      position: "absolute",
-      right: "10px",
-      top: "50%",
-      transform: "translateY(-50%)",
-      cursor: "pointer",
-    }}
-  >
-    {showLoginPassword ? <FaEyeSlash /> : <FaEye />}
-  </span>
-</div>
+                      <input
+                        type="text"
+                        id="loginPassword"
+                        name="loginPassword"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        autoComplete="off"
+                        className={`form-control ${showLoginPassword ? "password-mask":""}`}
+                        placeholder={t("password")}
+                        style={{ color: "#000" }}
+                      />
+                      <span
+                        className="password-toggle-icon"
+                        onClick={() => setShowLoginPassword((prev) => !prev)}
+                        style={{
+                          position: "absolute",
+                          right: "10px",
+                          top: "50%",
+                          transform: "translateY(-50%)",
+                          cursor: "pointer",
+                        }}
+                      >
+                        {showLoginPassword ? <FaEyeSlash /> : <FaEye />}
+                      </span>
+                    </div>
 
                     {/* <div
                       className="input-box form-floating"

@@ -383,6 +383,11 @@ input[type=number]::-webkit-outer-spin-button {
   background-size: cover;
   border-radius: 10px;
 }
+.password-mask {
+  -webkit-text-security: disc;
+  -moz-webkit-text-security: disc;
+  -moz-text-security: disc;
+}
 @media (min-width: 1200px) {}
 
 @media(max-width:1200px) {
