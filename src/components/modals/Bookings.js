@@ -91,8 +91,9 @@ const Bookings = () => {
 
                 <div className="d-flex align-items-center">
                   <div
-                    className="bookingCarImageBg"
-                    style={{ marginRight: 30 }}
+                    className="bookingCarImageBg me-4"
+                    // style={{ marginRight: 30 }}
+
                   >
                     <Image
                       src={`https://admin.entaklymotors.com/storage/${booking?.car_details?.car_image}`}
