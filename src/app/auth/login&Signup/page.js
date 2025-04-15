@@ -216,11 +216,12 @@ export default function LoginPage() {
   
   // }, [auth]);
   const handleRegister = async (e) => {
+    e.preventDefault();
+
     setIsLoading(true);
     setError("");
     setOtpError("");
     setSuccess("");
-    e.preventDefault();
     const credentials = isPhoneRegister
       ? {
           phone_number: {
@@ -615,7 +616,7 @@ export default function LoginPage() {
                   type="password"
                   placeholder={t("password")}
                   className="form-control"
-                  style={{color:"red"}}
+                  style={{color:"#000"}}
                   name="signupPassword"
                   required
                   onChange={(e) => {
@@ -634,6 +635,7 @@ export default function LoginPage() {
               <button
                 // type="button"
                 // href="/auth/login&Signup"
+                type="submit"
                 className="btn text-decoration-none d-flex"
                 // onClick={handleRegister}
                 disabled={isLoading}
