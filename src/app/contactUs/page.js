@@ -77,7 +77,7 @@ const page = () => {
                   color: colors.black,
                 }}
               >
-                <span className="ms-1">{t("p30_sadaf")}</span>
+                <span className="ms-1">P30, Sadaf 2, JBR, Dubai, UAE</span>
               </Link>
             </div>
           </div>
